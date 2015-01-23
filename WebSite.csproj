@@ -161,8 +161,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Common\Pair.cs" />
+    <Compile Include="Controllers\Module\AdminModule.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Module\AuditModule.cs" />
+    <Compile Include="Controllers\Module\BidderModule.cs" />
+    <Compile Include="Controllers\Module\BidModule.cs" />
+    <Compile Include="Controllers\Module\Company.cs" />
+    <Compile Include="Controllers\Module\ExpertModule.cs" />
+    <Compile Include="Controllers\Module\InvitationModule.cs" />
+    <Compile Include="Controllers\Module\NewsModule.cs" />
+    <Compile Include="Controllers\Module\PurchaseModule.cs" />
+    <Compile Include="Controllers\Module\TeamModule.cs" />
+    <Compile Include="Controllers\Module\VendorModule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
