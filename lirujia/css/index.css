@@ -1,0 +1,135 @@
+/*---the start of css reset-----*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
+form,fieldset,input,textarea,p,blockquote,th,td {
+    padding: 0;
+    margin: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,img {
+    border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-weight: normal;
+    font-style: normal;
+}
+ol,ul {
+    list-style: none;
+}
+/*---the end of css reset-----*/
+
+a:hover{
+    text-decoration: none;
+}
+.row{
+    margin-top: 80px;
+}
+#myCarousel img{
+    width: 100%;
+}
+.carousel-caption{
+    padding-bottom: 15%;
+}
+#main .col-md-8{
+    padding-right: 38px;
+}
+#main{
+    width: 1016px;
+    margin: 0 auto;
+}
+#main h1{
+    font-size: 30px;
+    color: #333333;
+}
+#main h1 span{
+    border-top: 1px solid #999999;
+    display: inline-block;
+    width: 80%;
+    vertical-align: middle;
+}
+#main ul{
+    list-style: none;
+}
+#main .col-md-8 ul li a{
+    display: inline-block;
+}
+#main .col-md-8 ul li h2{
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    margin-right: 8px;
+}
+#main .col-md-8 ul li p{
+    display: inline-block;
+    color: #000000;
+    vertical-align: middle;
+    height: 38px;
+    padding: 8px 10px;
+    border-left: 1px solid #999999;
+}
+#main .col-md-8 ul li h2 span{
+    font-size: 12px;
+    color: #333333;
+    position: relative;
+    top: 4px;
+}
+#main .col-md-8 ul li h2 b{
+    display: block;
+    font-size: 24px;
+    color: #66cc33;
+}
+i.btn{
+    padding: 0 4px;
+    font-size: 12px;
+    margin-left: 6px;
+}
+
+#main .col-md-4{
+    border: 1px solid #cccccc;
+    padding: 14px 20px;
+    height: 410px;
+    overflow: hidden;
+    position: relative;
+}
+#main .col-md-4 h3{
+    font-size: 18px;
+    color: #333333;
+}
+#main .col-md-4 img{
+    width: 90%;
+    margin-left: 5%;
+}
+#main .col-md-4 .col-text{
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    width: 100%;
+    left: 0;
+    padding: 14px 34px;
+    font-size: 12px;
+    line-height: 18px;
+    height: 78px
+}
+.teams{
+    padding: 12px 20px;
+}
+.teams li{
+    padding: 6px 0 0 0;
+}
+.teams a{
+    padding-left: 20px;
+    color: #666666;
+    background: url("../../Image/team-img.png") no-repeat;
+}
+#main .col-md-4 > a{
+    float: right;
+    color: #666666;
+}
+#main .col-md-8 > a{
+    font-size: 14px;
+    float: right;
+    color: #666666;
+}
