@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/detail.css"/>
+</head>
+<body>
+<!--登陆框-->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <h3>登录</h3>
+
+            <form action="">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">用户名/邮箱</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group navbar-right">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 供应商
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 单位
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 专家
+                    </label>
+                </div>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 记住我
+                </label>
+                <div class="form-group form-a">
+                    <a href="#">找回密码</a>
+                    <a href="#">点我注册</a>
+                </div>
+                <button type="button" class="btn btn-success">登录</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--登陆框-->
+<!--header-->
+<div class="header">
+    <nav class="navbar navbar-default header-main" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img src="../Image/logo.png" alt=""/></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav" id="main-nav">
+                    <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">新闻列表</a></li>
+                    <li><a href="#">采购信息</a></li>
+                    <li><a href="#">专家名单</a></li>
+                    <li><a href="#">虚拟团队</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" id="login">
+                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
+                    <li><a href="#">注册</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+<!--header-->
+<!--详情页主体部分-->
+<div id="detail-main">
+    <h2>xxx虚拟团队</h2>
+    <p class="detail-info"><span>2015年01月07日</span><span>08:38</span><span>创建供应商:Redrock公司</span></p>
+    <div class="detail-text">
+        <pre>    财政部于日前启动建设“政府采购严重违法失信行为记录名单”专栏，在中国政府采购网上集中发布全国政府采购严重违法失信行为信息记录。自2015年1月1日起，
+省级财政部门负责本省政府采购严重违法失信行为信息记录的发布管理工作，信息公布期限一般为3年。
+　　这是财政部近日下发的《关于报送政府采购严重违法失信行为信息记录的通知》明确的。《通知》提出，为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，财政部决定参与多部委开展的不良信用记录联合发布活动，集中发布政采严重违法失信行为信息记录。
+　　按照《通知》，供应商、采购代理机构在3年内受到财政部门作出下列情形之一的行政处罚，列入政府采购严重违法失信行为记录名单：3万元以上罚款；1-3年内禁止参加政府采购活动（处罚期限届满的除外）；1-3年内禁止代理政府采购业务（处罚期限届满的除外）；撤销政府采购代理机构资格（仅针对政府采购法第78条修改前作出的处罚决定）。
+　　《通知》要求，各级财政部门应认真梳理近3年内本级作出上述行政处罚类的案件信息，报送上级财政部门；省级财政部门负责汇总本省3年内有效的政府采购严重违法失信行为信息记录，收集相应处罚文件，于2014年12月30日前报送财政部。
+　　自2015年1月1日起，省级财政部门负责本省政府采购严重违法失信行为信息记录的发布管理工作，确保自行政处罚决定形成或变更之日起20个工作日内，在中国政府采购网“政府采购严重违法失信行为记录名单”专栏中完成信息发布工作。信息公布期限一般为3年。处罚期限届满的，相关信息记录从专栏中删除。
+　　政府采购严重违法失信行为信息记录包括企业名称、企业地址、严重违法失信行为的具体情形、处罚结果等内容。</pre>
+    </div>
+</div>
+<!--详情页主体部分-->
+<!--footer-->
+<div id="footer">
+    <div id="footer-inner">
+        <div class="a">
+            <div class="l d">
+                <div id="avatar-ac-footer" class="">
+                    <img src="../Image/footer-img.png">
+                    <p>Redrock</p>
+                </div>
+            </div>
+            <div class="l e">
+                <p>本站不提供任何采购项目<br>所有内容均来自单位经过我们审核的发布</p><p>信息网络传播视听节目许可证 1904047</p>
+                <p>Copyright © 2015 Redrok. 保留所有权利</p>
+
+            </div>
+            <span class="clearfix"></span>
+        </div>
+        <div class="unit">
+            <p class="b">关于我们</p>
+            <a href="#" target="_blank">关于Redrock</a>
+            <a href="#" target="_blank">电话：8888-8888888</a>
+            <a href="#" target="_blank">邮箱：11111@qq.com</a>
+            <a href="#" target="_blank">QQ：1111111111</a>
+        </div>
+        <div class="unit">
+            <p class="b">问题反馈</p>
+            <a href="#" target="_blank">建议和反馈</a>
+            <a href="#" target="_blank">违规举报</a>
+            <a href="#" target="_blank">用户协议</a>
+            <a href="#" target="_blank">免责声明</a>
+        </div>
+        <div class="unit">
+            <p class="b">友情链接</p>
+            <a href="#" target="_blank">中国政府采购网</a>
+            <a href="#" target="_blank">政府采购中心</a>
+            <a href="#" target="_blank">移动客户端</a>
+            <a href="/emot/" target="_blank">政府采购中心</a>
+        </div>
+        <span class="clearfix"></span>
+    </div>
+    <div class="c"></div>
+</div>
+<!--footer-->
+<script src="../Scripts/jquery-1.10.2.min.js"></script>
+<script src="../Scripts/bootstrap.min.js"></script>
+</body>
+</html>
