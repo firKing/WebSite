@@ -41,11 +41,11 @@ namespace WebSite.Controllers.Module
             }
         }
 
-        public bool VendorRegister(vendor info)
+        public Pair<bool,int> VendorRegister(vendor info)
         {
             Assert(info != null);
-            db.Vendors.Add(info);
-            return db.SaveChanges() > 0;
+            var id = db.Vendors.Add(info).vendorId;
+            return new Pair<bool, int>(db.SaveChanges() > 0, id); ;
         }
 
 

@@ -22,6 +22,7 @@ namespace WebSite.Models
         public int teamId { get; set; }
         public string team_name { get; set; }
         public string team_introduction { get; set; }
+        public int createId { get; set; }
     
         public virtual ICollection<member> members { get; set; }
     }

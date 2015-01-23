@@ -28,6 +28,7 @@ namespace WebSite.Models
         public string expert_introduce { get; set; }
         public string expert_password { get; set; }
         public byte[] expert_image { get; set; }
+        public int expert_accept_count { get; set; }
     
         public virtual ICollection<audit> audits { get; set; }
         public virtual ICollection<invitation> invitations { get; set; }

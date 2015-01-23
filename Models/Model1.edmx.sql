@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/23/2015 11:42:32
+-- Date Created: 01/23/2015 19:45:12
 -- Generated from EDMX file: F:\MyProjects\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -18,75 +18,75 @@ GO
 -- --------------------------------------------------
 
 IF OBJECT_ID(N'[dbo].[FK_AUDIT_AUDIT_BID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[audit] DROP CONSTRAINT [FK_AUDIT_AUDIT_BID];
+    ALTER TABLE [dbo].[audits] DROP CONSTRAINT [FK_AUDIT_AUDIT_BID];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AUDIT_HAVE_EXPERT]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[audit] DROP CONSTRAINT [FK_AUDIT_HAVE_EXPERT];
+    ALTER TABLE [dbo].[audits] DROP CONSTRAINT [FK_AUDIT_HAVE_EXPERT];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BID_HAVE_BID_PURCHASE]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[bid] DROP CONSTRAINT [FK_BID_HAVE_BID_PURCHASE];
+    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_HAVE_BID_PURCHASE];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BID_PUBLISH_B_BIDDER]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[bid] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
+    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
 GO
 IF OBJECT_ID(N'[dbo].[FK_INVITATI_INVITE_EXPERT]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[invitation] DROP CONSTRAINT [FK_INVITATI_INVITE_EXPERT];
+    ALTER TABLE [dbo].[invitations] DROP CONSTRAINT [FK_INVITATI_INVITE_EXPERT];
 GO
 IF OBJECT_ID(N'[dbo].[FK_INVITATI_RESPOND_PURCHASE]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[invitation] DROP CONSTRAINT [FK_INVITATI_RESPOND_PURCHASE];
+    ALTER TABLE [dbo].[invitations] DROP CONSTRAINT [FK_INVITATI_RESPOND_PURCHASE];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MEMBER_COMPONENT_TEAM]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[member] DROP CONSTRAINT [FK_MEMBER_COMPONENT_TEAM];
+    ALTER TABLE [dbo].[members] DROP CONSTRAINT [FK_MEMBER_COMPONENT_TEAM];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MEMBER_INCLUDE_VENDOR]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[member] DROP CONSTRAINT [FK_MEMBER_INCLUDE_VENDOR];
+    ALTER TABLE [dbo].[members] DROP CONSTRAINT [FK_MEMBER_INCLUDE_VENDOR];
 GO
 IF OBJECT_ID(N'[dbo].[FK_NEWS_PUBLISH_N_COMPANY]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[news] DROP CONSTRAINT [FK_NEWS_PUBLISH_N_COMPANY];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PURCHASE_PUBLISH_P_COMPANY]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[purchase] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
+    ALTER TABLE [dbo].[purchases] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[admin]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[admin];
+IF OBJECT_ID(N'[dbo].[admins]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[admins];
 GO
-IF OBJECT_ID(N'[dbo].[audit]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[audit];
+IF OBJECT_ID(N'[dbo].[audits]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[audits];
 GO
-IF OBJECT_ID(N'[dbo].[bid]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[bid];
+IF OBJECT_ID(N'[dbo].[bidders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[bidders];
 GO
-IF OBJECT_ID(N'[dbo].[bidder]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[bidder];
+IF OBJECT_ID(N'[dbo].[bids]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[bids];
 GO
-IF OBJECT_ID(N'[dbo].[company]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[company];
+IF OBJECT_ID(N'[dbo].[companies]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[companies];
 GO
-IF OBJECT_ID(N'[dbo].[expert]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[expert];
+IF OBJECT_ID(N'[dbo].[experts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[experts];
 GO
-IF OBJECT_ID(N'[dbo].[invitation]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[invitation];
+IF OBJECT_ID(N'[dbo].[invitations]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[invitations];
 GO
-IF OBJECT_ID(N'[dbo].[member]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[member];
+IF OBJECT_ID(N'[dbo].[members]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[members];
 GO
 IF OBJECT_ID(N'[dbo].[news]', 'U') IS NOT NULL
     DROP TABLE [dbo].[news];
 GO
-IF OBJECT_ID(N'[dbo].[purchase]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[purchase];
+IF OBJECT_ID(N'[dbo].[purchases]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[purchases];
 GO
-IF OBJECT_ID(N'[dbo].[team]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[team];
+IF OBJECT_ID(N'[dbo].[teams]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[teams];
 GO
-IF OBJECT_ID(N'[dbo].[vendor]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[vendor];
+IF OBJECT_ID(N'[dbo].[vendors]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[vendors];
 GO
 
 -- --------------------------------------------------
@@ -154,7 +154,8 @@ CREATE TABLE [dbo].[experts] (
     [expert_address] varchar(300)  NOT NULL,
     [expert_introduce] varchar(500)  NOT NULL,
     [expert_password] varchar(20)  NOT NULL,
-    [expert_image] varbinary(max)  NULL
+    [expert_image] varbinary(max)  NULL,
+    [expert_accept_count] int  NOT NULL
 );
 GO
 
@@ -200,7 +201,8 @@ GO
 CREATE TABLE [dbo].[teams] (
     [teamId] int  NOT NULL,
     [team_name] varchar(30)  NOT NULL,
-    [team_introduction] varchar(300)  NOT NULL
+    [team_introduction] varchar(300)  NOT NULL,
+    [createId] int  NOT NULL
 );
 GO
 

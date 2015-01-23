@@ -42,11 +42,11 @@ namespace WebSite.Controllers.Module
             }
         }
        
-        public bool ExpertRegister(expert info)
+        public Pair<bool,int> ExpertRegister(expert info)
         {
             Assert(info != null);
-            db.Experts.Add(info);
-            return db.SaveChanges() > 0;
+            var id = db.Experts.Add(info).expertId;
+            return new Pair<bool, int>(db.SaveChanges() > 0, id);
         }
 
         

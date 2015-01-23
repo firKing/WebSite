@@ -171,7 +171,6 @@
     <Compile Include="Controllers\Module\Company.cs" />
     <Compile Include="Controllers\Module\ExpertModule.cs" />
     <Compile Include="Controllers\Module\InvitationModule.cs" />
-    <Compile Include="Controllers\Module\MemberModule.cs" />
     <Compile Include="Controllers\Module\NewsModule.cs" />
     <Compile Include="Controllers\Module\PurchaseModule.cs" />
     <Compile Include="Controllers\Module\TeamModule.cs" />
@@ -285,12 +284,8 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+<<<<<<< HEAD
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -311,9 +306,45 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\CosLayout.cshtml" />
+=======
+    <Content Include="Views\Layouts\Personal.cshtml" />
+    <Content Include="Views\Layouts\List.cshtml" />
+    <Content Include="Views\Layouts\Register.cshtml" />
+    <Content Include="Views\Layouts\Index.cshtml" />
+    <Content Include="Views\Layouts\Pub.cshtml" />
+    <Content Include="Views\Templates\BidList.cshtml" />
+    <Content Include="Views\Templates\BidDetails.cshtml" />
+    <Content Include="Views\Templates\PuchaseDetails.cshtml" />
+    <Content Include="Views\Templates\CompanyDetails.cshtml" />
+    <Content Include="Views\Templates\VendorDetails.cshtml" />
+    <Content Include="Views\Templates\CompanyHome.cshtml" />
+    <Content Include="Views\Templates\Index.cshtml" />
+    <Content Include="Views\Templates\PubPurchase.cshtml" />
+    <Content Include="Views\Templates\PubNews.cshtml" />
+    <Content Include="Views\Templates\VendorHome.cshtml" />
+    <Content Include="Views\Templates\PubBidder.cshtml" />
+    <Content Include="Views\Templates\NewList.cshtml" />
+    <Content Include="Views\Templates\NewDetails.cshtml" />
+    <Content Include="Views\Templates\TeamList.cshtml" />
+    <Content Include="Views\Templates\TeamDeails.cshtml" />
+    <Content Include="Views\Templates\Reigster.cshtml" />
+    <Content Include="Views\Templates\ExpertList.cshtml" />
+    <Content Include="Views\Templates\ExpertHome.cshtml" />
+    <Content Include="Views\Templates\ExpertDetails.cshtml" />
+    <Content Include="Views\Templates\CreateTeam.cshtml" />
+    <Content Include="Views\Layouts\Details.cshtml" />
+>>>>>>> b6593cf3468d967fe90ab1cbcbc75782d58d2b96
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy %282%29\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy %283%29\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy %284%29\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy %285%29\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy %286%29\" />
+    <Folder Include="Views\ViewBags\NewFolder1 - Copy\" />
+    <Folder Include="Views\ViewBags\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

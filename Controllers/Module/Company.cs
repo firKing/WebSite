@@ -16,11 +16,7 @@ namespace WebSite.Controllers.Module
             return db.Companies.Find(companyId);
         }
 
-        public List<company> GetCompanyRecommendList(int countMax)
-        {
-            return db.Companies.Take(countMax).ToList();
-        }
-
+       
         public bool CompanyLogin(company info)
         {
             Assert(info != null);
@@ -41,11 +37,11 @@ namespace WebSite.Controllers.Module
             }
         }
 
-        public bool CompanyRegister(company info)
+        public Pair<bool,int> CompanyRegister(company info)
         {
             Assert(info != null);
-            db.Companies.Add(info);
-            return db.SaveChanges() > 0;
+            var id = db.Companies.Add(info).companyId;
+            return new Pair<bool, int>(db.SaveChanges() > 0, id);
         }
 
 
@@ -68,7 +64,7 @@ namespace WebSite.Controllers.Module
             return db.SaveChanges() > 0;
         }
 
-        public List<company> ShowCompanyList(int countMax)
+        public List<company> GetCompanyList(int countMax)
         {
 
             return db.Companies.Take(countMax).ToList();
