@@ -29,6 +29,9 @@ a:hover{
 #myCarousel img{
     width: 100%;
 }
+.carousel-caption .btn{
+    margin-top: 20px;
+}
 .carousel-caption{
     padding-bottom: 15%;
 }
