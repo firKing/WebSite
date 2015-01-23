@@ -19,8 +19,4 @@ namespace WebSite.Models
         public string admin_pwd { get; set; }
         public System.DateTime time { get; set; }
     }
-    public class AdminDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<admin> Admins { get; set; }
-    }
 }

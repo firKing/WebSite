@@ -25,8 +25,4 @@ namespace WebSite.Models
     
         public virtual ICollection<member> members { get; set; }
     }
-    public class TeamDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<team> Teams { get; set; }
-    }
 }

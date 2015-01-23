@@ -21,8 +21,4 @@ namespace WebSite.Models
         public virtual team team { get; set; }
         public virtual vendor vendor { get; set; }
     }
-    public class MemberDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<member> Members { get; set; }
-    }
 }

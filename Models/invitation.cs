@@ -22,8 +22,4 @@ namespace WebSite.Models
         public virtual expert expert { get; set; }
         public virtual purchase purchase { get; set; }
     }
-    public class InvitationDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<invitation> Invitations { get; set; }
-    }
 }

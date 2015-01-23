@@ -31,8 +31,4 @@ namespace WebSite.Models
         public virtual company company { get; set; }
         public virtual ICollection<invitation> invitations { get; set; }
     }
-    public class PurchaseDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<purchase> Purchases { get; set; }
-    }
 }

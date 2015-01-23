@@ -22,8 +22,4 @@ namespace WebSite.Models
         public virtual bid bid { get; set; }
         public virtual expert expert { get; set; }
     }
-    public class AuditDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<audit> Audits { get; set; }
-    }
 }

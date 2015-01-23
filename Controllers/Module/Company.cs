@@ -34,7 +34,7 @@ namespace WebSite.Controllers.Module
             return false;
         }
 
-        public bool CompanyRegister(expert info)
+        public bool CompanyRegister(company info)
         {
             return false;
         }

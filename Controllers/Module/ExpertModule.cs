@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using WebSite.Models;
 namespace WebSite.Controllers.Module
 {
     public class ExpertModule
     {
+        private ExpertDBContext db = new ExpertDBContext();
         public expert GetExpertInfo(int expertId)
         {
-            return new expert { };
+            return db.Experts.Find(expertId);
         }
 
         public List<expert> GetExpertRecommendList(int countMax)
         {
-            return new List<expert> { };
+
+            return null;
         }
 
         public bool ExpertLogin(expert info)
@@ -24,10 +28,7 @@ namespace WebSite.Controllers.Module
             return false;
         }
 
-        public bool CreatedExpert(expert record)
-        {
-            return false;
-        }
+        
 
         public bool DeleteExpert(int id)
         {
@@ -41,6 +42,7 @@ namespace WebSite.Controllers.Module
 
         public List<expert> ShowExpertList(int countMax)
         {
+            
             return new List<expert> { };
         }
     }
