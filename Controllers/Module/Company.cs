@@ -1,42 +1,77 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using WebSite.Models;
+using WebSite.Controllers.Common;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.Debug;
+using System;
 namespace WebSite.Controllers.Module
 {
     public class Company
     {
-        public bool CreatedCompany(company record)
+        private CompanyDBContext db = new CompanyDBContext();
+        public company GetCompanyInfo(int companyId)
         {
-            return false;
+            return db.Companies.Find(companyId);
         }
+
+        public List<company> GetCompanyRecommendList(int countMax)
+        {
+            return db.Companies.Take(countMax).ToList();
+        }
+
+        public bool CompanyLogin(company info)
+        {
+            Assert(info != null);
+            var query = from record in db.Companies
+                        where record.company_name == info.company_name
+                        select new { name = record.company_name, id = record.companyId };
+            var result = query.Single();
+            if (result == null)
+            {
+                return false;
+            }
+            else
+            {
+                HttpContext.Current.Session["user_name"] = result.name;
+                HttpContext.Current.Session["user_id"] = result.id;
+                HttpContext.Current.Session["user_type"] = UserType.Company;
+                return true;
+            }
+        }
+
+        public bool CompanyRegister(company info)
+        {
+            Assert(info != null);
+            db.Companies.Add(info);
+            return db.SaveChanges() > 0;
+        }
+
+
 
         public bool DeleteCompany(int id)
         {
+            var findResult = this.GetCompanyInfo(id);
+            if (findResult != null)
+            {
+                db.Companies.Remove(findResult);
+                return db.SaveChanges() > 0;
+            }
             return false;
         }
 
         public bool UpdateCompany(company record)
         {
-            return false;
+            db.Entry<company>(record).State = System.Data.Entity.EntityState.Modified;
+
+            return db.SaveChanges() > 0;
         }
 
         public List<company> ShowCompanyList(int countMax)
         {
-            return new List<company> { };
-        }
 
-        public company GetCompanyInfo(int companyId)
-        {
-            return new company { };
-        }
-
-        public bool CompanyLogin(company info)
-        {
-            return false;
-        }
-
-        public bool CompanyRegister(company info)
-        {
-            return false;
+            return db.Companies.Take(countMax).ToList();
         }
     }
 }

@@ -1,45 +1,78 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using WebSite.Models;
-
+using WebSite.Controllers.Common;
+using System.Diagnostics.Contracts;
+using System.Diagnostics.Debug;
+using System;
 namespace WebSite.Controllers.Module
 {
     public class VendorModule
     {
+        private VendorDBContext db = new VendorDBContext();
         public vendor GetVendorInfo(int vendorId)
         {
-            return new vendor { };
+            return db.Vendors.Find(vendorId);
+        }
+
+        public List<vendor> GetVendorRecommendList(int countMax)
+        {
+            return db.Vendors.Take(countMax).ToList();
         }
 
         public bool VendorLogin(vendor info)
         {
-            return false;
+            Assert(info != null);
+            var query = from record in db.Vendors
+                        where record.vendor_name == info.vendor_name
+                        select new { name = record.vendor_name, id = record.vendorId };
+            var result = query.Single();
+            if (result == null)
+            {
+                return false;
+            }
+            else
+            {
+                HttpContext.Current.Session["user_name"] = result.name;
+                HttpContext.Current.Session["user_id"] = result.id;
+                HttpContext.Current.Session["user_type"] = UserType.Vendor;
+                return true;
+            }
         }
 
         public bool VendorRegister(vendor info)
         {
-            return false;
+            Assert(info != null);
+            db.Vendors.Add(info);
+            return db.SaveChanges() > 0;
         }
 
-        public bool CreatedVendor(vendor record)
-        {
-            return false;
-        }
+
 
         public bool DeleteVendor(int id)
         {
+            var findResult = this.GetVendorInfo(id);
+            if (findResult != null)
+            {
+                db.Vendors.Remove(findResult);
+                return db.SaveChanges() > 0;
+            }
             return false;
         }
 
         public bool UpdateVendor(vendor record)
         {
-            return false;
+            db.Entry<vendor>(record).State = System.Data.Entity.EntityState.Modified;
+
+            return db.SaveChanges() > 0;
         }
 
         public List<vendor> ShowVendorList(int countMax)
         {
-            return new List<vendor> { };
-        }
 
+            return db.Vendors.Take(countMax).ToList();
+        }
 
     }
 }
