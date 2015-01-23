@@ -126,8 +126,10 @@ i.btn{
 }
 #main .col-md-4 > a{
     float: right;
+    color: #666666;
 }
 #main .col-md-8 > a{
     font-size: 14px;
     float: right;
+    color: #666666;
 }
