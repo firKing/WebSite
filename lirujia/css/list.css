@@ -50,4 +50,9 @@
 }
 .pagination li.active a{
     background: #5cb85c;
+    border: 1px solid #5ea63a;
+}
+.pagination li.active a:hover{
+    background: #5cb85c;
+    border: 1px solid #5ea63a;
 }
