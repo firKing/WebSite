@@ -1,0 +1,53 @@
+/*列表*/
+#list-main{
+    width: 1016px;
+    margin: 40px auto;
+}
+#list-main h2{
+    color: #4db234;
+    border-bottom: 1px solid #c1c1c1;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+#list-main h2 form{
+    margin-top: -7px;
+    position: relative;
+}
+#list-main h2 form input[name="search"]{
+    background: url("../../Image/search.png") no-repeat;
+    border: 0;
+    width: 20px;
+    background-position: 0px 10px;
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+#list-main a:hover{
+    text-decoration: none;
+}
+#list-main ul li{
+    margin-top: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #93b3a7;
+    overflow: hidden;
+}
+#list-main ul li h4{
+    color: #336633;
+    margin-bottom: 6px;
+}
+#list-main ul li p{
+    font-size: 14px;
+    color: #000;
+}
+#list-main ul li span{
+    float: right;
+    color: #93b3a7;
+}
+/*列表*/
+/*翻页*/
+.pagination li a{
+    color: #5cb85c;
+}
+.pagination li.active a{
+    background: #5cb85c;
+}
