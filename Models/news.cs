@@ -22,8 +22,4 @@ namespace WebSite.Models
     
         public virtual company company { get; set; }
     }
-    public class NewsDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<news> Newses { get; set; }
-    }
 }

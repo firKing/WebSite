@@ -27,12 +27,9 @@ namespace WebSite.Models
         public string expert_address { get; set; }
         public string expert_introduce { get; set; }
         public string expert_password { get; set; }
+        public byte[] expert_image { get; set; }
     
         public virtual ICollection<audit> audits { get; set; }
         public virtual ICollection<invitation> invitations { get; set; }
-    }
-    public class ExpertDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<expert> Experts { get; set; }
     }
 }

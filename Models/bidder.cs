@@ -25,8 +25,4 @@ namespace WebSite.Models
     
         public virtual ICollection<bid> bids { get; set; }
     }
-    public class BidderDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<bidder> Bidders { get; set; }
-    }
 }

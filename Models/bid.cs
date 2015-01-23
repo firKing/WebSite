@@ -27,14 +27,10 @@ namespace WebSite.Models
         public System.DateTime bid_time { get; set; }
         public int bid_number { get; set; }
         public string bid_introduction { get; set; }
-        public string bid_content { get; set; }
+        public byte[] bid_content { get; set; }
     
         public virtual ICollection<audit> audits { get; set; }
         public virtual purchase purchase { get; set; }
         public virtual bidder bidder { get; set; }
-    }
-    public class BidDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<bid> Bids { get; set; }
     }
 }

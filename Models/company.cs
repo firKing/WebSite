@@ -31,8 +31,4 @@ namespace WebSite.Models
         public virtual ICollection<news> news { get; set; }
         public virtual ICollection<purchase> purchases { get; set; }
     }
-    public class CompanyDBContext : System.Data.Entity.DbContext
-    {
-        public System.Data.Entity.DbSet<company> Companies { get; set; }
-    }
 }
