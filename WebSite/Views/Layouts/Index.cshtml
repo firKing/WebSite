@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>首页</title>
+    @RenderSection("css")
+</head>
+<body>
+    @Html.Partial("~/Views/Shared/header.cshtml")
+    @RenderBody()
+    @Html.Partial("~/Views/Shared/footer.cshtml")
+</body>
+    @RenderSection("script")
+</html>
