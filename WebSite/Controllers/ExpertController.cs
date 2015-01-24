@@ -20,7 +20,7 @@ namespace WebSite.Controllers
         }
         public ActionResult Home()
         {
-            return Index();
+            return Info();
         }
         private bool CheckSession()
         {
@@ -28,13 +28,13 @@ namespace WebSite.Controllers
         }
         private object GetList<T>(Func<T, int> expression) where T : class
         {
-            return new Utility().GetList<invitation>(x => x.expertId, Session);
+            return new Utility().GetList<T>(expression, Session);
         }
-        public ActionResult Info()
+        private ActionResult Info()
         {
             if (CheckSession())
             {
-                var query =(IQueryable<invitation>) new Utility().GetList<invitation>(x => x.expertId,Session);
+                var query =(IQueryable<expert>) GetList<expert>(x => x.expertId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 return View(result);
@@ -46,7 +46,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                return View(new Utility().GetList<invitation>(x => x.expertId,Session));
+                return View(GetList<invitation>(x => x.expertId));
             }
             return RedirectToAction("Index", "Index");
             
@@ -56,7 +56,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                return View(new Utility().GetList<audit>(x => x.expertId,Session));
+                return View(GetList<audit>(x => x.expertId));
             }
             return RedirectToAction("Index", "Index");
 

@@ -6,36 +6,39 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Web;
-
 namespace WebSite.Controllers
 {
-    public class NewController : Controller
+    public class BidController : Controller
     {
-        private SingleTableModule<news> db = new SingleTableModule<news>();
+        private SingleTableModule<bid> db = new SingleTableModule<bid>();
+         
 
-        // GET: NewList
+        // GET: 
         public ActionResult Detail(int id)
         {
+            SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                return View(element);
+                return View(new Pair<bid,IQueryable<audit>>
+                    (element, 
+                    dbAudit.FindInfo(x => x.bidId == id)));
             }
             else
             {
                 throw new HttpException(404, "Product not found.");
             }
         }
-        //获取新闻详情页
-        private IQueryable<news> Info(int newsId)
+        //获取标书详情
+        private IQueryable<bid> Info(int id)
         {
-            return db.FindInfo(x => x.newsId == newsId);
+            return db.FindInfo(x => x.bidderId == id);
         }
 
-       
+
 
         [HttpPost]
-        public ActionResult Create(news info)
+        public ActionResult Create(bid info)
         {
 
             var result = db.Create(info);
@@ -48,34 +51,19 @@ namespace WebSite.Controllers
                 return View("Detail");
             }
         }
-
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult CreateAudit(audit info)
         {
-
-            var element = Info(id).SingleOrDefault();
-            if (element != null)
+            SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
+            var result = dbAudit.Create(info);
+            if (result.first == false)
             {
-                db.Delete(element);
                 return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                return View("Detail");
             }
-        }
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            var query = db.FindInfo(x => x.newsId == id).SingleOrDefault();
-            if (query == null)
-            {
-                throw new HttpException(404, "Product not found.");
-            }
-            else
-            {
-                return View("Create", query);
-            }
-
         }
     }
 }

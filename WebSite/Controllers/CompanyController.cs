@@ -17,14 +17,14 @@ namespace WebSite.Controllers
         }
         public ActionResult Home()
         {
-            return Index();
+            return Info();
         }
-        public bool CheckSession()
+        private bool CheckSession()
         {
             return new Utility().CheckSession(UserType.Company, Session);
         }
-       
-        public ActionResult Info()
+
+        private ActionResult Info()
         {
             if (CheckSession()) 
             {

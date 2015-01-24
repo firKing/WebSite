@@ -2,9 +2,9 @@
 
 namespace WebSite.Controllers
 {
-    public class PubPurchaseController : Controller
+    public partial class AdminController : Controller
     {
-        // GET: PubPurchase
+        // GET: Admin
         public ActionResult Index()
         {
             return View();
