@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\Common\Pair.cs" />
     <Compile Include="Controllers\Common\UserType.cs" />
+    <Compile Include="Controllers\ExpertHomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\Module\AuditModule.cs" />
     <Compile Include="Controllers\Module\BidderModule.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Shared\header.cshtml" />
     <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\ExpertHome\ExpertHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
