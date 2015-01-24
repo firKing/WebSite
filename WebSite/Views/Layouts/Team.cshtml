@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>创建虚拟团队</title>
+    @RenderSection("css")
+</head>
+<body>
+    <!-- 顶部 -->
+    @Html.Partial("~/Views/Shared/header.cshtml")
+    <!-- 顶部 -->
+    <!--首页主体部分-->
+    @RenderBody()
+    <!--首页主体部分-->
+    <!-- 尾部 -->
+    @Html.Partial("~/Views/Shared/footer.cshtml")
+    <!-- 尾部 -->
+</body>
+@RenderSection("script")
+</html>
+
