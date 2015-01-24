@@ -41,6 +41,8 @@ namespace WebSite.Models
     public class NewsDBContext : System.Data.Entity.DbContext
     {
         public System.Data.Entity.DbSet<news> Newses { get; set; }
+
+        public System.Data.Entity.DbSet<WebSite.Models.company> companies { get; set; }
     }
     public class PurchaseDBContext : System.Data.Entity.DbContext
     {
