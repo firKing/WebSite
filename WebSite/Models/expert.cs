@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class expert
     {
         public expert()
@@ -21,11 +22,26 @@ namespace WebSite.Models
         }
     
         public int expertId { get; set; }
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+
         public string expert_name { get; set; }
+
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\s*d{11}\s*$", ErrorMessage = "Please enter valid phone no.")]
         public string expert_telephone { get; set; }
+
+        [Required(ErrorMessage = "*")]
+        [EmailAddress(ErrorMessage ="email format error")]
         public string expert_mail { get; set; }
+
+        [Required(ErrorMessage = "*")]
         public string expert_address { get; set; }
+
         public string expert_introduce { get; set; }
+        [Required(ErrorMessage = "*")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
+
         public string expert_password { get; set; }
         public byte[] expert_image { get; set; }
         public int expert_accept_count { get; set; }

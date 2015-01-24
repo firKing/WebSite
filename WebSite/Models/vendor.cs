@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class vendor
     {
         public vendor()
@@ -20,11 +21,25 @@ namespace WebSite.Models
         }
     
         public int vendorId { get; set; }
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+
         public string vendor_name { get; set; }
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\s*d{11}\s*$", ErrorMessage = "Please enter valid phone no.")]
+
         public string vendor_telephone { get; set; }
+        [Required(ErrorMessage = "*")]
+        [EmailAddress]
         public string vendor_mail { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string vendor_address { get; set; }
+
         public string vendor_introduction { get; set; }
+        [Required(ErrorMessage = "*")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
+
         public string vendor_password { get; set; }
     
         public virtual ICollection<member> members { get; set; }
