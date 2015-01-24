@@ -12,6 +12,7 @@ namespace WebSite.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class expert
     {
@@ -24,6 +25,7 @@ namespace WebSite.Models
         public int expertId { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+        [Remote("Verify", "CheckExpertNameRegister", ErrorMessage = "user name is registered")]
 
         public string expert_name { get; set; }
 

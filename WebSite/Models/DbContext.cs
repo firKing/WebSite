@@ -5,6 +5,10 @@ using System.Web;
 
 namespace WebSite.Models
 {
+    public class WebSiteDBContext<T> : System.Data.Entity.DbContext where T : class
+    {
+        public System.Data.Entity.DbSet<T> table { get; set; }
+    }
     public class AdminDBContext : System.Data.Entity.DbContext
     {
         public System.Data.Entity.DbSet<admin> Admins { get; set; }

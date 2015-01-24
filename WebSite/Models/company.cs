@@ -12,7 +12,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class company
     {
         public company()
@@ -24,6 +25,8 @@ namespace WebSite.Models
         public int companyId { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+        [Remote("Verify", "CheckCompanyNameRegister", ErrorMessage = "user name is registered")]
+
         public string company_name { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^\d{11}$", ErrorMessage = "Please enter valid phone.")]

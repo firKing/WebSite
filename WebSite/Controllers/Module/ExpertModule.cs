@@ -15,19 +15,16 @@ namespace WebSite.Controllers.Module
             return db.Experts.Find(expertId);
         }
 
-        public List<expert> GetExpertRecommendList(int countMax)
-        {
-            return db.Experts.Take(countMax).ToList();
-        }
-
+       
         public bool ExpertLogin(expert info)
         {
             Assert(info != null);
             var query = from record in db.Experts
                         where record.expert_name == info.expert_name
                         select new {name = record.expert_name,id = record.expertId };
-            var result = query.Single();
-            if(result == null)
+            var result = query.SingleOrDefault();
+
+            if (result == null)
             {
                 return false;
             }
@@ -67,10 +64,16 @@ namespace WebSite.Controllers.Module
             return db.SaveChanges()>0;
         }
 
-        public List<expert> ShowExpertList(int countMax)
+        public List<expert> GetExpertList(int countMax)
         {
 
             return db.Experts.Take(countMax).ToList() ;
+        }
+
+        public expert GetExpertInfoByName(string name)
+        {
+            var query = from record in db.Experts where record.expert_name == name select record;
+            return query.SingleOrDefault();
         }
     }
 }

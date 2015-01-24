@@ -8,7 +8,7 @@ using System.Diagnostics.Debug;
 using System;
 namespace WebSite.Controllers.Module
 {
-    public class Company
+    public class CompanyModule
     {
         private CompanyDBContext db = new CompanyDBContext();
         public company GetCompanyInfo(int companyId)
@@ -23,7 +23,7 @@ namespace WebSite.Controllers.Module
             var query = from record in db.Companies
                         where record.company_name == info.company_name
                         select new { name = record.company_name, id = record.companyId };
-            var result = query.Single();
+            var result = query.SingleOrDefault();
             if (result == null)
             {
                 return false;
@@ -68,6 +68,11 @@ namespace WebSite.Controllers.Module
         {
 
             return db.Companies.Take(countMax).ToList();
+        }
+        public company GetCompanyInfoByName(string name)
+        {
+            var query = from record in db.Companies where record.company_name == name select record;
+            return query.SingleOrDefault();
         }
     }
 }

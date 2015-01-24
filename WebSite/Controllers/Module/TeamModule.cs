@@ -71,15 +71,15 @@ namespace WebSite.Controllers.Module
             return false;
         }
         //展示团队列表的基本信息
-        public List<team> ShowTeamListBaseInfo(int countMax)
+        public List<team> GetTeamListBaseInfo(int countMax)
         {
             return db.Teams.Take(countMax).ToList();
         }
         //展示团队列表全部信息
-        public List<Pair<team, List<member>>> ShowTeamList(int countMax)
+        public List<Pair<team, List<member>>> GetTeamList(int countMax)
         {
             var result = new List<Pair<team, List<member>>>();
-            foreach( var iter in ShowTeamListBaseInfo(countMax))
+            foreach( var iter in GetTeamListBaseInfo(countMax))
             {
                 result.Add(new Pair<team, List<member>>(iter, memberModule.FindMemberByTeamId(iter.teamId)));
             }
@@ -109,6 +109,10 @@ namespace WebSite.Controllers.Module
             }
             return result;
         }
-
+        public team GetTeamBaseInfoByName(string name)
+        {
+            var query = from record in db.Teams where record.team_name == name select record;
+            return query.SingleOrDefault();
+        }
     }
 }
