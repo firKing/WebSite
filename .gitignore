@@ -148,6 +148,8 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
+*.csproj
+*.sln.ide
 node_modules/
 
 # RIA/Silverlight projects
@@ -173,3 +175,5 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 .idea/
+
+WebSite.sln.ide/
