@@ -5,7 +5,6 @@
 *.suo
 *.user
 *.userosscache
-*.sln.docstates
 
 # Build results
 [Dd]ebug/
@@ -149,6 +148,8 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
+*.csproj
+*.sln.ide
 node_modules/
 
 # RIA/Silverlight projects
