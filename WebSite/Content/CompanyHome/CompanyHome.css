@@ -1,2 +1,56 @@
-﻿body {
+﻿#list-main{
+    width: 1016px;
+    margin: 40px auto;
 }
+#list-main h2{
+    position: relative;
+    color: #4db234;
+    border-bottom: 1px solid #c1c1c1;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+#list-main h2 .back{
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    font-size: 15px;
+}
+
+.content{
+    min-height: 1200px;
+}
+
+.content .col-md-4 ul li{
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;   
+    position: relative;
+    padding-left: 10px;
+}
+
+.content .col-md-4 ul li .line {
+    width: 3px;
+    height: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    background: #339933;
+    position: absolute;
+}
+
+.content .col-md-8 .info{
+    margin-top: 32px;
+    width: 637px; 
+    min-height: 412px;
+    border: 1px solid #339933;
+}
+
+.content .col-md-8 .info .title h2{
+    line-height: 70px;
+    font-size: 24px;
+    
+}
+
+
+

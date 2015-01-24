@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "CompanyHome";
+    Layout = "~/Views/Layouts/Home.cshtml";
+}
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/CompanyHome/CompanyHome.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/CompanyHome/CpmpanyHome.js")
+}
+
+
+<div id="list-main">
+    <h2>
+        新闻列表
+        <a class="back" href="#">退出登录</a>
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li><div class="line"></div>企业信息</li>
+                <li><div class=""></div>我创建的招标</li>
+                <li><div class=""></div>我发布的新闻</li>
+            </ul>
+        </div> 
+        <div class="col-md-8">
+            <form class="info" action="" method="post">
+                <div class="title">
+                       <h2>企业信息</h2>
+                    <div class="change">修改</div>
+                </div>
+                <div class="details">
+                    <!-- <div class="show">
+                        <h3>基本信息</h3>
+                        <ul>
+                            <li>企业名称: 李豆豆</li>
+                            <li>电话： 1234</li>
+                            <li>邮箱: 111111@cqupt</li>
+                            <li>联系地址: 撒的撒的</li>
+                            <li>概要： sqdjlksajdlksajd </li>
+                        </ul>
+                    </div> -->
+                    <div class="edit">
+                        <div class="form-group">
+                            <label for="name">企业名称</label>
+                            <input type="text" class="form-control" id="name" placeholder="企业名称" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="phone">电话</label>
+                            <input type="phone" class="form-control" id="phone" placeholder="电话" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email" placeholder="邮箱" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="contact">联系地址</label>
+                            <input type="text" class="form-control" id="contact" placeholder="联系地址" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="summary">概要</label>
+                            <input type="text" class="form-control" id="summary" placeholder="概要" required>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
