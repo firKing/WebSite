@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web;
-using WebSite.Models;
 using WebSite.Controllers.Common;
-using System.Diagnostics.Contracts;
-using System.Diagnostics.Debug;
-using System;
+using WebSite.Models;
+
 namespace WebSite.Controllers.Module
 {
     public class VendorModule
     {
         private VendorDBContext db = new VendorDBContext();
+
         public vendor GetVendorInfo(int vendorId)
         {
             return db.Vendors.Find(vendorId);
@@ -41,14 +41,12 @@ namespace WebSite.Controllers.Module
             }
         }
 
-        public Pair<bool,int> VendorRegister(vendor info)
+        public Pair<bool, int> VendorRegister(vendor info)
         {
             Assert(info != null);
             var id = db.Vendors.Add(info).vendorId;
             return new Pair<bool, int>(db.SaveChanges() > 0, id); ;
         }
-
-
 
         public bool DeleteVendor(int id)
         {
@@ -70,9 +68,9 @@ namespace WebSite.Controllers.Module
 
         public List<vendor> ShowVendorList(int countMax)
         {
-
             return db.Vendors.Take(countMax).ToList();
         }
+
         public vendor GetVendorInfoByName(string name)
         {
             var query = from record in db.Vendors where record.vendor_name == name select record;

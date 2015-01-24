@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WebSite.Controllers.Common
+﻿namespace WebSite.Controllers.Common
 {
     public class Pair<T, U>
     {
@@ -18,6 +13,7 @@ namespace WebSite.Controllers.Common
         }
 
         public T first { get; set; }
+
         public U second { get; set; }
     };
 }

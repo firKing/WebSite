@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WebSite.Models;
-using WebSite.Controllers.Common;
-using System.Diagnostics.Contracts;
 using System.Diagnostics.Debug;
-using System;
+using System.Linq;
+using WebSite.Controllers.Common;
+using WebSite.Models;
 
 namespace WebSite.Controllers.Module
 {
     public class AuditModule
     {
         private AuditDBContext db = new AuditDBContext();
+
         public audit GetAuditInfo(int auditId)
         {
             return db.Audits.Find(auditId);
@@ -29,14 +27,12 @@ namespace WebSite.Controllers.Module
             return query.ToList();
         }
 
-        public Pair<bool,int> CreateAudit(audit info)
+        public Pair<bool, int> CreateAudit(audit info)
         {
             Assert(info != null);
             var id = db.Audits.Add(info).auditId;
-            return new Pair<bool, int>(db.SaveChanges()>0,id);
+            return new Pair<bool, int>(db.SaveChanges() > 0, id);
         }
-
-
 
         public bool DeleteAudit(int id)
         {
@@ -48,6 +44,5 @@ namespace WebSite.Controllers.Module
             }
             return false;
         }
-
     }
 }

@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web;
-using WebSite.Models;
 using WebSite.Controllers.Common;
-using System.Diagnostics.Contracts;
-using System.Diagnostics.Debug;
-using System;
+using WebSite.Models;
+
 namespace WebSite.Controllers.Module
 {
     public class CompanyModule
     {
         private CompanyDBContext db = new CompanyDBContext();
+
         public company GetCompanyInfo(int companyId)
         {
             return db.Companies.Find(companyId);
         }
 
-       
         public bool CompanyLogin(company info)
         {
             Assert(info != null);
@@ -37,14 +36,12 @@ namespace WebSite.Controllers.Module
             }
         }
 
-        public Pair<bool,int> CompanyRegister(company info)
+        public Pair<bool, int> CompanyRegister(company info)
         {
             Assert(info != null);
             var id = db.Companies.Add(info).companyId;
             return new Pair<bool, int>(db.SaveChanges() > 0, id);
         }
-
-
 
         public bool DeleteCompany(int id)
         {
@@ -66,9 +63,9 @@ namespace WebSite.Controllers.Module
 
         public List<company> GetCompanyList(int countMax)
         {
-
             return db.Companies.Take(countMax).ToList();
         }
+
         public company GetCompanyInfoByName(string name)
         {
             var query = from record in db.Companies where record.company_name == name select record;

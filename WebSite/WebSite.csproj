@@ -401,9 +401,14 @@
     <Content Include="Views\Layouts\Register.cshtml" />
     <Content Include="WebSite.csproj.orig" />
     <Content Include="Views\BidList\BidList.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\CompanyHome\CompanyHome.cshtml" />
+    <Content Include="Views\ExpertHome\ExpertHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
     <Folder Include="Views\Verify\" />
   </ItemGroup>
   <ItemGroup>
