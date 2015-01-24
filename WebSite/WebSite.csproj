@@ -160,8 +160,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\BidListController.cs" />
     <Compile Include="Controllers\Common\Pair.cs" />
     <Compile Include="Controllers\Common\UserType.cs" />
+    <Compile Include="Controllers\CompanyHomeController.cs" />
+    <Compile Include="Controllers\CompanytDetailsController.cs" />
+    <Compile Include="Controllers\CreateTeamController.cs" />
+    <Compile Include="Controllers\ExpertDetailsController.cs" />
+    <Compile Include="Controllers\ExpertHomeController.cs" />
+    <Compile Include="Controllers\ExpertListController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\Module\AuditModule.cs" />
     <Compile Include="Controllers\Module\BidderModule.cs" />
@@ -174,7 +181,16 @@
     <Compile Include="Controllers\Module\PurchaseModule.cs" />
     <Compile Include="Controllers\Module\TeamModule.cs" />
     <Compile Include="Controllers\Module\VendorModule.cs" />
-    <Compile Include="Controllers\newsController.cs" />
+    <Compile Include="Controllers\NewDetailsController.cs" />
+    <Compile Include="Controllers\NewListController.cs" />
+    <Compile Include="Controllers\PubBidderController.cs" />
+    <Compile Include="Controllers\PubNewsController.cs" />
+    <Compile Include="Controllers\PubPurchaseController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\TeamDetailsController.cs" />
+    <Compile Include="Controllers\TeamListController.cs" />
+    <Compile Include="Controllers\VendorDetailsController.cs" />
+    <Compile Include="Controllers\VendorHomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,7 +218,6 @@
     <Compile Include="Models\invitation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\member.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -238,8 +253,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BidList\BidList.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Index\common.css" />
+    <Content Include="Content\Index\Index.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -255,8 +273,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Views\Scripts\BidList\BidList.js" />
+    <Content Include="Views\Scripts\bootstrap.js" />
+    <Content Include="Views\Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -264,18 +283,19 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <None Include="Views\Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Views\Scripts\Index\index.js" />
+    <Content Include="Views\Scripts\jquery-1.10.2.js" />
+    <Content Include="Views\Scripts\jquery-1.10.2.min.js" />
+    <None Include="Views\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\Scripts\jquery.validate.js" />
+    <Content Include="Views\Scripts\jquery.validate.min.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Scripts\respond.js" />
+    <Content Include="Views\Scripts\respond.min.js" />
+    <Content Include="Views\Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -287,18 +307,38 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Layouts\Details.cshtml" />
+    <Content Include="Views\Layouts\Index.cshtml" />
+    <Content Include="Views\Layouts\List.cshtml" />
+    <Content Include="Views\Layouts\Personal.cshtml" />
+    <Content Include="Views\Layouts\Pub.cshtml" />
+    <Content Include="Views\Layouts\Register.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Views\news\Create.cshtml" />
-    <Content Include="Views\news\Delete.cshtml" />
-    <Content Include="Views\news\Details.cshtml" />
-    <Content Include="Views\news\Edit.cshtml" />
-    <Content Include="Views\news\Index.cshtml" />
+    <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\BidList\BidList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CompanyHome\" />
+    <Folder Include="Views\CompanytDetails\" />
+    <Folder Include="Views\CreateTeam\" />
+    <Folder Include="Views\ExpertDetails\" />
+    <Folder Include="Views\ExpertHome\" />
+    <Folder Include="Views\ExpertList\" />
+    <Folder Include="Views\NewDetails\" />
+    <Folder Include="Views\NewList\" />
+    <Folder Include="Views\PubBidder\" />
+    <Folder Include="Views\PubNews\" />
+    <Folder Include="Views\PubPurchase\" />
+    <Folder Include="Views\Register\" />
+    <Folder Include="Views\TeamDetails\" />
+    <Folder Include="Views\TeamList\" />
+    <Folder Include="Views\VendorDetails\" />
+    <Folder Include="Views\VendorHome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
