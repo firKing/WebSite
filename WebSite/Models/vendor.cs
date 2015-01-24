@@ -12,6 +12,7 @@ namespace WebSite.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class vendor
     {
@@ -23,7 +24,7 @@ namespace WebSite.Models
         public int vendorId { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
-
+        [Remote("Verify", "CheckVendorNameRegister",ErrorMessage ="user name is registered")]
         public string vendor_name { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^\s*d{11}\s*$", ErrorMessage = "Please enter valid phone no.")]

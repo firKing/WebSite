@@ -27,7 +27,7 @@ namespace WebSite.Controllers.Module
             var query = from record in db.Vendors
                         where record.vendor_name == info.vendor_name
                         select new { name = record.vendor_name, id = record.vendorId };
-            var result = query.Single();
+            var result = query.SingleOrDefault();
             if (result == null)
             {
                 return false;
@@ -73,6 +73,10 @@ namespace WebSite.Controllers.Module
 
             return db.Vendors.Take(countMax).ToList();
         }
-
+        public vendor GetVendorInfoByName(string name)
+        {
+            var query = from record in db.Vendors where record.vendor_name == name select record;
+            return query.SingleOrDefault();
+        }
     }
 }

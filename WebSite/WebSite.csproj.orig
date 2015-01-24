@@ -173,15 +173,17 @@
     <Compile Include="Controllers\Module\AuditModule.cs" />
     <Compile Include="Controllers\Module\BidderModule.cs" />
     <Compile Include="Controllers\Module\BidModule.cs" />
-    <Compile Include="Controllers\Module\CompanyModule.cs" />
+    <Compile Include="Controllers\Module\Company.cs" />
     <Compile Include="Controllers\Module\ExpertModule.cs" />
     <Compile Include="Controllers\Module\InvitationModule.cs" />
     <Compile Include="Controllers\Module\MemberModule.cs" />
     <Compile Include="Controllers\Module\NewsModule.cs" />
     <Compile Include="Controllers\Module\PurchaseModule.cs" />
-    <Compile Include="Controllers\Module\SingleTableModule.cs" />
     <Compile Include="Controllers\Module\TeamModule.cs" />
     <Compile Include="Controllers\Module\VendorModule.cs" />
+<<<<<<< HEAD
+    <Compile Include="Controllers\newsController.cs" />
+=======
     <Compile Include="Controllers\NewDetailsController.cs" />
     <Compile Include="Controllers\NewListController.cs" />
     <Compile Include="Controllers\PubBidderController.cs" />
@@ -192,7 +194,7 @@
     <Compile Include="Controllers\TeamListController.cs" />
     <Compile Include="Controllers\VendorDetailsController.cs" />
     <Compile Include="Controllers\VendorHomeController.cs" />
-    <Compile Include="Controllers\VerifyController.cs" />
+>>>>>>> de0cde5419665b0f789e8f5033670b9fb6412d9d
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -252,88 +254,17 @@
     <Compile Include="Models\vendor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
-    <Content Include="bin\Microsoft.Owin.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.xml" />
-    <Content Include="bin\Microsoft.Owin.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\Owin.dll" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\WebSite.dll" />
-    <Content Include="bin\WebSite.pdb" />
+    <Content Include="Content\BidList\BidList.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Image\footer-bg.png" />
-    <Content Include="Image\footer-border.png" />
-    <Content Include="Image\footer-img.png" />
-    <Content Include="Image\img1.png" />
-    <Content Include="Image\logo.png" />
-    <Content Include="Image\search.png" />
-    <Content Include="Image\slideImg.png" />
-    <Content Include="Image\team-img.png" />
-    <Content Include="lirujia\css\common.css" />
-    <Content Include="lirujia\css\detail.css" />
-    <Content Include="lirujia\css\index.css" />
-    <Content Include="lirujia\css\list.css" />
-    <Content Include="lirujia\detail.html" />
-    <Content Include="lirujia\footer.html" />
-    <Content Include="lirujia\header.html" />
-    <Content Include="lirujia\index.html" />
-    <Content Include="lirujia\list.html" />
-    <Content Include="lirujia\login.html" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -345,14 +276,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="obj\Debug\TempPE\Models.Model1.Context.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.Model1.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.Model1.Designer.cs.dll" />
-    <Content Include="obj\Debug\WebSite.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\WebSite.dll" />
-    <Content Include="obj\Debug\WebSite.pdb" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Views\Scripts\BidList\BidList.js" />
+    <Content Include="Views\Scripts\bootstrap.js" />
+    <Content Include="Views\Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -360,12 +286,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.csdl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.msl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.ssdl" />
-    <Content Include="obj\Debug\WebSite.csprojResolveAssemblyReference.cache" />
-    <Content Include="bin\WebSite.dll.config" />
+<<<<<<< HEAD
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -378,6 +299,21 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+=======
+    <None Include="Views\Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Views\Scripts\Index\index.js" />
+    <Content Include="Views\Scripts\jquery-1.10.2.js" />
+    <Content Include="Views\Scripts\jquery-1.10.2.min.js" />
+    <None Include="Views\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\Scripts\jquery.validate.js" />
+    <Content Include="Views\Scripts\jquery.validate.min.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Scripts\respond.js" />
+    <Content Include="Views\Scripts\respond.min.js" />
+    <Content Include="Views\Scripts\_references.js" />
+>>>>>>> de0cde5419665b0f789e8f5033670b9fb6412d9d
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -389,22 +325,40 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Views\Layouts\Details.cshtml" />
-    <Content Include="Views\Layouts\Index.cshtml" />
-    <Content Include="Views\Layouts\List.cshtml" />
-    <Content Include="Views\Layouts\Personal.cshtml" />
-    <Content Include="Views\Layouts\Pub.cshtml" />
-    <Content Include="Views\Layouts\Register.cshtml" />
-    <Content Include="WebSite.csproj.orig" />
+<<<<<<< HEAD
+    <Content Include="Views\news\Create.cshtml" />
+    <Content Include="Views\news\Delete.cshtml" />
+    <Content Include="Views\news\Details.cshtml" />
+    <Content Include="Views\news\Edit.cshtml" />
+    <Content Include="Views\news\Index.cshtml" />
+=======
+    <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
     <Content Include="Views\BidList\BidList.cshtml" />
+>>>>>>> de0cde5419665b0f789e8f5033670b9fb6412d9d
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Verify\" />
+    <Folder Include="Views\CompanyHome\" />
+    <Folder Include="Views\CompanytDetails\" />
+    <Folder Include="Views\CreateTeam\" />
+    <Folder Include="Views\ExpertDetails\" />
+    <Folder Include="Views\ExpertHome\" />
+    <Folder Include="Views\ExpertList\" />
+    <Folder Include="Views\NewDetails\" />
+    <Folder Include="Views\NewList\" />
+    <Folder Include="Views\PubBidder\" />
+    <Folder Include="Views\PubNews\" />
+    <Folder Include="Views\PubPurchase\" />
+    <Folder Include="Views\Register\" />
+    <Folder Include="Views\TeamDetails\" />
+    <Folder Include="Views\TeamList\" />
+    <Folder Include="Views\VendorDetails\" />
+    <Folder Include="Views\VendorHome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
