@@ -1,17 +1,20 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>发布</title>
+    @RenderSection("css")
 </head>
 <body>
-    <div>
-    
-    </div>
+    <!-- 顶部 -->
+    @Html.Partial("~/Views/Shared/header.cshtml")
+    <!-- 顶部 -->
+    <!--首页主体部分-->
+    @RenderBody()
+    <!--首页主体部分-->
+    <!-- 尾部 -->
+    @Html.Partial("~/Views/Shared/footer.cshtml")
+    <!-- 尾部 -->
 </body>
+@RenderSection("script")
 </html>
