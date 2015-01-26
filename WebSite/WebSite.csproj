@@ -160,38 +160,23 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\BidListController.cs" />
+    <Compile Include="Controllers\AdminCompanyController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminVendorController.cs" />
+    <Compile Include="Controllers\AdminExpertController.cs" />
+    <Compile Include="Controllers\AdminTeamController.cs" />
+    <Compile Include="Controllers\BidController.cs" />
     <Compile Include="Controllers\Common\Pair.cs" />
     <Compile Include="Controllers\Common\UserType.cs" />
-    <Compile Include="Controllers\CompanyHomeController.cs" />
-    <Compile Include="Controllers\CompanytDetailsController.cs" />
-    <Compile Include="Controllers\CreateTeamController.cs" />
-    <Compile Include="Controllers\ExpertDetailsController.cs" />
-    <Compile Include="Controllers\ExpertHomeController.cs" />
-    <Compile Include="Controllers\ExpertListController.cs" />
+    <Compile Include="Controllers\Common\Utility.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ExpertController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
-    <Compile Include="Controllers\Module\AuditModule.cs" />
-    <Compile Include="Controllers\Module\BidderModule.cs" />
-    <Compile Include="Controllers\Module\BidModule.cs" />
-    <Compile Include="Controllers\Module\CompanyModule.cs" />
-    <Compile Include="Controllers\Module\ExpertModule.cs" />
-    <Compile Include="Controllers\Module\InvitationModule.cs" />
-    <Compile Include="Controllers\Module\MemberModule.cs" />
-    <Compile Include="Controllers\Module\NewsModule.cs" />
-    <Compile Include="Controllers\Module\PurchaseModule.cs" />
     <Compile Include="Controllers\Module\SingleTableModule.cs" />
-    <Compile Include="Controllers\Module\TeamModule.cs" />
-    <Compile Include="Controllers\Module\VendorModule.cs" />
-    <Compile Include="Controllers\NewDetailsController.cs" />
-    <Compile Include="Controllers\NewListController.cs" />
-    <Compile Include="Controllers\PubBidderController.cs" />
-    <Compile Include="Controllers\PubNewsController.cs" />
-    <Compile Include="Controllers\PubPurchaseController.cs" />
+    <Compile Include="Controllers\NewController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Controllers\TeamDetailsController.cs" />
-    <Compile Include="Controllers\TeamListController.cs" />
-    <Compile Include="Controllers\VendorDetailsController.cs" />
-    <Compile Include="Controllers\VendorHomeController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\VerifyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -246,6 +231,7 @@
     <Compile Include="Models\purchase.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\team.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -436,12 +422,28 @@
     </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="WebSite.csproj.orig" />
+<<<<<<< HEAD
     <Content Include="Views\CompanyHome\CompanyHome.cshtml" />
     <Content Include="Views\ExpertHome\ExpertHome.cshtml" />
     <Content Include="Views\Shared\footer.cshtml" />
     <Content Include="Views\Shared\header.cshtml" />
   </ItemGroup>
   <ItemGroup>
+=======
+    <Content Include="Views\Bid\List.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\Company\Home.cshtml" />
+    <Content Include="Views\Expert\Home.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\AdminCompany\" />
+    <Folder Include="Views\AdminExpert\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Purchase\" />
+>>>>>>> cc1887a7bdadfb652d41c13e1d1d3e2862869891
     <Folder Include="Views\Verify\" />
   </ItemGroup>
   <ItemGroup>
