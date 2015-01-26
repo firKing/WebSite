@@ -12,6 +12,7 @@ namespace WebSite.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class team
     {
@@ -22,6 +23,9 @@ namespace WebSite.Models
     
         public int teamId { get; set; }
         [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+
+        [Remote("Verify", "CheckTeamNameRegister", ErrorMessage = "user name is registered")]
 
         public string team_name { get; set; }
         [Required(ErrorMessage = "*")]
