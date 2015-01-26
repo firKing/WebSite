@@ -33,6 +33,7 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
+*.csproj
 
 *_i.c
 *_p.c
@@ -58,7 +59,7 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
-
+WebSite.*
 # Chutzpah Test files
 _Chutzpah*
 
@@ -177,3 +178,4 @@ FakesAssemblies/
 .idea/
 
 WebSite.sln.ide/
+WebSite/WebSite.csproj
