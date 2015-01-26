@@ -259,6 +259,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.expert].mdf" />
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.expert]_log.ldf">
+      <DependentUpon>WebSite.Models.WebSiteDBContext`1[WebSite.Models.expert].mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.news].mdf" />
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.news]_log.ldf">
+      <DependentUpon>WebSite.Models.WebSiteDBContext`1[WebSite.Models.news].mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.purchase].mdf" />
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.purchase]_log.ldf">
+      <DependentUpon>WebSite.Models.WebSiteDBContext`1[WebSite.Models.purchase].mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.team].mdf" />
+    <Content Include="App_Data\WebSite.Models.WebSiteDBContext`1[WebSite.Models.team]_log.ldf">
+      <DependentUpon>WebSite.Models.WebSiteDBContext`1[WebSite.Models.team].mdf</DependentUpon>
+    </Content>
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\EntityFramework.dll" />
@@ -310,8 +326,27 @@
     <Content Include="bin\WebGrease.dll" />
     <Content Include="bin\WebSite.dll" />
     <Content Include="bin\WebSite.pdb" />
+    <Content Include="Content\BidList\BidList.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CompanyDetails\CompanyDetails.css" />
+    <Content Include="Content\CompanyHome\CompanyHome.css" />
+    <Content Include="Content\CreateTeam\CreateTeam.css" />
+    <Content Include="Content\ExpertDetails\ExpertDetails.css" />
+    <Content Include="Content\ExpertHome\ExpertHome.css" />
+    <Content Include="Content\ExpertList\ExpertList.css" />
+    <Content Include="Content\Index\common.css" />
+    <Content Include="Content\Index\Index.css" />
+    <Content Include="Content\NewDetails\NewDetails.css" />
+    <Content Include="Content\NewList\NewList.css" />
+    <Content Include="Content\PubBidder\PubBidder.css" />
+    <Content Include="Content\PubNews\PubNews.css" />
+    <Content Include="Content\PubPurchase\PubPurchase.css" />
+    <Content Include="Content\Register\Register.css" />
+    <Content Include="Content\TeamDetails\TeamDetails.css" />
+    <Content Include="Content\TeamList\TeamList.css" />
+    <Content Include="Content\VendorDetails\VendorDetails.css" />
+    <Content Include="Content\VendorHome\VendorHome.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -378,20 +413,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\BidList\BidList.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Layouts\Details.cshtml" />
     <Content Include="Views\Layouts\Index.cshtml" />
@@ -399,11 +421,27 @@
     <Content Include="Views\Layouts\Personal.cshtml" />
     <Content Include="Views\Layouts\Pub.cshtml" />
     <Content Include="Views\Layouts\Register.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="WebSite.csproj.orig" />
-    <Content Include="Views\BidList\BidList.cshtml" />
+    <Content Include="Views\CompanyHome\CompanyHome.cshtml" />
+    <Content Include="Views\ExpertHome\ExpertHome.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\Shared\header.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Verify\" />
   </ItemGroup>
   <ItemGroup>
