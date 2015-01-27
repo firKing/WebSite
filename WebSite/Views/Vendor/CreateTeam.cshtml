@@ -1,13 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "Home";
-    Layout = "~/Views/Layouts/Pub.cshtml";
+    Layout = "~/Views/Layouts/Personal.cshtml";
 }
 
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/CreateTeam/CreateTeam.css")
+    @Styles.Render("~/Content/Company/Company.css")
 }
 
 @section script {
@@ -15,31 +15,36 @@
     @Scripts.Render("~/bundles/bootstrap")
 }
 
-
-<div id="CreateTeam">
-    <form class="form-horizontal" role="form" method="post">
-        <div class="form-group">
-            <label for="inputName" class="col-sm-3 control-label">队名</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" name="group_name" id="inputName" placeholder="队名">
+@section title {
+    组建虚拟团队
+}
+<div id="detail-main">
+    <h2>组建虚拟团队</h2>
+    <div id="CreateTeam">
+        <form class="form-horizontal" role="form" method="post">
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">成员姓名（逗号分隔）</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="group_name" id="inputName" placeholder="成员姓名">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="inputTarget" class="col-sm-3 control-label">采购对象</label>
-            <div class="col-sm-9">
-                <input type="email" class="form-control" name="purchase_object" id="inputTarget" placeholder="采购对象">
+            <div class="form-group">
+                <label for="inputTarget" class="col-sm-3 control-label">采购对象</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" name="purchase_object" id="inputTarget" placeholder="采购对象">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="outline" class="col-sm-3 control-label">概要</label>
-            <div class="col-sm-9">
-                <textarea class="form-control" name="summary" id="outline" rows="5"></textarea>
+            <div class="form-group">
+                <label for="outline" class="col-sm-3 control-label">概要</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" name="summary" id="outline" rows="5"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="form-group form-submit">
-            <div class="col-sm-offset-3 col-sm-9">
-                <button type="submit" class="btn btn-success">保存并提交</button>
+            <div class="form-group form-submit">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-success">保存并提交</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

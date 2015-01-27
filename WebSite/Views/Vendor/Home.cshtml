@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Layouts/Personal.cshtml";
+}
+
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Company/Company.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Company/Cpmpany.js")
+}
+
+
+<div id="list-main">
+    <h2>
+        供应商个人中心
+        <!-- <a class="back" href="#">退出登录</a> -->
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li><div class="line"></div>企业信息</li>
+                <li><div class=""></div>我加入的虚拟团队</li>
+                <li><div class=""></div>我发布的虚拟团队</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="info">
+                <div class="title">
+                    <h2>供应商信息</h2>
+                    <div class="change">@Html.ActionLink("修改", "Home", "Vendor", new { vendorid = ViewBag.vendor.vendorId })</div>
+                </div>
+                <div class="details">
+                    <div class="show">
+                        <h3>基本信息</h3>
+                        <ul>
+                            <li>企业名称: @ViewBag.vendor.vendor_name</li>
+                            <li>电话： @ViewBag.vendor.vendor_telephone</li>
+                            <li>邮箱: @ViewBag.vendor.vendor_mail</li> 
+                            <li>联系地址: @ViewBag.vendor.vendor_address</li>
+                            <li>概要： @ViewBag.vendor.vendor_introduction </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="title">
+                    <h2>我加入的队伍</h2>
+                    <div class="change">@Html.ActionLink("退出队伍", "quit_troop", "Vendor", new { company_id = ViewBag.home.company_id })</div>
+                </div>
+                <div class="details">
+                    <div class="show">
+                        <h3>创建人</h3>
+                        <ul>
+                            <li>供应商名称: @ViewBag.create.vendor_name</li>
+                            <li>电话： @ViewBag.create.vendor_telephone</li>
+                            <li>邮箱: @ViewBag.create.vendor_mail</li>
+                            <li>联系地址: @ViewBag.create.vendor_address</li>
+                        </ul>
+                    </div>
+                    <div class="show">
+                        <h3>参与团队</h3>
+                        <ul>
+                            <li>供应商名称： @ViewBag.troop.vender_name</li>
+                            <li>电话： @ViewBag.troop.vendor_telephone</li>
+                            <li>邮箱: @ViewBag.troop.vendor_mail</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="title">
+                    <h2>我的投标</h2>
+                </div>
+                <div class="details">
+                    @foreach (var key in ViewBag.personal)
+                    {
+                        <div class="show">
+                            <h3>对key.vendor_name的竞标</h3>
+                            <ul>
+                                <li>供应商名称: key.vendor_name</li>
+                                <li>电话： key.vendor_telephone</li>
+                                <li>邮箱: key.vendor_mail</li>
+                                <li>联系地址: key.vendor_address</li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

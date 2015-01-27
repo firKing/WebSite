@@ -16,23 +16,23 @@
 
 <div id="list-main">
     <h2>
-        新闻列表
+      单位
        <!-- <a class="back" href="#">退出登录</a> -->
     </h2>
 
     <div class="content">
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
-                <li><div class="line"></div>企业信息</li>
+                <li><div class="line"></div>单位信息</li>
                 <li><div class=""></div>我创建的招标</li>
-                <li><div class=""></div>我发布的新闻</li>
+                <li><div class=""></div>我发布的新闻</li> 
             </ul>
         </div>
         <div class="col-md-8">
             <form class="info" action="" method="post">
                 <div class="title">
-                    <h2>企业信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "Index", "Company", new { company_id=ViewBag.home.company_id })</div>
+                    <h2>单位信息</h2>
+                    <div class="change">@Html.ActionLink("修改", "change_company", "Register", new { company_id=ViewBag.home.company_id })</div>
                 </div>
                 <div class="details">
                     <div class="show">

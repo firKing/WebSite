@@ -26,17 +26,17 @@ namespace WebSite.Controllers
                 var query = (IQueryable<vendor>)GetList<vendor>(x => x.vendorId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
+                ViewBag.vendor = result;
                 return View(result);
             }
             return RedirectToAction("Index", "Index");
         }
 
         // 提交创建虚拟团队
-        [HttpPost]
-        // 队名 group_name
+        // 成员姓名， 逗号分隔 group_name
         // 采购对象 purchase_object
         // 概要 summary
-
+        [HttpPost]
         public ActionResult CreateTeam(team info)
         {
             if (CheckSession())
@@ -44,7 +44,7 @@ namespace WebSite.Controllers
                 var table = new SingleTableModule<team>();
                 table.Create(info);
             }            
-            return RedirectToAction("Company", "Home");
+            return RedirectToAction("Home", "Company");
         }
                    
         //加入的团队列表
@@ -62,6 +62,7 @@ namespace WebSite.Controllers
                    var second= table.FindInfo(x => x.teamId == iter.teamId);
                    result.Add(new Pair<team, IQueryable<member>>(first,second));
                 }
+                ViewBag.troop = result;
                 return View(result);
             }
             return RedirectToAction("Index", "Index");
@@ -92,7 +93,8 @@ namespace WebSite.Controllers
 
                 var table = new SingleTableModule<bid>();
                 var id = GetBidderId(Convert.ToInt32(Session["user_id"]));
-                return View(table.FindInfo(x => x.bidderId == id));
+                ViewBag.personal = table.FindInfo(x => x.bidderId == id);
+                return View();
             }
             return RedirectToAction("Index", "Index");
 
