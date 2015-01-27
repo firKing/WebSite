@@ -18,33 +18,32 @@
 
 <div id="list-main">
     <h2>
-        单位
+        专家个人中心
         <!-- <a class="back" href="#">退出登录</a> -->
     </h2>
 
     <div class="content">
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
-                <li><div class="line"></div>单位信息</li>
-                <li><div class=""></div>我创建的招标</li>
-                <li><div class=""></div>我发布的新闻</li>
+                <li><div class="line"></div>个人中心</li>
+                <li><div class=""></div></li>
             </ul>
         </div>
         <div class="col-md-8">
             <form class="info" action="" method="post">
                 <div class="title">
-                    <h2>单位信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_company", "Register", new { company_id = ViewBag.home.company_id })</div>
+                    <h2>专家信息</h2>
+                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.expert_id })</div>
                 </div>
                 <div class="details">
                     <div class="show">
                         <h3>基本信息</h3>
                         <ul>
-                            <li>企业名称: @ViewBag.home.company_name</li>
-                            <li>电话： @ViewBag.home.company_telephone</li>
-                            <li>邮箱: @ViewBag.home.company.company_mail</li>
-                            <li>联系地址: @ViewBag.home.company_address</li>
-                            <li>概要： @ViewBag.home.company_introduction </li>
+                            <li>姓名: @ViewBag.home.expert_name</li>
+                            <li>电话： @ViewBag.home.expert_telephone</li>
+                            <li>邮箱: @ViewBag.home.expert_mail</li>
+                            <li>联系地址: @ViewBag.home.expert_address</li>
+                            <li>简介： @ViewBag.home.expert_introduce</li>
                         </ul>
                     </div>
                 </div>
@@ -53,17 +52,20 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>企业邀请</h2>
-                    <div class="change">修改</div>
-                </div>
+                 </div>
                 <div class="details">
-                    <div class="section">
-                        <div class="submit">
-                            <a href="#">接受</a>
-                            <a href="#">拒绝</a>
+                    @foreach (var key in ViewBag.list)
+                    {
+                        <div class="section">
+                            <div class="submit">
+                                <a href="#">接受</a>
+                                <a href="#">拒绝</a>
+                            </div>
+                            <h3>key.purchase.purchase_title 采购</h3>
+                            <p>key.invitation_content</p>
                         </div>
-                        <h3>xxx 采购</h3>
-                        <p>sdlksajdlksajdlsajqwdjlkwqjdlkwqjdlkjwqlkdjwqlkdjwqlkdjlkwqjdlkwqjdlkwjqlkjdlkwqjlkdjwqlkdjlkdjsalkdjaslkjdlksajlkd</p>
-                    </div>
+                    }
+                   
                 </div>
             </form>
         </div>
