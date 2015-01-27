@@ -12,17 +12,17 @@ namespace WebSite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vendor
+    public partial class bidder
     {
-        public vendor()
+        public bidder()
         {
-            this.members = new HashSet<member>();
+            this.bids = new HashSet<bid>();
         }
     
-        public int vendorId { get; set; }
-        public int user_userId { get; set; }
+        public int bidderId { get; set; }
+        public bool bidder_is_team { get; set; }
+        public int tendererId { get; set; }
     
-        public virtual ICollection<member> members { get; set; }
-        public virtual user user { get; set; }
+        public virtual ICollection<bid> bids { get; set; }
     }
 }

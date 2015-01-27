@@ -4,387 +4,372 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WebSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="WebSiteModelStoreContainer">
-    <EntitySet Name="admins" EntityType="WebSiteModel.Store.admins" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="audits" EntityType="WebSiteModel.Store.audits" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="bidders" EntityType="WebSiteModel.Store.bidders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="bids" EntityType="WebSiteModel.Store.bids" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="companies" EntityType="WebSiteModel.Store.companies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="experts" EntityType="WebSiteModel.Store.experts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="invitations" EntityType="WebSiteModel.Store.invitations" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="members" EntityType="WebSiteModel.Store.members" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="news" EntityType="WebSiteModel.Store.news" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="purchases" EntityType="WebSiteModel.Store.purchases" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="teams" EntityType="WebSiteModel.Store.teams" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="vendors" EntityType="WebSiteModel.Store.vendors" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="user" EntityType="WebSiteModel.Store.user" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_AUDIT_AUDIT_BID" Association="WebSiteModel.Store.FK_AUDIT_AUDIT_BID">
-      <End Role="bids" EntitySet="bids" />
-      <End Role="audits" EntitySet="audits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AUDIT_HAVE_EXPERT" Association="WebSiteModel.Store.FK_AUDIT_HAVE_EXPERT">
-      <End Role="experts" EntitySet="experts" />
-      <End Role="audits" EntitySet="audits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BID_PUBLISH_B_BIDDER" Association="WebSiteModel.Store.FK_BID_PUBLISH_B_BIDDER">
-      <End Role="bidders" EntitySet="bidders" />
-      <End Role="bids" EntitySet="bids" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BID_HAVE_BID_PURCHASE" Association="WebSiteModel.Store.FK_BID_HAVE_BID_PURCHASE">
-      <End Role="purchases" EntitySet="purchases" />
-      <End Role="bids" EntitySet="bids" />
-    </AssociationSet>
-    <AssociationSet Name="FK_NEWS_PUBLISH_N_COMPANY" Association="WebSiteModel.Store.FK_NEWS_PUBLISH_N_COMPANY">
-      <End Role="companies" EntitySet="companies" />
-      <End Role="news" EntitySet="news" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PURCHASE_PUBLISH_P_COMPANY" Association="WebSiteModel.Store.FK_PURCHASE_PUBLISH_P_COMPANY">
-      <End Role="companies" EntitySet="companies" />
-      <End Role="purchases" EntitySet="purchases" />
-    </AssociationSet>
-    <AssociationSet Name="FK_INVITATI_INVITE_EXPERT" Association="WebSiteModel.Store.FK_INVITATI_INVITE_EXPERT">
-      <End Role="experts" EntitySet="experts" />
-      <End Role="invitations" EntitySet="invitations" />
-    </AssociationSet>
-    <AssociationSet Name="FK_INVITATI_RESPOND_PURCHASE" Association="WebSiteModel.Store.FK_INVITATI_RESPOND_PURCHASE">
-      <End Role="purchases" EntitySet="purchases" />
-      <End Role="invitations" EntitySet="invitations" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MEMBER_COMPONENT_TEAM" Association="WebSiteModel.Store.FK_MEMBER_COMPONENT_TEAM">
-      <End Role="teams" EntitySet="teams" />
-      <End Role="members" EntitySet="members" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MEMBER_INCLUDE_VENDOR" Association="WebSiteModel.Store.FK_MEMBER_INCLUDE_VENDOR">
-      <End Role="vendors" EntitySet="vendors" />
-      <End Role="members" EntitySet="members" />
-    </AssociationSet>
-    <AssociationSet Name="purchaseteam" Association="WebSiteModel.Store.purchaseteam">
-      <End Role="purchase" EntitySet="purchases" />
-      <End Role="team" EntitySet="teams" />
-    </AssociationSet>
-    <AssociationSet Name="vendorteam" Association="WebSiteModel.Store.vendorteam">
-      <End Role="vendor" EntitySet="vendors" />
-      <End Role="team" EntitySet="teams" />
-    </AssociationSet>
-    <AssociationSet Name="userexpert" Association="WebSiteModel.Store.userexpert">
-      <End Role="user" EntitySet="user" />
-      <End Role="expert" EntitySet="experts" />
-    </AssociationSet>
-    <AssociationSet Name="usercompany" Association="WebSiteModel.Store.usercompany">
-      <End Role="user" EntitySet="user" />
-      <End Role="company" EntitySet="companies" />
-    </AssociationSet>
-    <AssociationSet Name="uservendor" Association="WebSiteModel.Store.uservendor">
-      <End Role="user" EntitySet="user" />
-      <End Role="vendor" EntitySet="vendors" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="admins">
-    <Key>
-      <PropertyRef Name="adminId" />
-    </Key>
-    <Property Name="adminId" Type="int" Nullable="false" />
-    <Property Name="admin_name" Type="varchar" Nullable="false" MaxLength="30" />
-    <Property Name="admin_pwd" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="time" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="audits">
-    <Key>
-      <PropertyRef Name="auditId" />
-    </Key>
-    <Property Name="bidId" Type="int" Nullable="false" />
-    <Property Name="expertId" Type="int" Nullable="false" />
-    <Property Name="auditId" Type="int" Nullable="false" />
-    <Property Name="audit_content" Type="varchar" Nullable="true" MaxLength="500" />
-  </EntityType>
-  <EntityType Name="bidders">
-    <Key>
-      <PropertyRef Name="bidderId" />
-    </Key>
-    <Property Name="bidderId" Type="int" Nullable="false" />
-    <Property Name="bidder_is_team" Type="bit" Nullable="false" />
-    <Property Name="tendererId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="bids">
-    <Key>
-      <PropertyRef Name="bidId" />
-    </Key>
-    <Property Name="bidId" Type="int" Nullable="false" />
-    <Property Name="purchaseId" Type="int" Nullable="false" />
-    <Property Name="bidderId" Type="int" Nullable="false" />
-    <Property Name="bid_title" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="bid_device_name" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="bid_time" Type="datetime" Nullable="false" />
-    <Property Name="bid_number" Type="int" Nullable="false" />
-    <Property Name="bid_introduction" Type="varchar" Nullable="false" MaxLength="1500" />
-    <Property Name="bid_content" Type="varbinary(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="companies">
-    <Key>
-      <PropertyRef Name="companyId" />
-    </Key>
-    <Property Name="companyId" Type="int" Nullable="false" />
-    <Property Name="user_userId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="experts">
-    <Key>
-      <PropertyRef Name="expertId" />
-    </Key>
-    <Property Name="expertId" Type="int" Nullable="false" />
-    <Property Name="expert_image" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="expert_accept_count" Type="int" Nullable="false" />
-    <Property Name="user_userId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="invitations">
-    <Key>
-      <PropertyRef Name="invitationId" />
-    </Key>
-    <Property Name="purchaseId" Type="int" Nullable="false" />
-    <Property Name="expertId" Type="int" Nullable="false" />
-    <Property Name="invitationId" Type="int" Nullable="false" />
-    <Property Name="invitation_content" Type="varchar" Nullable="false" MaxLength="500" />
-  </EntityType>
-  <EntityType Name="members">
-    <Key>
-      <PropertyRef Name="memberId" />
-    </Key>
-    <Property Name="vendorId" Type="int" Nullable="false" />
-    <Property Name="teamId" Type="int" Nullable="false" />
-    <Property Name="memberId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="news">
-    <Key>
-      <PropertyRef Name="newsId" />
-    </Key>
-    <Property Name="newsId" Type="int" Nullable="false" />
-    <Property Name="companyId" Type="int" Nullable="false" />
-    <Property Name="news_title" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="news_content" Type="varchar(max)" Nullable="false" />
-    <Property Name="news_time" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="purchases">
-    <Key>
-      <PropertyRef Name="purchaseId" />
-    </Key>
-    <Property Name="purchaseId" Type="int" Nullable="false" />
-    <Property Name="companyId" Type="int" Nullable="false" />
-    <Property Name="purchase_title" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="purchase_content" Type="varchar(max)" Nullable="false" />
-    <Property Name="purchase_time" Type="datetime" Nullable="false" />
-    <Property Name="hitId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="teams">
-    <Key>
-      <PropertyRef Name="teamId" />
-    </Key>
-    <Property Name="teamId" Type="int" Nullable="false" />
-    <Property Name="team_name" Type="varchar" Nullable="false" MaxLength="30" />
-    <Property Name="team_introduction" Type="varchar" Nullable="false" MaxLength="300" />
-    <Property Name="purchaseId" Type="int" Nullable="false" />
-    <Property Name="vendorId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="vendors">
-    <Key>
-      <PropertyRef Name="vendorId" />
-    </Key>
-    <Property Name="vendorId" Type="int" Nullable="false" />
-    <Property Name="user_userId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="user">
-    <Key>
-      <PropertyRef Name="userId" />
-    </Key>
-    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="user_type" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_telephone" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_mail" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_address" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_introduction" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_password" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_AUDIT_AUDIT_BID">
-    <End Role="bids" Type="WebSiteModel.Store.bids" Multiplicity="1" />
-    <End Role="audits" Type="WebSiteModel.Store.audits" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="bids">
-        <PropertyRef Name="bidId" />
-      </Principal>
-      <Dependent Role="audits">
-        <PropertyRef Name="bidId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AUDIT_HAVE_EXPERT">
-    <End Role="experts" Type="WebSiteModel.Store.experts" Multiplicity="1" />
-    <End Role="audits" Type="WebSiteModel.Store.audits" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="experts">
-        <PropertyRef Name="expertId" />
-      </Principal>
-      <Dependent Role="audits">
-        <PropertyRef Name="expertId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BID_PUBLISH_B_BIDDER">
-    <End Role="bidders" Type="WebSiteModel.Store.bidders" Multiplicity="1" />
-    <End Role="bids" Type="WebSiteModel.Store.bids" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="bidders">
-        <PropertyRef Name="bidderId" />
-      </Principal>
-      <Dependent Role="bids">
-        <PropertyRef Name="bidderId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BID_HAVE_BID_PURCHASE">
-    <End Role="purchases" Type="WebSiteModel.Store.purchases" Multiplicity="1" />
-    <End Role="bids" Type="WebSiteModel.Store.bids" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="purchases">
-        <PropertyRef Name="purchaseId" />
-      </Principal>
-      <Dependent Role="bids">
-        <PropertyRef Name="purchaseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_NEWS_PUBLISH_N_COMPANY">
-    <End Role="companies" Type="WebSiteModel.Store.companies" Multiplicity="1" />
-    <End Role="news" Type="WebSiteModel.Store.news" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="companies">
-        <PropertyRef Name="companyId" />
-      </Principal>
-      <Dependent Role="news">
-        <PropertyRef Name="companyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PURCHASE_PUBLISH_P_COMPANY">
-    <End Role="companies" Type="WebSiteModel.Store.companies" Multiplicity="1" />
-    <End Role="purchases" Type="WebSiteModel.Store.purchases" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="companies">
-        <PropertyRef Name="companyId" />
-      </Principal>
-      <Dependent Role="purchases">
-        <PropertyRef Name="companyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_INVITATI_INVITE_EXPERT">
-    <End Role="experts" Type="WebSiteModel.Store.experts" Multiplicity="1" />
-    <End Role="invitations" Type="WebSiteModel.Store.invitations" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="experts">
-        <PropertyRef Name="expertId" />
-      </Principal>
-      <Dependent Role="invitations">
-        <PropertyRef Name="expertId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_INVITATI_RESPOND_PURCHASE">
-    <End Role="purchases" Type="WebSiteModel.Store.purchases" Multiplicity="1" />
-    <End Role="invitations" Type="WebSiteModel.Store.invitations" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="purchases">
-        <PropertyRef Name="purchaseId" />
-      </Principal>
-      <Dependent Role="invitations">
-        <PropertyRef Name="purchaseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MEMBER_COMPONENT_TEAM">
-    <End Role="teams" Type="WebSiteModel.Store.teams" Multiplicity="1" />
-    <End Role="members" Type="WebSiteModel.Store.members" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="teams">
-        <PropertyRef Name="teamId" />
-      </Principal>
-      <Dependent Role="members">
-        <PropertyRef Name="teamId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MEMBER_INCLUDE_VENDOR">
-    <End Role="vendors" Type="WebSiteModel.Store.vendors" Multiplicity="1" />
-    <End Role="members" Type="WebSiteModel.Store.members" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="vendors">
-        <PropertyRef Name="vendorId" />
-      </Principal>
-      <Dependent Role="members">
-        <PropertyRef Name="vendorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="purchaseteam">
-    <End Role="purchase" Type="WebSiteModel.Store.purchases" Multiplicity="1" />
-    <End Role="team" Type="WebSiteModel.Store.teams" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="purchase">
-        <PropertyRef Name="purchaseId" />
-      </Principal>
-      <Dependent Role="team">
-        <PropertyRef Name="purchaseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="vendorteam">
-    <End Role="vendor" Type="WebSiteModel.Store.vendors" Multiplicity="1" />
-    <End Role="team" Type="WebSiteModel.Store.teams" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="vendor">
-        <PropertyRef Name="vendorId" />
-      </Principal>
-      <Dependent Role="team">
-        <PropertyRef Name="vendorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="userexpert">
-    <End Role="user" Type="WebSiteModel.Store.user" Multiplicity="1" />
-    <End Role="expert" Type="WebSiteModel.Store.experts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="user">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="expert">
-        <PropertyRef Name="user_userId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="usercompany">
-    <End Role="user" Type="WebSiteModel.Store.user" Multiplicity="1" />
-    <End Role="company" Type="WebSiteModel.Store.companies" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="user">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="company">
-        <PropertyRef Name="user_userId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="uservendor">
-    <End Role="user" Type="WebSiteModel.Store.user" Multiplicity="1" />
-    <End Role="vendor" Type="WebSiteModel.Store.vendors" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="user">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="vendor">
-        <PropertyRef Name="user_userId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+      <Schema Namespace="WebSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admins">
+          <Key>
+            <PropertyRef Name="adminId" />
+          </Key>
+          <Property Name="adminId" Type="int" Nullable="false" />
+          <Property Name="admin_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="admin_pwd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="audits">
+          <Key>
+            <PropertyRef Name="auditId" />
+          </Key>
+          <Property Name="bidId" Type="int" Nullable="false" />
+          <Property Name="expertId" Type="int" Nullable="false" />
+          <Property Name="auditId" Type="int" Nullable="false" />
+          <Property Name="audit_content" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="bidders">
+          <Key>
+            <PropertyRef Name="bidderId" />
+          </Key>
+          <Property Name="bidderId" Type="int" Nullable="false" />
+          <Property Name="bidder_is_team" Type="bit" Nullable="false" />
+          <Property Name="tendererId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bids">
+          <Key>
+            <PropertyRef Name="bidId" />
+          </Key>
+          <Property Name="bidId" Type="int" Nullable="false" />
+          <Property Name="purchaseId" Type="int" Nullable="false" />
+          <Property Name="bidderId" Type="int" Nullable="false" />
+          <Property Name="bid_title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bid_device_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bid_time" Type="datetime" Nullable="false" />
+          <Property Name="bid_number" Type="int" Nullable="false" />
+          <Property Name="bid_introduction" Type="varchar" MaxLength="1500" Nullable="false" />
+          <Property Name="bid_content" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="companies">
+          <Key>
+            <PropertyRef Name="companyId" />
+          </Key>
+          <Property Name="companyId" Type="int" Nullable="false" />
+          <Property Name="user_userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="experts">
+          <Key>
+            <PropertyRef Name="expertId" />
+          </Key>
+          <Property Name="expertId" Type="int" Nullable="false" />
+          <Property Name="expert_image" Type="nvarchar(max)" />
+          <Property Name="expert_accept_count" Type="int" Nullable="false" />
+          <Property Name="user_userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="invitations">
+          <Key>
+            <PropertyRef Name="invitationId" />
+          </Key>
+          <Property Name="purchaseId" Type="int" Nullable="false" />
+          <Property Name="expertId" Type="int" Nullable="false" />
+          <Property Name="invitationId" Type="int" Nullable="false" />
+          <Property Name="invitation_content" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="memberId" />
+          </Key>
+          <Property Name="vendorId" Type="int" Nullable="false" />
+          <Property Name="teamId" Type="int" Nullable="false" />
+          <Property Name="memberId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="news">
+          <Key>
+            <PropertyRef Name="newsId" />
+          </Key>
+          <Property Name="newsId" Type="int" Nullable="false" />
+          <Property Name="companyId" Type="int" Nullable="false" />
+          <Property Name="news_title" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="news_content" Type="varchar(max)" Nullable="false" />
+          <Property Name="news_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="purchases">
+          <Key>
+            <PropertyRef Name="purchaseId" />
+          </Key>
+          <Property Name="purchaseId" Type="int" Nullable="false" />
+          <Property Name="companyId" Type="int" Nullable="false" />
+          <Property Name="purchase_title" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="purchase_content" Type="varchar(max)" Nullable="false" />
+          <Property Name="purchase_time" Type="datetime" Nullable="false" />
+          <Property Name="hitId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teams">
+          <Key>
+            <PropertyRef Name="teamId" />
+          </Key>
+          <Property Name="teamId" Type="int" Nullable="false" />
+          <Property Name="team_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="team_introduction" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="purchaseId" Type="int" Nullable="false" />
+          <Property Name="createId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_telephone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_mail" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_introduction" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vendors">
+          <Key>
+            <PropertyRef Name="vendorId" />
+          </Key>
+          <Property Name="vendorId" Type="int" Nullable="false" />
+          <Property Name="user_userId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AUDIT_AUDIT_BID">
+          <End Role="bids" Type="Self.bids" Multiplicity="1" />
+          <End Role="audits" Type="Self.audits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bids">
+              <PropertyRef Name="bidId" />
+            </Principal>
+            <Dependent Role="audits">
+              <PropertyRef Name="bidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AUDIT_HAVE_EXPERT">
+          <End Role="experts" Type="Self.experts" Multiplicity="1" />
+          <End Role="audits" Type="Self.audits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experts">
+              <PropertyRef Name="expertId" />
+            </Principal>
+            <Dependent Role="audits">
+              <PropertyRef Name="expertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BID_HAVE_BID_PURCHASE">
+          <End Role="purchases" Type="Self.purchases" Multiplicity="1" />
+          <End Role="bids" Type="Self.bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchases">
+              <PropertyRef Name="purchaseId" />
+            </Principal>
+            <Dependent Role="bids">
+              <PropertyRef Name="purchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BID_PUBLISH_B_BIDDER">
+          <End Role="bidders" Type="Self.bidders" Multiplicity="1" />
+          <End Role="bids" Type="Self.bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bidders">
+              <PropertyRef Name="bidderId" />
+            </Principal>
+            <Dependent Role="bids">
+              <PropertyRef Name="bidderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVITATI_INVITE_EXPERT">
+          <End Role="experts" Type="Self.experts" Multiplicity="1" />
+          <End Role="invitations" Type="Self.invitations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experts">
+              <PropertyRef Name="expertId" />
+            </Principal>
+            <Dependent Role="invitations">
+              <PropertyRef Name="expertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVITATI_RESPOND_PURCHASE">
+          <End Role="purchases" Type="Self.purchases" Multiplicity="1" />
+          <End Role="invitations" Type="Self.invitations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchases">
+              <PropertyRef Name="purchaseId" />
+            </Principal>
+            <Dependent Role="invitations">
+              <PropertyRef Name="purchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEMBER_COMPONENT_TEAM">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="members" Type="Self.members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="teamId" />
+            </Principal>
+            <Dependent Role="members">
+              <PropertyRef Name="teamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEMBER_INCLUDE_VENDOR">
+          <End Role="vendors" Type="Self.vendors" Multiplicity="1" />
+          <End Role="members" Type="Self.members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendors">
+              <PropertyRef Name="vendorId" />
+            </Principal>
+            <Dependent Role="members">
+              <PropertyRef Name="vendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NEWS_PUBLISH_N_COMPANY">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="news" Type="Self.news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="companyId" />
+            </Principal>
+            <Dependent Role="news">
+              <PropertyRef Name="companyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASE_PUBLISH_P_COMPANY">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="purchases" Type="Self.purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="companyId" />
+            </Principal>
+            <Dependent Role="purchases">
+              <PropertyRef Name="companyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchaseteam">
+          <End Role="purchases" Type="Self.purchases" Multiplicity="1" />
+          <End Role="teams" Type="Self.teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchases">
+              <PropertyRef Name="purchaseId" />
+            </Principal>
+            <Dependent Role="teams">
+              <PropertyRef Name="purchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usercompany">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="companies" Type="Self.companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="user_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userexpert">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="experts" Type="Self.experts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="experts">
+              <PropertyRef Name="user_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_uservendor">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="vendors" Type="Self.vendors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="vendors">
+              <PropertyRef Name="user_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebSiteModelStoreContainer">
+          <EntitySet Name="admins" EntityType="Self.admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="audits" EntityType="Self.audits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bidders" EntityType="Self.bidders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bids" EntityType="Self.bids" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="companies" EntityType="Self.companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="experts" EntityType="Self.experts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invitations" EntityType="Self.invitations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchases" EntityType="Self.purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teams" EntityType="Self.teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vendors" EntityType="Self.vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AUDIT_AUDIT_BID" Association="Self.FK_AUDIT_AUDIT_BID">
+            <End Role="bids" EntitySet="bids" />
+            <End Role="audits" EntitySet="audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AUDIT_HAVE_EXPERT" Association="Self.FK_AUDIT_HAVE_EXPERT">
+            <End Role="experts" EntitySet="experts" />
+            <End Role="audits" EntitySet="audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BID_HAVE_BID_PURCHASE" Association="Self.FK_BID_HAVE_BID_PURCHASE">
+            <End Role="purchases" EntitySet="purchases" />
+            <End Role="bids" EntitySet="bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BID_PUBLISH_B_BIDDER" Association="Self.FK_BID_PUBLISH_B_BIDDER">
+            <End Role="bidders" EntitySet="bidders" />
+            <End Role="bids" EntitySet="bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVITATI_INVITE_EXPERT" Association="Self.FK_INVITATI_INVITE_EXPERT">
+            <End Role="experts" EntitySet="experts" />
+            <End Role="invitations" EntitySet="invitations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVITATI_RESPOND_PURCHASE" Association="Self.FK_INVITATI_RESPOND_PURCHASE">
+            <End Role="purchases" EntitySet="purchases" />
+            <End Role="invitations" EntitySet="invitations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEMBER_COMPONENT_TEAM" Association="Self.FK_MEMBER_COMPONENT_TEAM">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="members" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEMBER_INCLUDE_VENDOR" Association="Self.FK_MEMBER_INCLUDE_VENDOR">
+            <End Role="vendors" EntitySet="vendors" />
+            <End Role="members" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NEWS_PUBLISH_N_COMPANY" Association="Self.FK_NEWS_PUBLISH_N_COMPANY">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="news" EntitySet="news" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASE_PUBLISH_P_COMPANY" Association="Self.FK_PURCHASE_PUBLISH_P_COMPANY">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="purchases" EntitySet="purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchaseteam" Association="Self.FK_purchaseteam">
+            <End Role="purchases" EntitySet="purchases" />
+            <End Role="teams" EntitySet="teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usercompany" Association="Self.FK_usercompany">
+            <End Role="users" EntitySet="users" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userexpert" Association="Self.FK_userexpert">
+            <End Role="users" EntitySet="users" />
+            <End Role="experts" EntitySet="experts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_uservendor" Association="Self.FK_uservendor">
+            <End Role="users" EntitySet="users" />
+            <End Role="vendors" EntitySet="vendors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -439,20 +424,22 @@
             <PropertyRef Name="companyId" />
           </Key>
           <Property Name="companyId" Type="Int32" Nullable="false" />
+          <Property Name="user_userId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="news" Relationship="Self.FK_NEWS_PUBLISH_N_COMPANY" FromRole="companies" ToRole="news" />
           <NavigationProperty Name="purchases" Relationship="Self.FK_PURCHASE_PUBLISH_P_COMPANY" FromRole="companies" ToRole="purchases" />
-          <NavigationProperty Name="user" Relationship="WebSiteModel.usercompany" FromRole="company" ToRole="user" />
+          <NavigationProperty Name="user" Relationship="Self.FK_usercompany" FromRole="companies" ToRole="users" />
         </EntityType>
         <EntityType Name="expert">
           <Key>
             <PropertyRef Name="expertId" />
           </Key>
           <Property Name="expertId" Type="Int32" Nullable="false" />
-          <Property Name="expert_image" Type="String" />
+          <Property Name="expert_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="expert_accept_count" Type="Int32" Nullable="false" />
+          <Property Name="user_userId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="audits" Relationship="Self.FK_AUDIT_HAVE_EXPERT" FromRole="experts" ToRole="audits" />
           <NavigationProperty Name="invitations" Relationship="Self.FK_INVITATI_INVITE_EXPERT" FromRole="experts" ToRole="invitations" />
-          <Property Name="expert_accept_count" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="user" Relationship="WebSiteModel.userexpert" FromRole="expert" ToRole="user" />
+          <NavigationProperty Name="user" Relationship="Self.FK_userexpert" FromRole="experts" ToRole="users" />
         </EntityType>
         <EntityType Name="invitation">
           <Key>
@@ -499,6 +486,7 @@
           <NavigationProperty Name="bids" Relationship="Self.FK_BID_HAVE_BID_PURCHASE" FromRole="purchases" ToRole="bids" />
           <NavigationProperty Name="company" Relationship="Self.FK_PURCHASE_PUBLISH_P_COMPANY" FromRole="purchases" ToRole="companies" />
           <NavigationProperty Name="invitations" Relationship="Self.FK_INVITATI_RESPOND_PURCHASE" FromRole="purchases" ToRole="invitations" />
+          <NavigationProperty Name="teams" Relationship="Self.FK_purchaseteam" FromRole="purchases" ToRole="teams" />
         </EntityType>
         <EntityType Name="team">
           <Key>
@@ -507,19 +495,35 @@
           <Property Name="teamId" Type="Int32" Nullable="false" />
           <Property Name="team_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="team_introduction" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="members" Relationship="Self.FK_MEMBER_COMPONENT_TEAM" FromRole="teams" ToRole="members" />
-          <NavigationProperty Name="purchase" Relationship="WebSiteModel.purchaseteam" FromRole="team" ToRole="purchase" />
           <Property Name="purchaseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="vendor" Relationship="WebSiteModel.vendorteam" FromRole="team" ToRole="vendor" />
-          <Property Name="vendorId" Type="Int32" Nullable="false" />
+          <Property Name="createId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="members" Relationship="Self.FK_MEMBER_COMPONENT_TEAM" FromRole="teams" ToRole="members" />
+          <NavigationProperty Name="purchase" Relationship="Self.FK_purchaseteam" FromRole="teams" ToRole="purchases" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_introduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="companies" Relationship="Self.FK_usercompany" FromRole="users" ToRole="companies" />
+          <NavigationProperty Name="experts" Relationship="Self.FK_userexpert" FromRole="users" ToRole="experts" />
+          <NavigationProperty Name="vendors" Relationship="Self.FK_uservendor" FromRole="users" ToRole="vendors" />
         </EntityType>
         <EntityType Name="vendor">
           <Key>
             <PropertyRef Name="vendorId" />
           </Key>
           <Property Name="vendorId" Type="Int32" Nullable="false" />
+          <Property Name="user_userId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="members" Relationship="Self.FK_MEMBER_INCLUDE_VENDOR" FromRole="vendors" ToRole="members" />
-          <NavigationProperty Name="user" Relationship="WebSiteModel.uservendor" FromRole="vendor" ToRole="user" />
+          <NavigationProperty Name="user" Relationship="Self.FK_uservendor" FromRole="vendors" ToRole="users" />
         </EntityType>
         <Association Name="FK_AUDIT_AUDIT_BID">
           <End Role="bids" Type="Self.bid" Multiplicity="1" />
@@ -593,6 +597,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_usercompany">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="companies" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="user_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_INVITATI_INVITE_EXPERT">
           <End Role="experts" Type="Self.expert" Multiplicity="1" />
           <End Role="invitations" Type="Self.invitation" Multiplicity="*" />
@@ -602,6 +618,18 @@
             </Principal>
             <Dependent Role="invitations">
               <PropertyRef Name="expertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userexpert">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="experts" Type="Self.expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="experts">
+              <PropertyRef Name="user_userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -641,6 +669,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_purchaseteam">
+          <End Role="purchases" Type="Self.purchase" Multiplicity="1" />
+          <End Role="teams" Type="Self.team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchases">
+              <PropertyRef Name="purchaseId" />
+            </Principal>
+            <Dependent Role="teams">
+              <PropertyRef Name="purchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_uservendor">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="vendors" Type="Self.vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="vendors">
+              <PropertyRef Name="user_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WebSiteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admins" EntityType="Self.admin" />
           <EntitySet Name="audits" EntityType="Self.audit" />
@@ -653,6 +705,7 @@
           <EntitySet Name="news" EntityType="Self.news" />
           <EntitySet Name="purchases" EntityType="Self.purchase" />
           <EntitySet Name="teams" EntityType="Self.team" />
+          <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="vendors" EntityType="Self.vendor" />
           <AssociationSet Name="FK_AUDIT_AUDIT_BID" Association="Self.FK_AUDIT_AUDIT_BID">
             <End Role="bids" EntitySet="bids" />
@@ -678,9 +731,17 @@
             <End Role="companies" EntitySet="companies" />
             <End Role="purchases" EntitySet="purchases" />
           </AssociationSet>
+          <AssociationSet Name="FK_usercompany" Association="Self.FK_usercompany">
+            <End Role="users" EntitySet="users" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
           <AssociationSet Name="FK_INVITATI_INVITE_EXPERT" Association="Self.FK_INVITATI_INVITE_EXPERT">
             <End Role="experts" EntitySet="experts" />
             <End Role="invitations" EntitySet="invitations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userexpert" Association="Self.FK_userexpert">
+            <End Role="users" EntitySet="users" />
+            <End Role="experts" EntitySet="experts" />
           </AssociationSet>
           <AssociationSet Name="FK_INVITATI_RESPOND_PURCHASE" Association="Self.FK_INVITATI_RESPOND_PURCHASE">
             <End Role="purchases" EntitySet="purchases" />
@@ -694,246 +755,161 @@
             <End Role="vendors" EntitySet="vendors" />
             <End Role="members" EntitySet="members" />
           </AssociationSet>
-          <AssociationSet Name="purchaseteam" Association="WebSiteModel.purchaseteam">
-            <End Role="purchase" EntitySet="purchases" />
-            <End Role="team" EntitySet="teams" />
+          <AssociationSet Name="FK_purchaseteam" Association="Self.FK_purchaseteam">
+            <End Role="purchases" EntitySet="purchases" />
+            <End Role="teams" EntitySet="teams" />
           </AssociationSet>
-          <AssociationSet Name="vendorteam" Association="WebSiteModel.vendorteam">
-            <End Role="vendor" EntitySet="vendors" />
-            <End Role="team" EntitySet="teams" />
-          </AssociationSet>
-          <EntitySet Name="user" EntityType="WebSiteModel.user" />
-          <AssociationSet Name="userexpert" Association="WebSiteModel.userexpert">
-            <End Role="user" EntitySet="user" />
-            <End Role="expert" EntitySet="experts" />
-          </AssociationSet>
-          <AssociationSet Name="usercompany" Association="WebSiteModel.usercompany">
-            <End Role="user" EntitySet="user" />
-            <End Role="company" EntitySet="companies" />
-          </AssociationSet>
-          <AssociationSet Name="uservendor" Association="WebSiteModel.uservendor">
-            <End Role="user" EntitySet="user" />
-            <End Role="vendor" EntitySet="vendors" />
+          <AssociationSet Name="FK_uservendor" Association="Self.FK_uservendor">
+            <End Role="users" EntitySet="users" />
+            <End Role="vendors" EntitySet="vendors" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="purchaseteam">
-          <End Type="WebSiteModel.purchase" Role="purchase" Multiplicity="1" />
-          <End Type="WebSiteModel.team" Role="team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="purchase">
-              <PropertyRef Name="purchaseId" />
-            </Principal>
-            <Dependent Role="team">
-              <PropertyRef Name="purchaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="vendorteam">
-          <End Type="WebSiteModel.vendor" Role="vendor" Multiplicity="1" />
-          <End Type="WebSiteModel.team" Role="team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vendor">
-              <PropertyRef Name="vendorId" />
-            </Principal>
-            <Dependent Role="team">
-              <PropertyRef Name="vendorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="user">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_type" Type="String" Nullable="false" />
-          <Property Name="user_telephone" Type="String" Nullable="false" />
-          <Property Name="user_mail" Type="String" Nullable="false" />
-          <Property Name="user_name" Type="String" Nullable="false" />
-          <Property Name="user_address" Type="String" Nullable="false" />
-          <Property Name="user_introduction" Type="String" Nullable="false" />
-          <Property Name="user_password" Type="String" Nullable="false" />
-          <NavigationProperty Name="expert" Relationship="WebSiteModel.userexpert" FromRole="user" ToRole="expert" />
-          <NavigationProperty Name="company" Relationship="WebSiteModel.usercompany" FromRole="user" ToRole="company" />
-          <NavigationProperty Name="vendor" Relationship="WebSiteModel.uservendor" FromRole="user" ToRole="vendor" />
-        </EntityType>
-        <Association Name="userexpert">
-          <End Type="WebSiteModel.user" Role="user" Multiplicity="1" />
-          <End Type="WebSiteModel.expert" Role="expert" Multiplicity="0..1" />
-        </Association>
-        <Association Name="usercompany">
-          <End Type="WebSiteModel.user" Role="user" Multiplicity="1" />
-          <End Type="WebSiteModel.company" Role="company" Multiplicity="0..1" />
-        </Association>
-        <Association Name="uservendor">
-          <End Type="WebSiteModel.user" Role="user" Multiplicity="1" />
-          <End Type="WebSiteModel.vendor" Role="vendor" Multiplicity="0..1" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="WebSiteModelStoreContainer" CdmEntityContainer="WebSiteEntities">
-    <EntitySetMapping Name="admins">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.admin)">
-        <MappingFragment StoreEntitySet="admins">
-          <ScalarProperty Name="adminId" ColumnName="adminId" />
-          <ScalarProperty Name="admin_name" ColumnName="admin_name" />
-          <ScalarProperty Name="admin_pwd" ColumnName="admin_pwd" />
-          <ScalarProperty Name="time" ColumnName="time" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="audits">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.audit)">
-        <MappingFragment StoreEntitySet="audits">
-          <ScalarProperty Name="auditId" ColumnName="auditId" />
-          <ScalarProperty Name="bidId" ColumnName="bidId" />
-          <ScalarProperty Name="expertId" ColumnName="expertId" />
-          <ScalarProperty Name="audit_content" ColumnName="audit_content" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="bidders">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.bidder)">
-        <MappingFragment StoreEntitySet="bidders">
-          <ScalarProperty Name="bidderId" ColumnName="bidderId" />
-          <ScalarProperty Name="bidder_is_team" ColumnName="bidder_is_team" />
-          <ScalarProperty Name="tendererId" ColumnName="tendererId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="bids">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.bid)">
-        <MappingFragment StoreEntitySet="bids">
-          <ScalarProperty Name="bidId" ColumnName="bidId" />
-          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
-          <ScalarProperty Name="bidderId" ColumnName="bidderId" />
-          <ScalarProperty Name="bid_title" ColumnName="bid_title" />
-          <ScalarProperty Name="bid_device_name" ColumnName="bid_device_name" />
-          <ScalarProperty Name="bid_time" ColumnName="bid_time" />
-          <ScalarProperty Name="bid_number" ColumnName="bid_number" />
-          <ScalarProperty Name="bid_introduction" ColumnName="bid_introduction" />
-          <ScalarProperty Name="bid_content" ColumnName="bid_content" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="companies">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.company)">
-        <MappingFragment StoreEntitySet="companies">
-          <ScalarProperty Name="companyId" ColumnName="companyId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="experts">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.expert)">
-        <MappingFragment StoreEntitySet="experts">
-          <ScalarProperty Name="expertId" ColumnName="expertId" />
-          <ScalarProperty Name="expert_image" ColumnName="expert_image" />
-          <ScalarProperty Name="expert_accept_count" ColumnName="expert_accept_count" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="invitations">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.invitation)">
-        <MappingFragment StoreEntitySet="invitations">
-          <ScalarProperty Name="invitationId" ColumnName="invitationId" />
-          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
-          <ScalarProperty Name="expertId" ColumnName="expertId" />
-          <ScalarProperty Name="invitation_content" ColumnName="invitation_content" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="members">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.member)">
-        <MappingFragment StoreEntitySet="members">
-          <ScalarProperty Name="memberId" ColumnName="memberId" />
-          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-          <ScalarProperty Name="teamId" ColumnName="teamId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="news">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.news)">
-        <MappingFragment StoreEntitySet="news">
-          <ScalarProperty Name="newsId" ColumnName="newsId" />
-          <ScalarProperty Name="companyId" ColumnName="companyId" />
-          <ScalarProperty Name="news_title" ColumnName="news_title" />
-          <ScalarProperty Name="news_content" ColumnName="news_content" />
-          <ScalarProperty Name="news_time" ColumnName="news_time" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="purchases">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.purchase)">
-        <MappingFragment StoreEntitySet="purchases">
-          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
-          <ScalarProperty Name="companyId" ColumnName="companyId" />
-          <ScalarProperty Name="purchase_title" ColumnName="purchase_title" />
-          <ScalarProperty Name="purchase_content" ColumnName="purchase_content" />
-          <ScalarProperty Name="purchase_time" ColumnName="purchase_time" />
-          <ScalarProperty Name="hitId" ColumnName="hitId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="teams">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.team)">
-        <MappingFragment StoreEntitySet="teams">
-          <ScalarProperty Name="teamId" ColumnName="teamId" />
-          <ScalarProperty Name="team_name" ColumnName="team_name" />
-          <ScalarProperty Name="team_introduction" ColumnName="team_introduction" />
-          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
-          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="vendors">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.vendor)">
-        <MappingFragment StoreEntitySet="vendors">
-          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="user">
-      <EntityTypeMapping TypeName="IsTypeOf(WebSiteModel.user)">
-        <MappingFragment StoreEntitySet="user">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="user_type" ColumnName="user_type" />
-          <ScalarProperty Name="user_telephone" ColumnName="user_telephone" />
-          <ScalarProperty Name="user_mail" ColumnName="user_mail" />
-          <ScalarProperty Name="user_name" ColumnName="user_name" />
-          <ScalarProperty Name="user_address" ColumnName="user_address" />
-          <ScalarProperty Name="user_introduction" ColumnName="user_introduction" />
-          <ScalarProperty Name="user_password" ColumnName="user_password" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="userexpert" TypeName="WebSiteModel.userexpert" StoreEntitySet="experts">
-      <EndProperty Name="user">
-        <ScalarProperty Name="userId" ColumnName="user_userId" />
-      </EndProperty>
-      <EndProperty Name="expert">
-        <ScalarProperty Name="expertId" ColumnName="expertId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="usercompany" TypeName="WebSiteModel.usercompany" StoreEntitySet="companies">
-      <EndProperty Name="user">
-        <ScalarProperty Name="userId" ColumnName="user_userId" />
-      </EndProperty>
-      <EndProperty Name="company">
-        <ScalarProperty Name="companyId" ColumnName="companyId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="uservendor" TypeName="WebSiteModel.uservendor" StoreEntitySet="vendors">
-      <EndProperty Name="user">
-        <ScalarProperty Name="userId" ColumnName="user_userId" />
-      </EndProperty>
-      <EndProperty Name="vendor">
-        <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-      </EndProperty>
-    </AssociationSetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebSiteModelStoreContainer" CdmEntityContainer="WebSiteEntities">
+          <EntitySetMapping Name="admins">
+            <EntityTypeMapping TypeName="WebSiteModel.admin">
+              <MappingFragment StoreEntitySet="admins">
+                <ScalarProperty Name="adminId" ColumnName="adminId" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_pwd" ColumnName="admin_pwd" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audits">
+            <EntityTypeMapping TypeName="WebSiteModel.audit">
+              <MappingFragment StoreEntitySet="audits">
+                <ScalarProperty Name="bidId" ColumnName="bidId" />
+                <ScalarProperty Name="expertId" ColumnName="expertId" />
+                <ScalarProperty Name="auditId" ColumnName="auditId" />
+                <ScalarProperty Name="audit_content" ColumnName="audit_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bidders">
+            <EntityTypeMapping TypeName="WebSiteModel.bidder">
+              <MappingFragment StoreEntitySet="bidders">
+                <ScalarProperty Name="bidderId" ColumnName="bidderId" />
+                <ScalarProperty Name="bidder_is_team" ColumnName="bidder_is_team" />
+                <ScalarProperty Name="tendererId" ColumnName="tendererId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bids">
+            <EntityTypeMapping TypeName="WebSiteModel.bid">
+              <MappingFragment StoreEntitySet="bids">
+                <ScalarProperty Name="bidId" ColumnName="bidId" />
+                <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+                <ScalarProperty Name="bidderId" ColumnName="bidderId" />
+                <ScalarProperty Name="bid_title" ColumnName="bid_title" />
+                <ScalarProperty Name="bid_device_name" ColumnName="bid_device_name" />
+                <ScalarProperty Name="bid_time" ColumnName="bid_time" />
+                <ScalarProperty Name="bid_number" ColumnName="bid_number" />
+                <ScalarProperty Name="bid_introduction" ColumnName="bid_introduction" />
+                <ScalarProperty Name="bid_content" ColumnName="bid_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="WebSiteModel.company">
+              <MappingFragment StoreEntitySet="companies">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="user_userId" ColumnName="user_userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="experts">
+            <EntityTypeMapping TypeName="WebSiteModel.expert">
+              <MappingFragment StoreEntitySet="experts">
+                <ScalarProperty Name="expertId" ColumnName="expertId" />
+                <ScalarProperty Name="expert_image" ColumnName="expert_image" />
+                <ScalarProperty Name="expert_accept_count" ColumnName="expert_accept_count" />
+                <ScalarProperty Name="user_userId" ColumnName="user_userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invitations">
+            <EntityTypeMapping TypeName="WebSiteModel.invitation">
+              <MappingFragment StoreEntitySet="invitations">
+                <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+                <ScalarProperty Name="expertId" ColumnName="expertId" />
+                <ScalarProperty Name="invitationId" ColumnName="invitationId" />
+                <ScalarProperty Name="invitation_content" ColumnName="invitation_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="WebSiteModel.member">
+              <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+                <ScalarProperty Name="teamId" ColumnName="teamId" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="news">
+            <EntityTypeMapping TypeName="WebSiteModel.news">
+              <MappingFragment StoreEntitySet="news">
+                <ScalarProperty Name="newsId" ColumnName="newsId" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="news_title" ColumnName="news_title" />
+                <ScalarProperty Name="news_content" ColumnName="news_content" />
+                <ScalarProperty Name="news_time" ColumnName="news_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchases">
+            <EntityTypeMapping TypeName="WebSiteModel.purchase">
+              <MappingFragment StoreEntitySet="purchases">
+                <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="purchase_title" ColumnName="purchase_title" />
+                <ScalarProperty Name="purchase_content" ColumnName="purchase_content" />
+                <ScalarProperty Name="purchase_time" ColumnName="purchase_time" />
+                <ScalarProperty Name="hitId" ColumnName="hitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="WebSiteModel.team">
+              <MappingFragment StoreEntitySet="teams">
+                <ScalarProperty Name="teamId" ColumnName="teamId" />
+                <ScalarProperty Name="team_name" ColumnName="team_name" />
+                <ScalarProperty Name="team_introduction" ColumnName="team_introduction" />
+                <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+                <ScalarProperty Name="createId" ColumnName="createId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="WebSiteModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_telephone" ColumnName="user_telephone" />
+                <ScalarProperty Name="user_mail" ColumnName="user_mail" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_address" ColumnName="user_address" />
+                <ScalarProperty Name="user_introduction" ColumnName="user_introduction" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendors">
+            <EntityTypeMapping TypeName="WebSiteModel.vendor">
+              <MappingFragment StoreEntitySet="vendors">
+                <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+                <ScalarProperty Name="user_userId" ColumnName="user_userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -947,7 +923,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

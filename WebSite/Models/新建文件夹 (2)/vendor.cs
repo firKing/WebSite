@@ -17,12 +17,14 @@ namespace WebSite.Models
         public vendor()
         {
             this.members = new HashSet<member>();
+            this.teams = new HashSet<team>();
         }
     
         public int vendorId { get; set; }
-        public int user_userId { get; set; }
+        public int userId { get; set; }
     
         public virtual ICollection<member> members { get; set; }
+        public virtual ICollection<team> teams { get; set; }
         public virtual user user { get; set; }
     }
 }

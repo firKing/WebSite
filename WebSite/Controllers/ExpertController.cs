@@ -34,7 +34,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                var query =(IQueryable<expert>) GetList<expert>(x => x.expertId);
+                var query =(IQueryable<user>) GetList<user>(x => x.userId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 return View(result);

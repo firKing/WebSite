@@ -11,18 +11,18 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class vendor
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class audit
     {
-        public vendor()
-        {
-            this.members = new HashSet<member>();
-        }
+        public int bidId { get; set; }
+        public int expertId { get; set; }
+        public int auditId { get; set; }
+        [Required(ErrorMessage = "*")]
+
+        public string audit_content { get; set; }
     
-        public int vendorId { get; set; }
-        public int user_userId { get; set; }
-    
-        public virtual ICollection<member> members { get; set; }
-        public virtual user user { get; set; }
+        public virtual bid bid { get; set; }
+        public virtual expert expert { get; set; }
     }
 }

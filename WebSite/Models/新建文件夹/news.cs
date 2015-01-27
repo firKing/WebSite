@@ -11,18 +11,20 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class vendor
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class news
     {
-        public vendor()
-        {
-            this.members = new HashSet<member>();
-        }
+        public int newsId { get; set; }
+        public int companyId { get; set; }
+        [Required(ErrorMessage = "*")]
+
+        public string news_title { get; set; }
+        [Required(ErrorMessage = "*")]
+
+        public string news_content { get; set; }
+        public System.DateTime news_time { get; set; }
     
-        public int vendorId { get; set; }
-        public int user_userId { get; set; }
-    
-        public virtual ICollection<member> members { get; set; }
-        public virtual user user { get; set; }
+        public virtual company company { get; set; }
     }
 }

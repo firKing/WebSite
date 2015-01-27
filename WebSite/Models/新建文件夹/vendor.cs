@@ -11,16 +11,17 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class vendor
     {
         public vendor()
         {
             this.members = new HashSet<member>();
         }
-    
+        [Key, ForeignKey("user")]
         public int vendorId { get; set; }
-        public int user_userId { get; set; }
     
         public virtual ICollection<member> members { get; set; }
         public virtual user user { get; set; }

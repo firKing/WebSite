@@ -24,7 +24,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession()) 
             {
-                IQueryable<company> query = (IQueryable<company>)(new Utility().GetList<company>(x => x.companyId, Session));
+                IQueryable<user> query = (IQueryable<user>)(new Utility().GetList<user>(x => x.userId, Session));
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;

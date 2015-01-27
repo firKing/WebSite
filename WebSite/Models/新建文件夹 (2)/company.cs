@@ -12,17 +12,19 @@ namespace WebSite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vendor
+    public partial class company
     {
-        public vendor()
+        public company()
         {
-            this.members = new HashSet<member>();
+            this.news = new HashSet<news>();
+            this.purchases = new HashSet<purchase>();
         }
     
-        public int vendorId { get; set; }
-        public int user_userId { get; set; }
+        public int companyId { get; set; }
+        public int userId { get; set; }
     
-        public virtual ICollection<member> members { get; set; }
+        public virtual ICollection<news> news { get; set; }
+        public virtual ICollection<purchase> purchases { get; set; }
         public virtual user user { get; set; }
     }
 }

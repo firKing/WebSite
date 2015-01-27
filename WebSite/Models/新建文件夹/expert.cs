@@ -11,18 +11,23 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class vendor
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public partial class expert
     {
-        public vendor()
+        public expert()
         {
-            this.members = new HashSet<member>();
+            this.audits = new HashSet<audit>();
+            this.invitations = new HashSet<invitation>();
         }
+        [Key, ForeignKey("user")]
+        public int expertId { get; set; }
+        public string expert_image { get; set; }
+        public int expert_accept_count { get; set; }
     
-        public int vendorId { get; set; }
-        public int user_userId { get; set; }
-    
-        public virtual ICollection<member> members { get; set; }
+        public virtual ICollection<audit> audits { get; set; }
+        public virtual ICollection<invitation> invitations { get; set; }
         public virtual user user { get; set; }
     }
 }

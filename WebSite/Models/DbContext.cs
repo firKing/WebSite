@@ -1,8 +1,20 @@
-﻿namespace WebSite.Models
+﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+namespace WebSite.Models
 {
     public class WebSiteDBContext<T> : System.Data.Entity.DbContext where T : class
     {
         public System.Data.Entity.DbSet<T> table { get; set; }
+        public WebSiteDBContext()
+           : base("name=WebSiteEntities")
+        {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
     }
 
     public class AdminDBContext : System.Data.Entity.DbContext

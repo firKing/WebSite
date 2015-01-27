@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public partial class expert
     {
         public expert()
@@ -19,14 +20,17 @@ namespace WebSite.Models
             this.audits = new HashSet<audit>();
             this.invitations = new HashSet<invitation>();
         }
-    
+        [Key]
+
         public int expertId { get; set; }
         public string expert_image { get; set; }
         public int expert_accept_count { get; set; }
-        public int user_userId { get; set; }
+        public int userId { get; set; }
     
         public virtual ICollection<audit> audits { get; set; }
         public virtual ICollection<invitation> invitations { get; set; }
+        [ForeignKey("userId")]
+
         public virtual user user { get; set; }
     }
 }

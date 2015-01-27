@@ -21,6 +21,7 @@ namespace WebSite.Models
         }
     
         public int companyId { get; set; }
+        public int user_userId { get; set; }
     
         public virtual ICollection<news> news { get; set; }
         public virtual ICollection<purchase> purchases { get; set; }

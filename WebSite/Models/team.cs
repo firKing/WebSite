@@ -11,9 +11,7 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class team
     {
         public team()
@@ -22,17 +20,12 @@ namespace WebSite.Models
         }
     
         public int teamId { get; set; }
-        [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
-
-        [Remote("Verify", "CheckTeamNameRegister", ErrorMessage = "user name is registered")]
         public string team_name { get; set; }
         public string team_introduction { get; set; }
         public int purchaseId { get; set; }
-        public int vendorId { get; set; }
+        public int createId { get; set; }
     
         public virtual ICollection<member> members { get; set; }
         public virtual purchase purchase { get; set; }
-        public virtual vendor vendor { get; set; }
     }
 }

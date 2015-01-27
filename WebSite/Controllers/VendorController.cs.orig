@@ -23,7 +23,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                var query = (IQueryable<user>)GetList<user>(x => x.userId);
+                var query = (IQueryable<vendor>)GetList<vendor>(x => x.vendorId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.vendor = result;
@@ -36,6 +36,21 @@ namespace WebSite.Controllers
         // 成员姓名， 逗号分隔 group_name
         // 采购对象 purchase_object
         // 概要 summary
+<<<<<<< HEAD
+
+        [HttpGet]
+        public ActionResult CreateTeam(String purchaseTitle)
+        {
+            if (CheckSession())
+            {
+                ViewBag.purchaseTitle = purchaseTitle;
+                return View();
+            }
+            return RedirectToAction("Company", "Home");
+        }
+
+=======
+>>>>>>> 1fc4d426925c6099932c2a50e6ef6fdef53ffb1f
         [HttpPost]
         public ActionResult CreateTeam(team info)
         {
@@ -74,7 +89,7 @@ namespace WebSite.Controllers
             {
                
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<team>)GetList<team>(x => x.createId);
+                var query = (IQueryable<team>)GetList<team>(x => x.vendorId);
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {

@@ -12,12 +12,6 @@ namespace WebSite.Controllers
     //验证逻辑的ajax服务器端.
     public class VerifyController : Controller
     {
-        private bool CheckNameExist<T>(Expression<Func<T, bool>> expression) where T : class
-        {
-            return (new SingleTableModule<T>())
-                        .FindInfo(expression)
-                        .Count() == 1;
-        }
         
         private bool CheckLogin<T>(Expression<Func<T, bool>> checkName, Expression<Func<T, bool>> checkPassword,UserType type) where T : class
         {
@@ -36,26 +30,13 @@ namespace WebSite.Controllers
             return result;
         }
         //romote vailation
-        public ActionResult CheckNameExist(string name, UserType type)
+        public ActionResult CheckNameExist(string name, string type)
         {
             bool result = false;
-            switch (type)
-            {
-                case UserType.Expert:
-                    result = CheckNameExist<expert>(x => x.user.user_name == name);
-                    break;
-
-                case UserType.Company:
-                    result = CheckNameExist<company>(x => x.user.user_name == name);
-                    break;
-
-                case UserType.Vendor:
-                    result = CheckNameExist<vendor>(x => x.user.user_name == name);
-                    break;
-
-                default:
-                    break;
-            }
+            result = (new SingleTableModule<user>())
+                        .FindInfo(x => x.user_name == name &&
+                                x.user_type == type)
+                        .Count() == 1;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         //ajax
@@ -65,32 +46,15 @@ namespace WebSite.Controllers
             var result = false;
             if (ModelState.IsValid)
             {
-                Assert(info.type != UserType.Team);
-                switch (info.type)
+               // Assert(info.type != UserType.Team.ToString());
+                var element = (new SingleTableModule<user>())
+                        .FindInfo(x => x.user_name == info.name &&
+                                x.user_type.ToString() == info.type.ToString());
+                if (element != null && element.Count() == 1)
                 {
-                    case UserType.Expert:
-                        result = CheckLogin<expert>(
-                            x => x.user.user_name == info.name,
-                            x => x.user.user_password == info.password,
-                            info.type);
-                        break;
-
-                    case UserType.Company:
-                        result = CheckLogin<company>(
-                            x => x.user.user_name == info.name,
-                            x => x.user.user_password == info.password,
-                             info.type);
-                        break;
-
-                    case UserType.Vendor:
-                        result = CheckLogin<vendor>(
-                            x => x.user.user_name == info.name,
-                            x => x.user.user_password == info.password,
-                             info.type);
-                        break;
-
-                    default:
-                        break;
+                    var target = element.SingleOrDefault();
+                    Session["user_type"] = target.user_type;
+                    Session["user_id"] = target.userId;
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);

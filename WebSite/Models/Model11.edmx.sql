@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/27/2015 16:10:38
--- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
+-- Date Created: 01/27/2015 19:58:05
+-- Generated from EDMX file: H:\c#\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -53,6 +53,15 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_vendorteam]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[teams] DROP CONSTRAINT [FK_vendorteam];
 GO
+IF OBJECT_ID(N'[dbo].[FK_userexpert]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[experts] DROP CONSTRAINT [FK_userexpert];
+GO
+IF OBJECT_ID(N'[dbo].[FK_usercompany]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[companies] DROP CONSTRAINT [FK_usercompany];
+GO
+IF OBJECT_ID(N'[dbo].[FK_uservendor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[vendors] DROP CONSTRAINT [FK_uservendor];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -93,6 +102,9 @@ IF OBJECT_ID(N'[dbo].[teams]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[vendors]', 'U') IS NOT NULL
     DROP TABLE [dbo].[vendors];
+GO
+IF OBJECT_ID(N'[dbo].[user]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[user];
 GO
 
 -- --------------------------------------------------
