@@ -12,15 +12,12 @@ namespace WebSite.Controllers
     public class VendorController : Controller
     {
         // GET: VendorHome
-        public ActionResult Index()
-        {
-            return Info();
-        }
         public ActionResult Home()
         {
             return Info();
         }
        
+
 
         public ActionResult Info()
         {
@@ -33,7 +30,23 @@ namespace WebSite.Controllers
             }
             return RedirectToAction("Index", "Index");
         }
-       
+
+        // 提交创建虚拟团队
+        [HttpPost]
+        // 队名 group_name
+        // 采购对象 purchase_object
+        // 概要 summary
+
+        public ActionResult CreateTeam(team info)
+        {
+            if (CheckSession())
+            {
+                var table = new SingleTableModule<team>();
+                table.Create(info);
+            }            
+            return RedirectToAction("Company", "Home");
+        }
+                   
         //加入的团队列表
         public ActionResult AddTeamList()
         {
