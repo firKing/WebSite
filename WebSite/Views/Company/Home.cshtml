@@ -1,17 +1,69 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CompanyHome";
-    Layout = "~/Views/Layouts/Personal.cshtml";
+    Layout = "~/Views/Layouts/Home.cshtml";
 }
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
-    @Styles.Render("~/Content/BidList/BidList.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Company/Company.css")
 }
 
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/BidList/BidList.js")
+    @Scripts.Render("~/Scripts/Company/Cpmpany.js")
 }
-<h2>CompanyHome</h2>
 
+<div id="list-main">
+    <h2>
+        新闻列表
+       <!-- <a class="back" href="#">退出登录</a> -->
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li><div class="line"></div>企业信息</li>
+                <li><div class=""></div>我创建的招标</li>
+                <li><div class=""></div>我发布的新闻</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <form class="info" action="" method="post">
+                <div class="title">
+                    <h2>企业信息</h2>
+                    <div class="change">@Html.ActionLink("修改", "Index", "Company", new { company_id=ViewBag.home.company_id })</div>
+                </div>
+                <div class="details">
+                    <div class="show">
+                        <h3>基本信息</h3>
+                        <ul>
+                            <li>企业名称: @ViewBag.home.company_name</li>
+                            <li>电话： @ViewBag.home.company_telephone</li>
+                            <li>邮箱: @ViewBag.home.company.company_mail</li>
+                            <li>联系地址: @ViewBag.home.company_address</li>
+                            <li>概要： @ViewBag.home.company_introduction </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <form class="info" action="" method="post">
+                <div class="title">
+                    <h2>企业邀请</h2>
+                    <div class="change">修改</div>
+                </div>
+                <div class="details">
+                    <div class="section">
+                        <div class="submit">
+                            <a href="#">接受</a>
+                            <a href="#">拒绝</a>
+                        </div>
+                        <h3>xxx 采购</h3>
+                        <p>sdlksajdlksajdlsajqwdjlkwqjdlkwqjdlkjwqlkdjwqlkdjwqlkdjlkwqjdlkwqjdlkwjqlkjdlkwqjlkdjwqlkdjlkdjsalkdjaslkjdlksajlkd</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

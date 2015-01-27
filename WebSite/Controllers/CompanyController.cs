@@ -11,10 +11,6 @@ namespace WebSite.Controllers
     public class CompanyController : Controller
     {
         // GET: CompanyHome
-        public ActionResult Index()
-        {
-            return Info();
-        }
         public ActionResult Home()
         {
             return Info();
@@ -31,7 +27,8 @@ namespace WebSite.Controllers
                 IQueryable<company> query = (IQueryable<company>)(new Utility().GetList<company>(x => x.companyId, Session));
                 var result = query.SingleOrDefault();
                 Assert(result != null);
-                return View(result);
+                ViewBag.home = result;
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }

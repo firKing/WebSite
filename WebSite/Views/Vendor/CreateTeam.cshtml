@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Layouts/Pub.cshtml";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/CreateTeam/CreateTeam.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+}
+
+
+<div id="CreateTeam">
+    <form class="form-horizontal" role="form" method="post">
+        <div class="form-group">
+            <label for="inputName" class="col-sm-3 control-label">队名</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="group_name" id="inputName" placeholder="队名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputTarget" class="col-sm-3 control-label">采购对象</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" name="purchase_object" id="inputTarget" placeholder="采购对象">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="outline" class="col-sm-3 control-label">概要</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="summary" id="outline" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="form-group form-submit">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-success">保存并提交</button>
+            </div>
+        </div>
+    </form>
+</div>
