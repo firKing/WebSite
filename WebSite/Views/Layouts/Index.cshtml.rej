@@ -1,0 +1,47 @@
+diff a/WebSite/Views/Layouts/Index.cshtml b/WebSite/Views/Layouts/Index.cshtml	(rejected hunks)
+@@ -6,45 +6,6 @@
+     @RenderSection("css")
+ </head>
+ <body>
+-    <!--登陆框-->
+-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+-        <div class="modal-dialog modal-sm">
+-            <div class="modal-content">
+-                <h3>登录</h3>
+-
+-                <form action="">
+-                    <div class="form-group">
+-                        <label for="exampleInputEmail1">用户名/邮箱</label>
+-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+-                    </div>
+-                    <div class="form-group">
+-                        <label for="exampleInputPassword1">密码</label>
+-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+-                    </div>
+-                    <div class="form-group navbar-right">
+-                        <label class="radio-inline">
+-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 供应商
+-                        </label>
+-                        <label class="radio-inline">
+-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 单位
+-                        </label>
+-                        <label class="radio-inline">
+-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 专家
+-                        </label>
+-                    </div>
+-                    <label class="checkbox-inline">
+-                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 记住我
+-                    </label>
+-                    <div class="form-group form-a">
+-                        <a href="#">找回密码</a>
+-                        <a href="#">点我注册</a>
+-                    </div>
+-                    <button type="button" class="btn btn-success">登录</button>
+-                </form>
+-            </div>
+-        </div>
+-    </div>
+-    <!--登陆框-->
+     @Html.Partial("~/Views/Shared/header.cshtml")
+     <!--首页主体部分-->
+     <div id="myCarousel" class="carousel slide" data-ride="carousel">
