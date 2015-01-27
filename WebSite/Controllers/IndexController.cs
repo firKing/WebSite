@@ -11,8 +11,8 @@ namespace WebSite.Controllers
     {
         private Pair<String,int> GetMonthAndDay(System.DateTime time)
         {
-            var result = new Pair<String, int>();
-            result .second = time.Day); 
+            var result = new Pair<String, int>(new String('\0',0),0);
+            result .second = time.Day; 
             switch (time.Month)
             {
                 case 1:
