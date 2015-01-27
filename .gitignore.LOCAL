@@ -5,7 +5,8 @@
 *.suo
 *.user
 *.userosscache
-*.csproj
+*.sln.docstates
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -17,7 +18,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-*.chk
+
 # Roslyn cache directories
 *.ide/
 
@@ -33,7 +34,6 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
-*.csproj
 
 *_i.c
 *_p.c
@@ -59,7 +59,7 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
-WebSite.*
+
 # Chutzpah Test files
 _Chutzpah*
 
@@ -149,8 +149,6 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
-*.csproj
-*.sln.ide
 node_modules/
 
 # RIA/Silverlight projects
@@ -176,6 +174,3 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 .idea/
-
-WebSite.sln.ide/
-WebSite/WebSite.csproj

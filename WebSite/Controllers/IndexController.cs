@@ -11,12 +11,16 @@ namespace WebSite.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            return View(
-                Tuple.Create
-                (GetList<expert>(1),
-                 GetList<news>(6),
-                 GetList<purchase>(6),
-                 GetList<team>(12)));
+            var expertList = GetList<expert>(1);
+            var newsList = GetList<news>(6);
+            var purchaseList = GetList<purchase>(6);
+            var teamList = GetList<team>(12);
+                
+            ViewBag.experts = expertList;
+            ViewBag.newses = newsList;
+            ViewBag.purchases = purchaseList;
+            ViewBag.teams = teamList;
+            return View();
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
