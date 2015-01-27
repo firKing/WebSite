@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.csproj
+WebSite/Web.config
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
