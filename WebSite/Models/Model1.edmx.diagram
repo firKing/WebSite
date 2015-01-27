@@ -27,6 +27,12 @@
         <AssociationConnector Association="WebSiteModel.FK_INVITATI_RESPOND_PURCHASE" ManuallyRouted="false" />
         <AssociationConnector Association="WebSiteModel.FK_MEMBER_COMPONENT_TEAM" ManuallyRouted="false" />
         <AssociationConnector Association="WebSiteModel.FK_MEMBER_INCLUDE_VENDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="WebSiteModel.purchaseteam" />
+        <AssociationConnector Association="WebSiteModel.vendorteam" />
+        <EntityTypeShape EntityType="WebSiteModel.user" Width="1.5" PointX="0.5" PointY="1.25" />
+        <AssociationConnector Association="WebSiteModel.userexpert" />
+        <AssociationConnector Association="WebSiteModel.usercompany" />
+        <AssociationConnector Association="WebSiteModel.uservendor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

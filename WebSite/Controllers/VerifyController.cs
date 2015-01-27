@@ -42,15 +42,15 @@ namespace WebSite.Controllers
             switch (type)
             {
                 case UserType.Expert:
-                    result = CheckNameExist<expert>(x => x.expert_name == name);
+                    result = CheckNameExist<expert>(x => x.user.user_name == name);
                     break;
 
                 case UserType.Company:
-                    result = CheckNameExist<company>(x => x.company_name == name);
+                    result = CheckNameExist<company>(x => x.user.user_name == name);
                     break;
 
                 case UserType.Vendor:
-                    result = CheckNameExist<vendor>(x => x.vendor_name == name);
+                    result = CheckNameExist<vendor>(x => x.user.user_name == name);
                     break;
 
                 default:
@@ -70,22 +70,22 @@ namespace WebSite.Controllers
                 {
                     case UserType.Expert:
                         result = CheckLogin<expert>(
-                            x => x.expert_name == info.name,
-                            x => x.expert_password == info.password,
+                            x => x.user.user_name == info.name,
+                            x => x.user.user_password == info.password,
                             info.type);
                         break;
 
                     case UserType.Company:
                         result = CheckLogin<company>(
-                            x => x.company_name == info.name,
-                            x => x.company_password == info.password,
+                            x => x.user.user_name == info.name,
+                            x => x.user.user_password == info.password,
                              info.type);
                         break;
 
                     case UserType.Vendor:
                         result = CheckLogin<vendor>(
-                            x => x.vendor_name == info.name,
-                            x => x.vendor_password == info.password,
+                            x => x.user.user_name == info.name,
+                            x => x.user.user_password == info.password,
                              info.type);
                         break;
 

@@ -37,6 +37,18 @@ namespace WebSite.Controllers
         // 采购对象 purchase_object
         // 概要 summary
 
+        [HttpGet]
+        public ActionResult CreateTeam(String purchaseTitle)
+        {
+            if (CheckSession())
+            {
+                ViewBag.purchaseTitle = purchaseTitle;
+                return View();
+            }
+            return RedirectToAction("Company", "Home");
+        }
+
+        [HttpPost]
         public ActionResult CreateTeam(team info)
         {
             if (CheckSession())
@@ -73,7 +85,7 @@ namespace WebSite.Controllers
             {
                
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<team>)GetList<team>(x => x.createId);
+                var query = (IQueryable<team>)GetList<team>(x => x.vendorId);
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {

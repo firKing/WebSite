@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/23/2015 23:31:02
+-- Date Created: 01/27/2015 16:10:38
 -- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -23,11 +23,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AUDIT_HAVE_EXPERT]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[audits] DROP CONSTRAINT [FK_AUDIT_HAVE_EXPERT];
 GO
+IF OBJECT_ID(N'[dbo].[FK_BID_PUBLISH_B_BIDDER]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
+GO
 IF OBJECT_ID(N'[dbo].[FK_BID_HAVE_BID_PURCHASE]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_HAVE_BID_PURCHASE];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BID_PUBLISH_B_BIDDER]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
+IF OBJECT_ID(N'[dbo].[FK_NEWS_PUBLISH_N_COMPANY]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[news] DROP CONSTRAINT [FK_NEWS_PUBLISH_N_COMPANY];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PURCHASE_PUBLISH_P_COMPANY]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[purchases] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
 GO
 IF OBJECT_ID(N'[dbo].[FK_INVITATI_INVITE_EXPERT]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[invitations] DROP CONSTRAINT [FK_INVITATI_INVITE_EXPERT];
@@ -41,11 +47,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_MEMBER_INCLUDE_VENDOR]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[members] DROP CONSTRAINT [FK_MEMBER_INCLUDE_VENDOR];
 GO
-IF OBJECT_ID(N'[dbo].[FK_NEWS_PUBLISH_N_COMPANY]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[news] DROP CONSTRAINT [FK_NEWS_PUBLISH_N_COMPANY];
+IF OBJECT_ID(N'[dbo].[FK_purchaseteam]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[teams] DROP CONSTRAINT [FK_purchaseteam];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PURCHASE_PUBLISH_P_COMPANY]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[purchases] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
+IF OBJECT_ID(N'[dbo].[FK_vendorteam]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[teams] DROP CONSTRAINT [FK_vendorteam];
 GO
 
 -- --------------------------------------------------
@@ -136,26 +142,16 @@ GO
 -- Creating table 'companies'
 CREATE TABLE [dbo].[companies] (
     [companyId] int  NOT NULL,
-    [company_name] varchar(20)  NOT NULL,
-    [company_telephone] varchar(20)  NOT NULL,
-    [company_mail] varchar(50)  NOT NULL,
-    [company_address] varchar(300)  NOT NULL,
-    [company_introduction] varchar(500)  NOT NULL,
-    [company_password] varchar(20)  NOT NULL
+    [user_userId] int  NOT NULL
 );
 GO
 
 -- Creating table 'experts'
 CREATE TABLE [dbo].[experts] (
     [expertId] int  NOT NULL,
-    [expert_name] varchar(20)  NOT NULL,
-    [expert_telephone] varchar(20)  NOT NULL,
-    [expert_mail] varchar(50)  NOT NULL,
-    [expert_address] varchar(300)  NOT NULL,
-    [expert_introduce] varchar(500)  NOT NULL,
-    [expert_password] varchar(20)  NOT NULL,
-    [expert_image] varbinary(max)  NULL,
-    [expert_accept_count] int  NOT NULL
+    [expert_image] nvarchar(max)  NULL,
+    [expert_accept_count] int  NOT NULL,
+    [user_userId] int  NOT NULL
 );
 GO
 
@@ -202,19 +198,28 @@ CREATE TABLE [dbo].[teams] (
     [teamId] int  NOT NULL,
     [team_name] varchar(30)  NOT NULL,
     [team_introduction] varchar(300)  NOT NULL,
-    [createId] int  NOT NULL
+    [purchaseId] int  NOT NULL,
+    [vendorId] int  NOT NULL
 );
 GO
 
 -- Creating table 'vendors'
 CREATE TABLE [dbo].[vendors] (
     [vendorId] int  NOT NULL,
-    [vendor_name] varchar(20)  NOT NULL,
-    [vendor_telephone] varchar(20)  NOT NULL,
-    [vendor_mail] varchar(50)  NOT NULL,
-    [vendor_address] varchar(300)  NULL,
-    [vendor_introduction] varchar(500)  NULL,
-    [vendor_password] varchar(20)  NOT NULL
+    [user_userId] int  NOT NULL
+);
+GO
+
+-- Creating table 'user'
+CREATE TABLE [dbo].[user] (
+    [userId] int IDENTITY(1,1) NOT NULL,
+    [user_type] nvarchar(max)  NOT NULL,
+    [user_telephone] nvarchar(max)  NOT NULL,
+    [user_mail] nvarchar(max)  NOT NULL,
+    [user_name] nvarchar(max)  NOT NULL,
+    [user_address] nvarchar(max)  NOT NULL,
+    [user_introduction] nvarchar(max)  NOT NULL,
+    [user_password] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -292,6 +297,12 @@ GO
 ALTER TABLE [dbo].[vendors]
 ADD CONSTRAINT [PK_vendors]
     PRIMARY KEY CLUSTERED ([vendorId] ASC);
+GO
+
+-- Creating primary key on [userId] in table 'user'
+ALTER TABLE [dbo].[user]
+ADD CONSTRAINT [PK_user]
+    PRIMARY KEY CLUSTERED ([userId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -446,6 +457,81 @@ GO
 CREATE INDEX [IX_FK_MEMBER_INCLUDE_VENDOR]
 ON [dbo].[members]
     ([vendorId]);
+GO
+
+-- Creating foreign key on [purchaseId] in table 'teams'
+ALTER TABLE [dbo].[teams]
+ADD CONSTRAINT [FK_purchaseteam]
+    FOREIGN KEY ([purchaseId])
+    REFERENCES [dbo].[purchases]
+        ([purchaseId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_purchaseteam'
+CREATE INDEX [IX_FK_purchaseteam]
+ON [dbo].[teams]
+    ([purchaseId]);
+GO
+
+-- Creating foreign key on [vendorId] in table 'teams'
+ALTER TABLE [dbo].[teams]
+ADD CONSTRAINT [FK_vendorteam]
+    FOREIGN KEY ([vendorId])
+    REFERENCES [dbo].[vendors]
+        ([vendorId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_vendorteam'
+CREATE INDEX [IX_FK_vendorteam]
+ON [dbo].[teams]
+    ([vendorId]);
+GO
+
+-- Creating foreign key on [user_userId] in table 'experts'
+ALTER TABLE [dbo].[experts]
+ADD CONSTRAINT [FK_userexpert]
+    FOREIGN KEY ([user_userId])
+    REFERENCES [dbo].[user]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_userexpert'
+CREATE INDEX [IX_FK_userexpert]
+ON [dbo].[experts]
+    ([user_userId]);
+GO
+
+-- Creating foreign key on [user_userId] in table 'companies'
+ALTER TABLE [dbo].[companies]
+ADD CONSTRAINT [FK_usercompany]
+    FOREIGN KEY ([user_userId])
+    REFERENCES [dbo].[user]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_usercompany'
+CREATE INDEX [IX_FK_usercompany]
+ON [dbo].[companies]
+    ([user_userId]);
+GO
+
+-- Creating foreign key on [user_userId] in table 'vendors'
+ALTER TABLE [dbo].[vendors]
+ADD CONSTRAINT [FK_uservendor]
+    FOREIGN KEY ([user_userId])
+    REFERENCES [dbo].[user]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_uservendor'
+CREATE INDEX [IX_FK_uservendor]
+ON [dbo].[vendors]
+    ([user_userId]);
 GO
 
 -- --------------------------------------------------
