@@ -11,6 +11,7 @@ namespace WebSite.Controllers
 {
     public class RegisterController : Controller
     {
+        
         // GET: Register
         //public ActionResult Index()
         //{
@@ -30,9 +31,7 @@ namespace WebSite.Controllers
         //        switch (info.type)
         //        {
         //            case UserType.Expert:
-
         //                break;
-
         //            case UserType.Company:
         //                break;
 

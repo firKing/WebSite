@@ -68,14 +68,18 @@
         <div class="col-md-8">
             <h1>新闻动态 <span></span></h1>
             <ul>
-                @{ foreach (var item in ViewBag.newses)
+                @{
+                    if (ViewBag.newses != null)
                     {
-                        <li>
-                            <a href="#">
-                                <h2><span>item.time.first</span><b>item.time.second</b></h2>
-                                <p>item.name</p>
-                            </a>
-                        </li>
+                        foreach (var item in ViewBag.newses)
+                        {
+                            <li>
+                                <a href="#">
+                                    <h2><span>item.time.first</span><b>item.time.second</b></h2>
+                                    <p>item.name</p>
+                                </a>
+                            </li>
+                        }
                     }
                 }
             </ul>
