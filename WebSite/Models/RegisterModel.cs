@@ -31,6 +31,5 @@ namespace WebSite.Models
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
         public UserType type { get; set; }
         public string password { get; set; }
-        public byte[] image { get; set; }
     }
 }

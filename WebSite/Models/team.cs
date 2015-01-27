@@ -26,13 +26,13 @@ namespace WebSite.Models
         [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
 
         [Remote("Verify", "CheckTeamNameRegister", ErrorMessage = "user name is registered")]
-
         public string team_name { get; set; }
-        [Required(ErrorMessage = "*")]
-
         public string team_introduction { get; set; }
-        public int createId { get; set; }
+        public int purchaseId { get; set; }
+        public int vendorId { get; set; }
     
         public virtual ICollection<member> members { get; set; }
+        public virtual purchase purchase { get; set; }
+        public virtual vendor vendor { get; set; }
     }
 }
