@@ -68,112 +68,59 @@
         <div class="col-md-8">
             <h1>新闻动态 <span></span></h1>
             <ul>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>重庆市国土资源和房屋档案馆档案库房装修工程施工招标补遗文件一号 <i class="btn btn-success disabled">new</i></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>重庆市国土资源和房屋档案馆档案库房装修工程施工招标补遗文件一号 <i class="btn btn-danger disabled">hot</i></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
+                @{ foreach (var item in ViewBag.newses)
+                    {
+                        <li>
+                            <a href="#">
+                                <h2><span>item.time.first</span><b>item.time.second</b></h2>
+                                <p>item.name</p>
+                            </a>
+                        </li>
+                    }
+                }
             </ul>
             <a href="#">更多>></a>
         </div>
         <div class="col-md-4">
             <h3>专家推荐</h3>
-            <img src="../Image/img1.png" alt="img1" />
-            <div class="col-text">
-                <h5>肖印平</h5>
-                <p>经济学专家，重庆大学博士</p>
-            </div>
+            @{
+                foreach (var item in ViewBag.experts)
+                {
+                    <img src="../Image/img1.png" alt="img1" />
+                    <div class="col-text">
+                        <h5>item.name</h5>
+                        <p>item.introduction</p>
+                     </div>
+                }
+            }
         </div>
     </div>
     <div class="row">
         <div class="col-md-8">
             <h1>采购信息 <span></span></h1>
             <ul>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>重庆市国土资源和房屋档案馆档案库房装修工程施工招标补遗文件一号 <i class="btn btn-success disabled">new</i></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>重庆市国土资源和房屋档案馆档案库房装修工程施工招标补遗文件一号 <i class="btn btn-danger disabled">hot</i></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <h2><span>八月</span><b>12</b></h2>
-                        <p>（2015-2017）年度重庆市市级政府采购协议供货微型企业征集公告</p>
-                    </a>
-                </li>
+                @{ foreach (var item in ViewBag.experts) {
+                        <li>
+                            <a href="#">
+                                <h2><span>item.time.first</span><b>item.time.second</b></h2>
+                                <p>item.name</p>
+                            </a>
+                        </li>
+                    }
+                }
             </ul>
             <a href="#">更多>></a>
         </div>
         <div class="col-md-4">
             <h3>正在组建的团队</h3>
             <ul class="teams">
-                <li><a href="#">Redrock团队</a></li>
-                <li><a href="#">辣条队</a></li>
-                <li><a href="#">按键伤人</a></li>
-                <li><a href="#">大家一起接项目挣大钱</a></li>
-                <li><a href="#">飞翔的html代码</a></li>
-                <li><a href="#">Redrock团队</a></li>
-                <li><a href="#">辣条队</a></li>
-                <li><a href="#">按键伤人</a></li>
-                <li><a href="#">大家一起接项目挣大钱</a></li>
-                <li><a href="#">飞翔的html代码</a></li>
-                <li><a href="#">大家一起接项目挣大钱</a></li>
-                <li><a href="#">飞翔的html代码</a></li>
+                @{ foreach (var item in ViewBag.teams)
+                    {
+                        <li>
+                            <a href="#">item.name</a>
+                        </li>
+                    }
+                }
             </ul>
             <a href="#">查看更多>></a>
         </div>
