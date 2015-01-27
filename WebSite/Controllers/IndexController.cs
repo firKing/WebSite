@@ -9,7 +9,7 @@ namespace WebSite.Controllers
 {
     public class IndexController : Controller
     {
-        private Pair<String,int> GetMonthAndDay(System.DateTime time)
+        public Pair<String,int> GetMonthAndDay(System.DateTime time)
         {
             var result = new Pair<String, int>(new String('\0',0),0);
             result .second = time.Day; 
@@ -59,15 +59,15 @@ namespace WebSite.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            var expertList = GetList<expert>(1);
-            var newsList = GetList<news>(6);
-            var purchaseList = GetList<purchase>(6);
-            var teamList = GetList<team>(12);
+            var expertList = GetList<expert>(1).ToList();
+            var newsList = GetList<news>(6).ToList();
+            var purchaseList = GetList<purchase>(6).ToList();
+            var teamList = GetList<team>(12).ToList();
               
-            ViewBag.experts = from record in expertList select new { image = record.expert_image,name = record.expert_name,introduction = record.expert_introduce };
-            ViewBag.newes = from record in newsList select new {name = record.news_title, time = GetMonthAndDay(record.news_time) };
-            ViewBag.purchases = from record in purchaseList select new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) }; ;
-            ViewBag.teams = from record in teamList select new { name = record.team_name };
+            ViewBag.experts =expertList.Select( record=>new { name = record.expert_name, image = record.expert_image, introduction = record.expert_introduce });
+            ViewBag.newes = newsList.Select(record=> new {name = record.news_title, time = GetMonthAndDay(record.news_time) });
+            ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
+            ViewBag.teams = teamList.Select(record =>new { name = record.team_name });
             return View();
         }
 
@@ -92,8 +92,7 @@ namespace WebSite.Controllers
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
         {
-            var temp = (new SingleTableModule<T>());
-            var container = temp.FindInfo().Take(countMax);
+            var container = (new SingleTableModule<T>()).FindInfo().Take(countMax);
             return container;
         }
         private IQueryable<T> GetList<T>(int page,int count) where T : class

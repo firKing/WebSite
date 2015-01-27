@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/List.cshtml";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Index/index.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Index/index.js")
+}
+
+<!--详情页主体部分-->
+<div id="list-main">
+    <h2>
+        新闻列表
+        <form class="navbar-form navbar-right" role="search">
+            <input type="text" class="form-control" placeholder="搜索题库内容">
+            <input type="submit" value=" " name="search" />
+        </form>
+    </h2>
+    <ul>
+        <li>
+            <a href="#">
+                <h4>关于报送政府采购严重违法失信行为信息记录的通知</h4>
+                <p>
+                    为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，进一步规范政府采购市场主体行为，维护政府采购市场秩序，根据
+                    《中华人民共和国政府采购法》、《国务院关于促进市场公平竞争维护市场正常秩序的若干意见》...
+                </p>
+                <span>2015年1月1日</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <h4>关于报送政府采购严重违法失信行为信息记录的通知</h4>
+                <p>
+                    为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，进一步规范政府采购市场主体行为，维护政府采购市场秩序，根据
+                    《中华人民共和国政府采购法》、《国务院关于促进市场公平竞争维护市场正常秩序的若干意见》...
+                </p>
+                <span>2015年1月1日</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <h4>关于报送政府采购严重违法失信行为信息记录的通知</h4>
+                <p>
+                    为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，进一步规范政府采购市场主体行为，维护政府采购市场秩序，根据
+                    《中华人民共和国政府采购法》、《国务院关于促进市场公平竞争维护市场正常秩序的若干意见》...
+                </p>
+                <span>2015年1月1日</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <h4>关于报送政府采购严重违法失信行为信息记录的通知</h4>
+                <p>
+                    为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，进一步规范政府采购市场主体行为，维护政府采购市场秩序，根据
+                    《中华人民共和国政府采购法》、《国务院关于促进市场公平竞争维护市场正常秩序的若干意见》...
+                </p>
+                <span>2015年1月1日</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <h4>关于报送政府采购严重违法失信行为信息记录的通知</h4>
+                <p>
+                    为推进社会信用体系建设，加强对政府采购违法失信行为记录的曝光和惩戒，进一步规范政府采购市场主体行为，维护政府采购市场秩序，根据
+                    《中华人民共和国政府采购法》、《国务院关于促进市场公平竞争维护市场正常秩序的若干意见》...
+                </p>
+                <span>2015年1月1日</span>
+            </a>
+        </li>
+    </ul>
+    <nav>
+        <ul class="pagination">
+            <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+        </ul>
+    </nav>
+</div>
+<!--详情页主体部分-->
+
