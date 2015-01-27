@@ -37,7 +37,8 @@ namespace WebSite.Controllers
                 var query =(IQueryable<expert>) GetList<expert>(x => x.expertId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
-                return View(result);
+                ViewBag.home = result;
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }
@@ -46,7 +47,8 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                return View(GetList<invitation>(x => x.expertId));
+                ViewBag.list = GetList<invitation>(x => x.expertId);
+                return View();
             }
             return RedirectToAction("Index", "Index");
             
