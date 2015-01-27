@@ -71,9 +71,33 @@ namespace WebSite.Controllers
             return View();
         }
 
+        public ActionResult PurchaseList(int page)
+        {
+           var result = GetList<purchase>(page,5);
+            ViewBag.list = result;
+            return View();
+        }
+        public ActionResult NewsList(int page)
+        {
+            var result = GetList<news>(page, 5);
+            ViewBag.list = result;
+            return View();
+        }
+        public ActionResult ExpertList(int page)
+        {
+            var result = GetList<expert>(page, 5);
+            ViewBag.list = result;
+            return View();
+        }
+
         private IQueryable<T> GetList<T>(int countMax) where T : class
         {
             var container = (new SingleTableModule<T>()).FindInfo().Take(countMax);
+            return container;
+        }
+        private IQueryable<T> GetList<T>(int page,int count) where T : class
+        {
+            var container = (new SingleTableModule<T>()).FindInfo().Skip(page*count).Take(count);
             return container;
         }
     }
