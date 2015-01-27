@@ -19,7 +19,8 @@ namespace WebSite.Controllers
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                return View(element);
+                ViewBag.news = element;
+                return View();
             }
             else
             {
