@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
@@ -63,7 +64,8 @@ namespace WebSite.Controllers
             var newsList = GetList<news>(6).ToList();
             var purchaseList = GetList<purchase>(6).ToList();
             var teamList = GetList<team>(12).ToList();
-              
+            var result = GetList<news, int>(10, 5, x => x.newsId).ToList();
+
             ViewBag.experts =expertList.Select( record=>new { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
             ViewBag.newes = newsList.Select(record=> new {name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
@@ -73,19 +75,19 @@ namespace WebSite.Controllers
 
         public ActionResult PurchaseList(int page)
         {
-           var result = GetList<purchase>(page,5);
+           var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
             ViewBag.list = result;
             return View();
         }
         public ActionResult NewsList(int page)
         {
-            var result = GetList<news>(page, 5);
+            var result = GetList<news, int>(page, 5,x=>x.newsId);
             ViewBag.list = result;
             return View();
         }
         public ActionResult ExpertList(int page)
         {
-            var result = GetList<expert>(page, 5);
+            var result = GetList<expert,int>(page, 5,x=>x.user_userId);
             ViewBag.list = result;
             return View();
         }
@@ -95,9 +97,9 @@ namespace WebSite.Controllers
             var container = (new SingleTableModule<T>()).FindInfo().Take(countMax);
             return container;
         }
-        private IQueryable<T> GetList<T>(int page,int count) where T : class
+        private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo().Skip(page*count).Take(count);
+            var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip(page*count).Take(count);
             return container;
         }
     }
