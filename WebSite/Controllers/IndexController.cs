@@ -90,13 +90,23 @@ namespace WebSite.Controllers
 
             return View("~/Views/Shared/list.cshtml");
         }
+        public ActionResult TeamList(int page)
+        {
+            var result = GetList<team, int>(page, 5, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
+
+            ViewBag.bigtitle = "虚拟团队";
+            ViewBag.list = result;
+            ViewBag.page = page + 1;
+
+            return View("~/Views/Shared/list.cshtml");
+        }
         public ActionResult ExpertList(int page)
         {
             var result = GetList<expert,int>(page, 8,x=>x.user_userId);
             ViewBag.list = result;
             ViewBag.page = page + 1;
 
-            return View("~/Views/Shared/list.cshtml");
+            return View("~/Views/Expert/List.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
@@ -107,8 +117,7 @@ namespace WebSite.Controllers
         }
         private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip(page*count).Take(count);
-            return container;
+            return new Utility().GetList(page, count, keySelector);
         }
     }
 }

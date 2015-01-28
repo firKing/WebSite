@@ -12,22 +12,40 @@ namespace WebSite.Controllers
     public class RegisterController : Controller
     {
         // GET: Register
+      
         public ActionResult Index()
         {
             return View();
         }
+
         
+        private bool CheckUserType(String type)
+        {
+            return new Utility().CheckUserType(type);
+        }
+   
         [HttpPost]
         public void Register(user info)
         {
             if (ModelState.IsValid)
             {
                 var table = new SingleTableModule<user>();
-                table.Create(info);
+                var createResult = table.Create(info);
+                if (createResult.first == true)
+                {
+                    var findIter = table.FindInfo(x => x.userId == createResult.second).SingleOrDefault();
+                    Assert(findIter != null);
+                    Assert(CheckUserType(findIter.user_type));
+
+                    SetLoginSession(findIter.userId, findIter.user_type);
+                }
             }
             
         }
-
+        private void SetLoginSession(int userId,string type)
+        {
+            new Utility().SetLoginSession(Session,userId,type);
+        }
 
     }
 }
