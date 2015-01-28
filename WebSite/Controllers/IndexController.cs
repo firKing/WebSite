@@ -75,7 +75,7 @@ namespace WebSite.Controllers
         {
            var result = GetList<purchase>(page,5);
             ViewBag.list = result;
-            return View();
+            return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult NewsList(int page)
         {
@@ -87,7 +87,7 @@ namespace WebSite.Controllers
         {
             var result = GetList<expert>(page, 5);
             ViewBag.list = result;
-            return View();
+            return View("~/Views/Shared/list.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
