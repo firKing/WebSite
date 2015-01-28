@@ -12,23 +12,8 @@ namespace WebSite.Controllers
     //验证逻辑的ajax服务器端.
     public class VerifyController : Controller
     {
-        
-        private bool CheckLogin<T>(Expression<Func<T, bool>> checkName, Expression<Func<T, bool>> checkPassword,UserType type) where T : class
-        {
-            var tableModule = new SingleTableModule<T>();
-            var query = tableModule.FindInfo().
-                Where(checkName).
-                Where(checkPassword);
-            var result = false;
-            var element = query.SingleOrDefault();
-            if (element != null)
-            {
-                result = true;
-                Session["user_id"] = tableModule.GetRecordId(element);
-                Session["user_type"] = type.ToString();
-            }
-            return result;
-        }
+      
+      
         //romote vailation
         public ActionResult CheckNameExist(string name, string type)
         {
@@ -62,7 +47,7 @@ namespace WebSite.Controllers
                                 x.user_password == info.password).SingleOrDefault();
                 if (element != null)
                 {
-                    SesSession(element.userId, element.user_type);
+                    SetLoginSession(element.userId,element.user_type);
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -86,6 +71,10 @@ namespace WebSite.Controllers
             Session["ValidateCode"] = code;
             byte[] bytes = vCode.CreateValidateGraphic(code);
             return File(bytes, @"image/jpeg");
+        }
+        private void SetLoginSession(int userId,String type)
+        {
+            new Utility().SetLoginSession(Session, userId,type);
         }
     }
 }
