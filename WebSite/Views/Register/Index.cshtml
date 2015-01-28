@@ -1,8 +1,84 @@
 ﻿
+@model WebSite.Models.RegisterModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layouts/Register.cshtml";
 }
 
-<h2>Index</h2>
+<div id="register-main">
+    <h2>注册</h2>
+    <div class="register-right pull-left">
+        <form class="form-horizontal" role="form">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.LabelFor(model =>model.type, "用户类型")
+                <div class="col-sm-9"></div>
+                @Html.EditorFor(model => model.type)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, "名称")
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.mail, "邮箱")
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.mail)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.telephone, "电话")
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.telephone)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.address, "地址")
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.address)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, "密码")
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.password)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="确认密码">
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.introduce, "概要")
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.introduce)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputCode" class="col-sm-3 control-label">验证码</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="inputCode">
+                </div>
+                <div class="col-sm-5">
+                    <a href="#" class="changeCode"><img src="../Image/code.png" alt="验证码" /></a>
+                </div>
+            </div>
+            <div class="form-group form-submit">
+                <div class="col-sm-offset-3 col-sm-2">
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+                <div class="col-sm-7">
+                    @Html.ActionLink("已有账号？立即登录>>", "Index", "Index")
+                </div>
+            </div>
+        }
+        </form>
+    </div>
+</div>
 
