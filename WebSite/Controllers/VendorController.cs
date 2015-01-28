@@ -93,7 +93,9 @@ namespace WebSite.Controllers
 
                 var table = new SingleTableModule<bid>();
                 var id = GetBidderId(Convert.ToInt32(Session["user_id"]));
-                ViewBag.personal = table.FindInfo(x => x.bidderId == id);
+
+                ViewBag.personal = table.FindInfo(x => x.bidderId == id).Select(x=> new {title = x.purchase.purchase_title,name = x.bid_title ,hit = x.purchase.hitId == x.bidId?true : false});
+
                 return View();
             }
             return RedirectToAction("Index", "Index");
