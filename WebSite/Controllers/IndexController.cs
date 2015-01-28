@@ -69,6 +69,7 @@ namespace WebSite.Controllers
             ViewBag.newes = newsList.Select(record=> new {name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
             ViewBag.teams = teamList.Select(record =>new { name = record.team_name });
+
             return View();
         }
 
@@ -76,24 +77,30 @@ namespace WebSite.Controllers
         {
            var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
             ViewBag.list = result;
+            ViewBag.page = page + 1;
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult NewsList(int page)
         {
             var result = GetList<news, int>(page, 5,x=>x.newsId);
             ViewBag.list = result;
+            ViewBag.page = page + 1;
+
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
         {
             var result = GetList<expert,int>(page, 5,x=>x.user_userId);
             ViewBag.list = result;
+            ViewBag.page = page + 1;
+
             return View("~/Views/Shared/list.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
         {
             var container = (new SingleTableModule<T>()).FindInfo().Take(countMax);
+
             return container;
         }
         private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class

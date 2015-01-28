@@ -56,6 +56,7 @@ namespace WebSite.Controllers
             var result = dbInvitation.Create(info);
             return View("Detail");
         }
+
         public ActionResult BidList(int purachseId)
         {
             var dbBid = new SingleTableModule<bid>();

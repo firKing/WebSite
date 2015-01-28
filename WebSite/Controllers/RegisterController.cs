@@ -16,6 +16,7 @@ namespace WebSite.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public void Register(user info)
         {
