@@ -16,9 +16,6 @@ namespace WebSite.Controllers
         {
             return Info();
         }
-       
-
-
         public ActionResult Info()
         {
             if (CheckSession())

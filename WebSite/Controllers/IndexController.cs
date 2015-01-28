@@ -83,7 +83,7 @@ namespace WebSite.Controllers
         {
             var result = GetList<news, int>(page, 5,x=>x.newsId);
             ViewBag.list = result;
-            return View();
+            return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
         {
