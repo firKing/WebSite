@@ -98,8 +98,13 @@ namespace WebSite.Controllers
             var result = GetList<news, int>(page, count,x=>x.newsId);
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
+            ViewBag.parent = "NewsList";
+            
             ViewBag.list = result;
-            ViewBag.page = page + 1;
+            ViewBag.page = page;
+            ViewBag.prePage = page - 1;
+            ViewBag.nextPage = ViewBag.page + 1;
+            ViewBag.pageClass = "action disabled";
 
             return View("~/Views/Shared/list.cshtml");
         }
