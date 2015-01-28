@@ -7,7 +7,7 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Index/index.css")
+    @Styles.Render("~/Content/List/List.css")
 }
 
 @section script {
@@ -19,15 +19,14 @@
 <!--详情页主体部分-->
 <div id="list-main">
     <h2>
-        新闻列表
+        @ViewBag.bigtitle
         <form class="navbar-form navbar-right" role="search">
             <input type="text" class="form-control" placeholder="搜索题库内容">
             <input type="submit" value=" " name="search" />
         </form>
     </h2>
     <ul>
-        @{
-            foreach (var item in ViewBag.list)
+        @foreach (var item in ViewBag.list)
             {
                 <li>
                     <a href="#">
@@ -39,7 +38,6 @@
                     </a>
                 </li>
             }
-        }
     </ul>
     <nav>
         <ul class="pagination">
