@@ -63,7 +63,8 @@ namespace WebSite.Controllers
         public ActionResult CheckValidCode(String validCode)
         {
             var result = false;
-            if (validCode == Session["ValidateCode"])
+            String session = Convert.ToString(Session["ValidateCode"]);
+            if (!String.IsNullOrEmpty(session) && validCode == session)
             {
                 result = true;
             }

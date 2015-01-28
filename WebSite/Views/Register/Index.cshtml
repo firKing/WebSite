@@ -1,5 +1,5 @@
 ﻿
-@model WebSite.Models.RegisterModel
+@model WebSite.Models.user
 
 @{
     ViewBag.Title = "Index";
@@ -26,40 +26,41 @@
         @using (Html.BeginForm())
         {
             <div class="form-group">
-                @Html.LabelFor(model =>model.type, "用户类型", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model =>model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.type, new { @class = "form-control" , @placeholder="用户类型" })
+                    @Html.TextBoxFor(model => model.user_type, new { @class = "form-control" , @placeholder="用户类型" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.name, "名称" , new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_name, "名称" , new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.name, new { @class = "form-control" , @placeholder="名称" })
+                    @Html.TextBoxFor(model => model.user_name, new { @class = "form-control" , @placeholder="名称" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.mail, "邮箱", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_mail, "邮箱", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.mail, new { @class = "form-control", @placeholder="邮箱" })
+                    @Html.TextBoxFor(model => model.user_mail, new { @class = "form-control", @placeholder="邮箱" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.telephone, "电话", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_telephone, "电话", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.telephone, new { @class = "form-control" , @placeholder="电话"})
+                    @Html.TextBoxFor(model => model.user_telephone, new { @class = "form-control" , @placeholder="电话"})
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.address, "地址", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_address, "地址", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.address, new { @class = "form-control"  , @placeholder="地址" })
+                    @Html.TextBoxFor(model => model.user_address, new { @class = "form-control"  , @placeholder="地址" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.password, "密码", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.password, new { @class = "form-control", @placeholder="密码" })
+                    @Html.TextBoxFor(model => model.user_password, new { @class = "form-control", @placeholder="密码" })
+
                 </div>
             </div>
             <div class="form-group">
@@ -69,9 +70,9 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.introduce, "概要", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.introduce, new { @class = "form-control", @placeholder="概要" })
+                    @Html.TextBoxFor(model => model.user_introduction, new { @class = "form-control", @placeholder="概要" })
                 </div>
             </div>
             <div class="form-group">

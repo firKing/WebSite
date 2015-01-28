@@ -33,27 +33,52 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
         //获取companyId有关的列表
-        private ActionResult GetList<T>(Func<T, int> expression) where T : class
+        private void List<T,Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            ViewBag.list = GetList<T, Tkey>(page, count, whereSelector, keySelector).ToList();
+        }
+        private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip(page * count).Take(count);
+            return container;
+        }
+        //发布的采购信息列表 
+        public ActionResult PurchaseInfoList(int page)
         {
             if (CheckSession())
             {
-                return View(new Utility().GetList<T>(expression,Session));
+                int count = 5;
+                List<purchase, int>(page, count, x => x.companyId.ToString() == Session["user_id"].ToString(), x => x.purchaseId);
+                ViewBag.page = page + 1;
+                return View();
+            }
+            return RedirectToAction("Index", "Index");
+           
+        }
+        //发布的新闻列表
+        public ActionResult NewsList(int page)
+        {
+            if (CheckSession())
+            {
+                int count = 5;
+
+                List<news, int>(page, count, x => x.companyId.ToString() == Session["user_id"].ToString(), x => x.newsId);
+                ViewBag.page = page + 1;
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }
-        //发布的采购信息列表 
-        public ActionResult PurchaseInfoList()
+        public ActionResult InvitationList(int page)
         {
-            return GetList<purchase>(x => x.companyId);
-        }
-        //发布的新闻列表
-        public ActionResult NewsList()
-        {
-            return GetList<news>(x => x.companyId);
-        }
-        public ActionResult InvitationList()
-        {
-            return GetList<invitation>(x => x.purchase.companyId);
+            if (CheckSession())
+            {
+                int count = 5;
+
+                List<invitation, int>(page, count, x => x.purchase.companyId.ToString() == Session["user_id"].ToString(), x => x.invitationId);
+                ViewBag.page = page + 1;
+                return View();
+            }
+            return RedirectToAction("Index", "Index");
         }
     }
 }

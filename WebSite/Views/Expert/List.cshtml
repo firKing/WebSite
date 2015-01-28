@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Layouts/List.cshtml";
+}
+
+@{
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/ExpertList/ExpertList.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+}
+
+    <div id="list-expert">
+        <h2>
+            专家名单
+            <form class="navbar-form navbar-right" role="search">
+                <input type="text" class="form-control" placeholder="搜索题库内容">
+                <input type="submit" value=" " name="search" />
+            </form>
+        </h2>
+        <ul class="expert-main">
+            @foreach (var item in ViewBag.list)
+            {
+                <li>
+                    <a href="#" class="expert-head">
+                        <img src="item.expert_image" alt="item.user_userId" />
+                    </a>
+                    <a href="#" class="expert-name">item.user.user_name</a>
+                    <p>已有 <span>itemexpert_accept_count</span> 次审核</p>
+                </li>
+            }
+            
+        </ul>
+        <nav>
+            <ul class="pagination pull-right">
+                <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+            </ul>
+        </nav>
+    </div>

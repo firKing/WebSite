@@ -21,6 +21,7 @@ bld/
 *.chk
 # Roslyn cache directories
 *.ide/
+WebSite/Web.config
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
