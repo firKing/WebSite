@@ -21,7 +21,7 @@ bld/
 *.chk
 # Roslyn cache directories
 *.ide/
-web.config
+WebSite/Web.config
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -124,6 +124,7 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+Web.config
 
 # Publish Web Output
 *.[Pp]ublish.xml

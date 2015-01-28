@@ -6,6 +6,19 @@
     Layout = "~/Views/Layouts/Register.cshtml";
 }
 
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Register/Register.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Register/register.js")
+}
+
+
 <div id="register-main">
     <h2>注册</h2>
     <div class="register-right pull-left">
@@ -13,39 +26,41 @@
         @using (Html.BeginForm())
         {
             <div class="form-group">
-                @Html.LabelFor(model =>model.user_type, "用户类型")
-                <div class="col-sm-9"></div>
-                @Html.EditorFor(model => model.user_type)
+                @Html.LabelFor(model =>model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.user_type, new { @class = "form-control" , @placeholder="用户类型" })
+                </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.user_name, "名称")
+                @Html.LabelFor(model => model.user_name, "名称" , new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.EditorFor(model => model.user_name)
+                    @Html.TextBoxFor(model => model.user_name, new { @class = "form-control" , @placeholder="名称" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.user_mail, "邮箱")
+                @Html.LabelFor(model => model.user_mail, "邮箱", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.EditorFor(model => model.user_mail)
+                    @Html.TextBoxFor(model => model.user_mail, new { @class = "form-control", @placeholder="邮箱" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.user_telephone, "电话")
+                @Html.LabelFor(model => model.user_telephone, "电话", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.EditorFor(model => model.user_telephone)
+                    @Html.TextBoxFor(model => model.user_telephone, new { @class = "form-control" , @placeholder="电话"})
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.user_address, "地址")
+                @Html.LabelFor(model => model.user_address, "地址", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.EditorFor(model => model.user_address)
+                    @Html.TextBoxFor(model => model.user_address, new { @class = "form-control"  , @placeholder="地址" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.user_password, "密码")
+                @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.EditorFor(model => model.user_password)
+                    @Html.TextBoxFor(model => model.user_password, new { @class = "form-control", @placeholder="密码" })
+
                 </div>
             </div>
             <div class="form-group">
@@ -55,9 +70,9 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.user_introduction, "概要")
+                @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.user_introduction)
+                    @Html.TextBoxFor(model => model.user_introduction, new { @class = "form-control", @placeholder="概要" })
                 </div>
             </div>
             <div class="form-group">
