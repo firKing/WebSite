@@ -74,7 +74,7 @@ namespace WebSite.Controllers
             {
                
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<team>)GetList<team>(x => x.vendorId);
+                var query = (IQueryable<team>)GetList<team>(x => x.createId);
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {
