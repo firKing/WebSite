@@ -19,8 +19,12 @@ namespace WebSite.Controllers
         [HttpPost]
         public void Register(user info)
         {
-            var table = new SingleTableModule<user>();
-            table.Create(info);
+            if (ModelState.IsValid)
+            {
+                var table = new SingleTableModule<user>();
+                table.Create(info);
+            }
+            
         }
 
 
