@@ -102,5 +102,16 @@ namespace WebSite.Controllers.Common
             });
             registerEventMap[type](userId);
         }
+        public IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
+            return container;
+        }
+        public IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+
+             var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip(page * count).Take(count);
+            return container;
+        }
     }
 }

@@ -63,9 +63,9 @@ namespace WebSite.Controllers
         }
         private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip(page * count).Take(count);
-            return container;
+            return new Utility().GetList(page, count,whereSelector, keySelector);
         }
+     
         public ActionResult BidList(int purachseId,int page)
         {
             int count = 5;
