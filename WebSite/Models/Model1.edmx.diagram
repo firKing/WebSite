@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c4794c61af3649928fd16d42a334d470" Name="Diagram1">
+      <Diagram DiagramId="81a1260c37ec498e941a5aa1624f61d9" Name="Diagram1">
         <EntityTypeShape EntityType="WebSiteModel.admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.audit" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.bidder" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.bid" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.company" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.expert" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.invitation" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.member" Width="1.5" PointX="9.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.audit" Width="1.5" PointX="9.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.bidder" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.bid" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.company" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.expert" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.invitation" Width="1.5" PointX="7.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.member" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebSiteModel.news" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.purchase" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.team" Width="1.5" PointX="7.5" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.user" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebSiteModel.vendor" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.purchase" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.team" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.user" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebSiteModel.vendor" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
         <AssociationConnector Association="WebSiteModel.FK_AUDIT_AUDIT_BID" ManuallyRouted="false" />
         <AssociationConnector Association="WebSiteModel.FK_AUDIT_HAVE_EXPERT" ManuallyRouted="false" />
         <AssociationConnector Association="WebSiteModel.FK_BID_PUBLISH_B_BIDDER" ManuallyRouted="false" />

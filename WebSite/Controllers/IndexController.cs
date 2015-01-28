@@ -96,7 +96,7 @@ namespace WebSite.Controllers
             ViewBag.list = result;
             ViewBag.page = page + 1;
 
-            return View("~/Views/Shared/list.cshtml");
+            return View("~/Views/Expert/List.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
