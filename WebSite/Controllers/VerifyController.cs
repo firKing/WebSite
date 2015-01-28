@@ -63,7 +63,7 @@ namespace WebSite.Controllers
         public ActionResult CheckValidCode(String validCode)
         {
             var result = false;
-            if (validCode == Session['ValidateCode'])
+            if (validCode == Session["ValidateCode"])
             {
                 result = true;
             }
