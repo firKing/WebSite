@@ -39,6 +39,15 @@ namespace WebSite.Controllers
                         .Count() == 1;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        private UserType GetUsetTypeByString(String type)
+        {
+            return new Utility().GetUsetTypeByString(type);
+        }
+        private void SesSession(int id,String type)
+        {
+            new Utility().SetSession(Session, id, GetUsetTypeByString(type));
+
+        }
         //ajax
         [HttpPost]
         public ActionResult Login(LoginModel info)
@@ -46,15 +55,14 @@ namespace WebSite.Controllers
             var result = false;
             if (ModelState.IsValid)
             {
-               // Assert(info.type != UserType.Team.ToString());
+                Assert(info.type != UserType.Team);
                 var element = (new SingleTableModule<user>())
                         .FindInfo(x => x.user_name == info.name &&
-                                x.user_type.ToString() == info.type.ToString());
-                if (element != null && element.Count() == 1)
+                                x.user_type== info.type.ToString() &&
+                                x.user_password == info.password).SingleOrDefault();
+                if (element != null)
                 {
-                    var target = element.SingleOrDefault();
-                    Session["user_type"] = target.user_type;
-                    Session["user_id"] = target.userId;
+                    SesSession(element.userId, element.user_type);
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);

@@ -12,10 +12,40 @@ namespace WebSite.Controllers.Common
 {
     public class Utility
     {
+        public UserType GetUsetTypeByString(String type)
+        {
+            if (type == "Expert")
+            {
+                return UserType.Expert;
+            }
+            else if (type == "Company")
+            {
+                return UserType.Company;
+            }
+            else if (type == "Vendor")
+            {
+                return UserType.Vendor;
+            }
+            else if (type == "Team")
+            {
+                return UserType.Team;
+            }
+            else
+            {
+                Assert(false);
+            }
+            return UserType.Team;
+
+
+
+        }
         public bool CheckSession(UserType type, HttpSessionStateBase Session)
         {
-            var typeConvertResult = Convert.ToString(Session["user_type"]);
-            return !String.IsNullOrEmpty(typeConvertResult) && type.ToString() == typeConvertResult && !String.IsNullOrEmpty(Convert.ToString(Session["user_id"]));
+            return Convert.ToInt32(Session["user_id"]) != 0 &&
+                 ((UserType)Session["user_type"] == UserType.Expert
+                 || (UserType)Session["user_type"] == UserType.Vendor
+                || (UserType)Session["user_type"] == UserType.Company
+                );
         }
         public object GetList<T>(Func<T, int> expression, HttpSessionStateBase Session) where T : class
         {
@@ -25,6 +55,17 @@ namespace WebSite.Controllers.Common
             FindInfo(x => expression.Invoke(x) == Convert.ToInt32(Session["user_id"]));
             Assert(result != null);
             return result;
+        }
+        public bool CheckUserType(String type)
+        {
+            return type == UserType.Expert.ToString() ||
+                      type == UserType.Vendor.ToString() ||
+                      type == UserType.Company.ToString();
+        }
+        public void SetSession(HttpSessionStateBase Session,int userId, UserType type)
+        {
+            Session["user_id"] = userId;
+            Session["user_type"] = type;
         }
     }
 }
