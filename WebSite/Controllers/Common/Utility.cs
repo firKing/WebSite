@@ -110,8 +110,18 @@ namespace WebSite.Controllers.Common
         public IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
 
-             var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip(page * count).Take(count);
+            var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip((page-1) * count).Take(count);
             return container;
+        }
+        public int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            var sum = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Count();
+            return sum;
+        }
+        public int GetSumCount<T, Tkey>( Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            var sum = GetSumCount(x=>true,keySelector);
+            return sum;
         }
     }
 }

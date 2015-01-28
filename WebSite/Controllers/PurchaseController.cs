@@ -57,19 +57,20 @@ namespace WebSite.Controllers
             var result = dbInvitation.Create(info);
             return View("Detail");
         }
-        private void List<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
-        {
-            ViewBag.list = GetList<T, Tkey>(page, count, whereSelector, keySelector).ToList();
-        }
         private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
+
             return new Utility().GetList(page, count,whereSelector, keySelector);
         }
-     
+        public int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            return new Utility().GetSumCount<T, Tkey>(whereSelector, keySelector);
+        }
         public ActionResult BidList(int purachseId,int page)
         {
             int count = 5;
-            List<bid, int>(page, count, x => x.purchaseId == purachseId, x => x.bidId);
+            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purachseId, x => x.bidId);
+            ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purachseId, x => x.bidId);
             ViewBag.page = page + 1;
             return View();
         }
