@@ -71,7 +71,7 @@ namespace WebSite.Controllers
             {
                
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<team>)GetList<team>(x => x.vendorId);
+                var query = (IQueryable<team>)GetList<team>(x => x.createId);
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {
@@ -90,7 +90,9 @@ namespace WebSite.Controllers
 
                 var table = new SingleTableModule<bid>();
                 var id = GetBidderId(Convert.ToInt32(Session["user_id"]));
-                ViewBag.personal = table.FindInfo(x => x.bidderId == id);
+
+                ViewBag.personal = table.FindInfo(x => x.bidderId == id).Select(x=> new {title = x.purchase.purchase_title,name = x.bid_title ,hit = x.purchase.hitId == x.bidId?true : false});
+
                 return View();
             }
             return RedirectToAction("Index", "Index");
