@@ -10,25 +10,61 @@
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
     @Styles.Render("~/Content/Register/Register.css")
+    @Styles.Render("~/Content/font-awesome.css")
 }
 
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/Register/register.js")
+    <script>
+
+        $('.changeCode').on('click', function () {
+            var random = Math.random();
+            var url = $(this).find('img').attr('src');
+            $(this).find('img').attr('src', url + "?version=" + random);
+        });
+
+        $("#inputCode").on('blur', function (e) {
+            var value = $(e.target).val();
+            var icon = $('.flag').find('i');
+            $.post("@Url.Action("CheckValidCode", "Verify")", {validCode : value},  function(data){
+                if (Boolean(data)) {
+                    icon[0].className = "fa fa-2x fa-check";
+                    icon.css({
+                        'color': "green"
+                    })
+                }
+                else {
+                    icon[0].className = "fa fa-2x fa-times";
+                    icon.css({
+                        'color': "red"
+                    })
+                }
+
+                $('.flag').find('i').css({
+                    display: "block"
+                });
+            });
+        });
+
+    </script>
 }
 
 
 <div id="register-main">
     <h2>注册</h2>
     <div class="register-right pull-left">
-        <form class="form-horizontal" role="form">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Register", "Register", FormMethod.Post,   new { @class = "form-horizontal" }))
         {
             <div class="form-group">
                 @Html.LabelFor(model =>model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_type, new { @class = "form-control" , @placeholder="用户类型" })
+                    <select class="form-control"  name="user_type" >
+                        <option value="Expert">Expert</option>
+                        <option value="Company">Company</option>
+                        <option value="Vendor">Vendor</option>
+                    </select>
                 </div>
             </div>
 
@@ -80,9 +116,10 @@
                 <div class="col-sm-4">
                     <input type="text" class="form-control" id="inputCode">
                 </div>
-                <div class="col-sm-5">
-                    <a href="#" class="changeCode"><img src="../Image/code.png" alt="验证码" /></a>
+                <div class="col-sm-4">
+                    <a href="javascript:void(0)" class="changeCode"><img class="validate" src="@Url.Action("GetValidateCode", "Verify")" alt="验证码" /></a>
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group form-submit">
                 <div class="col-sm-offset-3 col-sm-2">

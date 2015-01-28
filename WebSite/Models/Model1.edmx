@@ -693,7 +693,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WebSiteEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WebSiteEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admins" EntityType="Self.admin" />
           <EntitySet Name="audits" EntityType="Self.audit" />
           <EntitySet Name="bidders" EntityType="Self.bidder" />
@@ -769,7 +769,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebSiteModelStoreContainer" CdmEntityContainer="WebSiteEntities">
+        <EntityContainerMapping StorageEntityContainer="WebSiteModelStoreContainer" CdmEntityContainer="WebSiteEntities3">
           <EntitySetMapping Name="admins">
             <EntityTypeMapping TypeName="WebSiteModel.admin">
               <MappingFragment StoreEntitySet="admins">
