@@ -8,6 +8,13 @@ using WebSite.Models;
 
 namespace WebSite.Controllers
 {
+    public class IndexStruct
+    {
+        public String name;
+        public Pair<string, int> time;
+        public String introduction;
+        public String image;
+    }
     public class IndexController : Controller
     {
         public Pair<String,int> GetMonthAndDay(System.DateTime time)
@@ -64,14 +71,15 @@ namespace WebSite.Controllers
             var newsList = GetList<news>(6).ToList();
             var purchaseList = GetList<purchase>(6).ToList();
             var teamList = GetList<team>(12).ToList();
-
-            ViewBag.experts =expertList.Select( record=>new { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
-            ViewBag.newes = newsList.Select(record => new { name = record.news_title, time = GetMonthAndDay(record.news_time) });
-            ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
-            ViewBag.teams = teamList.Select(record =>new { name = record.team_name });
+           
+            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
+            ViewBag.newes = newsList.Select(record=> new IndexStruct { name = record.news_title, time = GetMonthAndDay(record.news_time) });
+            ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
+            ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name });
 
             return View();
         }
+
 
         public ActionResult PurchaseList(int page)
         {
