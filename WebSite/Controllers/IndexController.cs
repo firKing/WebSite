@@ -75,7 +75,8 @@ namespace WebSite.Controllers
 
         public ActionResult PurchaseList(int page)
         {
-           var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
+            var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
+            ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
             ViewBag.page = page + 1;
             return View("~/Views/Shared/list.cshtml");
@@ -83,6 +84,7 @@ namespace WebSite.Controllers
         public ActionResult NewsList(int page)
         {
             var result = GetList<news, int>(page, 5,x=>x.newsId);
+            ViewBag.bigtitle = "新闻列表";
             ViewBag.list = result;
             ViewBag.page = page + 1;
 
@@ -90,7 +92,7 @@ namespace WebSite.Controllers
         }
         public ActionResult ExpertList(int page)
         {
-            var result = GetList<expert,int>(page, 5,x=>x.user_userId);
+            var result = GetList<expert,int>(page, 8,x=>x.user_userId);
             ViewBag.list = result;
             ViewBag.page = page + 1;
 
