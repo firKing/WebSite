@@ -88,9 +88,9 @@ namespace WebSite.Controllers
         }
         public ActionResult ExpertList(int page)
         {
-            var result = GetList<expert,int>(page, 5,x=>x.user_userId);
+            var result = GetList<expert,int>(page, 8,x=>x.user_userId);
             ViewBag.list = result;
-            return View("~/Views/Shared/list.cshtml");
+            return View("~/Views/Expert/List.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
