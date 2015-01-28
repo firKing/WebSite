@@ -101,6 +101,9 @@ namespace WebSite.Controllers
             var result = GetList<team, int>(page, count, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page + 1;
+            ViewBag.pageClass = "action disabled";
+            ViewBag.prePage = page - 1;
+            ViewBag.nextPage = page + 1;
 
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.list = result;

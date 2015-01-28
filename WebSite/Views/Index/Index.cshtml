@@ -71,11 +71,11 @@
                 @if (ViewBag.newes != null)
                     {
                         foreach (var item in ViewBag.newes)
-                        {
+                        { 
                                 <li>
                                     <a href="#">
-                                        <h2><span>item.time.first</span><b>item.time.second</b></h2>
-                                        <p>item.name</p>
+                                        <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
+                                        <p>@item.name</p>
                                     </a>
                                 </li>
                         }
