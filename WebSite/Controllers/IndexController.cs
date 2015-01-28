@@ -75,15 +75,20 @@ namespace WebSite.Controllers
 
         public ActionResult PurchaseList(int page)
         {
-            var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
+            var count = 5;
+            var result = GetList<purchase,int>(page,count,x=>x.purchaseId);
             ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
             ViewBag.page = page + 1;
+            ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult NewsList(int page)
         {
-            var result = GetList<news, int>(page, 5,x=>x.newsId);
+            var count = 5;
+            var result = GetList<news, int>(page, count,x=>x.newsId);
+            ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.list = result;
             ViewBag.page = page + 1;
@@ -92,20 +97,24 @@ namespace WebSite.Controllers
         }
         public ActionResult TeamList(int page)
         {
-            var result = GetList<team, int>(page, 5, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
+            var count = 5;
+            var result = GetList<team, int>(page, count, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
+            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            ViewBag.page = page + 1;
 
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.list = result;
-            ViewBag.page = page + 1;
-
+            
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
         {
-            var result = GetList<expert,int>(page, 8,x=>x.user_userId);
-            ViewBag.list = result;
+            var count = 8;
+            var result = GetList<expert,int>(page, count,x=>x.user_userId);
+            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page + 1;
 
+            ViewBag.list = result;
             return View("~/Views/Expert/List.cshtml");
         }
 
@@ -118,6 +127,11 @@ namespace WebSite.Controllers
         private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class
         {
             return new Utility().GetList(page, count, keySelector);
+        }
+      
+        public int GetSumCount<T, Tkey>(Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            return new Utility().GetSumCount<T, Tkey>( keySelector);
         }
     }
 }
