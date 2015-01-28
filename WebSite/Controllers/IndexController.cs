@@ -66,7 +66,7 @@ namespace WebSite.Controllers
             var teamList = GetList<team>(12).ToList();
 
             ViewBag.experts =expertList.Select( record=>new { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
-            ViewBag.newes = newsList.Select(record=> new {name = record.news_title, time = GetMonthAndDay(record.news_time) });
+            ViewBag.newes = newsList.Select(record => new { name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
             ViewBag.teams = teamList.Select(record =>new { name = record.team_name });
 
