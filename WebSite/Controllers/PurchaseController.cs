@@ -6,6 +6,7 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Web;
+using System.Linq.Expressions;
 
 namespace WebSite.Controllers
 {
@@ -56,11 +57,21 @@ namespace WebSite.Controllers
             var result = dbInvitation.Create(info);
             return View("Detail");
         }
-
-        public ActionResult BidList(int purachseId)
+        private void List<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            var dbBid = new SingleTableModule<bid>();
-            return View(dbBid.FindInfo(x => x.purchaseId == purachseId));
+            ViewBag.list = GetList<T, Tkey>(page, count, whereSelector, keySelector).ToList();
+        }
+        private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip(page * count).Take(count);
+            return container;
+        }
+        public ActionResult BidList(int purachseId,int page)
+        {
+            int count = 5;
+            List<bid, int>(page, count, x => x.purchaseId == purachseId, x => x.bidId);
+            ViewBag.page = page + 1;
+            return View();
         }
     }
 }
