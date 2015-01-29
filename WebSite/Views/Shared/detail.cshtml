@@ -7,7 +7,7 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Index/index.css")
+    @Styles.Render("~/Content/Index/detail.css")
 }
 
 @section script {
@@ -34,12 +34,10 @@
         }
         <p></p>
     </div>
-    @{
-        if (ViewBag.parent == "team")
+    @if (ViewBag.parent == "team")
         {
             <a href="#" class="btn btn-success btn-lg pull-right" role="button">申请加入</a>
         }
-    }
 </div>
 <!--新闻和虚拟团队详情页主体部分-->
 
