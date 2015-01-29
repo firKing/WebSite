@@ -40,7 +40,7 @@ namespace WebSite.Controllers
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }
-            RedirectToAction("Index");
+            RedirectToAction("Index","Index");
             
         }
         private void SetLoginSession(int userId,string type)
