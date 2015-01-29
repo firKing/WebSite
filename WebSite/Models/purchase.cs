@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class purchase
     {
         public purchase()
@@ -23,7 +24,11 @@ namespace WebSite.Models
     
         public int purchaseId { get; set; }
         public int companyId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string purchase_title { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string purchase_content { get; set; }
         public System.DateTime purchase_time { get; set; }
         public int hitId { get; set; }
