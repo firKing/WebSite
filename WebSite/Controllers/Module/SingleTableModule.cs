@@ -34,6 +34,7 @@ namespace WebSite.Controllers.Module
             Assert(info != null);
             var addResult = db.table.Add(info);
             var tableType = db.table.GetType();
+            var test = tableType.ToString();
             var propertyInfo = tableType.GetProperty(tableType.ToString() + "Id");
             var id = (int)propertyInfo.GetValue(addResult);
             return new Pair<bool, int>(db.SaveChanges() > 0, id);
