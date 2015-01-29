@@ -15,6 +15,7 @@ namespace WebSite.Controllers
         public String content;
         public String image;
         public int detailId;
+        public int id;
     };
     public class TeamStruct
     {
@@ -81,7 +82,7 @@ namespace WebSite.Controllers
             ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, content = new String(record.user.user_introduction.Take(20).ToArray()) });
             ViewBag.newes = newsList.Select(record=> new IndexStruct { name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay( record.purchase_time)});
-            ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name });
+            ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name, id = record.teamId });
 
             return View();
         }
@@ -99,15 +100,9 @@ namespace WebSite.Controllers
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
-<<<<<<< HEAD
-            ViewBag.parent = "PurchaseList";
-            ViewBag.detail = "Purchase/Detail?id=";
 
-            return View("~/Views/Shared/list.cshtml");
-=======
             ViewBag.detailActionName = "Purchase";
             return View(listViewName);
->>>>>>> d0adb7226c4ceb38bd578ef3c926e8deddf10bfc
         }
         public ActionResult NewsList(int page)
         {
@@ -122,14 +117,8 @@ namespace WebSite.Controllers
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.pageNum = page;
-<<<<<<< HEAD
-            
-            ViewBag.pageClass = "action disabled";
 
-            ViewBag.detail = "New/Detail?id=";
-=======
             ViewBag.detailActionName = "New";
->>>>>>> d0adb7226c4ceb38bd578ef3c926e8deddf10bfc
 
             return View(listViewName);
         }
@@ -145,15 +134,9 @@ namespace WebSite.Controllers
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum = page;
             ViewBag.bigtitle = "虚拟团队";
-<<<<<<< HEAD
-            ViewBag.parent = "TeamList";
 
-            ViewBag.detail = "Vendor/TeamDetail?id=";
-            return View("~/Views/Shared/list.cshtml");
-=======
             ViewBag.detailActionName = "Vendor";
             return View(listViewName);
->>>>>>> d0adb7226c4ceb38bd578ef3c926e8deddf10bfc
         }
         public ActionResult ExpertList(int page)
         {
