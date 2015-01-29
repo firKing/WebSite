@@ -14,7 +14,6 @@ namespace WebSite.Controllers
         public Pair<string, int> time;
         public String content;
         public String image;
-        
 
     };
     public class TeamStruct
@@ -90,18 +89,13 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             var count = 5;
-            ViewBag.list = GetList<purchase,int>(page,count,x=>x.purchaseId).
+            ViewBag.list = GetList<purchase,int>(page,count,x=>x.purchaseId).ToList().
                 Select(x=>new IndexStruct {
                     name =x.purchase_title,
                     content = x.purchase_content,
-                    time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } ).ToList();
+                    time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
             ViewBag.bigtitle = "采购信息";
-<<<<<<< HEAD
-            ViewBag.list = result;
             ViewBag.page = page;
-=======
-            ViewBag.page = page + 1;
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
             ViewBag.parent = "PurchaseList";
 
@@ -111,11 +105,11 @@ namespace WebSite.Controllers
         {
             var count = 5;
             ViewBag.list = GetList<news, int>
-                (page, count,x=>x.newsId).
+                (page, count,x=>x.newsId).ToList().
                 Select(x=>new IndexStruct {
                     name = x.news_title,
                     content = x.news_content,
-                    time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)}).ToList();
+                    time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
 
             ViewBag.bigtitle = "新闻列表";
@@ -132,25 +126,19 @@ namespace WebSite.Controllers
         public ActionResult TeamList(int page)
         {
             var count = 5;
-            ViewBag.list = GetList<team, int>(page, count, x => x.teamId)
+            ViewBag.list = GetList<team, int>(page, count, x => x.teamId).ToList()
                 .Select(x=>new IndexStruct {
                     name = x.team_name,
                     content = x.team_introduction ,
-                    time = new Pair<String, int>("",x.members.Count()) }).ToList();
+                    time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page;
             ViewBag.pageClass = "action disabled";
 
             ViewBag.bigtitle = "虚拟团队";
-<<<<<<< HEAD
-            ViewBag.list = result;
             ViewBag.parent = "TeamList";
 
             ViewBag.detail = "Team";
-
-=======
-            
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
@@ -158,16 +146,12 @@ namespace WebSite.Controllers
             var count = 8;
             ViewBag.list = GetList<expert,int>(page, count,x=>x.user_userId).ToList();
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-<<<<<<< HEAD
             ViewBag.page = page;
             ViewBag.parent = "ExpertList";
 
             ViewBag.detail = "Expert";
 
-            ViewBag.list = result;
-=======
-            ViewBag.page = page + 1;
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
+
             return View("~/Views/Expert/List.cshtml");
         }
 
