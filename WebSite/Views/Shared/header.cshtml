@@ -1,4 +1,5 @@
-﻿<style>
+﻿
+<style>
 .top_bar{
     width: 100%;
     height: 50px;
@@ -157,11 +158,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="main-nav">
-                    <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
-                    <li>@Html.ActionLink("新闻列表", "NewsList", "Index",new { page=1}, new { })</li>
-                    <li>@Html.ActionLink("采购信息", "PurchaseList", "Index", new { page = 1 }, new { })</li>
-                    <li>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
-                    <li>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["page"] == "index") { Html.Raw("class='active'"); }><a href="#">首页<span class="sr-only">(current)</span></a></li>
+                    <li @if ((string)ViewData["page"] == "news") { Html.Raw("class='active'"); }>@Html.ActionLink("新闻列表", "NewsList", "Index",new { page=1}, new { })</l>
+                    <li @if ((string)ViewData["page"] == "purchase") { Html.Raw("class='active'"); }>@Html.ActionLink("采购信息", "PurchaseList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["page"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["page"] == "team") { Html.Raw("class='active'"); }>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" id="login">
