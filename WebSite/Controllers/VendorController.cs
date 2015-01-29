@@ -109,11 +109,11 @@ namespace WebSite.Controllers
         }
         private object GetList<T>(Func<T, int> expression) where T : class
         {
-            return new Utility().GetList<T>(expression, Session);
+            return Utility.GetList<T>(expression, Session);
         }
         private bool CheckSession()
         {
-            return new Utility().CheckSession(UserType.Vendor, Session);
+            return Utility.CheckSession(UserType.Vendor, Session);
         }
         /*
         M我加入的虚拟团队列表 			pair<model<team>,List<model<member>>> GetAddVirtualTeamList(int vendorId);查memeber表,查team表

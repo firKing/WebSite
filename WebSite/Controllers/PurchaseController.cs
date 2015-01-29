@@ -60,11 +60,11 @@ namespace WebSite.Controllers
         private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
 
-            return new Utility().GetList(page, count,whereSelector, keySelector);
+            return Utility.GetList(page, count,whereSelector, keySelector);
         }
         public int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            return new Utility().GetSumCount<T, Tkey>(whereSelector, keySelector);
+            return Utility.GetSumCount<T, Tkey>(whereSelector, keySelector);
         }
         public ActionResult BidList(int purachseId,int page)
         {

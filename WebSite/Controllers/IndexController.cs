@@ -12,8 +12,14 @@ namespace WebSite.Controllers
     {
         public String name;
         public Pair<string, int> time;
-        public String introduction;
+        public String content;
         public String image;
+        
+
+    };
+    public class TeamStruct
+    {
+        
     }
     public class IndexController : Controller
     {
@@ -72,9 +78,9 @@ namespace WebSite.Controllers
             var purchaseList = GetList<purchase>(6).ToList();
             var teamList = GetList<team>(12).ToList();
            
-            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
+            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, content = record.user.user_introduction });
             ViewBag.newes = newsList.Select(record=> new IndexStruct { name = record.news_title, time = GetMonthAndDay(record.news_time) });
-            ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
+            ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay( record.purchase_time)});
             ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name });
 
             return View();
@@ -84,7 +90,7 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             var count = 5;
-            var result = GetList<purchase,int>(page,count,x=>x.purchaseId);
+            var result = GetList<purchase,int>(page,count,x=>x.purchaseId).Select(x=>new IndexStruct { name =x.purchase_title, content = x.purchase_content,time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
             ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
             ViewBag.page = page + 1;
@@ -95,7 +101,7 @@ namespace WebSite.Controllers
         public ActionResult NewsList(int page)
         {
             var count = 5;
-            var result = GetList<news, int>(page, count,x=>x.newsId);
+            var result = GetList<news, int>(page, count,x=>x.newsId).Select(x=>new IndexStruct { name = x.news_title, content = x.news_content,time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.list = result;
@@ -106,7 +112,7 @@ namespace WebSite.Controllers
         public ActionResult TeamList(int page)
         {
             var count = 5;
-            var result = GetList<team, int>(page, count, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
+            var result = GetList<team, int>(page, count, x => x.teamId).Select(x=>new IndexStruct { name = x.team_name,content = x.team_introduction , time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page + 1;
 
@@ -134,12 +140,12 @@ namespace WebSite.Controllers
         }
         private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class
         {
-            return new Utility().GetList(page, count, keySelector);
+            return Utility.GetList(page, count, keySelector);
         }
       
         public int GetSumCount<T, Tkey>(Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            return new Utility().GetSumCount<T, Tkey>( keySelector);
+            return Utility.GetSumCount<T, Tkey>( keySelector);
         }
     }
 }
