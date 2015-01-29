@@ -16,7 +16,7 @@ namespace WebSite.Models
     {
         public int adminId { get; set; }
         [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+        [RegularExpression(@"^\w[\w\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
 
         public string admin_name { get; set; }
         [Required(ErrorMessage = "*")]
