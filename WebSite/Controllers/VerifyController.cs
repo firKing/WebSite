@@ -46,6 +46,7 @@ namespace WebSite.Controllers
                                 x.user_password == info.password).SingleOrDefault();
                 if (element != null)
                 {
+                    result = true;
                     SetLoginSession(element.userId,element.user_type);
                 }
             }
