@@ -21,7 +21,8 @@ namespace WebSite.Controllers
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                return View(element);
+                ViewBag.detail = element;
+                return View("~/Views/Purchase/Detail.cshtml");
             }
             else
             {

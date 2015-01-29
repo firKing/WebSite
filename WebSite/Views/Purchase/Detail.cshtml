@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Layouts/Details.cshtml";
+    ViewBag.end = "已结束";
+    ViewBag.underway = "正在进行";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Index/index.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+}
+
+<!--详情页主体部分-->
+<div id="detail-pur">
+    <h2>@ViewBag.detail.purchase_title</h2>
+    <div class="pur-main row">
+        <div class="col-md-9">
+            <div>
+                <h4>采购需求</h4>
+                <p>招标人：@ViewBag.detail.company.user.user_name <a href="#">点击查看招标人信息</a></p>
+                <p>项目名称：@ViewBag.detail.purchase_title</p>
+                <p>招标时间：@ViewBag.detail.purchase_time</p>
+                <p>@ViewBag.detail.purchase_content</p>
+                <a href="#" class="btn btn-success">组建虚拟团队竞标</a>
+                <a href="#" class="btn btn-warning">我要竞标</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <ul>
+                <li>
+                    <span class="left">状态</span>
+                    <span class="right underway">
+                        @if (@ViewBag.detail.hitId)
+                        {
+                            @ViewBag.end;
+                        }
+                        else
+                        {
+                            @ViewBag.underway
+                        }
+                    </span>
+                </li>
+                <li>
+                    <span class="left">序号</span>
+                    <span class="right">1</span>
+                </li>
+                <li>
+                    <span class="left">类型</span>
+                    <span class="right">xxxxxx</span>
+                </li>
+                <li>
+                    <span class="left">竞标</span>
+                    <span class="right">已有 @ViewBag.detail.bids.count 个竞标 <a href="#">查看详情</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--详情页主体部分-->

@@ -7,7 +7,7 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Index/detail.css")
+    @Styles.Render("~/Content/Details/Details.css")
 }
 
 @section script {
@@ -19,22 +19,22 @@
 <!--新闻和虚拟团队详情页主体部分-->
 <div id="detail-main">
     @{
-        <h2>ViewBag.title</h2>
+        <h2>@ViewBag.name</h2>
     }
     
     <p class="detail-info">
         @{
-            <span>ViewBag.news.news_time</span>
-            <span>创建供应商:ViewBag.news.company</span>
+            <span>@ViewBag.time</span>
+            <span>创建供应商:@ViewBag.creator</span>
         }
     </p>
     <div class="detail-text">
         @{ 
-            <p>ViewBag.news.news_content</p>
+            <p>@ViewBag.content</p>
         }
         <p></p>
     </div>
-    @if (ViewBag.parent == "team")
+    @if (@ViewBag.parent == "team")
         {
             <a href="#" class="btn btn-success btn-lg pull-right" role="button">申请加入</a>
         }
