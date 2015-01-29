@@ -96,12 +96,7 @@ namespace WebSite.Controllers
                     content = x.purchase_content,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } ).ToList();
             ViewBag.bigtitle = "采购信息";
-<<<<<<< HEAD
-            ViewBag.list = result;
             ViewBag.page = page;
-=======
-            ViewBag.page = page + 1;
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
             ViewBag.parent = "PurchaseList";
 
@@ -142,15 +137,9 @@ namespace WebSite.Controllers
             ViewBag.pageClass = "action disabled";
 
             ViewBag.bigtitle = "虚拟团队";
-<<<<<<< HEAD
-            ViewBag.list = result;
             ViewBag.parent = "TeamList";
 
             ViewBag.detail = "Team";
-
-=======
-            
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
@@ -158,16 +147,11 @@ namespace WebSite.Controllers
             var count = 8;
             ViewBag.list = GetList<expert,int>(page, count,x=>x.user_userId).ToList();
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-<<<<<<< HEAD
             ViewBag.page = page;
             ViewBag.parent = "ExpertList";
 
             ViewBag.detail = "Expert";
 
-            ViewBag.list = result;
-=======
-            ViewBag.page = page + 1;
->>>>>>> 19e13bbab5e18dccfbeb7d92b2c0b7621e489a23
             return View("~/Views/Expert/List.cshtml");
         }
 
