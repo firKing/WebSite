@@ -96,7 +96,7 @@ namespace WebSite.Controllers
                     content = x.purchase_content,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
             ViewBag.bigtitle = "采购信息";
-            ViewBag.page = page;
+            ViewBag.pageNum = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
             ViewBag.parent = "PurchaseList";
 
@@ -117,7 +117,7 @@ namespace WebSite.Controllers
             ViewBag.bigtitle = "新闻列表";
             ViewBag.parent = "NewsList";
             
-            ViewBag.page = page;
+            ViewBag.pageNum = page;
             
             ViewBag.pageClass = "action disabled";
 
@@ -135,7 +135,7 @@ namespace WebSite.Controllers
                     content = x.team_introduction ,
                     time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-            ViewBag.page = page;
+            ViewBag.pageNum = page;
             ViewBag.pageClass = "action disabled";
 
             ViewBag.bigtitle = "虚拟团队";
@@ -149,7 +149,7 @@ namespace WebSite.Controllers
             var count = 8;
             ViewBag.list = GetList<expert,int>(page, count,x=>x.user_userId).ToList();
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-            ViewBag.page = page;
+            ViewBag.pageNum = page;
             ViewBag.parent = "ExpertList";
 
             ViewBag.detail = "Expert";
