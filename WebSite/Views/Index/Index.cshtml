@@ -92,8 +92,8 @@
                     {
                     <img src="../Image/img1.png" alt="img1" />
                     <div class="col-text">
-                        <h5>item.name</h5>
-                        <p>item.introduction</p>
+                        <h5>@item.name</h5>
+                        <p>@item.content</p>
                      </div>
                         }
                     }
@@ -111,8 +111,8 @@
                         {
                             <li>
                                 <a href="#">
-                                    <h2><span>item.time.first</span><b>item.time.second</b></h2>
-                                    <p>item.name</p>
+                                    <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
+                                    <p>@item.name</p>
                                 </a>
                             </li>
                         }
@@ -133,7 +133,7 @@
                         foreach (var item in ViewBag.teams)
                         {
                             <li>
-                                <a href="#">item.name</a>
+                                <a href="#">@item.name</a>
                             </li>
                         }
                     }

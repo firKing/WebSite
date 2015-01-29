@@ -77,7 +77,7 @@ namespace WebSite.Controllers
             var purchaseList = GetList<purchase>(6).ToList();
             var teamList = GetList<team>(12).ToList();
            
-            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, content = record.user.user_introduction });
+            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, content = new String(record.user.user_introduction.Take(20).ToArray()) });
             ViewBag.newes = newsList.Select(record=> new IndexStruct { name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay( record.purchase_time)});
             ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name });
@@ -93,13 +93,13 @@ namespace WebSite.Controllers
                 Select(x => new IndexStruct {
                     detailId = x.purchaseId,
                     name =x.purchase_title,
-                    content = x.purchase_content,
+                    content = new String(x.purchase_content.Take(200).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
             ViewBag.parent = "PurchaseList";
-            ViewBag.detail = "~/Purchase/Detail?id=";
+            ViewBag.detail = "Purchase/Detail?id=";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -111,7 +111,7 @@ namespace WebSite.Controllers
                 Select(x=>new IndexStruct {
                     detailId = x.newsId,
                     name = x.news_title,
-                    content = x.news_content,
+                    content =new String(x.news_content.Take(200).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
 
@@ -122,7 +122,7 @@ namespace WebSite.Controllers
             
             ViewBag.pageClass = "action disabled";
 
-            ViewBag.detail = "~/New/Detail?id=";
+            ViewBag.detail = "New/Detail?id=";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -133,7 +133,7 @@ namespace WebSite.Controllers
                 .Select(x => new IndexStruct {
                     detailId = x.teamId,
                     name = x.team_name,
-                    content = x.team_introduction ,
+                    content = new String(x.team_introduction.Take(200).ToArray()),
                     time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum = page;
@@ -142,7 +142,7 @@ namespace WebSite.Controllers
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.parent = "TeamList";
 
-            ViewBag.detail = "~/Vendor/TeamDetail?id=";
+            ViewBag.detail = "Vendor/TeamDetail?id=";
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
