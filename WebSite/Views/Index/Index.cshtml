@@ -68,22 +68,20 @@
         <div class="col-md-8">
             <h1>新闻动态 <span></span></h1>
             <ul>
-                @{
-                    if (ViewBag.newses != null)
+                @if (ViewBag.newes != null)
                     {
-                        foreach (var item in ViewBag.newses)
-                        {
+                        foreach (var item in ViewBag.newes)
+                        { 
                                 <li>
                                     <a href="#">
-                                        <h2><span>item.time.first</span><b>item.time.second</b></h2>
-                                        <p>item.name</p>
+                                        <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
+                                        <p>@item.name</p>
                                     </a>
                                 </li>
-                            }
                         }
-                }
+                    }
             </ul>
-            <a href="#">更多>></a>
+            @Html.ActionLink("更多>>", "NewsList", "Index", new { page = 1 }, new { })
         </div>
         <div class="col-md-4">
             <h3>专家推荐</h3>
@@ -123,7 +121,7 @@
 
                 }
             </ul>
-            <a href="#">更多>></a>
+            @Html.ActionLink("更多>>", "PurchaseList", "Index", new { page = 1 }, new { })
         </div>
         <div class="col-md-4">
             <h3>正在组建的团队</h3>
@@ -142,7 +140,7 @@
 
                 }
             </ul>
-            <a href="#">查看更多>></a>
+            @Html.ActionLink("更多>>", "TeamList", "Index", new { page = 1 }, new { })
         </div>
     </div>
 </div>

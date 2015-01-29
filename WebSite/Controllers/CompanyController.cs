@@ -17,14 +17,14 @@ namespace WebSite.Controllers
         }
         private bool CheckSession()
         {
-            return new Utility().CheckSession(UserType.Company, Session);
+            return Utility.CheckSession(UserType.Company, Session);
         }
 
         private ActionResult Info()
         {
             if (CheckSession()) 
             {
-                IQueryable<user> query = (IQueryable<user>)(new Utility().GetList<user>(x => x.userId, Session));
+                IQueryable<user> query = (IQueryable<user>)(Utility.GetList<user>(x => x.userId, Session));
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;

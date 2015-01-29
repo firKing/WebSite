@@ -26,12 +26,11 @@ namespace WebSite.Controllers
         }
         private UserType GetUsetTypeByString(String type)
         {
-            return new Utility().GetUsetTypeByString(type);
+            return Utility.GetUsetTypeByString(type);
         }
         private void SesSession(int id,String type)
         {
-            new Utility().SetSession(Session, id, GetUsetTypeByString(type));
-
+            Utility.SetSession(Session, id, GetUsetTypeByString(type));
         }
         //ajax
         [HttpPost]
@@ -76,7 +75,7 @@ namespace WebSite.Controllers
         }
         private void SetLoginSession(int userId,String type)
         {
-            new Utility().SetLoginSession(Session, userId,type);
+            Utility.SetLoginSession(Session, userId,type);
         }
     }
 }

@@ -12,9 +12,20 @@ using System.Collections.Generic;
 
 namespace WebSite.Controllers.Common
 {
-    public class Utility
+    public static class Utility
     {
-        public UserType GetUsetTypeByString(String type)
+        public static String DateTimeToString(DateTime time)
+        {
+          return time.Year.ToString() + "-"
+                + time.Month.ToString() + "-" 
+                + time.Day.ToString() + " "
+                + time.Hour.ToString()+"-" 
+                + time.Minute.ToString() + "-"
+                + time.Second.ToString();
+        }
+
+
+        public static UserType GetUsetTypeByString(String type)
         {
             if (type == "Expert")
             {
@@ -41,7 +52,7 @@ namespace WebSite.Controllers.Common
 
 
         }
-        public bool CheckSession(UserType type, HttpSessionStateBase Session)
+        public static bool CheckSession(UserType type, HttpSessionStateBase Session)
         {
             return Convert.ToInt32(Session["user_id"]) != 0 &&
                  ((UserType)Session["user_type"] == UserType.Expert
@@ -49,47 +60,43 @@ namespace WebSite.Controllers.Common
                 || (UserType)Session["user_type"] == UserType.Company
                 );
         }
-        public object GetList<T>(Func<T, int> expression, HttpSessionStateBase Session) where T : class
+        public static object GetList<T>(Func<T, int> expression, HttpSessionStateBase Session) where T : class
         {
-   
             var table = new SingleTableModule<T>();
             var result = table.
             FindInfo(x => expression.Invoke(x) == Convert.ToInt32(Session["user_id"]));
             Assert(result != null);
             return result;
         }
-        public bool CheckUserType(String type)
+        public static bool CheckUserType(String type)
         {
             return type == UserType.Expert.ToString() ||
                       type == UserType.Vendor.ToString() ||
                       type == UserType.Company.ToString();
         }
-        public void SetSession(HttpSessionStateBase Session,int userId, UserType type)
+        public static void SetSession(HttpSessionStateBase Session,int userId, UserType type)
         {
             Session["user_id"] = userId;
             Session["user_type"] = type;
         }
         private delegate void RegisterEventHandler(int id);
-        private SingleTableModule<T> TableHandle<T>() where T : class
-        {
-            return new SingleTableModule<T>();
-        }
+      
 
-        public void SetLoginSession(HttpSessionStateBase Session, int userId,String type)
+        public static void SetLoginSession(HttpSessionStateBase Session, int userId,String type)
         {
             Dictionary<String, RegisterEventHandler> registerEventMap = new Dictionary<string, RegisterEventHandler>();
             registerEventMap.Add(UserType.Expert.ToString(), (int id) =>
             {
                 expert record = new expert();
                 record.user_userId = id;
-                var result = TableHandle<expert>().Create(record);
+                var result = new SingleTableModule< expert>().Create(record);
                 SetSession(Session,result.second, UserType.Expert);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
                 company record = new company();
                 record.user_userId = id;
-                var result = TableHandle<company>().Create(record);
+                var result = new SingleTableModule< company>().Create(record);
                 SetSession(Session,result.second, UserType.Company);
             });
             
@@ -97,28 +104,28 @@ namespace WebSite.Controllers.Common
             {
                  vendor record = new vendor();
                 record.user_userId = id;
-                var result = TableHandle<vendor>().Create(record);
+                var result = new SingleTableModule<vendor>().Create(record);
                 SetSession(Session,result.second, UserType.Vendor);
             });
             registerEventMap[type](userId);
         }
-        public IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, Tkey>> keySelector) where T : class
+        public static IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, Tkey>> keySelector) where T : class
         {
             var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
             return container;
         }
-        public IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        public static IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
 
             var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip((page-1) * count).Take(count);
             return container;
         }
-        public int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        public static int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
             var sum = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Count();
             return sum;
         }
-        public int GetSumCount<T, Tkey>( Expression<Func<T, Tkey>> keySelector) where T : class
+        public static int GetSumCount<T, Tkey>( Expression<Func<T, Tkey>> keySelector) where T : class
         {
             var sum = GetSumCount(x=>true,keySelector);
             return sum;
