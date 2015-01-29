@@ -104,8 +104,13 @@ namespace WebSite.Controllers
             var result = GetList<news, int>(page, count,x=>x.newsId).Select(x=>new IndexStruct { name = x.news_title, content = x.news_content,time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
+            ViewBag.parent = "NewsList";
+            
             ViewBag.list = result;
-            ViewBag.page = page + 1;
+            ViewBag.page = page;
+            ViewBag.prePage = page - 1;
+            ViewBag.nextPage = ViewBag.page + 1;
+            ViewBag.pageClass = "action disabled";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -115,6 +120,9 @@ namespace WebSite.Controllers
             var result = GetList<team, int>(page, count, x => x.teamId).Select(x=>new IndexStruct { name = x.team_name,content = x.team_introduction , time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page + 1;
+            ViewBag.pageClass = "action disabled";
+            ViewBag.prePage = page - 1;
+            ViewBag.nextPage = page + 1;
 
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.list = result;
