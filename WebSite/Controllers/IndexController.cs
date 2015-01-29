@@ -94,7 +94,7 @@ namespace WebSite.Controllers
                 Select(x=>new IndexStruct {
                     name =x.purchase_title,
                     content = x.purchase_content,
-                    time = new Pair<string, int>(x.purchase_time.ToString(),0) } ).ToList();
+                    time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } ).ToList();
             ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
             ViewBag.page = page + 1;
@@ -110,7 +110,7 @@ namespace WebSite.Controllers
                 Select(x=>new IndexStruct {
                     name = x.news_title,
                     content = x.news_content,
-                    time = new Pair<string, int>(x.news_time.ToString(),0)}).ToList();
+                    time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)}).ToList();
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.parent = "NewsList";
