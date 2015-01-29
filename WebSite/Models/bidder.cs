@@ -11,8 +11,7 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class bidder
     {
         public bidder()
@@ -21,9 +20,7 @@ namespace WebSite.Models
         }
     
         public int bidderId { get; set; }
-
         public bool bidder_is_team { get; set; }
-
         public int tendererId { get; set; }
     
         public virtual ICollection<bid> bids { get; set; }

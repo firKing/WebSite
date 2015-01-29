@@ -49,14 +49,14 @@
           <Key>
             <PropertyRef Name="companyId" />
           </Key>
-          <Property Name="companyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyId" Type="int" Nullable="false" />
           <Property Name="user_userId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="experts">
           <Key>
             <PropertyRef Name="expertId" />
           </Key>
-          <Property Name="expertId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expertId" Type="int" Nullable="false" />
           <Property Name="expert_image" Type="nvarchar(max)" />
           <Property Name="expert_accept_count" Type="int" Nullable="false" />
           <Property Name="user_userId" Type="int" Nullable="false" />
@@ -126,7 +126,7 @@
           <Key>
             <PropertyRef Name="vendorId" />
           </Key>
-          <Property Name="vendorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vendorId" Type="int" Nullable="false" />
           <Property Name="user_userId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_AUDIT_AUDIT_BID">

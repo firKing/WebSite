@@ -11,17 +11,11 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class admin
     {
         public int adminId { get; set; }
-        [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^\w[\w\d_]{5,19}$", ErrorMessage = "Please enter valid name.")]
-
         public string admin_name { get; set; }
-        [Required(ErrorMessage = "*")]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
-
         public string admin_pwd { get; set; }
         public System.DateTime time { get; set; }
     }
