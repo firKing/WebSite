@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layouts/List.cshtml";
+    ViewBag.prePage = ViewBag.page - 1;
+    ViewBag.nextPage = ViewBag.page + 1;
 }
 
 @section css {
@@ -30,11 +32,19 @@
             {
                 <li>
                     <a href="~/@ViewBag.">
-                        <h4>@item.news_title</h4>
+                        <h4>@item.title</h4>
                         <p>
-                            @item.news_content
+                            @item.content
                         </p>
-                        <span>@item.news_time</span>
+                        @if (ViewBag.parent == "TeamList")
+                        {
+                            <span>已有<strong>@item.time.second</strong>人参加</span>
+                        }
+                        else
+                        {
+                            <span>@item.time.first</span>
+                        }
+                        
                     </a>
                 </li>
             }

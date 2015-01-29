@@ -87,8 +87,9 @@ namespace WebSite.Controllers
             var result = GetList<purchase,int>(page,count,x=>x.purchaseId);
             ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
-            ViewBag.page = page + 1;
+            ViewBag.page = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+            ViewBag.parent = "PurchaseList";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -97,14 +98,16 @@ namespace WebSite.Controllers
             var count = 5;
             var result = GetList<news, int>(page, count,x=>x.newsId);
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
+
             ViewBag.bigtitle = "新闻列表";
             ViewBag.parent = "NewsList";
             
             ViewBag.list = result;
             ViewBag.page = page;
-            ViewBag.prePage = page - 1;
-            ViewBag.nextPage = ViewBag.page + 1;
+            
             ViewBag.pageClass = "action disabled";
+
+            ViewBag.detail = "New";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -113,14 +116,15 @@ namespace WebSite.Controllers
             var count = 5;
             var result = GetList<team, int>(page, count, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-            ViewBag.page = page + 1;
+            ViewBag.page = page;
             ViewBag.pageClass = "action disabled";
-            ViewBag.prePage = page - 1;
-            ViewBag.nextPage = page + 1;
 
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.list = result;
-            
+            ViewBag.parent = "TeamList";
+
+            ViewBag.detail = "Team";
+
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
@@ -128,7 +132,10 @@ namespace WebSite.Controllers
             var count = 8;
             var result = GetList<expert,int>(page, count,x=>x.user_userId);
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
-            ViewBag.page = page + 1;
+            ViewBag.page = page;
+            ViewBag.parent = "ExpertList";
+
+            ViewBag.detail = "Expert";
 
             ViewBag.list = result;
             return View("~/Views/Expert/List.cshtml");
