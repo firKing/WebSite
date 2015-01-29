@@ -26,3 +26,4 @@ namespace WebSite.Models
         public virtual company company { get; set; }
     }
 }
+

@@ -26,3 +26,4 @@ namespace WebSite.Models
         public virtual purchase purchase { get; set; }
     }
 }
+

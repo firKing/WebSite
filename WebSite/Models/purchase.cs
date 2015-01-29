@@ -39,3 +39,4 @@ namespace WebSite.Models
         public virtual ICollection<team> teams { get; set; }
     }
 }
+

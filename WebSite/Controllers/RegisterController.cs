@@ -27,8 +27,8 @@ namespace WebSite.Controllers
         [HttpPost]
         public void Register(user info)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 var table = new SingleTableModule<user>();
                 var createResult = table.Create(info);
                 if (createResult.first == true)
@@ -38,7 +38,7 @@ namespace WebSite.Controllers
                     Assert(CheckUserType(findIter.user_type));
 
                     SetLoginSession(findIter.userId, findIter.user_type);
-               // }
+                }
             }
             RedirectToAction("Index");
             

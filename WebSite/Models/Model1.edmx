@@ -80,7 +80,7 @@
     <Key>
       <PropertyRef Name="adminId" />
     </Key>
-    <Property Name="adminId" Type="int" Nullable="false" />
+    <Property Name="adminId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="admin_name" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="admin_pwd" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="time" Type="datetime" Nullable="false" />
@@ -89,7 +89,7 @@
     <Key>
       <PropertyRef Name="auditId" />
     </Key>
-    <Property Name="bidId" Type="int" Nullable="false" />
+    <Property Name="bidId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="expertId" Type="int" Nullable="false" />
     <Property Name="auditId" Type="int" Nullable="false" />
     <Property Name="audit_content" Type="varchar" Nullable="true" MaxLength="500" />
@@ -98,7 +98,7 @@
     <Key>
       <PropertyRef Name="bidderId" />
     </Key>
-    <Property Name="bidderId" Type="int" Nullable="false" />
+    <Property Name="bidderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="bidder_is_team" Type="bit" Nullable="false" />
     <Property Name="tendererId" Type="int" Nullable="false" />
   </EntityType>
@@ -106,7 +106,7 @@
     <Key>
       <PropertyRef Name="bidId" />
     </Key>
-    <Property Name="bidId" Type="int" Nullable="false" />
+    <Property Name="bidId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="purchaseId" Type="int" Nullable="false" />
     <Property Name="bidderId" Type="int" Nullable="false" />
     <Property Name="bid_title" Type="varchar" Nullable="false" MaxLength="50" />
@@ -120,14 +120,14 @@
     <Key>
       <PropertyRef Name="companyId" />
     </Key>
-    <Property Name="companyId" Type="int" Nullable="false" />
+    <Property Name="companyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="user_userId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="experts">
     <Key>
       <PropertyRef Name="expertId" />
     </Key>
-    <Property Name="expertId" Type="int" Nullable="false" />
+    <Property Name="expertId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="expert_image" Type="nvarchar(max)" Nullable="true" />
     <Property Name="expert_accept_count" Type="int" Nullable="false" />
     <Property Name="user_userId" Type="int" Nullable="false" />
@@ -136,7 +136,7 @@
     <Key>
       <PropertyRef Name="invitationId" />
     </Key>
-    <Property Name="purchaseId" Type="int" Nullable="false" />
+    <Property Name="purchaseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="expertId" Type="int" Nullable="false" />
     <Property Name="invitationId" Type="int" Nullable="false" />
     <Property Name="invitation_content" Type="varchar" Nullable="false" MaxLength="500" />
@@ -145,15 +145,15 @@
     <Key>
       <PropertyRef Name="memberId" />
     </Key>
-    <Property Name="vendorId" Type="int" Nullable="false" />
+    <Property Name="vendorId" Type="int" Nullable="false" StoreGeneratedPattern="None" />
     <Property Name="teamId" Type="int" Nullable="false" />
-    <Property Name="memberId" Type="int" Nullable="false" />
+    <Property Name="memberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="news">
     <Key>
       <PropertyRef Name="newsId" />
     </Key>
-    <Property Name="newsId" Type="int" Nullable="false" />
+    <Property Name="newsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="companyId" Type="int" Nullable="false" />
     <Property Name="news_title" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="news_content" Type="varchar(max)" Nullable="false" />
@@ -163,7 +163,7 @@
     <Key>
       <PropertyRef Name="purchaseId" />
     </Key>
-    <Property Name="purchaseId" Type="int" Nullable="false" />
+    <Property Name="purchaseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="companyId" Type="int" Nullable="false" />
     <Property Name="purchase_title" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="purchase_content" Type="varchar(max)" Nullable="false" />
@@ -174,7 +174,7 @@
     <Key>
       <PropertyRef Name="teamId" />
     </Key>
-    <Property Name="teamId" Type="int" Nullable="false" />
+    <Property Name="teamId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="team_name" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="team_introduction" Type="varchar" Nullable="false" MaxLength="300" />
     <Property Name="purchaseId" Type="int" Nullable="false" />
@@ -197,7 +197,7 @@
     <Key>
       <PropertyRef Name="vendorId" />
     </Key>
-    <Property Name="vendorId" Type="int" Nullable="false" />
+    <Property Name="vendorId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="user_userId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_AUDIT_AUDIT_BID">
@@ -376,7 +376,7 @@
           <Key>
             <PropertyRef Name="adminId" />
           </Key>
-          <Property Name="adminId" Type="Int32" Nullable="false" />
+          <Property Name="adminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="admin_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="admin_pwd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
@@ -385,7 +385,7 @@
           <Key>
             <PropertyRef Name="auditId" />
           </Key>
-          <Property Name="bidId" Type="Int32" Nullable="false" />
+          <Property Name="bidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="expertId" Type="Int32" Nullable="false" />
           <Property Name="auditId" Type="Int32" Nullable="false" />
           <Property Name="audit_content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -396,7 +396,7 @@
           <Key>
             <PropertyRef Name="bidderId" />
           </Key>
-          <Property Name="bidderId" Type="Int32" Nullable="false" />
+          <Property Name="bidderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="bidder_is_team" Type="Boolean" Nullable="false" />
           <Property Name="tendererId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="bids" Relationship="Self.FK_BID_PUBLISH_B_BIDDER" FromRole="bidders" ToRole="bids" />
@@ -405,7 +405,7 @@
           <Key>
             <PropertyRef Name="bidId" />
           </Key>
-          <Property Name="bidId" Type="Int32" Nullable="false" />
+          <Property Name="bidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="purchaseId" Type="Int32" Nullable="false" />
           <Property Name="bidderId" Type="Int32" Nullable="false" />
           <Property Name="bid_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -422,7 +422,7 @@
           <Key>
             <PropertyRef Name="companyId" />
           </Key>
-          <Property Name="companyId" Type="Int32" Nullable="false" />
+          <Property Name="companyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_userId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="news" Relationship="Self.FK_NEWS_PUBLISH_N_COMPANY" FromRole="companies" ToRole="news" />
           <NavigationProperty Name="purchases" Relationship="Self.FK_PURCHASE_PUBLISH_P_COMPANY" FromRole="companies" ToRole="purchases" />
@@ -432,7 +432,7 @@
           <Key>
             <PropertyRef Name="expertId" />
           </Key>
-          <Property Name="expertId" Type="Int32" Nullable="false" />
+          <Property Name="expertId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="expert_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="expert_accept_count" Type="Int32" Nullable="false" />
           <Property Name="user_userId" Type="Int32" Nullable="false" />
@@ -444,7 +444,7 @@
           <Key>
             <PropertyRef Name="invitationId" />
           </Key>
-          <Property Name="purchaseId" Type="Int32" Nullable="false" />
+          <Property Name="purchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="expertId" Type="Int32" Nullable="false" />
           <Property Name="invitationId" Type="Int32" Nullable="false" />
           <Property Name="invitation_content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -455,9 +455,9 @@
           <Key>
             <PropertyRef Name="memberId" />
           </Key>
-          <Property Name="vendorId" Type="Int32" Nullable="false" />
+          <Property Name="vendorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="teamId" Type="Int32" Nullable="false" />
-          <Property Name="memberId" Type="Int32" Nullable="false" />
+          <Property Name="memberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="team" Relationship="Self.FK_MEMBER_COMPONENT_TEAM" FromRole="members" ToRole="teams" />
           <NavigationProperty Name="vendor" Relationship="Self.FK_MEMBER_INCLUDE_VENDOR" FromRole="members" ToRole="vendors" />
         </EntityType>
@@ -465,7 +465,7 @@
           <Key>
             <PropertyRef Name="newsId" />
           </Key>
-          <Property Name="newsId" Type="Int32" Nullable="false" />
+          <Property Name="newsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="companyId" Type="Int32" Nullable="false" />
           <Property Name="news_title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="news_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
@@ -476,7 +476,7 @@
           <Key>
             <PropertyRef Name="purchaseId" />
           </Key>
-          <Property Name="purchaseId" Type="Int32" Nullable="false" />
+          <Property Name="purchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="companyId" Type="Int32" Nullable="false" />
           <Property Name="purchase_title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="purchase_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
@@ -491,7 +491,7 @@
           <Key>
             <PropertyRef Name="teamId" />
           </Key>
-          <Property Name="teamId" Type="Int32" Nullable="false" />
+          <Property Name="teamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="team_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="team_introduction" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="purchaseId" Type="Int32" Nullable="false" />
@@ -519,7 +519,7 @@
           <Key>
             <PropertyRef Name="vendorId" />
           </Key>
-          <Property Name="vendorId" Type="Int32" Nullable="false" />
+          <Property Name="vendorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_userId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="members" Relationship="Self.FK_MEMBER_INCLUDE_VENDOR" FromRole="vendors" ToRole="members" />
           <NavigationProperty Name="user" Relationship="Self.FK_uservendor" FromRole="vendors" ToRole="users" />

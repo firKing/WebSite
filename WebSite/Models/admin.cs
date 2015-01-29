@@ -26,3 +26,4 @@ namespace WebSite.Models
         public System.DateTime time { get; set; }
     }
 }
+
