@@ -5,7 +5,18 @@
     ViewBag.prePage = ViewBag.pageNum - 1;
     ViewBag.nextPage = ViewBag.pageNum + 1;
     ViewBag.page = "news";
+    ViewBag.parent = ViewContext.RouteData.Values["action"];    
+    ViewBag.pageClass = "action disabled";
+    if(ViewBag.detailActionName == "Vendor")
+    {
+        ViewBag.detail = "~/"+ViewBag.detailActionName+"/TeamDetail?id=";
+    }
+    else
+    {
+        ViewBag.detail = "~/"+ViewBag.detailActionName+"/Detail?id=";
+    }
 }
+
 
 @section css {
     @Styles.Render("~/Content/bootstrap.css")

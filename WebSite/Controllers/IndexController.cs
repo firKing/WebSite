@@ -22,6 +22,7 @@ namespace WebSite.Controllers
     }
     public class IndexController : Controller
     {
+        private static readonly String listViewName = "~/Views/Shared/list.cshtml";
         public Pair<String,int> GetMonthAndDay(System.DateTime time)
         {
             var result = new Pair<String, int>(new String('\0',0),0);
@@ -98,10 +99,8 @@ namespace WebSite.Controllers
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
-            ViewBag.parent = "PurchaseList";
-            ViewBag.detail = "~/Purchase/Detail?id=";
-
-            return View("~/Views/Shared/list.cshtml");
+            ViewBag.detailActionName = "Purchase";
+            return View(listViewName);
         }
         public ActionResult NewsList(int page)
         {
@@ -114,17 +113,11 @@ namespace WebSite.Controllers
                     content = x.news_content,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
-
             ViewBag.bigtitle = "新闻列表";
-            ViewBag.parent = "NewsList";
-            
             ViewBag.pageNum = page;
-            
-            ViewBag.pageClass = "action disabled";
+            ViewBag.detailActionName = "New";
 
-            ViewBag.detail = "~/New/Detail?id=";
-
-            return View("~/Views/Shared/list.cshtml");
+            return View(listViewName);
         }
         public ActionResult TeamList(int page)
         {
@@ -137,13 +130,9 @@ namespace WebSite.Controllers
                     time = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum = page;
-            ViewBag.pageClass = "action disabled";
-
             ViewBag.bigtitle = "虚拟团队";
-            ViewBag.parent = "TeamList";
-
-            ViewBag.detail = "~/Vendor/TeamDetail?id=";
-            return View("~/Views/Shared/list.cshtml");
+            ViewBag.detailActionName = "Vendor";
+            return View(listViewName);
         }
         public ActionResult ExpertList(int page)
         {
@@ -151,8 +140,6 @@ namespace WebSite.Controllers
             ViewBag.list = GetList<expert,int>(page, count,x=>x.user_userId).ToList();
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum = page;
-            ViewBag.parent = "ExpertList";
-
             return View("~/Views/Expert/List.cshtml");
         }
 
