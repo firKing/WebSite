@@ -31,7 +31,7 @@
         @foreach (var item in ViewBag.list)
             {
                 <li>
-                    <a href="~/@ViewBag.detail">
+                    <a href="~/@ViewBag.detail/Detail?id=@item.detailId">
                         <h4>@item.name</h4>
                         <p>
                             @item.content

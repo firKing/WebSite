@@ -14,7 +14,7 @@ namespace WebSite.Controllers
         public Pair<string, int> time;
         public String content;
         public String image;
-
+        public int detailId;
     };
     public class TeamStruct
     {
@@ -89,8 +89,9 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             var count = 5;
-            ViewBag.list = GetList<purchase,int>(page,count,x=>x.purchaseId).ToList().
-                Select(x=>new IndexStruct {
+            ViewBag.list = GetList<purchase, int>(page, count, x => x.purchaseId).ToList().
+                Select(x => new IndexStruct {
+                    detailId = x.purchaseId,
                     name =x.purchase_title,
                     content = x.purchase_content,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
@@ -107,6 +108,7 @@ namespace WebSite.Controllers
             ViewBag.list = GetList<news, int>
                 (page, count,x=>x.newsId).ToList().
                 Select(x=>new IndexStruct {
+                    detailId = x.newsId,
                     name = x.news_title,
                     content = x.news_content,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
@@ -127,7 +129,8 @@ namespace WebSite.Controllers
         {
             var count = 5;
             ViewBag.list = GetList<team, int>(page, count, x => x.teamId).ToList()
-                .Select(x=>new IndexStruct {
+                .Select(x => new IndexStruct {
+                    detailId = x.teamId,
                     name = x.team_name,
                     content = x.team_introduction ,
                     time = new Pair<String, int>("",x.members.Count()) });

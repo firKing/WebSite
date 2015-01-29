@@ -23,7 +23,7 @@ namespace WebSite.Controllers
                 ViewBag.content = element.news_content;
                 ViewBag.time = element.news_time;
                 ViewBag.creator = element.company.user.user_name;
-                return View();
+                return View("~/Views/Shared/detail.cshtml");
             }
             else
             {
