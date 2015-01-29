@@ -21,7 +21,7 @@ namespace WebSite.Controllers
         
         private bool CheckUserType(String type)
         {
-            return new Utility().CheckUserType(type);
+            return Utility.CheckUserType(type);
         }
    
         [HttpPost]
@@ -44,7 +44,7 @@ namespace WebSite.Controllers
         }
         private void SetLoginSession(int userId,string type)
         {
-            new Utility().SetLoginSession(Session,userId,type);
+            Utility.SetLoginSession(Session,userId,type);
         }
 
     }

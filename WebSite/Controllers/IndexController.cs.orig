@@ -8,6 +8,13 @@ using WebSite.Models;
 
 namespace WebSite.Controllers
 {
+    public class IndexStruct
+    {
+        public String name;
+        public Pair<string, int> time;
+        public String introduction;
+        public String image;
+    }
     public class IndexController : Controller
     {
         public Pair<String,int> GetMonthAndDay(System.DateTime time)
@@ -64,39 +71,67 @@ namespace WebSite.Controllers
             var newsList = GetList<news>(6).ToList();
             var purchaseList = GetList<purchase>(6).ToList();
             var teamList = GetList<team>(12).ToList();
+<<<<<<< HEAD
+           
+            ViewBag.experts =expertList.Select( record=>new IndexStruct { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
+            ViewBag.newes = newsList.Select(record=> new IndexStruct { name = record.news_title, time = GetMonthAndDay(record.news_time) });
+            ViewBag.purchases =  purchaseList.Select(record=> new IndexStruct { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
+            ViewBag.teams = teamList.Select(record =>new IndexStruct { name = record.team_name });
+=======
 
             ViewBag.experts =expertList.Select( record=>new { name = record.user.user_name, image = record.expert_image, introduction = record.user.user_introduction });
-            ViewBag.newes = newsList.Select(record=> new {name = record.news_title, time = GetMonthAndDay(record.news_time) });
+            ViewBag.newes = newsList.Select(record => new { name = record.news_title, time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList.Select(record=> new { name = record.purchase_title, time = GetMonthAndDay(record.purchase_time) });
             ViewBag.teams = teamList.Select(record =>new { name = record.team_name });
+>>>>>>> 7c345ab07e0c588b84757cff47bde31b226d60fa
 
             return View();
         }
 
+
         public ActionResult PurchaseList(int page)
         {
-            var result = GetList<purchase,int>(page,5,x=>x.purchaseId);
+            var count = 5;
+            var result = GetList<purchase,int>(page,count,x=>x.purchaseId);
             ViewBag.bigtitle = "采购信息";
             ViewBag.list = result;
             ViewBag.page = page + 1;
+            ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult NewsList(int page)
         {
-            var result = GetList<news, int>(page, 5,x=>x.newsId);
+            var count = 5;
+            var result = GetList<news, int>(page, count,x=>x.newsId);
+            ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.list = result;
             ViewBag.page = page + 1;
 
             return View("~/Views/Shared/list.cshtml");
         }
-        public ActionResult ExpertList(int page)
+        public ActionResult TeamList(int page)
         {
-            var result = GetList<expert,int>(page, 8,x=>x.user_userId);
-            ViewBag.list = result;
+            var count = 5;
+            var result = GetList<team, int>(page, count, x => x.teamId).Select(x=> new { item = x,count = x.members.Count()});
+            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.page = page + 1;
 
+            ViewBag.bigtitle = "虚拟团队";
+            ViewBag.list = result;
+            
             return View("~/Views/Shared/list.cshtml");
+        }
+        public ActionResult ExpertList(int page)
+        {
+            var count = 8;
+            var result = GetList<expert,int>(page, count,x=>x.user_userId);
+            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            ViewBag.page = page + 1;
+
+            ViewBag.list = result;
+            return View("~/Views/Expert/List.cshtml");
         }
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
@@ -107,8 +142,12 @@ namespace WebSite.Controllers
         }
         private IQueryable<T> GetList<T,Tkey>(int page,int count,Expression<Func<T,Tkey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip(page*count).Take(count);
-            return container;
+            return new Utility().GetList(page, count, keySelector);
+        }
+      
+        public int GetSumCount<T, Tkey>(Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            return new Utility().GetSumCount<T, Tkey>( keySelector);
         }
     }
 }

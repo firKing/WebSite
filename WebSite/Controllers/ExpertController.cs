@@ -24,11 +24,11 @@ namespace WebSite.Controllers
         }
         private bool CheckSession()
         {
-            return new Utility().CheckSession(UserType.Expert, Session);
+            return Utility.CheckSession(UserType.Expert, Session);
         }
         private object GetList<T>(Func<T, int> expression) where T : class
         {
-            return new Utility().GetList<T>(expression, Session);
+            return Utility.GetList<T>(expression, Session);
         }
         private ActionResult Info()
         {
