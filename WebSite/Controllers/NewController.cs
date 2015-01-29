@@ -19,7 +19,10 @@ namespace WebSite.Controllers
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                ViewBag.news = element;
+                ViewBag.name = element.news_title;
+                ViewBag.content = element.news_content;
+                ViewBag.time = element.news_time;
+                ViewBag.creator = element.company.user.user_name;
                 return View();
             }
             else

@@ -151,7 +151,6 @@ namespace WebSite.Controllers
 
             ViewBag.detail = "Expert";
 
-
             return View("~/Views/Expert/List.cshtml");
         }
 

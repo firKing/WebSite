@@ -32,8 +32,8 @@
         @foreach (var item in ViewBag.list)
             {
                 <li>
-                    <a href="#">
-                        <h4>@item.title</h4>
+                    <a href="~/@ViewBag.detail">
+                        <h4>@item.name</h4>
                         <p>
                             @item.content
                         </p>
@@ -45,7 +45,7 @@
                         {
                             <span>@item.time.first</span>
                         }
-                        
+
                     </a>
                 </li>
             }
