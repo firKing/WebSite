@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="WebSiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="WebSiteModelStoreContainer">
+    <EntityContainer Name="WebSiteModelStoreContainer">
     <EntitySet Name="admins" EntityType="WebSiteModel.Store.admins" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="audits" EntityType="WebSiteModel.Store.audits" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="bidders" EntityType="WebSiteModel.Store.bidders" store:Type="Tables" Schema="dbo" />
