@@ -6,7 +6,7 @@ namespace WebSite.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^\W[\W\d_]{5-19}$", ErrorMessage = "Please enter valid name.")]
+        [RegularExpression(@"^\w[\w\d_]{5,19}$", ErrorMessage = "Please enter valid name.")]
         public string name { get; set; }
 
         [Required(ErrorMessage = "*")]
