@@ -28,3 +28,4 @@ namespace WebSite.Models
         public virtual user user { get; set; }
     }
 }
+

@@ -41,7 +41,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(news info)
         {
-
+            
             var result = db.Create(info);
             if (result.first == false)
             {

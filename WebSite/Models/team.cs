@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class team
     {
         public team()
@@ -20,7 +21,11 @@ namespace WebSite.Models
         }
     
         public int teamId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string team_name { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string team_introduction { get; set; }
         public int purchaseId { get; set; }
         public int createId { get; set; }
