@@ -1,42 +1,149 @@
-﻿
+﻿<style>
+.top_bar{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 4px;
+    font-family: "Microsoft Yahei";
+    position: absolute;
+    top: -50px;
+    z-index: 10000;
+}
+
+.red{
+    background: #E74C3C;
+}
+
+.blue{
+    background: #3498DB;
+}
+
+</style>
+
+<div id="top_bar" class="top_bar red">
+    helloworld
+</div>
 
 <!--登陆框-->
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <h3>登录</h3>
-            <form action="">
+            <form id="login_form">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">用户名/邮箱</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <label for="exampleInputEmail1">用户名</label>
+                    <input type="text" data-error="用户名错误" name="name" class="form-control" id="name" placeholder="用户名">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">密码</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" data-error="密码错误" name="password" class="form-control" id="password" placeholder="密码">
                 </div>
                 <div class="form-group navbar-right">
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 供应商
+                        <input type="radio" name="type" data-url="@Url.Action("Home", "Vendor")" id="inlineRadio1" value="Vendor" checked="checked"> 供应商
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 单位
+                        <input type="radio" name="type" data-url="@Url.Action("Home", "Company")" id="inlineRadio2" value="Company"> 单位
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 专家
+                        <input type="radio" name="type" data-url="@Url.Action("Home", "Expert")" id="inlineRadio3" value="Expert"> 专家
                     </label>
                 </div>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 记住我
-                </label>
                 <div class="form-group form-a">
-                    <a href="#">找回密码</a>
-                    <a href="#">点我注册</a>
+                    <a href="@Url.Action("Index", "Register")">点我注册</a>
                 </div>
-                <button type="button" class="btn btn-success">登录</button>
+                <input type="submit" class="btn btn-success" value="登陆">
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+
+            $.each(a, function () {
+                if (o[this.name] != undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || "")
+                }
+                else {
+                    o[this.name] = this.value || "";
+                }
+            });
+            return o;
+        };
+        function log(msg) {
+            var topbar = $("#top_bar");
+            topbar.html(msg);
+            topbar.animate({
+                top: '0'
+            });
+
+            setTimeout(function () {
+                topbar.animate({
+                    top: "-50px"
+                });
+            }, 3000);
+        }
+
+        $("#login_form").on('submit', function (e) {
+            e.preventDefault();
+            var flag = true;
+            var data = $(e.target).serializeObject();
+            var errormsg;
+            var errorTitle = $("#top_bar");
+
+            var checker = {
+                name: /^[a-zA-Z]\w{5,16}/,
+                password: /^[a-zA-Z]w{6,16}/
+            };
+
+            $('input').css({
+                'border': '1px solid #ccc'
+            });
+            $.each(data, function (name) {
+                if ( name !=  'type' && ! checker[name].test(this) ) {
+                    flag = false;
+                    errormsg = $("input[name='" + name + "']").attr('data-error');
+                    log(errormsg);
+                    $("input[name='" + name + "']").css({
+                        border: '1px solid #E74C3C'
+                    });
+                }
+            });
+            var nowType = data['type'];
+            var href = $("input[value='" + nowType + "']").attr("data-url");
+
+            window.nowType = nowType;
+            $.ajax({
+                type: 'post',
+                url: "@Url.Action("Login", "Verify")",
+                data: data,
+                dataType: "json",//返回json格式的数据
+                complete: function (status) {
+                    if (status === "true") {
+                        location.href = location.origin + href
+                    }
+
+                },
+                error: function (data) {
+                    log(JSON.stringify(data));
+                }
+            });
+
+        });
+    });
+
+</script>
+
 <!--登陆框-->
 <!--header-->
 <div class="header">
