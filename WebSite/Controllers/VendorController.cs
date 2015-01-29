@@ -95,6 +95,7 @@ namespace WebSite.Controllers
                 ViewBag.content = element.team_introduction;
                 ViewBag.time = "";
                 ViewBag.creator = element.purchase.company.user.user_name;
+                ViewBag.detailActionName = "Vendor";
                 return View("~/Views/Shared/detail.cshtml");
             }
             else
