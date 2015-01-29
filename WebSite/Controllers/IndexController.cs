@@ -99,6 +99,7 @@ namespace WebSite.Controllers
             ViewBag.pageNum = page;
             ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
             ViewBag.parent = "PurchaseList";
+            ViewBag.detail = "~/Purchase/Detail?id=";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -121,7 +122,7 @@ namespace WebSite.Controllers
             
             ViewBag.pageClass = "action disabled";
 
-            ViewBag.detail = "New";
+            ViewBag.detail = "~/New/Detail?id=";
 
             return View("~/Views/Shared/list.cshtml");
         }
@@ -141,7 +142,7 @@ namespace WebSite.Controllers
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.parent = "TeamList";
 
-            ViewBag.detail = "Team";
+            ViewBag.detail = "~/Vendor/TeamDetail?id=";
             return View("~/Views/Shared/list.cshtml");
         }
         public ActionResult ExpertList(int page)
@@ -151,8 +152,6 @@ namespace WebSite.Controllers
             ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum = page;
             ViewBag.parent = "ExpertList";
-
-            ViewBag.detail = "Expert";
 
             return View("~/Views/Expert/List.cshtml");
         }
