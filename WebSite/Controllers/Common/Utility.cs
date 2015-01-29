@@ -90,14 +90,14 @@ namespace WebSite.Controllers.Common
                 expert record = new expert();
                 record.user_userId = id;
                 var result = new SingleTableModule< expert>().Create(record);
-                SetSession(Session,result.second, UserType.Expert);
+                SetSession(Session,result.second.expertId, UserType.Expert);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
                 company record = new company();
                 record.user_userId = id;
                 var result = new SingleTableModule< company>().Create(record);
-                SetSession(Session,result.second, UserType.Company);
+                SetSession(Session,result.second.companyId, UserType.Company);
             });
             
             registerEventMap.Add(UserType.Vendor.ToString(), (int id) =>
@@ -105,7 +105,7 @@ namespace WebSite.Controllers.Common
                  vendor record = new vendor();
                 record.user_userId = id;
                 var result = new SingleTableModule<vendor>().Create(record);
-                SetSession(Session,result.second, UserType.Vendor);
+                SetSession(Session,result.second.vendorId, UserType.Vendor);
             });
             registerEventMap[type](userId);
         }
