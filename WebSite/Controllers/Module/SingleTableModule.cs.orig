@@ -29,11 +29,19 @@ namespace WebSite.Controllers.Module
             return query;
         }
 
-        public Pair<bool, T> Create(T info)
+        public Pair<bool, int> Create(T info)
         {
             Assert(info != null);
             var addResult = db.table.Add(info);
-            return new Pair<bool, T>(db.SaveChanges() > 0, addResult);
+            var tableType = db.table.GetType();
+<<<<<<< HEAD
+            var propertyInfo = tableType.GetProperty(tableType.Name + "Id");
+=======
+            var test = tableType.ToString();
+            var propertyInfo = tableType.GetProperty(tableType.ToString() + "Id");
+>>>>>>> cb0939c8dafed1147f51204d1595e53521714bdb
+            var id = (int)propertyInfo.GetValue(addResult);
+            return new Pair<bool, int>(db.SaveChanges() > 0, id);
         }
 
         public bool Edit(T info)

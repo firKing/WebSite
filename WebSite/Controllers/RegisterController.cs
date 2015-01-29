@@ -33,7 +33,7 @@ namespace WebSite.Controllers
                 var createResult = table.Create(info);
                 if (createResult.first == true)
                 {
-                    var findIter = table.FindInfo(x => x.userId == createResult.second).SingleOrDefault();
+                    var findIter = table.FindInfo(x => x.userId == createResult.second.userId).SingleOrDefault();
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
 
