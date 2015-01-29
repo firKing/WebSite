@@ -89,7 +89,8 @@ namespace WebSite.Controllers.Common
             {
                 expert record = new expert();
                 record.user_userId = id;
-                var result = new SingleTableModule< expert>().Create(record);
+                record.expert_accept_count = 0;
+                var result = new SingleTableModule<expert>().Create(record);
                 SetSession(Session,result.second.expertId, UserType.Expert);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
