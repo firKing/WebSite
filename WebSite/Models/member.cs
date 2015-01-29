@@ -22,4 +22,3 @@ namespace WebSite.Models
         public virtual vendor vendor { get; set; }
     }
 }
-

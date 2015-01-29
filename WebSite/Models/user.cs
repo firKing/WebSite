@@ -11,7 +11,8 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class user
     {
         public user()
@@ -23,11 +24,22 @@ namespace WebSite.Models
         
         public int userId { get; set; }
         public string user_type { get; set; }
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "Please enter valid phone.")]
         public string user_telephone { get; set; }
+        [Required(ErrorMessage = "*")]
+        [EmailAddress(ErrorMessage = "Please enter valid email")]
         public string user_mail { get; set; }
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^\w[\w\d_]{5,19}$", ErrorMessage = "Please enter valid name.")]
         public string user_name { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string user_address { get; set; }
+        [Required(ErrorMessage = "*")]
         public string user_introduction { get; set; }
+        [Required(ErrorMessage = "*")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
         public string user_password { get; set; }
     
         public virtual ICollection<company> companies { get; set; }
