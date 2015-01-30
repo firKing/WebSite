@@ -8,7 +8,7 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Index/index.css")
+    @Styles.Render("~/Content/PurchaseDetail/PurchaseDetail.css")
 }
 
 @section script {
@@ -18,11 +18,11 @@
 
 <!--详情页主体部分-->
 <div id="detail-pur">
-    <h2>@ViewBag.detail.purchase_title</h2>
+    <h2>采购需求</h2>
     <div class="pur-main row">
         <div class="col-md-9">
             <div>
-                <h4>采购需求</h4>
+                <h4>@ViewBag.detail.purchase_title</h4>
                 <p>招标人：@ViewBag.detail.company.user.user_name <a href="#">点击查看招标人信息</a></p>
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
@@ -36,7 +36,7 @@
                 <li>
                     <span class="left">状态</span>
                     <span class="right underway">
-                        @if (@ViewBag.detail.hitId)
+                        @if (@ViewBag.detail.hitId != 0)
                         {
                             @ViewBag.end;
                         }
@@ -56,7 +56,7 @@
                 </li>
                 <li>
                     <span class="left">竞标</span>
-                    <span class="right">已有 @ViewBag.detail.bids.count 个竞标 <a href="#">查看详情</a></span>
+                    <span class="right">已有 @ViewBag.detail.bids.Count 个竞标 <a href="#">查看详情</a></span>
                 </li>
             </ul>
         </div>

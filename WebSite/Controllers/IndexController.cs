@@ -15,6 +15,7 @@ namespace WebSite.Controllers
         public String content;
         public String image;
         public int detailId;
+        public int id;
     };
     public class TeamStruct
     {
@@ -105,11 +106,12 @@ namespace WebSite.Controllers
                 Select(x => new IndexStruct {
                     detailId = x.purchaseId,
                     name     =x.purchase_title,
-                    content  = x.purchase_content,
+                    content = new String(x.purchase_content.Take(200).ToArray()),
                     time     = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time),0) } );
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum  = page;
             ViewBag.sumPage  = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+
             ViewBag.detailActionName = "Purchase";
             return View(listViewName);
         }
@@ -121,11 +123,12 @@ namespace WebSite.Controllers
                 Select(x=>new IndexStruct {
                     detailId = x.newsId,
                     name     = x.news_title,
-                    content  = x.news_content,
+                    content =new String(x.news_content.Take(200).ToArray()),
                     time     = new Pair<string, int>(Utility.DateTimeToString(x.news_time),0)});
             ViewBag.sumPage  = GetSumCount<news, int>(x => x.newsId)/count +1;
             ViewBag.bigtitle = "新闻列表";
             ViewBag.pageNum  = page;
+
             ViewBag.detailActionName = "New";
 
             return View(listViewName);
@@ -137,12 +140,13 @@ namespace WebSite.Controllers
                 .Select(x => new IndexStruct {
                     detailId = x.teamId,
                     name     = x.team_name,
-                    content  = x.team_introduction ,
+                    content = new String(x.team_introduction.Take(200).ToArray()),
                     time     = new Pair<String, int>("",x.members.Count()) });
             ViewBag.sumPage  = GetSumCount<team, int>(x => x.teamId) / count + 1;
             ViewBag.pageNum  = page;
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.detailActionName = "Team";
+            ViewBag.detailActionName = "Vendor";
             return View(listViewName);
         }
         public ActionResult ExpertList(int page)

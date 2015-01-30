@@ -29,7 +29,7 @@
                 <div class="carousel-caption">
                     <h1>Redrock采购网</h1>
                     <p>财政部唯一指定政府采购信息网络发布媒体 国家级政府采购专业网站</p>
-                    <p><a class="btn btn-lg btn-success" href="#" role="button">立即注册</a></p>
+                    <p><a class="btn btn-lg btn-success" href="NewsList?page=1" role="button">查看详情</a></p>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <div class="carousel-caption">
                     <h1>推动经济发展迈上新台阶</h1>
                     <p>当前，中国经济发展所处的新常态，既是由过去时发展而来的现在时，更是蕴含着巨大变革、创新活力，迈向历史发展新阶段的未来时。认识新常态很重要，适应新常态也很重要；但更重要的是引领新常态，推动中国经济发展迈上新台阶。</p>
-                    <p><a class="btn btn-lg btn-success" href="#" role="button">查看详情</a></p>
+                    <p><a class="btn btn-lg btn-success" href="NewsList?page=1" role="button">查看详情</a></p>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                 <div class="carousel-caption">
                     <h1>Redrock采购网</h1>
                     <p>最美丽的采购网，帮助你找到你想要的。机不可失时不再来，赶快加入我们吧！</p>
-                    <p><a class="btn btn-lg btn-success" href="#" role="button">查看详情</a></p>
+                    <p><a class="btn btn-lg btn-success" href="NewsList?page=1" role="button">查看详情</a></p>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                         foreach (var item in ViewBag.newes)
                         { 
                                 <li>
-                                    <a href="#">
+                                    <a href="~/New/Detail?id=@item.detailId">
                                         <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
                                         <p>@item.name</p>
                                     </a>
@@ -92,8 +92,8 @@
                     {
                     <img src="../Image/img1.png" alt="img1" />
                     <div class="col-text">
-                        <h5>item.name</h5>
-                        <p>item.introduction</p>
+                        <h5>@item.name</h5>
+                        <p>@item.content</p>
                      </div>
                         }
                     }
@@ -104,22 +104,19 @@
         <div class="col-md-8">
             <h1>采购信息 <span></span></h1>
             <ul>
-                @{
-                    if (ViewBag.purchases != null)
+                @if (ViewBag.purchases != null)
                     {
                         foreach (var item in ViewBag.purchases)
                         {
                             <li>
-                                <a href="#">
-                                    <h2><span>item.time.first</span><b>item.time.second</b></h2>
-                                    <p>item.name</p>
+                                <a href="~/Purchase/Detail?id=@item.detailId">
+                                    <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
+                                    <p>@item.name</p>
                                 </a>
                             </li>
                         }
 
                     }
-
-                }
             </ul>
             @Html.ActionLink("更多>>", "PurchaseList", "Index", new { page = 1 }, new { })
         </div>
@@ -133,7 +130,7 @@
                         foreach (var item in ViewBag.teams)
                         {
                             <li>
-                                <a href="#">item.name</a>
+                                <a href="~/Vendor/TeamDetail?id=@item.id">@item.name</a>
                             </li>
                         }
                     }

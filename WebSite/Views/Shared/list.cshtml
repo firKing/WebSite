@@ -1,13 +1,20 @@
 ﻿
 @{
-    ViewBag.Title     = "Index";
-    Layout            = "~/Views/Layouts/List.cshtml";
-    ViewBag.prePage   = ViewBag.pageNum - 1;
-    ViewBag.nextPage  = ViewBag.pageNum + 1;
-    ViewBag.page      = "news";
-    ViewBag.parent    = ViewContext.RouteData.Values["action"];    
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/List.cshtml";
+    ViewBag.prePage = ViewBag.pageNum - 1;
+    ViewBag.nextPage = ViewBag.pageNum + 1;
+    ViewBag.page = "news";
+    ViewBag.parent = ViewContext.RouteData.Values["action"];    
     ViewBag.pageClass = "action disabled";
-    ViewBag.detail    = "~/"+ ViewBag.detailActionName + "/Detail?id=";
+    if(ViewBag.detailActionName == "Vendor")
+    {
+        ViewBag.detail = ViewBag.detailActionName+"/TeamDetail?id=";
+    }
+    else
+    {
+        ViewBag.detail = ViewBag.detailActionName+"/Detail?id=";
+    }
 }
 
 
@@ -36,7 +43,7 @@
         @foreach (var item in ViewBag.list)
             {
                 <li>
-                    <a href="@ViewBag.detail@item.detailId">
+                    <a href="~/@ViewBag.detail@item.detailId">
                         <h4>@item.name</h4>
                         <p>
                             @item.content

@@ -158,7 +158,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="main-nav">
-                    <li @if ((string)ViewData["page"] == "index") { Html.Raw("class='active'"); }>@Html.ActionLink("首页", "Index")</li>
+                    <li @if ((string)ViewData["page"] == "index") { Html.Raw("class='active'"); }>@Html.ActionLink("首页", "Index","Index")</li>
                     <li @if ((string)ViewData["page"] == "news") { Html.Raw("class='active'"); }>@Html.ActionLink("新闻列表", "NewsList", "Index",new { page=1}, new { })</l>
                     <li @if ((string)ViewData["page"] == "purchase") { Html.Raw("class='active'"); }>@Html.ActionLink("采购信息", "PurchaseList", "Index", new { page = 1 }, new { })</li>
                     <li @if ((string)ViewData["page"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
