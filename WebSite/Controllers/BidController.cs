@@ -81,5 +81,6 @@ namespace WebSite.Controllers
                 return RedirectToAction("Detail", new { id = info.bidId });
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
     }
 }

@@ -1,2 +1,7 @@
-﻿body {
+﻿.PubPur-main{
+    width: 412px;
+    margin: 30px auto;
+}
+.form-submit .btn{
+    font-size: 16px;
 }
