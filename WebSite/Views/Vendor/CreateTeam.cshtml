@@ -1,4 +1,5 @@
-﻿
+﻿@model WebSite.Models.team
+
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Layouts/Personal.cshtml";
@@ -7,12 +8,13 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Company/Company.css")
+    @Styles.Render("~/Content/CreatTeam/CreatTeam.css")
 }
 
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/CreatTeam/CreatTeam.js")
 }
 
 @section title {
@@ -21,23 +23,34 @@
 <div id="detail-main">
     <h2>组建虚拟团队</h2>
     <div id="CreateTeam">
-        <form class="form-horizontal" role="form" method="post">
+        <form class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="inputName" class="col-sm-3 control-label">成员姓名（逗号分隔）</label>
+                @Html.LabelFor(model => model.team_name, "队名", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="group_name" id="inputName" placeholder="成员姓名">
+                    @Html.TextBoxFor(model => model.team_name, new { @class = "form-control", @placeholder = "队名" })
+                    @Html.ValidationMessageFor(model => model.team_name)
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputTarget" class="col-sm-3 control-label">采购对象</label>
+                @Html.LabelFor(model => model.members, "成员姓名", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" name="purchase_object" id="inputTarget" placeholder="采购对象">
+                    @Html.TextBoxFor(model => model.members, new { @class = "form-control", @placeholder = "成员姓名", @data-container="body", @data-toggle="popover", @data-placement = "right", @data-trigger = "focus", @data-content = "成员之间用逗号隔开" })
+                    @Html.ValidationMessageFor(model => model.members)
                 </div>
             </div>
             <div class="form-group">
+                @Html.LabelFor(model => model.purchase, "采购对象", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.purchase, new { @class = "form-control", @placeholder = "采购对象" })
+                    @Html.ValidationMessageFor(model => model.purchase)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.team_introduction, "概要", new { @class = "col-sm-3 control-label" })
                 <label for="outline" class="col-sm-3 control-label">概要</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" name="summary" id="outline" rows="5"></textarea>
+                    @Html.TextAreaFor(model => model.team_introduction, new { @class = "form-control", @row="5" })
+                    @Html.ValidationMessageFor(model => model.team_introduction)
                 </div>
             </div>
             <div class="form-group form-submit">
@@ -48,3 +61,4 @@
         </form>
     </div>
 </div>
+

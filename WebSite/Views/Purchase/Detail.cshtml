@@ -27,7 +27,7 @@
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>@ViewBag.detail.purchase_content</p>
-                <a href="#" class="btn btn-success">组建虚拟团队竞标</a>
+                <a href="@Url.Action("Vendor", "CreatTeam")" class="btn btn-success">组建虚拟团队竞标</a>
                 <a href="#" class="btn btn-warning">我要竞标</a>
             </div>
         </div>

@@ -7,14 +7,7 @@
     ViewBag.page = "news";
     ViewBag.parent = ViewContext.RouteData.Values["action"];    
     ViewBag.pageClass = "action disabled";
-    if(ViewBag.detailActionName == "Vendor")
-    {
-        ViewBag.detail = ViewBag.detailActionName+"/TeamDetail?id=";
-    }
-    else
-    {
-        ViewBag.detail = ViewBag.detailActionName+"/Detail?id=";
-    }
+    ViewBag.detail = ViewBag.detailActionName+"/Detail?id=";
 }
 
 
