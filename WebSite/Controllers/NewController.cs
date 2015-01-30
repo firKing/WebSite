@@ -35,22 +35,23 @@ namespace WebSite.Controllers
         {
             return db.FindInfo(x => x.newsId == newsId);
         }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var record = new news();
+            return View(record);
+        }
 
-       
 
         [HttpPost]
         public ActionResult Create(news info)
         {
-            
-            var result = db.Create(info);
-            if (result.first == false)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Company", "NewsList");
+                var result = db.Create(info);
+                    return View("Detail");
             }
-            else
-            {
-                return View("Detail");
-            }
+            return RedirectToAction("Company", "NewsList");
         }
 
         public ActionResult Delete(int id)

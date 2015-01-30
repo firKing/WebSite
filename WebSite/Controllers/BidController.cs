@@ -44,7 +44,7 @@ namespace WebSite.Controllers
             var result = db.Create(info);
             if (result.first == false)
             {
-                return RedirectToAction("Company", "NewsList");
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
             else
             {
