@@ -2,6 +2,10 @@
     width: 1016px;
     margin: 40px auto;
 }
+#CreateTeam{
+    width: 412px;
+    margin: 20px auto;
+}
 #detail-main h2{
     color: #4db234;
     border-bottom: 1px solid #c1c1c1;

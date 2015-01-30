@@ -1,1 +1,1 @@
-﻿
+﻿$('#inputExpert').popover('hover');
