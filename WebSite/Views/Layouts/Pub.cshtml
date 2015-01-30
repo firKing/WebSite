@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@RenderSection("title")</title>
     @RenderSection("css")
+    @RenderSection("script")
 </head>
 <body>
     <!-- 顶部 -->
@@ -16,5 +17,4 @@
     @Html.Partial("~/Views/Shared/footer.cshtml")
     <!-- 尾部 -->
 </body>
-@RenderSection("script")
 </html>

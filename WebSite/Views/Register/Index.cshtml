@@ -18,36 +18,104 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/Register/register.js")
     <script>
+        $(document).ready(function () {
+            $.fn.serializeObject = function () {
+                var o = {};
+                var a = this.serializeArray();
 
-        $('.changeCode').on('click', function () {
-            var random = Math.random();
-            var url = $(this).find('img').attr('src');
-            $(this).find('img').attr('src', url + "?version=" + random);
-        });
-
-        $("#inputCode").on('blur', function (e) {
-            var value = $(e.target).val();
-            var icon = $('.flag').find('i');
-            $.post("@Url.Action("CheckValidCode", "Verify")", {validCode : value},  function(data){
-                if (Boolean(data)) {
-                    icon[0].className = "fa fa-2x fa-check";
-                    icon.css({
-                        'color': "green"
-                    })
-                }
-                else {
-                    icon[0].className = "fa fa-2x fa-times";
-                    icon.css({
-                        'color': "red"
-                    })
-                }
-
-                $('.flag').find('i').css({
-                    display: "block"
+                $.each(a, function () {
+                    if (o[this.name] != undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || "")
+                    }
+                    else {
+                        o[this.name] = this.value || "";
+                    }
                 });
-            });
-        });
+                return o;
+            };
+        
+            var Register = {
+                "events": {
+                    '.changeCode click': 'changeCode',
+                    "#inputCode blur": "codeAuth",
+                    "#inputPassword2 blur": "testPsw"
+                },
+                FormEle: $("#register_form"),
+                "changeCode": function () {
+                    var _this = this,
+                        formEle = _this.FormEle;
+                    var random = Math.random();
+                    var url = formEle.find('img').attr('src');
+                    formEle.find('img').attr('src', url + "?version=" + random);
+                },
+                "ShowTest": function (index, data) {
+                    var _this = this,
+                        formEle = _this.FormEle,
+                        icon = formEle.children(".form-group").eq(index).find('i');
+                    if (data.toString() === "true") {
+                        icon[0].className = "fa fa-2x fa-check";
+                        icon.addClass("passed");
+                    }
+                    else {
+                        icon[0].className = "fa fa-2x fa-times";
+                        icon.addClass("error");
+                    }
 
+                    icon.show();
+                },
+
+                "testPsw": function (e) {
+                    var _this = this,
+                        FormEle = _this.FormEle;
+
+                    var data = FormEle.serializeObject();
+
+                    if (data['user_password'] && data['repeat_password'] && data["user_password"] === data["repeat_password"]) {
+                        _this.ShowTest(6, true);
+                    }
+                    else {
+                        _this.ShowTest(6, false);
+                    }
+                },
+
+                "codeAuth": function (e) {
+                    var _this = Register,
+                        value = $(e.target).val(),
+                        index = $(e.target).parents(".form-group").index();
+                    $.post("@Url.Action("CheckValidCode", "Verify")", { validCode: value }, function (data) {
+                        _this.ShowTest(index, data);
+                    });
+
+                },
+                init: function () {
+                    var _this = this,
+                        events = _this.events,
+                        formEle = _this.FormEle,
+                        ele = null;
+                    $.each(events, function (name) {
+                        ele = name.split(" ")[0];
+                        event_name = name.split(" ")[1];
+
+                        if (typeof events[name] === 'string') {
+                            formEle.find(ele).on(event_name, function (e) {
+                                _this[events[name]].call(_this, e);
+                            });
+                        }
+                        else if (typeof events[name] === 'function') {
+                            formEle.find(ele).on(event_name, function(e){
+                                events[name].call(_this, e);
+                            });
+                        }
+                    });
+                }
+            };
+
+            Register.init();
+        });
+   
     </script>
 }
 
@@ -55,7 +123,7 @@
 <div id="register-main">
     <h2>注册</h2>
     <div class="register-right pull-left">
-        @using (Html.BeginForm("Register", "Register", FormMethod.Post,   new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Register", "Register", FormMethod.Post,   new { @id="register_form",  @class = "form-horizontal" }))
         {
             <div class="form-group">
                 @Html.LabelFor(model =>model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
@@ -66,6 +134,7 @@
                         <option value="Vendor">Vendor</option>
                     </select>
                 </div>
+
             </div>
 
             <div class="form-group">
@@ -74,6 +143,7 @@
                     @Html.TextBoxFor(model => model.user_name, new { @class = "form-control" , @placeholder="名称" })
                     @Html.ValidationMessageFor(model => model.user_name)
                </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.user_mail, "邮箱", new { @class = "col-sm-3 control-label" })
@@ -81,6 +151,7 @@
                     @Html.TextBoxFor(model => model.user_mail, new { @class = "form-control", @placeholder="邮箱" })
                     @Html.ValidationMessageFor(model => model.user_mail)
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.user_telephone, "电话", new { @class = "col-sm-3 control-label" })
@@ -88,6 +159,7 @@
                     @Html.TextBoxFor(model => model.user_telephone, new { @class = "form-control" , @placeholder="电话"})
                     @Html.ValidationMessageFor(model => model.user_name)
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.user_address, "地址", new { @class = "col-sm-3 control-label" })
@@ -95,26 +167,30 @@
                     @Html.TextBoxFor(model => model.user_address, new { @class = "form-control"  , @placeholder="地址" })
                     @Html.ValidationMessageFor(model => model.user_address)
                  </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_password, new { @class = "form-control", @placeholder="密码" })
+                    @Html.TextBoxFor(model => model.user_password, new { @type = "password",  @class = "form-control", @placeholder="密码" })
                     @Html.ValidationMessageFor(model => model.user_password)
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="确认密码">
+                    <input type="password" name="repeat_password" class="form-control" id="inputPassword2" placeholder="确认密码">
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_introduction, new { @class = "form-control", @placeholder="概要" })
+                    @Html.TextAreaFor(model => model.user_introduction, new { @class = "form-control", @placeholder="概要" })
                     @Html.ValidationMessageFor(model => model.user_introduction)
                 </div>
+                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
             </div>
             <div class="form-group">
                 <label for="inputCode" class="col-sm-3 control-label">验证码</label>
@@ -131,7 +207,7 @@
                     <button type="submit" class="btn btn-success">提交</button>
                 </div>
                 <div class="col-sm-7">
-                    @Html.ActionLink("已有账号？立即登录>>", "Index", "Index")
+                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">已有账号? 立即登录</a>
                 </div>
             </div>
         }
