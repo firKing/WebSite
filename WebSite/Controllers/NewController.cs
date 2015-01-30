@@ -49,9 +49,9 @@ namespace WebSite.Controllers
             if (ModelState.IsValid)
             {
                 var result = db.Create(info);
-                    return View("Detail");
+                return View("Detail");
             }
-            return RedirectToAction("Company", "NewsList");
+            return RedirectToAction("Company", "Home");
         }
 
         public ActionResult Delete(int id)

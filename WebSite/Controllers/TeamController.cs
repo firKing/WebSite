@@ -80,9 +80,9 @@ namespace WebSite.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(team info,String memberNames)
+        public ActionResult Create(team info,String memberNames, bid bidinfo)
         {
-            if (CheckSession())
+            if (CheckSession()&&ModelState.IsValid==true)
             {
                 var table = new SingleTableModule<team>();
                 var result = table.Create(info);
@@ -90,11 +90,20 @@ namespace WebSite.Controllers
                 {
                     var memberNmaeList = memberNames.Split(',').ToList();
                     CreateMembers(result.second.teamId,memberNmaeList);
-                    Utility.SetSession(Session,result.second.teamId,UserType.Team);
-                    return RedirectToAction("Create","Bid");
+                    var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
+                    if (bidderResult.first == true)
+                    {
+                        bidinfo.bidderId = bidderResult.second.bidderId;
+                        var bidTable = new SingleTableModule<bid>();
+                        var bidResult = bidTable.Create(bidinfo);
+                        if (bidResult.first == true)
+                        {
+                            return RedirectToAction("Detail", "Bid", new { id = bidResult.second.bidId });
+                        }
+                    }
                 }
             }
-            return RedirectToAction("Detail","Purchase");
+            return RedirectToAction("Detail","Purchase",new {id = info.purchaseId });
         }
         
     }

@@ -43,30 +43,18 @@ namespace WebSite.Controllers
         }
         private Pair<bool,bidder> CreateBidder(int tenderId, UserType type)
         {
-            Assert(type == UserType.Vendor || type == UserType.Team);
-            var record = new bidder();
-            record.tendererId = tenderId;
-            if (type == UserType.Team)
-            {
-                record.bidder_is_team = true;
-            }
-            else if (type == UserType.Vendor)
-            {
-                record.bidder_is_team = false;
-            }
-            var table = new SingleTableModule<bidder>();
-            return table.Create(record);
+            return Utility.CreateBidder(tenderId, type);
         }
         [HttpPost]
         public ActionResult Create(bid info)
         {
-            //检测SESSION看是虚拟团队还是Vendor发布的
+            //只有Vendor走这里
+            Assert((UserType)Session["user_type"] == UserType.Vendor);
             if (ModelState.IsValid)
             {
-                var bidderResult = CreateBidder((Int32)Session["user_id"], (UserType)Session["user_type"]);
+                var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 info.bidderId = bidderResult.second.bidderId;
                 var result = db.Create(info);
-                Utility.ClearSession(Session);
                 return RedirectToAction("Detail", new { id = result.second.bidId });
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
@@ -81,5 +69,6 @@ namespace WebSite.Controllers
                 return RedirectToAction("Detail", new { id = info.bidId });
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
     }
 }

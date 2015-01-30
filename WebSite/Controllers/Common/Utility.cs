@@ -14,6 +14,22 @@ namespace WebSite.Controllers.Common
 {
     public static class Utility
     {
+        public static Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
+        {
+            Assert(type == UserType.Vendor || type == UserType.Team);
+            var record = new bidder();
+            record.tendererId = tenderId;
+            if (type == UserType.Team)
+            {
+                record.bidder_is_team = true;
+            }
+            else if (type == UserType.Vendor)
+            {
+                record.bidder_is_team = false;
+            }
+            var table = new SingleTableModule<bidder>();
+            return table.Create(record);
+        }
         public static String DateTimeToString(DateTime time)
         {
           return time.Year.ToString() + "-"

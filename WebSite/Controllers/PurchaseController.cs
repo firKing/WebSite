@@ -90,7 +90,7 @@ namespace WebSite.Controllers
                     return RedirectToAction("Detail",new { id = result.second.purchaseId });
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Home","Company");
         }
 
         private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
