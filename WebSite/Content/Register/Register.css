@@ -1,14 +1,18 @@
-﻿#register-main{
+﻿#detail-main{
     width: 1016px;
     margin: 40px auto;
-    overflow: hidden;
-    text-align: center;
 }
-#register-main h2{
+
+#detail-main h2{
     color: #4db234;
     border-bottom: 1px solid #c1c1c1;
     margin-bottom: 10px;
     padding-bottom: 10px;
+}
+#register-main{
+    width: 412px;
+    margin: 40px auto;
+    overflow: hidden;
 }
 .register-right{
     width: 350px;
