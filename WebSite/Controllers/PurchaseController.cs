@@ -87,18 +87,12 @@ namespace WebSite.Controllers
                     var invitationTable = new SingleTableModule<invitation>();
                     var inviteesList = invitees.Split(',').ToList();
                     CreateInvitation(result.second.purchaseId, invitationContent, inviteesList);
-                    return View("Detail");
+                    return RedirectToAction("Detail",new { id = result.second.purchaseId });
                 }
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
-        //[HttpPost]
-        //public ActionResult CreateInvitation(invitation info)
-        //{
-        //    var dbInvitation = new SingleTableModule<invitation>();
-        //    var result = dbInvitation.Create(info);
-        //    return View("Detail");
-        //}
+
         private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
 

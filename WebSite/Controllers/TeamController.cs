@@ -90,11 +90,12 @@ namespace WebSite.Controllers
                 {
                     var memberNmaeList = memberNames.Split(',').ToList();
                     CreateMembers(result.second.teamId,memberNmaeList);
+                    Utility.SetSession(Session,result.second.teamId,UserType.Team);
                     return RedirectToAction("Create","Bid");
                 }
             }
             return RedirectToAction("Detail","Purchase");
         }
-      
+        
     }
 }

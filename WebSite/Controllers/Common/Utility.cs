@@ -79,6 +79,11 @@ namespace WebSite.Controllers.Common
             Session["user_id"] = userId;
             Session["user_type"] = type;
         }
+        public static void ClearSession(HttpSessionStateBase Session)
+        {
+            Session["user_id"] = null;
+            Session["user_type"] = null;
+        }
         private delegate void RegisterEventHandler(int id);
       
 
