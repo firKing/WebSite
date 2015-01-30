@@ -118,99 +118,99 @@
    
     </script>
 }
+<div id="detail-main">
+    <h2>注册</h2>
+    <div id="register-main">
+        <div class="register-right pull-left">
+            @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { @id = "register_form", @class = "form-horizontal" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        <select class="form-control" name="user_type">
+                            <option value="Expert">Expert</option>
+                            <option value="Company">Company</option>
+                            <option value="Vendor">Vendor</option>
+                        </select>
+                    </div>
 
-<h2>注册</h2>
-<div id="register-main">
-    <div class="register-right pull-left">
-        @using (Html.BeginForm("Register", "Register", FormMethod.Post,   new { @id="register_form",  @class = "form-horizontal" }))
-        {
-            <div class="form-group">
-                @Html.LabelFor(model =>model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    <select class="form-control"  name="user_type" >
-                        <option value="Expert">Expert</option>
-                        <option value="Company">Company</option>
-                        <option value="Vendor">Vendor</option>
-                    </select>
                 </div>
 
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_name, "名称" , new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_name, new { @class = "form-control" , @placeholder="名称" })
-                    @Html.ValidationMessageFor(model => model.user_name)
-               </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_mail, "邮箱", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_mail, new { @class = "form-control", @placeholder="邮箱" })
-                    @Html.ValidationMessageFor(model => model.user_mail)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_name, "名称", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.user_name, new { @class = "form-control", @placeholder = "名称" })
+                        @Html.ValidationMessageFor(model => model.user_name)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_telephone, "电话", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_telephone, new { @class = "form-control" , @placeholder="电话"})
-                    @Html.ValidationMessageFor(model => model.user_name)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_mail, "邮箱", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.user_mail, new { @class = "form-control", @placeholder = "邮箱" })
+                        @Html.ValidationMessageFor(model => model.user_mail)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_address, "地址", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_address, new { @class = "form-control"  , @placeholder="地址" })
-                    @Html.ValidationMessageFor(model => model.user_address)
-                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.user_password, new { @type = "password",  @class = "form-control", @placeholder="密码" })
-                    @Html.ValidationMessageFor(model => model.user_password)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_telephone, "电话", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.user_telephone, new { @class = "form-control", @placeholder = "电话" })
+                        @Html.ValidationMessageFor(model => model.user_name)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
-                <div class="col-sm-9">
-                    <input type="password" name="repeat_password" class="form-control" id="inputPassword2" placeholder="确认密码">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_address, "地址", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.user_address, new { @class = "form-control", @placeholder = "地址" })
+                        @Html.ValidationMessageFor(model => model.user_address)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.user_introduction, new { @class = "form-control", @placeholder="概要" })
-                    @Html.ValidationMessageFor(model => model.user_introduction)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.user_password, new { @type = "password", @class = "form-control", @placeholder = "密码" })
+                        @Html.ValidationMessageFor(model => model.user_password)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group">
-                <label for="inputCode" class="col-sm-3 control-label">验证码</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="inputCode">
+                <div class="form-group">
+                    <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="repeat_password" class="form-control" id="inputPassword2" placeholder="确认密码">
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="col-sm-4">
-                    <a href="javascript:void(0)" class="changeCode"><img class="validate" src="@Url.Action("GetValidateCode", "Verify")" alt="验证码" /></a>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextAreaFor(model => model.user_introduction, new { @class = "form-control", @placeholder = "概要" })
+                        @Html.ValidationMessageFor(model => model.user_introduction)
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-            </div>
-            <div class="form-group form-submit">
-                <div class="col-sm-offset-3 col-sm-2">
-                    <button type="submit" class="btn btn-success">提交</button>
+                <div class="form-group">
+                    <label for="inputCode" class="col-sm-3 control-label">验证码</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="inputCode">
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="javascript:void(0)" class="changeCode"><img class="validate" src="@Url.Action("GetValidateCode", "Verify")" alt="验证码" /></a>
+                    </div>
+                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
-                <div class="col-sm-7">
-                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">已有账号? 立即登录</a>
+                <div class="form-group form-submit">
+                    <div class="col-sm-offset-3 col-sm-2">
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                    <div class="col-sm-7">
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">已有账号? 立即登录</a>
+                    </div>
                 </div>
-            </div>
-        }
-        </form>
+            }
+            </form>
+        </div>
     </div>
 </div>
-
