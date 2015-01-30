@@ -133,6 +133,9 @@ namespace WebSite.Controllers.Common
                 expert record = new expert();
                 record.user_userId = id;
                 record.expert_accept_count = 0;
+                var random = new Random();
+                var number = random.Next(0, 5);
+                record.expert_image = @"~/Protrait/"+number.ToString() + ".jpg";
                 var result = new SingleTableModule<expert>().Create(record);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
