@@ -23,6 +23,23 @@
     padding: 12px 0 0 0;
 }
 
+.form-group{
+    position: relative;
+}
+.flag{
+    position: absolute;
+    right: -10px;
+    top: 5px;
+}
+
 .flag i {
     display: none;
+}
+
+.error {
+    color: red;
+}
+
+.passed{
+    color: green;
 }
