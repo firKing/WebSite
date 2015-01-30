@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Debug;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,18 +13,55 @@ namespace WebSite.Controllers
     //验证逻辑的ajax服务器端.
     public class VerifyController : Controller
     {
-      
-      
+
+        [HttpPost]
         //romote vailation
-        public ActionResult CheckNameExist(string name, string type)
+        public ActionResult CheckRegisterNameExist(string name, string type)
         {
-            bool result = false;
-            result = (new SingleTableModule<user>())
-                        .FindInfo(x => x.user_name == name &&
-                                x.user_type == type)
-                        .Count() == 1;
+            var result = CheckNameExist<user>(name, x => x.user_name == name && x.user_type == type);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        private bool CheckNameExist<T>(string name,Expression<Func<T,bool>> whereSelector )where T :class
+        {
+            return (new SingleTableModule<T>())
+                        .FindInfo(whereSelector)
+                        .Count() == 1;
+        }
+        private List<String> CheckListNameExist<T>(List<String> nameList,Func<T,String> keySelector)where T :class
+        {
+            var nonExistList = new List<String>();
+
+            foreach (var name in nameList)
+            {
+                var result = CheckNameExist<T>(name,x => keySelector.Invoke(x) == name);
+                if (result == false)
+                {
+                    nonExistList.Add(name);
+                }
+            }
+            return nonExistList;
+        }
+        [HttpPost]
+        public ActionResult CheckMemberListNameExist(string names)
+        {
+            var nameList = names.Split(',').ToList();
+            var nonExistList =
+                CheckListNameExist<member>
+                (nameList, x =>
+                    x.vendor.user.user_name);
+            return Json(nonExistList, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CheckExpertListNameExist(string names)
+        {
+            var nameList = names.Split(',').ToList();
+            var nonExistList =
+                CheckListNameExist<expert>
+                (nameList, x =>
+                    x.user.user_name);
+            return Json(nonExistList, JsonRequestBehavior.AllowGet);
+        }
+
         private UserType GetUsetTypeByString(String type)
         {
             return Utility.GetUsetTypeByString(type);
