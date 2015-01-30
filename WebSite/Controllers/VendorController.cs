@@ -83,25 +83,7 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
 
         }
-        //团队详情
-        public ActionResult TeamDetail(int id)
-        {
-            //名字,内容,创建公司.时间
-            SingleTableModule<team> db = new SingleTableModule<team>();
-            var element = db.FindInfo(x=>x.teamId == id).SingleOrDefault();
-            if (element != null)
-            {
-                ViewBag.name = element.team_name;
-                ViewBag.content = element.team_introduction;
-                ViewBag.time = "";
-                ViewBag.creator = element.purchase.company.user.user_name;
-                return View("~/Views/Shared/detail.cshtml");
-            }
-            else
-            {
-                throw new HttpException(404, "Product not found.");
-            }
-        }
+
 
         public ActionResult PublishBidList()
         {

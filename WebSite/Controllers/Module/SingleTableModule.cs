@@ -67,6 +67,5 @@ namespace WebSite.Controllers.Module
             var propertyInfo = tableType.GetProperty(tableType.ToString() + "_id");
             return (int)propertyInfo.GetValue(record);
         }
-        
     }
 }
