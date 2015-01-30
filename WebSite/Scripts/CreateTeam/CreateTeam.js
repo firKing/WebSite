@@ -1,1 +1,3 @@
-﻿$('#inputMember').popover('hover');
+﻿$(document).ready(function () {
+    $('#inputMember').popover('hover');
+});

@@ -54,7 +54,7 @@
                     </label>
                 </div>
                 <div class="form-group form-a">
-                    <a href="#">点我注册</a>
+                    @Html.ActionLink("点我注册", "Index", "Register")
                 </div>
                 <input type="submit" class="btn btn-success" value="登陆">
             </form>
@@ -158,11 +158,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="main-nav">
-                    <li @if ((string)ViewData["page"] == "index") { Html.Raw("class='active'"); }>@Html.ActionLink("首页", "Index","Index")</li>
-                    <li @if ((string)ViewData["page"] == "news") { Html.Raw("class='active'"); }>@Html.ActionLink("新闻列表", "NewsList", "Index",new { page=1}, new { })</l>
-                    <li @if ((string)ViewData["page"] == "purchase") { Html.Raw("class='active'"); }>@Html.ActionLink("采购信息", "PurchaseList", "Index", new { page = 1 }, new { })</li>
-                    <li @if ((string)ViewData["page"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
-                    <li @if ((string)ViewData["page"] == "team") { Html.Raw("class='active'"); }>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["Indexpage"] == "index") { Html.Raw("class='active'"); }>@Html.ActionLink("首页", "Index","Index")</li>
+                    <li @if ((string)ViewData["Indexpage"] == "news") { Html.Raw("class='active'"); }>@Html.ActionLink("新闻列表", "NewsList", "Index",new { page=1}, new { })</l>
+                    <li @if ((string)ViewData["Indexpage"] == "purchase") { Html.Raw("class='active'"); }>@Html.ActionLink("采购信息", "PurchaseList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["Indexpage"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
+                    <li @if ((string)ViewData["Indexpage"] == "team") { Html.Raw("class='active'"); }>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" id="login">
@@ -173,4 +173,4 @@
         </div><!-- /.container-fluid -->
     </nav>
 </div>
-<!--header-->
+<!--header-->.

@@ -3,6 +3,7 @@
     Layout = "~/Views/Layouts/Details.cshtml";
     ViewBag.end = "已结束";
     ViewBag.underway = "正在进行";
+    ViewBag.url = "Purchase/BidList?purachseId=" + ViewBag.detail.purchaseId + "page=1";
 }
 
 @section css {
@@ -27,7 +28,7 @@
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>@ViewBag.detail.purchase_content</p>
-                <a href="@Url.Action("Vendor", "CreatTeam")" class="btn btn-success">组建虚拟团队竞标</a>
+                <a href="@Url.Action("Index", "Team")" class="btn btn-success">组建虚拟团队竞标</a>
                 <a href="#" class="btn btn-warning">我要竞标</a>
             </div>
         </div>
@@ -56,7 +57,7 @@
                 </li>
                 <li>
                     <span class="left">竞标</span>
-                    <span class="right">已有 @ViewBag.detail.bids.Count 个竞标 <a href="#">查看详情</a></span>
+                    <span class="right">已有 @ViewBag.detail.bids.Count 个竞标 <a href="~/@ViewBag.url">查看详情</a></span>
                 </li>
             </ul>
         </div>
