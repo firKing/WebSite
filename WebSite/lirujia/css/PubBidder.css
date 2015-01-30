@@ -2,3 +2,9 @@
     width: 412px;
     margin: 20px auto;
 }
+ h2{
+    color: #4db234;
+    border-bottom: 1px solid #c1c1c1;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}

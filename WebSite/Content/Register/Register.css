@@ -1,7 +1,8 @@
 ﻿#register-main{
-    width: 470px;
+    width: 1016px;
     margin: 40px auto;
     overflow: hidden;
+    text-align: center;
 }
 #register-main h2{
     color: #4db234;
