@@ -1,1 +1,1 @@
-﻿
+﻿$('#inputMember').popover('hover');

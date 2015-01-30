@@ -146,7 +146,6 @@ namespace WebSite.Controllers
             ViewBag.pageNum  = page;
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.detailActionName = "Team";
-            ViewBag.detailActionName = "Vendor";
             return View(listViewName);
         }
         public ActionResult ExpertList(int page)
