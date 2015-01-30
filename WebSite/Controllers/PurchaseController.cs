@@ -108,6 +108,9 @@ namespace WebSite.Controllers
             ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purachseId, x => x.bidId);
             ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purachseId, x => x.bidId);
             ViewBag.page = page;
+            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purachseId).SingleOrDefault();
+            Assert(result != null);
+            ViewBag.title = result.purchase_title;
             return View();
         }
     }

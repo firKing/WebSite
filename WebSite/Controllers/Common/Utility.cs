@@ -101,9 +101,31 @@ namespace WebSite.Controllers.Common
             Session["user_type"] = null;
         }
         private delegate void RegisterEventHandler(int id);
-      
 
-        public static void SetLoginSession(HttpSessionStateBase Session, int userId,String type)
+        public static void SetLoginSession(HttpSessionStateBase Session, int userId, String type)
+        {
+            Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
+            setSessionEventMap.Add(UserType.Expert.ToString(),(int id)=>
+            {
+                var result = new SingleTableModule<expert>().FindInfo(x=>x.user_userId == id).SingleOrDefault();
+                Assert(result == null);
+                SetSession(Session, result.expertId, UserType.Expert);
+            });
+            setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
+            {
+                var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                Assert(result == null);
+                SetSession(Session, result.companyId, UserType.Company);
+            });
+            setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
+            {
+                var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                Assert(result == null);
+                SetSession(Session, result.vendorId, UserType.Vendor);
+            });
+            setSessionEventMap[type](userId);
+        }
+        public static void RegisterUserTypeTable( int userId,String type)
         {
             Dictionary<String, RegisterEventHandler> registerEventMap = new Dictionary<string, RegisterEventHandler>();
             registerEventMap.Add(UserType.Expert.ToString(), (int id) =>
@@ -112,14 +134,12 @@ namespace WebSite.Controllers.Common
                 record.user_userId = id;
                 record.expert_accept_count = 0;
                 var result = new SingleTableModule<expert>().Create(record);
-                SetSession(Session,result.second.expertId, UserType.Expert);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
                 company record = new company();
                 record.user_userId = id;
                 var result = new SingleTableModule< company>().Create(record);
-                SetSession(Session,result.second.companyId, UserType.Company);
             });
             
             registerEventMap.Add(UserType.Vendor.ToString(), (int id) =>
@@ -127,7 +147,6 @@ namespace WebSite.Controllers.Common
                  vendor record = new vendor();
                 record.user_userId = id;
                 var result = new SingleTableModule<vendor>().Create(record);
-                SetSession(Session,result.second.vendorId, UserType.Vendor);
             });
             registerEventMap[type](userId);
         }
