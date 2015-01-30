@@ -36,7 +36,7 @@ namespace WebSite.Controllers
                     var findIter = table.FindInfo(x => x.userId == createResult.second.userId).SingleOrDefault();
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
-
+                    Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }
