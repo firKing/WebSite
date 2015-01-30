@@ -30,7 +30,20 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-       
+        // 提交创建虚拟团队
+        // 成员姓名， 逗号分隔 group_name
+        // 采购对象 purchase_object
+        // 概要 summary
+        [HttpPost]
+        public ActionResult CreateTeam(team info)
+        {
+            if (CheckSession())
+            {
+                var table = new SingleTableModule<team>();
+                table.Create(info);
+            }            
+            return RedirectToAction("Home", "Company");
+        }
                    
         //加入的团队列表
         public ActionResult AddTeamList()
@@ -70,7 +83,30 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
 
         }
+<<<<<<< HEAD
 
+=======
+        //团队详情
+        public ActionResult TeamDetail(int id)
+        {
+            //名字,内容,创建公司.时间
+            SingleTableModule<team> db = new SingleTableModule<team>();
+            var element = db.FindInfo(x=>x.teamId == id).SingleOrDefault();
+            if (element != null)
+            {
+                ViewBag.name = element.team_name;
+                ViewBag.content = element.team_introduction;
+                ViewBag.time = "";
+                ViewBag.creator = element.purchase.company.user.user_name;
+                ViewBag.detailActionName = "Vendor";
+                return View("~/Views/Shared/detail.cshtml");
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
+        }
+>>>>>>> dc50dcdbc906eb8f8d7c8b8e8faf77dffbda8118
 
         public ActionResult PublishBidList()
         {
