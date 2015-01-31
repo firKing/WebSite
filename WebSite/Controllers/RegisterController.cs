@@ -17,8 +17,8 @@ namespace WebSite.Controllers
         {
             return View();
         }
-        delegate object FindTableRecordHandler(int id);
-        public ActionResult Index(int user_id,String user_type)
+
+        private Dictionary<String, FindTableRecordHandler> GetFindTableRecordMap()
         {
             var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
             findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
@@ -38,7 +38,12 @@ namespace WebSite.Controllers
                 return result;
 
             });
-            var findResult = findTableRecordMap[user_type](user_id);
+            return findTableRecordMap;
+        }
+        delegate object FindTableRecordHandler(int id);
+        public ActionResult Edit(int user_id,String user_type)
+        {
+            var findResult = GetFindTableRecordMap()[user_type](user_id);
             if (findResult != null)
             {
                 ViewBag.element = findResult;

@@ -30,8 +30,11 @@ namespace WebSite.Controllers
         {
             return Utility.GetList<T>(expression);
         }
+        private int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            return Utility.GetSumCount(whereSelector, keySelector);
+        }
 
-     
         public ActionResult Detail(int id)
         {
             var db = new SingleTableModule<expert>();
@@ -62,26 +65,29 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
         //企业邀请 列表
-        public ActionResult InvitationList()
+        public ActionResult InvitationList(int page)
         {
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                var result = GetList<invitation>(x => x.expertId == sessionId);
-                ViewBag.list = result;
+                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
+                ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.pageNum = page;
                 return View();
             }
             return RedirectToAction("Index", "Index");
             
         }
         //我发布的审核意见列表 
-        public ActionResult AuditList()
+        public ActionResult AuditList(int page)
         {
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-
-                return View(GetList<audit>(x => x.expertId==sessionId));
+                ViewBag.list = GetList<audit>(x => x.expertId == sessionId);
+                ViewBag.sumPage = GetSumCount<audit, int>(x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.pageNum = page;
+                return View();
             }
             return RedirectToAction("Index", "Index");
 
