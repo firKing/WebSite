@@ -87,13 +87,16 @@ namespace WebSite.Controllers
             ViewBag.newes     = newsList
                 .Select(record=> new IndexStruct {
                     name = record.news_title,
+                    detailId = record.newsId,
                     time = GetMonthAndDay(record.news_time) });
             ViewBag.purchases =  purchaseList
                 .Select(record=> new IndexStruct {
                     name = record.purchase_title,
+                    detailId = record.purchaseId,
                     time = GetMonthAndDay( record.purchase_time)});
             ViewBag.teams     = teamList
                 .Select(record =>new IndexStruct {
+                    detailId = record.teamId,
                     name = record.team_name });
             return View();
         }

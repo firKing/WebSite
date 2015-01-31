@@ -84,17 +84,15 @@
         </div>
         <div class="col-md-4">
             <h3>专家推荐</h3>
-            @{
-                if (ViewBag.experts != null)
+            @if (ViewBag.experts != null)
                 {
                     foreach (var item in ViewBag.experts)
                     {
-                    <img src="../Image/img1.png" alt="img1" />
+                        <img src="~/@item.image" alt="@item.name" />
                         <div class="col-text">
                             <h5>@item.name</h5>
                             <p>@item.content</p>
-                        </div>
-                        }
+                         </div>
                     }
                 }
         </div>

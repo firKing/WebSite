@@ -56,11 +56,11 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                var query = GetList<user>(x => x.userId == sessionId);
+                var query = GetList<expert>(x => x.expertId == sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
-                return View("~/Views/Shared/detail");
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }

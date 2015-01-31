@@ -32,17 +32,17 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>专家信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.expert_id })</div>
+                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.userId })</div>
                 </div>
                 <div class="details">
                     <div class="show">
                         <h3>基本信息</h3>
                         <ul>
-                            <li>姓名: @ViewBag.home.expert_name</li>
-                            <li>电话： @ViewBag.home.expert_telephone</li>
-                            <li>邮箱: @ViewBag.home.expert_mail</li>
-                            <li>联系地址: @ViewBag.home.expert_address</li>
-                            <li>简介： @ViewBag.home.expert_introduce</li>
+                            <li>姓名: @ViewBag.home.user.user_name</li>
+                            <li>电话： @ViewBag.home.user.user_telephone</li>
+                            <li>邮箱: @ViewBag.home.user.user_mail</li>
+                            <li>联系地址: @ViewBag.home.user.user_address</li>
+                            <li>简介： @ViewBag.home.user.user_introduction</li>
                         </ul>
                     </div>
                 </div>
