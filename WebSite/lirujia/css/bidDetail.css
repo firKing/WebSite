@@ -15,6 +15,42 @@
 .detail-info span{
     margin-right: 20px;
 }
+p.download{
+    margin-top: 20px;
+}
 .detail-text{
     padding: 45px 15px;
+}
+#detail-main form{
+    width: 100%;
+    margin-top: 20px;
+}
+#detail-main form .control-label{
+    font-size: 16px;
+}
+.commit_list{
+    margin-top: 20px;
+}
+.commit_list ul.commit_detail{
+    margin-top: 20px;
+}
+.commit_list ul.commit_detail li{
+    padding: 10px 10px 10px 20px;
+    background: url("../../Image/commit_user.png") no-repeat 0 10px;
+    border-bottom: 1px solid #959595;
+}
+.commit_list ul li h5{
+    margin-bottom: 10px;
+}
+/*翻页*/
+.pagination li a{
+    color: #5cb85c;
+}
+.pagination li.active a{
+    background: #5cb85c;
+    border: 1px solid #5ea63a;
+}
+.pagination li.active a:hover{
+    background: #5cb85c;
+    border: 1px solid #5ea63a;
 }

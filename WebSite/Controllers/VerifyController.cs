@@ -27,13 +27,15 @@ namespace WebSite.Controllers
                         .FindInfo(whereSelector)
                         .Count() == 1;
         }
-        private List<String> CheckListNameExist<T>(List<String> nameList,Func<T,String> keySelector)where T :class
+        //EF框架太挫,不得不重复代码,艹
+        private List<String> CheckListNameMemberExist(List<String> nameList)
         {
             var nonExistList = new List<String>();
 
             foreach (var name in nameList)
             {
-                var result = CheckNameExist<T>(name,x => keySelector.Invoke(x) == name);
+                var result = CheckNameExist<member>(name, x => 
+                 x.vendor.user.user_name == name);
                 if (result == false)
                 {
                     nonExistList.Add(name);
@@ -41,14 +43,43 @@ namespace WebSite.Controllers
             }
             return nonExistList;
         }
+        private List<String> CheckListNameExpertExist(List<String> nameList)
+        {
+            var nonExistList = new List<String>();
+
+            foreach (var name in nameList)
+            {
+                var result = CheckNameExist<expert>(name, x =>
+                    x.user.user_name == name);
+                if (result == false)
+                {
+                    nonExistList.Add(name);
+                }
+            }
+            return nonExistList;
+        }
+        //原本优雅的写法- -...
+        //private List<String> CheckListNameExist<T>(List<String> nameList,Func<T,String> keySelector)where T :class
+        //{
+        //    var nonExistList = new List<String>();
+
+        //    foreach (var name in nameList)
+        //    {
+        //        var result = CheckNameExist<T>(name,x => keySelector.Invoke(x) == name);
+        //        if (result == false)
+        //        {
+        //            nonExistList.Add(name);
+        //        }
+        //    }
+        //    return nonExistList;
+        //}
         [HttpPost]
         public ActionResult CheckMemberListNameExist(string names)
         {
             var nameList = names.Split(',').ToList();
             var nonExistList =
-                CheckListNameExist<member>
-                (nameList, x =>
-                    x.vendor.user.user_name);
+                CheckListNameMemberExist
+                (nameList);
             return Json(nonExistList, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -56,9 +87,11 @@ namespace WebSite.Controllers
         {
             var nameList = names.Split(',').ToList();
             var nonExistList =
-                CheckListNameExist<expert>
-                (nameList, x =>
-                    x.user.user_name);
+                CheckListNameExpertExist
+                (nameList);
+            //CheckListNameExist<expert>
+            //(nameList, x =>
+            //    x.user.user_name);
             return Json(nonExistList, JsonRequestBehavior.AllowGet);
         }
 

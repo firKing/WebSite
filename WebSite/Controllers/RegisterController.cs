@@ -41,7 +41,6 @@ namespace WebSite.Controllers
                 }
             }
             return RedirectToAction("Index","Index");
-            
         }
         private void SetLoginSession(int userId,string type)
         {
