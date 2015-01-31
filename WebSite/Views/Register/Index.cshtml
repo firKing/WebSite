@@ -40,11 +40,14 @@
         
             var Register = {
                 "events": {
+                    "#register_form submit" : "deny_submit",
                     '.changeCode click': 'changeCode',
                     "#inputCode blur": "codeAuth",
                     "#inputPassword2 blur": "testPsw"
                 },
-                FormEle: $("#register_form"),
+                flag : false,
+                FormEle: $("#register-main"),
+                form: "#register_form",
                 "changeCode": function () {
                     var _this = this,
                         formEle = _this.FormEle;
@@ -52,27 +55,36 @@
                     var url = formEle.find('img').attr('src');
                     formEle.find('img').attr('src', url + "?version=" + random);
                 },
+                "deny_submit" : function(e) {
+                    var _this = this;
+                    if (!_this.flag) {
+                        return false;
+                    }
+                },
                 "ShowTest": function (index, data) {
                     var _this = this,
                         formEle = _this.FormEle,
-                        icon = formEle.children(".form-group").eq(index).find('i');
+                        icon = formEle.find(".form-group").eq(index).find('i');
                     if (data.toString() === "true") {
                         icon[0].className = "fa fa-2x fa-check";
+                        icon.removeClass("error");
                         icon.addClass("passed");
+                        _this.flag = true;
                     }
                     else {
                         icon[0].className = "fa fa-2x fa-times";
+                        icon.removeClass("passwd");
                         icon.addClass("error");
+                        _this.flag = false;
                     }
 
                     icon.show();
                 },
-
                 "testPsw": function (e) {
                     var _this = this,
                         FormEle = _this.FormEle;
 
-                    var data = FormEle.serializeObject();
+                    var data = FormEle.find(_this.form).serializeObject();
 
                     if (data['user_password'] && data['repeat_password'] && data["user_password"] === data["repeat_password"]) {
                         _this.ShowTest(6, true);
@@ -81,7 +93,6 @@
                         _this.ShowTest(6, false);
                     }
                 },
-
                 "codeAuth": function (e) {
                     var _this = Register,
                         value = $(e.target).val(),
@@ -89,12 +100,12 @@
                     $.post("@Url.Action("CheckValidCode", "Verify")", { validCode: value }, function (data) {
                         _this.ShowTest(index, data);
                     });
-
                 },
                 init: function () {
                     var _this = this,
                         events = _this.events,
                         formEle = _this.FormEle,
+                        event_name = null,
                         ele = null;
                     $.each(events, function (name) {
                         ele = name.split(" ")[0];
@@ -102,18 +113,17 @@
 
                         if (typeof events[name] === 'string') {
                             formEle.find(ele).on(event_name, function (e) {
-                                _this[events[name]].call(_this, e);
+                                return _this[events[name]].call(_this, e);
                             });
                         }
                         else if (typeof events[name] === 'function') {
                             formEle.find(ele).on(event_name, function(e){
-                                events[name].call(_this, e);
+                               return  events[name].call(_this, e);
                             });
                         }
                     });
                 }
             };
-
             Register.init();
         });
    

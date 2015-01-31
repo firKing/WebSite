@@ -30,8 +30,6 @@ namespace WebSite.Controllers
             var element = Info(id).SingleOrDefault();
             if (element != null) 
             {
-                audit a = new audit();
-                a.expert.user.user_name
                 ViewBag.details = new Pair<bid, IQueryable<audit>>
                     (element,
                     dbAudit.FindInfo(x => x.bidId == id));

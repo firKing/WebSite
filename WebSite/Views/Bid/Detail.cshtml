@@ -35,14 +35,20 @@
     <div class="commit_list">
         <h4>专家评论</h4>
         <ul class="commit_detail">
-            @foreach (var item in ViewBag.details)
-            {
+           
                 <li>
                     <h5>item.expert.user.user_name <span class="pull-right">2015/1/1</span></h5>
                     <p>item.audit.audit_content</p>
                 </li>
+
+            @foreach (var item in ViewBag.details.second)
+            {
+                <li>
+                    <h5>@item.user.user_name<span class="pull-right">@item.audit.audit_time</span></h5>
+                    <p>@item.audit.audit_content</p>
+                </li>
             }
-          
+
         </ul>
     </div>
 </div>
