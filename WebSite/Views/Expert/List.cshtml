@@ -29,7 +29,7 @@
             @foreach (var item in ViewBag.list)
             {
                 <li>
-                    <a href="@Url.Action("Index","Expert")" class="expert-head">
+                    <a href="@Url.Action("Expert","Expert")" class="expert-head">
                         <img src="~/@item.expert_image" alt="@item.user_userId" />
                     </a>
                     <a href="#" class="expert-name">@item.user.user_name</a>
