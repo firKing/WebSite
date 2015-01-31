@@ -17,8 +17,40 @@ namespace WebSite.Controllers
         {
             return View();
         }
+        delegate object FindTableRecordHandler(int id);
+        public ActionResult Index(int user_id,String user_type)
+        {
+            var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
+            findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
+            {
+                var result = new SingleTableModule<expert>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                return result;
+            });
+            findTableRecordMap.Add(UserType.Company.ToString(), (int id) =>
+            {
+                var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                return result;
 
-        
+            });
+            findTableRecordMap.Add(UserType.Vendor.ToString(), (int id) =>
+            {
+                var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                return result;
+
+            });
+            var findResult = findTableRecordMap[user_type](user_id);
+            if (findResult != null)
+            {
+                ViewBag.element = findResult;
+                return View();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+
         private bool CheckUserType(String type)
         {
             return Utility.CheckUserType(type);
