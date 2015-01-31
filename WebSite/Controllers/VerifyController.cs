@@ -99,10 +99,7 @@ namespace WebSite.Controllers
         {
             return Utility.GetUsetTypeByString(type);
         }
-        private void SesSession(int id,String type)
-        {
-            Utility.SetSession(Session, id, GetUsetTypeByString(type));
-        }
+   
         //ajax
         //参数是LoginModel类型的各个字段是json对象的key
         //返回的是json 字符串
