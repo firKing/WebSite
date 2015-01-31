@@ -67,7 +67,9 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 int count = 5;
-                List<purchase, int>(page, count, x => x.companyId.ToString() == Session["user_id"].ToString(), x => x.purchaseId);
+                List<purchase, int>(page, count, 
+                    x => x.companyId.ToString() == Session["user_id"].ToString(),
+                    x => x.purchaseId);
                 ViewBag.page = page + 1;
                 return View();
             }

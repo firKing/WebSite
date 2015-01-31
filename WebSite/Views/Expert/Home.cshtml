@@ -7,7 +7,7 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/Company/Company.css")
+    @Styles.Render("~/Content/CompanyHome/CompanyHome.css")
 }
 
 @section script {
@@ -32,7 +32,7 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>专家信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.userId })</div>
+                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.expertId })</div>
                 </div>
                 <div class="details">
                     <div class="show">
@@ -53,7 +53,7 @@
                     <h2>企业邀请</h2>
                  </div>
                 <div class="details">
-                    @foreach (var key in ViewBag.list)
+                    @foreach (var key in ViewBag.home.audits)
                     {
                         <div class="section">
                             <div class="submit">

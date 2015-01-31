@@ -14,12 +14,15 @@ namespace WebSite.Controllers
     public class VerifyController : Controller
     {
 
-        [HttpPost]
         //romote vailation
-        public ActionResult CheckRegisterNameExist(string name, string type)
+        //检测用户名是否存在,ajax 第一个参数是用户名,第二个是用户类型,
+        //json {name:nameValue,type:typeValue};
+        //返回值,"true" 用户已存在  "false" 用户不存在
+        [HttpGet]
+        public JsonResult CheckRegisterNameExist(string user_name, string user_type)
         {
-            var result = CheckNameExist<user>(name, x => x.user_name == name && x.user_type == type);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var result = CheckNameExist<user>(user_name, x => x.user_name == user_name && x.user_type == user_type);
+            return Json(!result, JsonRequestBehavior.AllowGet);
         }
         private bool CheckNameExist<T>(string name,Expression<Func<T,bool>> whereSelector )where T :class
         {
@@ -104,6 +107,9 @@ namespace WebSite.Controllers
             Utility.SetSession(Session, id, GetUsetTypeByString(type));
         }
         //ajax
+        //参数是LoginModel类型的各个字段是json对象的key
+        //返回的是json 字符串
+        //"true""false"
         [HttpPost]
         public ActionResult Login(LoginModel info)
         {
