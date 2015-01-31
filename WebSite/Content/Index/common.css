@@ -58,6 +58,7 @@ ol,ul {
 /*登陆框*/
 .modal-sm{
     width: 400px;
+    margin: auto;
 }
 .modal-content{
     padding: 26px;
