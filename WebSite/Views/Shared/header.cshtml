@@ -181,7 +181,8 @@
                         string userName = ViewBag.userName;
                         string type = ViewBag.userType.ToString();
                         <ul class="nav navbar-nav navbar-right" id="login">
-                            <li>@Html.ActionLink(@userName, "Home",@type)</li>
+                            <li>@Html.ActionLink(@userName, "Home", @type)</li>
+                            <li>@Html.ActionLink("退出登录", "LoginOut", "Verify")</li>
                         </ul>
                     }
                     else
