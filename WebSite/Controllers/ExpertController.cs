@@ -4,7 +4,9 @@ using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 using System.Diagnostics.Debug;
+using System.EnterpriseServices;
 using System.Linq.Expressions;
+using System.Web;
 using WebSite.Controllers.Common;
 
 namespace WebSite.Controllers
@@ -30,6 +32,24 @@ namespace WebSite.Controllers
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             return Utility.GetList<T>(expression);
+        }
+
+     
+        public ActionResult Detail(int id)
+        {
+            var db = new SingleTableModule<expert>();
+
+            var element = db.FindInfo(x=>x.expertId == id).SingleOrDefault();
+            if (element != null)
+            {
+                ViewBag.name = element.user.user_name;
+                ViewBag.content = element.user.user_introduction;
+                return View("~/Views/Shared/detail.cshtml");
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
         }
         private ActionResult Info()
         {
