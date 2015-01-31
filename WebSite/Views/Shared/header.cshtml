@@ -128,12 +128,11 @@
                 type: 'post',
                 url: "@Url.Action("Login", "Verify")",
                 data: data,
-                dataType: "json",//返回json格式的数据
+                dataType: "text",
                 complete: function (status) {
-                    if (status === "true") {
+                    if (status.toString() === "true") {
                         location.href = location.origin + href
                     }
-
                 },
                 error: function (data) {
                     log(JSON.stringify(data));
