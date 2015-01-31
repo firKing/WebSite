@@ -33,7 +33,7 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>单位信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_company", "Register", new { company_id=ViewBag.home.companyId })</div>
+                    <div class="change">@Html.ActionLink("修改", "Index", "Register", new { user_id=ViewBag.user.user_id, })</div>
                 </div>
                 <div class="details">
                     <div class="show">
@@ -49,22 +49,6 @@
                 </div>
             </form>
 
-            <form class="info" action="" method="post">
-                <div class="title">
-                    <h2>企业邀请</h2>
-                    <div class="change">修改</div>
-                </div>
-                <div class="details">
-                    <div class="section">
-                        <div class="submit">
-                            <a href="#">接受</a>
-                            <a href="#">拒绝</a>
-                        </div>
-                        <h3>xxx 采购</h3>
-                        <p>sdlksajdlksajdlsajqwdjlkwqjdlkwqjdlkjwqlkdjwqlkdjwqlkdjlkwqjdlkwqjdlkwjqlkjdlkwqjlkdjwqlkdjlkdjsalkdjaslkjdlksajlkd</p>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>

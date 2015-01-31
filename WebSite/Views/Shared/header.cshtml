@@ -48,13 +48,13 @@
                 </div>
                 <div class="form-group navbar-right">
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Vendor")" id="inlineRadio1" value="Vendor" checked="checked"> 供应商
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Vendor")" id="inlineRadio1" value="Vendor" checked="checked"> 供应商
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Company")" id="inlineRadio2" value="Company"> 单位
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Company")" id="inlineRadio2" value="Company"> 单位
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Expert")" id="inlineRadio3" value="Expert"> 专家
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Expert")" id="inlineRadio3" value="Expert"> 专家
                     </label>
                 </div>
                 <div class="form-group form-a">
@@ -137,7 +137,7 @@
                     dataType: "text",
                     success: function (status) {
                         if (status.toString() === "true") {
-                            location.href = location.origin + href
+                            location.href = location.origin + href;
                         } else {
                             log("登陆失败");
                         }
@@ -189,7 +189,7 @@
                     {
                         <ul class="nav navbar-nav navbar-right" id="login">
                             <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
-                            <li>@Html.ActionLink("注册", "Index", "Register")</li>
+                            <li>@Html.ActionLink("注册", "Edit", "Register")</li>
                         </ul>
                     }
                 }

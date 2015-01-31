@@ -17,14 +17,11 @@ namespace WebSite.Controllers
 
         // GET: ExpertHome
         //专家个人中心.基本信息
-        public ActionResult Index()
+        public ActionResult Edit()
         {
             return Info();
         }
-        public ActionResult Home()
-        {
-            return Info();
-        }
+
         private bool CheckSession()
         {
             return Utility.CheckSession(UserType.Expert, Session);
@@ -70,7 +67,8 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
+                var result = GetList<invitation>(x => x.expertId == sessionId);
+                ViewBag.list = result;
                 return View();
             }
             return RedirectToAction("Index", "Index");
