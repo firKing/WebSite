@@ -46,7 +46,7 @@ namespace WebSite.Controllers
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.vendor = result;
-                return View(result);
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }

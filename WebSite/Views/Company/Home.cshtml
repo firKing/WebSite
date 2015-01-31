@@ -26,23 +26,23 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><div class="line"></div>单位信息</li>
                 <li><div class=""></div>我创建的招标</li>
-                <li><div class=""></div>我发布的新闻</li> 
+                <li><div class=""></div>我发布的新闻</li>  
             </ul>
         </div>
         <div class="col-md-8">
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>单位信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_company", "Register", new { company_id=ViewBag.home.company_id })</div>
+                    <div class="change">@Html.ActionLink("修改", "change_company", "Register", new { company_id=ViewBag.home.companyId })</div>
                 </div>
                 <div class="details">
                     <div class="show">
                         <h3>基本信息</h3>
                         <ul>
-                            <li>企业名称: @ViewBag.home.company_name</li>
-                            <li>电话： @ViewBag.home.company_telephone</li>
-                            <li>邮箱: @ViewBag.home.company.company_mail</li>
-                            <li>联系地址: @ViewBag.home.company_address</li>
+                            <li>企业名称: @ViewBag.home.user.user_name</li>
+                            <li>电话： @ViewBag.home.user.user_telephone</li>
+                            <li>邮箱: @ViewBag.home.user.user_mail</li>
+                            <li>联系地址: @ViewBag.home.user.user_address.</li>
                             <li>概要： @ViewBag.home.company_introduction </li>
                         </ul>
                     </div>
