@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="inputMember" class="col-sm-3 control-label">成员姓名</label>
                 <div class="col-sm-9">
-                    <input type="text" name="member" class="form-control" id="inputMember" placeholder="指定队员" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="成员之间用逗号隔开">
+                    <input type="text" name="member" class="form-control" id="inputMember" placeholder="指定队员" role="button" data-toggle="popover" data-placement="right" data-content="成员之间用逗号隔开">
                 </div>
             </div>
             <div class="form-group">
@@ -56,3 +56,34 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+       
+        $("#inputMember").on('blur', function (e) {
+            var name = $(e.target).val();
+            name = name.replace(/\s/g, "");
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("CheckMemberListNameExist", "Verify")",
+                data: {names : name},
+                dataType: "json",
+                success: function (data) {
+                    var msg = null;
+                    if (data instanceof Array && data.length > 0) {
+                        var str = data.join(",");
+                        msg = str + "这些用户名错误！";
+                        $('#inputMember').popover({
+                            template : msg
+                        });
+
+                        $('#inputMember').popover('show');
+                    }
+
+                }
+
+            });
+        });
+    });
+
+</script>
