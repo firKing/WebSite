@@ -1,0 +1,68 @@
+﻿@model WebSite.Models.purchase
+
+@{
+    ViewBag.Title = "PubPurchase";
+    Layout = "~/Views/Layouts/Pub.cshtml";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Create/Create.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/PubPurchase/PubPurchase.js")
+}
+@section title {
+    发布采购信息
+}
+
+<div id="detail-main">
+    <h2>发布采购信息</h2>
+    <div id="PubPur-main">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                @Html.LabelFor(model => model.company, "招标人：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.company, new { @class = "form-control", @placeholder = "招标人" })
+                    @Html.ValidationMessageFor(model => model.company)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.purchase_title, "项目名称：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.purchase_title, new { @class = "form-control", @placeholder = "项目名称" })
+                    @Html.ValidationMessageFor(model => model.purchase_title)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.purchase_time, "招标时间：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.purchase_time, new { @class = "form-control", @placeholder = "招标时间", type = "date" })
+                    @Html.ValidationMessageFor(model => model.purchase_time)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputExpert" class="col-sm-3 control-label">指定专家：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="invitees" class="form-control" id="inputExpert" placeholder="指定专家" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="专家之间用逗号隔开">
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.purchase_content, "概要：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.purchase_content, new { @class = "form-control", @row = "5" })
+                    @Html.ValidationMessageFor(model => model.purchase_content)
+                </div>
+            </div>
+            <div class="form-group form-submit">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-success">保存并提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
