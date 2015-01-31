@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layouts/Details.cshtml";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/BidDetails/bidDetail.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/kindeditor.js")
+    @Scripts.Render("~/Scripts/zh_CN.js")
+}
+
+<!--详情页主体部分-->
+<div id="detail-main">
+    <h2>政部于日前启动建设“政府采购严重违法失信行为记录名单”专栏</h2>
+    <p class="detail-info"><span>2015年01月07日</span><span>08:38</span><span>创建供应商:Redrock公司</span></p>
+    <div class="detail-text">
+        <p>
+            按照《通知》，供应商、采购代理机构在3年内受到财政部门作出下列情形之一的行政处罚，列入政府采购严重违法失信行为记录名单：3万元以上罚款；1-3年内禁止参加政府采购活动（处罚期限届满的除外）；1-3年内禁止代理政府采购业务（处罚期限届满的除外）；撤销政府采购代理机构资格（仅针对政府采购法第78条修改前作出的处罚决定）。
+            《通知》要求，各级财政部门应认真梳理近3年内本级作出上述行政处罚类的案件信息，报送上级财政部门；省级财政部门负责汇总本省3年内有效的政府采购严重违法失信行为信息记录，收集相应处罚文件，于2014年12月30日前报送财政部。
+            自2015年1月1日起，省级财政部门负责本省政府采购严重违法失信行为信息记录的发布管理工作，确保自行政处罚决定形成或变更之日起20个工作日内，在中国政府采购网“政府采购严重违法失信行为记录名单”专栏中完成信息发布工作。信息公布期限一般为3年。处罚期限届满的，相关信息记录从专栏中删除。
+            政府采购严重违法失信行为信息记录包括企业名称、企业地址、严重违法失信行为的具体情形、处罚结果等内容。
+        </p>
+        <p class="download">点击下载：<a href="#">政部于日前启动建设“政府采购严重违法失信行为记录名单”专栏</a></p>
+        <a href="purchase.html" class="btn btn-success btn-lg pull-right" role="button">采用</a>
+    </div>
+    <form method="post">
+        <label for="commit" class="col-sm-2 control-label">评论：</label>
+        <textarea id="editor_id" style="width: 100%; height: 250px;"></textarea>
+        <input type="hidden" id="news_content" name="bid_content">
+    </form>
+    <div class="commit_list">
+        <h4>专家评论</h4>
+        <ul class="commit_detail">
+            <li>
+                <h5>肖印平 <span class="pull-right">2015/1/1</span></h5>
+                <p>太垃圾了太渣了，不行不行绝对不能要。</p>
+            </li>
+            <li>
+                <h5>肖印平 <span class="pull-right">2015/1/1</span></h5>
+                <p>太垃圾了太渣了，不行不行绝对不能要。</p>
+            </li>
+            <li>
+                <h5>肖印平 <span class="pull-right">2015/1/1</span></h5>
+                <p>太垃圾了太渣了，不行不行绝对不能要。</p>
+            </li>
+            <li>
+                <h5>肖印平 <span class="pull-right">2015/1/1</span></h5>
+                <p>太垃圾了太渣了，不行不行绝对不能要。</p>
+            </li>
+            <li>
+                <h5>肖印平 <span class="pull-right">2015/1/1</span></h5>
+                <p>太垃圾了太渣了，不行不行绝对不能要。</p>
+            </li>
+        </ul>
+        <nav>
+            <ul class="pagination">
+                <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script>
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#editor_id');
+    });
+
+    $("#new_form").on('submit', function () {
+        editor.sync();
+        var html = $("#editor_id").val();
+        $("#news_content").val(html);
+
+        if (!(/\w+/.test(html)) && !(/\w+/.test($("#news_title").val()))) {
+            return false;
+        }
+    });
+</script>
+
+<!--详情页主体部分-->
