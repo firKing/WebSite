@@ -27,7 +27,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                return HttpNotFound();
             }
         }
         //获取新闻详情页
@@ -65,7 +65,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                return HttpNotFound();
             }
         }
         [HttpGet]
@@ -74,7 +74,7 @@ namespace WebSite.Controllers
             var query = db.FindInfo(x => x.newsId == id).SingleOrDefault();
             if (query == null)
             {
-                throw new HttpException(404, "Product not found.");
+                return HttpNotFound();
             }
             else
             {

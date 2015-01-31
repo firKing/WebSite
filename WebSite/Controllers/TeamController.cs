@@ -39,7 +39,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                                return HttpNotFound();
             }
         }
         private bool CheckSession()
