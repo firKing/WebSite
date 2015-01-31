@@ -10,17 +10,17 @@ using WebSite.Models;
 
 namespace WebSite.Controllers
 {
-    public class adminController : Controller
+    public class AdminsController : Controller
     {
         private AdminDbContext db = new AdminDbContext();
 
-        // GET: admin
+        // GET: Admins
         public ActionResult Index()
         {
             return View(db.admins.ToList());
         }
 
-        // GET: admin/Details/5
+        // GET: Admins/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,13 +35,13 @@ namespace WebSite.Controllers
             return View(admin);
         }
 
-        // GET: admin/Create
+        // GET: Admins/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: admin/Create
+        // POST: Admins/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -58,7 +58,7 @@ namespace WebSite.Controllers
             return View(admin);
         }
 
-        // GET: admin/Edit/5
+        // GET: Admins/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace WebSite.Controllers
             return View(admin);
         }
 
-        // POST: admin/Edit/5
+        // POST: Admins/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,7 +89,7 @@ namespace WebSite.Controllers
             return View(admin);
         }
 
-        // GET: admin/Delete/5
+        // GET: Admins/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +104,7 @@ namespace WebSite.Controllers
             return View(admin);
         }
 
-        // POST: admin/Delete/5
+        // POST: Admins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
