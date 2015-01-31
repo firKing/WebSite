@@ -108,7 +108,7 @@
 
             var checker = {
                 name: /^[a-zA-Z]\w{5,16}/,
-                password: /^[a-zA-Z0-9]w{6,16}/
+                password: /^[a-zA-Z0-9]\w{6,16}/
             };
 
             $('input').css({
@@ -138,6 +138,8 @@
                     success: function (status) {
                         if (status.toString() === "true") {
                             location.href = location.origin + href
+                        } else {
+                            log("登陆失败");
                         }
                     },
                     error: function (data) {
