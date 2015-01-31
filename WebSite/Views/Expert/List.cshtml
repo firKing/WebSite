@@ -20,16 +20,13 @@
     <div id="list-expert">
         <h2>
             专家名单
-            <form class="navbar-form navbar-right" role="search">
-                <input type="text" class="form-control" placeholder="搜索题库内容">
-                <input type="submit" value=" " name="search" />
-            </form>
+            <script type="text/javascript">document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://znsv.baidu.com/customer_search/api/js?sid=4129137774415690631') + '&plate_url=' + (encodeURIComponent(window.location.href)) + '&t=' + (Math.ceil(new Date()/3600000)) + unescape('"%3E%3C/script%3E'));</script>
         </h2>
         <ul class="expert-main">
             @foreach (var item in ViewBag.list)
             {
                 <li>
-                    <a href="@Url.Action("Expert","Expert")" class="expert-head">
+                    <a href="~/Expert/Index?" class="expert-head">
                         <img src="~/@item.expert_image" alt="@item.user_userId" />
                     </a>
                     <a href="#" class="expert-name">@item.user.user_name</a>

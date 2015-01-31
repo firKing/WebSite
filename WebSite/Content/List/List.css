@@ -9,9 +9,8 @@
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
-#list-main h2 form{
-    margin-top: -7px;
-    position: relative;
+#bdcs{
+    float: right;
 }
 #list-main h2 form input[name="search"]{
     background: url("../../Image/search.png") no-repeat;

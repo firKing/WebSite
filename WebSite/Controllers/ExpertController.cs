@@ -40,7 +40,7 @@ namespace WebSite.Controllers
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
-                return View("~/Views/Shared/detail");
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }

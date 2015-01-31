@@ -8,18 +8,8 @@
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
-#list-expert h2 form{
-    margin-top: -7px;
-    position: relative;
-}
-#list-expert h2 form input[name="search"]{
-    background: url("../../Image/search.png") no-repeat;
-    border: 0;
-    width: 20px;
-    background-position: 0px 10px;
-    position: absolute;
-    top: 0;
-    right: 20px;
+#bdcs{
+    float: right;
 }
 #list-expert a:hover{
     text-decoration: none;
