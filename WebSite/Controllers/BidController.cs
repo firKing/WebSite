@@ -28,11 +28,13 @@ namespace WebSite.Controllers
         {
             SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
             var element = Info(id).SingleOrDefault();
-            if (element != null)
+            if (element != null) 
             {
-                return View(new Pair<bid,IQueryable<audit>>
-                    (element, 
-                    dbAudit.FindInfo(x => x.bidId == id)));
+                ViewBag.details = new Pair<bid, IQueryable<audit>>
+                    (element,
+                    dbAudit.FindInfo(x => x.bidId == id));
+
+                return View();
             }
             else
             {
