@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layouts/Details.cshtml";
+}
+@section title{
+    XXX股份有限公司
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/PubNews/PubNews.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/kindeditor.js")
+    @Scripts.Render("~/Scripts/zh_CN.js")
+}
+
+<div id="list-expert">
+    <h2>
+        专家名单
+        <a class="return_back" href="#">返回>></a>
+    </h2>
+
+
+</div>

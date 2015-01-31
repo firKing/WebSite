@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Publish";
+    Layout = "~/Views/Layouts/Pub.cshtml";
+}
+
+@section title{
+    发布新闻
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/PubNews/PubNews.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/kindeditor.js")
+    @Scripts.Render("~/Scripts/zh_CN.js")
+}
+
+<div id="list-expert">
+    <h2>
+        专家名单
+        <a class="return_back" href="#">返回>></a>
+    </h2>
+    <form id="new_form" action="@Url.Action("Create", "New")" method="post">
+        <div class="form-group">
+             <label  for="new_title" class="control-label">新闻标题: </label>
+            <input type="text" id="news_title" name="news_title" value=" " />
+        </div>
+        <div class="form-group">
+            <textarea id="editor_id" style="width: 100%; height: 250px;"></textarea>
+        </div>
+        <input type="hidden" id="news_content" name="news_content">
+        <div class="form-group">
+            <input type="submit" class="btn btn-group submit_btn btn-success" name="submit" value="保存并提交" />
+        </div>
+    </form>
+    
+</div>
+<script>
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#editor_id');
+        }); 
+        
+        $("#new_form").on('submit', function () {
+            editor.sync();
+            var html = $("#editor_id").val();
+            $("#news_content").val(html);
+
+            if (!(/\w+/.test(html)) && !(/\w+/.test($("#news_title").val()))) {
+                return false;
+            }
+        });
+
+        
+      
+
+</script>
