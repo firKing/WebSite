@@ -17,10 +17,10 @@ namespace WebSite.Models
         }
     }
 
-    public class AdminDbContext : System.Data.Entity.DbContext
+    public class UserDbContext : System.Data.Entity.DbContext
     {
-        public System.Data.Entity.DbSet<admin> admins { get; set; }
-        public AdminDbContext()
+        public System.Data.Entity.DbSet<user> users { get; set; }
+        public UserDbContext()
            : base("name=WebSiteEntities")
         {
         }
