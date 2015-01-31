@@ -6,6 +6,8 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Linq.Expressions;
+using System.Web;
+
 namespace WebSite.Controllers
 {
     public class CompanyController : Controller
@@ -19,7 +21,22 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Company, Session);
         }
+        public ActionResult Detail(int id)
+        {
+            var db = new SingleTableModule<company>();
 
+            var element = db.FindInfo(x => x.companyId == id).SingleOrDefault();
+            if (element != null)
+            {
+                ViewBag.name = element.user.user_name;
+                ViewBag.content = element.user.user_introduction;
+                return View("~/Views/Shared/detail.cshtml");
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
+        }
         private ActionResult Info()
         {
             if (CheckSession()) 
