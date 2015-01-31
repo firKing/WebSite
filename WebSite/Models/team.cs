@@ -27,6 +27,7 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
 
         public string team_introduction { get; set; }
+        public DateTime team_time { get; set; }
         public int purchaseId { get; set; }
         public int createId { get; set; }
     

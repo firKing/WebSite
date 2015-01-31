@@ -21,7 +21,9 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
 
         public string invitation_content { get; set; }
-    
+
+        public DateTime invitation_time { get; set; }
+
         public virtual expert expert { get; set; }
         public virtual purchase purchase { get; set; }
     }

@@ -18,6 +18,24 @@ namespace WebSite.Controllers
         {
             return Info();
         }
+
+        public ActionResult Detail(int id)
+        {
+            var db = new SingleTableModule<vendor>();
+
+            var element = db.FindInfo(x => x.vendorId == id).SingleOrDefault();
+            if (element != null)
+            {
+                ViewBag.name = element.user.user_name;
+                ViewBag.content = element.user.user_introduction;
+                return View("~/Views/Shared/detail.cshtml");
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
+        }
+
         public ActionResult Info()
         {
             if (CheckSession())

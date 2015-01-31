@@ -17,9 +17,18 @@ namespace WebSite.Models
         }
     }
 
-    public class AdminDBContext : System.Data.Entity.DbContext
+    public class AdminDbContext : System.Data.Entity.DbContext
     {
         public System.Data.Entity.DbSet<admin> Admins { get; set; }
+        public AdminDbContext()
+           : base("name=WebSiteEntities")
+        {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
     }
 
     public class AuditDBContext : System.Data.Entity.DbContext
