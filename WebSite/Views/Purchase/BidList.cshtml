@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "BidList";
+    Layout = "~/Views/Layouts/List.cshtml";
+    if(ViewBag.page != 1)
+    {
+        ViewBag.prePage = ViewBag.page - 1;
+    }else
+    {
+        ViewBag.prePage = 1;
+    }           
+    if(ViewBag.page != ViewBag.sumPage)
+    {
+        ViewBag.nextPage = ViewBag.page + 1;
+    }else
+    {
+        ViewBag.nextPage = ViewBag.sumPage;
+    }
+    ViewBag.pageClass = "action disabled";
+    ViewBag.parent = ViewContext.RouteData.Values["action"];
+}
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/List/List.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/BidList/BidList.js")
+}
+
+<!--详情页主体部分-->
+<div id="list-main">
+    <h2>
+        @ViewBag.PurchaseTitle<text>的标书列表</text>
+        <form class="navbar-form navbar-right" role="search">
+            <input type="text" class="form-control" placeholder="搜索">
+            <input type="submit" value=" " name="search" />
+        </form>
+    </h2>
+    <ul>
+        @foreach (var item in ViewBag.list)
+            {
+            <li>
+                <a href="~/Bid/@item.bidId">
+                    <h4>@item.bid_title</h4>
+                    <p>
+                        @item.bid_introduction
+                    </p>
+                    <span>@item.bid_time</span>
+                </a>
+            </li>
+        }
+    </ul>
+    <nav>
+        <ul class="pagination">
+            <li class="@if (@ViewBag.page == 1) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@ViewBag.prePage"><span aria-hidden="true">&laquo;</span></a></li>
+            @for (int i = 1; i <= @ViewBag.sumPage; i++)
+            {
+                <li class="@if (@ViewBag.page == i) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@i">@i</a></li>
+            }
+            <li class="@if (@ViewBag.page == @ViewBag.sumPage) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@ViewBag.nextPage"><span aria-hidden="true">&raquo;</span></a></li>
+        </ul>
+    </nav>
+</div>
+<!--详情页主体部分-->
+
