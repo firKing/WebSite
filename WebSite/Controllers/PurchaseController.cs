@@ -27,7 +27,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                                return HttpNotFound();
             }
         }
         //获取采购信息详情页

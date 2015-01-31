@@ -34,7 +34,8 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                return HttpNotFound();
+                //                return HttpNotFound();
             }
         }
         private ActionResult Info()
@@ -42,8 +43,7 @@ namespace WebSite.Controllers
             if (CheckSession()) 
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-
-                IQueryable<user> query = Utility.GetList<user>(x => x.userId==sessionId);
+                var query = Utility.GetList<company>(x => x.companyId == sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;

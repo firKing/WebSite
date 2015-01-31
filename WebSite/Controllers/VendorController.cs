@@ -32,7 +32,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                throw new HttpException(404, "Product not found.");
+                return HttpNotFound();
             }
         }
 
@@ -42,7 +42,7 @@ namespace WebSite.Controllers
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = (IQueryable<user>)GetList<user>(x => x.userId == sessionId);
+                var query = GetList<vendor>(x => x.vendorId == sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.vendor = result;
@@ -122,7 +122,7 @@ namespace WebSite.Controllers
             Assert(elelemt == null);
             return elelemt.bidderId;
         }
-        private object GetList<T>(Expression<Func<T, bool>> expression) where T : class
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             return Utility.GetList<T>(expression);
         }
