@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/home.css"/>
+</head>
+<body>
+<div id="list-main">
+    <h2>
+        单位个人中心
+        <!-- <a class="back" href="#">退出登录</a> -->
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li><div class="line"></div>
+                    <a href="#">个人信息</a></li>
+                <li><div class=""></div>
+                    <a href="#">企业邀请</a></li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <form class="info" action="" method="post">
+                <div class="title">
+                    <h2>个人信息</h2>
+                    <a href="#" class="btn btn-success change">修改</a>
+                </div>
+                <div class="details">
+                    <div class="show">
+                        <h3>基本信息</h3>
+                        <ul>
+                            <li>企业名称: @ViewBag.home.company_name</li>
+                            <li>电话： @ViewBag.home.company_telephone</li>
+                            <li>邮箱: @ViewBag.home.company.company_mail</li>
+                            <li>联系地址: @ViewBag.home.company_address</li>
+                            <li>概要： @ViewBag.home.company_introduction </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <form class="info" action="" method="post">
+                <div class="title">
+                    <h2>企业邀请</h2>
+                    <div class="change">修改</div>
+                </div>
+                <div class="details">
+                    <div class="section">
+                        <div class="submit">
+                            <a href="#">接受</a>
+                            <a href="#">拒绝</a>
+                        </div>
+                        <h3>xxx 采购</h3>
+                        <p>sdlksajdlksajdlsajqwdjlkwqjdlkwqjdlkjwqlkdjwqlkdjwqlkdjlkwqjdlkwqjdlkwjqlkjdlkwqjlkdjwqlkdjlkdjsalkdjaslkjdlksajlkd</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
