@@ -38,7 +38,7 @@ namespace WebSite.Controllers
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
-                return View();
+                return View("~/Views/Shared/detail");
             }
             return RedirectToAction("Index", "Index");
         }
