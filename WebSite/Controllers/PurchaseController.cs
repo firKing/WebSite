@@ -56,7 +56,7 @@ namespace WebSite.Controllers
                     y.user.user_type == UserType.Expert.ToString())
                     .SingleOrDefault() != null)
                     .Aggregate((x, y) =>
-                        x == true &&
+                        x ==
                         y == true));
 
             var expertIdList = expertNameList
@@ -102,13 +102,13 @@ namespace WebSite.Controllers
         {
             return Utility.GetSumCount<T, Tkey>(whereSelector, keySelector);
         }
-        public ActionResult BidList(int purachseId,int page)
+        public ActionResult BidList(int purchaseId,int page)
         {
             int count = 5;
-            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purachseId, x => x.bidId);
-            ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purachseId, x => x.bidId);
+            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId);
+            ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purchaseId, x => x.bidId);
             ViewBag.page = page;
-            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purachseId).SingleOrDefault();
+            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             ViewBag.PurchaseTitle = result.purchase_title;
             return View();
