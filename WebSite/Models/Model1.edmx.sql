@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/29/2015 15:59:20
+-- Date Created: 01/31/2015 09:30:10
 -- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -110,7 +110,7 @@ GO
 
 -- Creating table 'admins'
 CREATE TABLE [dbo].[admins] (
-    [adminId] int  NOT NULL,
+    [adminId] int IDENTITY(1,1) NOT NULL,
     [admin_name] varchar(30)  NOT NULL,
     [admin_pwd] varchar(20)  NOT NULL,
     [time] datetime  NOT NULL
@@ -119,7 +119,7 @@ GO
 
 -- Creating table 'audits'
 CREATE TABLE [dbo].[audits] (
-    [bidId] int  NOT NULL,
+    [bidId] int IDENTITY(1,1) NOT NULL,
     [expertId] int  NOT NULL,
     [auditId] int  NOT NULL,
     [audit_content] varchar(500)  NULL
@@ -128,7 +128,7 @@ GO
 
 -- Creating table 'bidders'
 CREATE TABLE [dbo].[bidders] (
-    [bidderId] int  NOT NULL,
+    [bidderId] int IDENTITY(1,1) NOT NULL,
     [bidder_is_team] bit  NOT NULL,
     [tendererId] int  NOT NULL
 );
@@ -136,7 +136,7 @@ GO
 
 -- Creating table 'bids'
 CREATE TABLE [dbo].[bids] (
-    [bidId] int  NOT NULL,
+    [bidId] int IDENTITY(1,1) NOT NULL,
     [purchaseId] int  NOT NULL,
     [bidderId] int  NOT NULL,
     [bid_title] varchar(50)  NOT NULL,
@@ -144,20 +144,20 @@ CREATE TABLE [dbo].[bids] (
     [bid_time] datetime  NOT NULL,
     [bid_number] int  NOT NULL,
     [bid_introduction] varchar(1500)  NOT NULL,
-    [bid_content] varbinary(max)  NOT NULL
+    [bid_content] varchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'companies'
 CREATE TABLE [dbo].[companies] (
-    [companyId] int  NOT NULL,
+    [companyId] int IDENTITY(1,1) NOT NULL,
     [user_userId] int  NOT NULL
 );
 GO
 
 -- Creating table 'experts'
 CREATE TABLE [dbo].[experts] (
-    [expertId] int  NOT NULL,
+    [expertId] int IDENTITY(1,1) NOT NULL,
     [expert_image] nvarchar(max)  NULL,
     [expert_accept_count] int  NOT NULL,
     [user_userId] int  NOT NULL
@@ -166,7 +166,7 @@ GO
 
 -- Creating table 'invitations'
 CREATE TABLE [dbo].[invitations] (
-    [purchaseId] int  NOT NULL,
+    [purchaseId] int IDENTITY(1,1) NOT NULL,
     [expertId] int  NOT NULL,
     [invitationId] int  NOT NULL,
     [invitation_content] varchar(500)  NOT NULL
@@ -177,13 +177,13 @@ GO
 CREATE TABLE [dbo].[members] (
     [vendorId] int  NOT NULL,
     [teamId] int  NOT NULL,
-    [memberId] int  NOT NULL
+    [memberId] int IDENTITY(1,1) NOT NULL
 );
 GO
 
 -- Creating table 'news'
 CREATE TABLE [dbo].[news] (
-    [newsId] int  NOT NULL,
+    [newsId] int IDENTITY(1,1) NOT NULL,
     [companyId] int  NOT NULL,
     [news_title] varchar(20)  NOT NULL,
     [news_content] varchar(max)  NOT NULL,
@@ -193,7 +193,7 @@ GO
 
 -- Creating table 'purchases'
 CREATE TABLE [dbo].[purchases] (
-    [purchaseId] int  NOT NULL,
+    [purchaseId] int IDENTITY(1,1) NOT NULL,
     [companyId] int  NOT NULL,
     [purchase_title] varchar(20)  NOT NULL,
     [purchase_content] varchar(max)  NOT NULL,
@@ -204,7 +204,7 @@ GO
 
 -- Creating table 'teams'
 CREATE TABLE [dbo].[teams] (
-    [teamId] int  NOT NULL,
+    [teamId] int IDENTITY(1,1) NOT NULL,
     [team_name] varchar(30)  NOT NULL,
     [team_introduction] varchar(300)  NOT NULL,
     [purchaseId] int  NOT NULL,
@@ -227,7 +227,7 @@ GO
 
 -- Creating table 'vendors'
 CREATE TABLE [dbo].[vendors] (
-    [vendorId] int  NOT NULL,
+    [vendorId] int IDENTITY(1,1) NOT NULL,
     [user_userId] int  NOT NULL
 );
 GO
