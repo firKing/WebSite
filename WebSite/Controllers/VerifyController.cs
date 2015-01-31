@@ -16,6 +16,9 @@ namespace WebSite.Controllers
 
         [HttpPost]
         //romote vailation
+        //检测用户名是否存在,ajax 第一个参数是用户名,第二个是用户类型,
+        //json {name:nameValue,type:typeValue};
+        //返回值,"true" "false"
         public ActionResult CheckRegisterNameExist(string name, string type)
         {
             var result = CheckNameExist<user>(name, x => x.user_name == name && x.user_type == type);

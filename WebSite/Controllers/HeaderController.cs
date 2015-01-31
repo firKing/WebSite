@@ -48,6 +48,8 @@ namespace WebSite.Controllers
                 var type = (UserType)Session["user_type"];
                 ViewBag.userName = handerEventMap[type](id);
                 ViewBag.login = true;
+                ViewBag.userType = type;
+                ViewBag.id = id;
             }
             return View(/*TODO View path*/);
         }

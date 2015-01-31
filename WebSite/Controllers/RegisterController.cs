@@ -25,9 +25,11 @@ namespace WebSite.Controllers
         }
    
         [HttpPost]
-        public ActionResult Register(user info)
+        public ActionResult Register(user info,String authCode)
         {
-            if (ModelState.IsValid)
+            var validateCode = Convert.ToString(Session["ValidateCode"]);
+            Assert(validateCode!=null);
+            if (ModelState.IsValid && validateCode == authCode)
             {
                 var table = new SingleTableModule<user>();
                 var createResult = table.Create(info);
@@ -40,6 +42,7 @@ namespace WebSite.Controllers
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }
+
             return RedirectToAction("Index","Index");
         }
         private void SetLoginSession(int userId,string type)

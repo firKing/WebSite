@@ -171,11 +171,24 @@
                     <li @if ((string)ViewData["Indexpage"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
                     <li @if ((string)ViewData["Indexpage"] == "team") { Html.Raw("class='active'"); }>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right" id="login">
-                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
-                    <li>@Html.ActionLink("注册", "Index", "Register")</li>
-                </ul>
+                @{
+                    if (ViewBag.login == true)
+                    {
+                        string userName = ViewBag.userName;
+                        string type = ViewBag.type.ToString();
+                        <ul class="nav navbar-nav navbar-right" id="login">
+                            <li>@Html.ActionLink(@userName, "Home",@type)</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right" id="login">
+                            <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
+                            <li>@Html.ActionLink("注册", "Index", "Register")</li>
+                        </ul>
+                    }
+                }
+               
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>

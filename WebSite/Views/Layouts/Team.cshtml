@@ -8,7 +8,8 @@
 </head>
 <body>
     <!-- 顶部 -->
-    @Html.Partial("~/Views/Shared/header.cshtml")
+@*@Html.Partial("~/Views/Shared/header.cshtml")*@
+   @Html.RenderAction("Index","Header");
     <!-- 顶部 -->
     <!--首页主体部分-->
     @RenderBody()
