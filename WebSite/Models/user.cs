@@ -32,8 +32,8 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
         [EmailAddress(ErrorMessage = "Please enter valid email")]
         public string user_mail { get; set; }
-      //  [Required(ErrorMessage = "*")]
-      //  [RegularExpression(@"^[\w\u4E00-\u9FA5][\u4E00-\u9FA5\w\d_]{0,19}$", ErrorMessage = "Please enter valid name.")]
+        [Required(ErrorMessage = "*")]
+        [RegularExpression(@"^[\w\u4E00-\u9FA5][\u4E00-\u9FA5\w\d_]{0,19}$", ErrorMessage = "Please enter valid name.")]
         [Remote("CheckRegisterNameExist","Verify", AdditionalFields = "user_type", ErrorMessage = "user name is registered")]
         public string user_name { get; set; }
         [Required(ErrorMessage = "*")]
