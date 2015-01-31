@@ -6,13 +6,23 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Web;
+using System.IO;
+
 namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
         private SingleTableModule<bid> db = new SingleTableModule<bid>();
-         
 
+
+        //ajax
+        [HttpPost]
+        public void DeleteBid(int bidId)
+        {
+            var result = db.FindInfo(x => x.bidId == bidId).SingleOrDefault();
+            Assert(result == null);
+            db.Delete(result);
+        }
         // GET: 
         public ActionResult Detail(int id)
         {
@@ -38,7 +48,16 @@ namespace WebSite.Controllers
         public ActionResult Create()
         {
             var record = new bid();
-
+            foreach (string upload in Request.Files)
+            {
+                Assert(upload == "bid_content");
+                Assert(Request.Files.Count == 1);
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
+                string filename = Path.GetFileName(Request.Files[upload].FileName);
+                path = Path.Combine(path, filename);
+                Request.Files[upload].SaveAs(path);
+                record.bid_content = path;
+            }
             return View(record);
         }
         private Pair<bool,bidder> CreateBidder(int tenderId, UserType type)
@@ -71,4 +90,6 @@ namespace WebSite.Controllers
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
+
+   
 }

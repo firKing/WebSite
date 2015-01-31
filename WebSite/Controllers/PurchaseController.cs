@@ -113,5 +113,15 @@ namespace WebSite.Controllers
             ViewBag.title = result.purchase_title;
             return View();
         }
+        //ajax
+        [HttpPost]
+        public void PurchaseHitBid(int purchaseId,int bidId)
+        {
+            var db = new SingleTableModule<purchase>();
+            var result = db.FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
+            Assert(result == null);
+            result.hitId = bidId;
+            db.Edit(result);
+        }
     }
 }
