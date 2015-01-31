@@ -92,9 +92,6 @@ namespace WebSite.Controllers
             var nonExistList =
                 CheckListNameExpertExist
                 (nameList);
-            //CheckListNameExist<expert>
-            //(nameList, x =>
-            //    x.user.user_name);
             return Json(nonExistList, JsonRequestBehavior.AllowGet);
         }
 
@@ -155,5 +152,12 @@ namespace WebSite.Controllers
         {
             Utility.SetLoginSession(Session, userId,type);
         }
+
+        public ActionResult LoginOut()
+        {
+            Utility.ClearSession(Session);
+            return RedirectToAction("Index", "Index");
+        }
+
     }
 }
