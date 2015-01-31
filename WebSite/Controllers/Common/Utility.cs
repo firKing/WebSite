@@ -108,19 +108,19 @@ namespace WebSite.Controllers.Common
             setSessionEventMap.Add(UserType.Expert.ToString(),(int id)=>
             {
                 var result = new SingleTableModule<expert>().FindInfo(x=>x.user_userId == id).SingleOrDefault();
-                Assert(result == null);
+                Assert(result != null);
                 SetSession(Session, result.expertId, UserType.Expert);
             });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
                 var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
-                Assert(result == null);
+                Assert(result != null);
                 SetSession(Session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
                 var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
-                Assert(result == null);
+                Assert(result != null);
                 SetSession(Session, result.vendorId, UserType.Vendor);
             });
             setSessionEventMap[type](userId);
