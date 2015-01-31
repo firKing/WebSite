@@ -14,7 +14,7 @@ namespace WebSite.Controllers
         delegate String HeaderEventHandler(int user_id);
         private Dictionary<UserType,HeaderEventHandler> handerEventMap = new Dictionary<UserType, HeaderEventHandler>();
         // GET: Header
-        HeaderController()
+        private  void InithanderEventMap()
         {
             handerEventMap.Add(UserType.Expert,(int id)=> {
                 var result = new SingleTableModule<expert>().FindInfo(x => x.expertId == id).SingleOrDefault();
@@ -36,6 +36,7 @@ namespace WebSite.Controllers
         }
         public ActionResult Index()
         {
+
             if (Session["user_id"] == null || Session["user_type"] == null)
             {
                 ViewBag.userName = "注册";
@@ -43,7 +44,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                
+                InithanderEventMap();
                 var id = (Int32)Session["user_id"];
                 var type = (UserType)Session["user_type"];
                 ViewBag.userName = handerEventMap[type](id);
@@ -51,7 +52,7 @@ namespace WebSite.Controllers
                 ViewBag.userType = type;
                 ViewBag.id = id;
             }
-            return View(/*TODO View path*/);
+            return PartialView("~/Views/Shared/header.cshtml");
         }
     }
 }

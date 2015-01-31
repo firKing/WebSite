@@ -9,7 +9,7 @@
 <body>
     <!-- 顶部 -->
 @*@Html.Partial("~/Views/Shared/header.cshtml")*@
-   @Html.RenderAction("Index","Header");
+    @Html.Action("Index", "Header")
     <!-- 顶部 -->
     <!--首页主体部分-->
     @RenderBody()

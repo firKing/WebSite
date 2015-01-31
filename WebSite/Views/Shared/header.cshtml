@@ -175,7 +175,7 @@
                     if (ViewBag.login == true)
                     {
                         string userName = ViewBag.userName;
-                        string type = ViewBag.type.ToString();
+                        string type = ViewBag.userType.ToString();
                         <ul class="nav navbar-nav navbar-right" id="login">
                             <li>@Html.ActionLink(@userName, "Home",@type)</li>
                         </ul>
