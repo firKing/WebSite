@@ -5,66 +5,84 @@
     Layout = "~/Views/Layouts/Index.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.user_type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_telephone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_mail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_introduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_password)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_telephone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_mail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_introduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.userId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.userId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
-        </td>
-    </tr>
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Index/index.css")
+    @Styles.Render("~/Content/User/user.css")
 }
 
-</table>
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Index/index.js")
+}
+
+<div class="container">
+
+    <h2>Index</h2>
+    <table class="table table-hover table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.user_type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_introduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_password)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_introduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.userId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.userId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+</div>
+
