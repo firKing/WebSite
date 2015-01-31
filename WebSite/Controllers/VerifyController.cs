@@ -120,7 +120,6 @@ namespace WebSite.Controllers
                     result = true;
                     SetLoginSession(element.userId,element.user_type);
                 }
-                Response.Cookies["user_name"].Value = element.user_name;
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
