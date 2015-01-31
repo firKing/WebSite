@@ -25,7 +25,7 @@ namespace WebSite.Controllers
         }
    
         [HttpPost]
-        public void Register(user info)
+        public ActionResult Register(user info)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace WebSite.Controllers
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }
-            RedirectToAction("Index","Index");
+            return RedirectToAction("Index","Index");
             
         }
         private void SetLoginSession(int userId,string type)
