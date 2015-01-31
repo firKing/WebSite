@@ -135,7 +135,7 @@ namespace WebSite.Controllers.Common
                 record.expert_accept_count = 0;
                 var random = new Random();
                 var number = random.Next(0, 5);
-                record.expert_image = @"~/Protrait/"+number.ToString() + ".jpg";
+                record.expert_image = @"Protrait/"+number.ToString() + ".jpg";
                 var result = new SingleTableModule<expert>().Create(record);
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
