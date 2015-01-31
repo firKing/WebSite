@@ -6,6 +6,7 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace WebSite.Controllers
@@ -17,11 +18,31 @@ namespace WebSite.Controllers
         {
             return Info();
         }
+
+        public ActionResult Detail(int id)
+        {
+            var db = new SingleTableModule<vendor>();
+
+            var element = db.FindInfo(x => x.vendorId == id).SingleOrDefault();
+            if (element != null)
+            {
+                ViewBag.name = element.user.user_name;
+                ViewBag.content = element.user.user_introduction;
+                return View("~/Views/Shared/detail.cshtml");
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
+        }
+
         public ActionResult Info()
         {
             if (CheckSession())
             {
-                var query = (IQueryable<user>)GetList<user>(x => x.userId);
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+
+                var query = (IQueryable<user>)GetList<user>(x => x.userId == sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.vendor = result;
@@ -40,7 +61,9 @@ namespace WebSite.Controllers
                 var table = new SingleTableModule<member>();
                 var teamTable = new SingleTableModule<team>();
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<member>)GetList<member>(x => x.vendorId);
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+
+                var query = (IQueryable<member>)GetList<member>(x => x.vendorId== sessionId);
                 foreach (var iter in query)
                 {
                    var first = teamTable.FindInfo(x => x.teamId == iter.teamId).SingleOrDefault();
@@ -59,7 +82,9 @@ namespace WebSite.Controllers
             {
                
                 var result = new List<Pair<team, IQueryable<member>>>();
-                var query = (IQueryable<team>)GetList<team>(x => x.createId);
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+
+                var query = (IQueryable<team>)GetList<team>(x => x.createId == sessionId);
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {
@@ -97,9 +122,9 @@ namespace WebSite.Controllers
             Assert(elelemt == null);
             return elelemt.bidderId;
         }
-        private object GetList<T>(Func<T, int> expression) where T : class
+        private object GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
-            return Utility.GetList<T>(expression, Session);
+            return Utility.GetList<T>(expression);
         }
         private bool CheckSession()
         {

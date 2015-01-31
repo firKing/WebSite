@@ -104,7 +104,7 @@ namespace WebSite.Controllers
         }
         public ActionResult BidList(int purchaseId,int page)
         {
-            int count = 5;
+            const int count = 5;
             ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId);
             ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purchaseId, x => x.bidId);
             ViewBag.page = page;
@@ -113,13 +113,14 @@ namespace WebSite.Controllers
             ViewBag.PurchaseTitle = result.purchase_title;
             return View();
         }
+
+        
         //ajax
         [HttpPost]
         public void PurchaseHitBid(int purchaseId,int bidId)
         {
-            var db = new SingleTableModule<purchase>();
             var result = db.FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
-            Assert(result == null);
+            Assert(result != null);
             result.hitId = bidId;
             db.Edit(result);
         }

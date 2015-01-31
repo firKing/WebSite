@@ -21,7 +21,8 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
 
         public string audit_content { get; set; }
-    
+        public DateTime audit_time { get; set; }
+
         public virtual bid bid { get; set; }
         public virtual expert expert { get; set; }
     }
