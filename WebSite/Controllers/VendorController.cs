@@ -40,9 +40,11 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
+                Assert(Session["user_id"] != null);
+
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = GetList<vendor>(x => x.vendorId == sessionId);
+                var query = GetList<vendor>(x => x.vendorId == sessionId).ToList();
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.vendor = result;
@@ -54,16 +56,20 @@ namespace WebSite.Controllers
        
                    
         //加入的团队列表
-        public ActionResult AddTeamList()
+        public ActionResult AddTeamList(int page)
         {
             if (CheckSession())
             {
+                Assert(Session["user_id"] != null);
+
                 var table = new SingleTableModule<member>();
                 var teamTable = new SingleTableModule<team>();
                 var result = new List<Pair<team, IQueryable<member>>>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = (IQueryable<member>)GetList<member>(x => x.vendorId== sessionId);
+                var query = GetList<member>(x => x.vendorId== sessionId).ToList();
+                ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
+                ViewBag.pageNum = page;
                 foreach (var iter in query)
                 {
                    var first = teamTable.FindInfo(x => x.teamId == iter.teamId).SingleOrDefault();
@@ -76,20 +82,24 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
 
         }
-        public ActionResult CreateTeamList()
+        public ActionResult CreateTeamList(int page)
         {
             if (CheckSession())
             {
-               
+                Assert(Session["user_id"] != null);
+
                 var result = new List<Pair<team, IQueryable<member>>>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = (IQueryable<team>)GetList<team>(x => x.createId == sessionId);
+                var query = GetList<team>(x => x.createId == sessionId).ToList();
+                ViewBag.pageSum = GetSumCount<team,int>(x => x.createId == sessionId,x=>x.teamId);
+                ViewBag.pageNum = page;
                 var table = new SingleTableModule<member>();
                 foreach (var iter in query)
                 {
                     result.Add(new Pair<team, IQueryable<member>>(iter,table.FindInfo(x => x.teamId == iter.teamId)));
                 }
+                ViewBag.teamList = result;
                 return View(result);
             }
             return RedirectToAction("Index", "Index");
@@ -97,17 +107,19 @@ namespace WebSite.Controllers
         }
 
 
-        public ActionResult PublishBidList()
+        public ActionResult PublishBidList(int page)
         {
 
             if (CheckSession())
             {
-
+                Assert(Session["user_id"]!=null);
                 var table = new SingleTableModule<bid>();
-                var id = GetBidderId(Convert.ToInt32(Session["user_id"]));
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+                var id = GetBidderId(sessionId);
 
-                ViewBag.personal = table.FindInfo(x => x.bidderId == id).Select(x=> new {title = x.purchase.purchase_title,name = x.bid_title ,hit = x.purchase.hitId == x.bidId?true : false});
-
+                ViewBag.personal = GetList<bid>(x => x.bidderId == id).ToList();
+                ViewBag.pageSum = GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId);
+                ViewBag.pageNum = page;
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -126,6 +138,14 @@ namespace WebSite.Controllers
         {
             return Utility.GetList<T>(expression);
         }
+        private int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        {
+            return Utility.GetSumCount(whereSelector, keySelector);
+        }
+
+
+
+
         private bool CheckSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);

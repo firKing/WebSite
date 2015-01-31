@@ -171,7 +171,7 @@ namespace WebSite.Controllers
             return Utility.GetList(page, count, keySelector);
         }
       
-        public int GetSumCount<T, Tkey>(Expression<Func<T, Tkey>> keySelector) where T : class
+        private int GetSumCount<T, Tkey>(Expression<Func<T, Tkey>> keySelector) where T : class
         {
             return Utility.GetSumCount<T, Tkey>( keySelector);
         }
