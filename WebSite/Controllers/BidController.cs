@@ -26,19 +26,22 @@ namespace WebSite.Controllers
         // GET: 
         public ActionResult Detail(int id)
         {
-            //SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
-            //var element = Info(id).SingleOrDefault();
-            //if (element != null)
-            //{
-            //    return View(new Pair<bid,IQueryable<audit>>
-            //        (element, 
-            //        dbAudit.FindInfo(x => x.bidId == id)));
-            //}
-            //else
-            //{
-            //    throw new HttpException(404, "Product not found.");
-            //}
-            return View();
+            SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
+            var element = Info(id).SingleOrDefault();
+            if (element != null) 
+            {
+                audit a = new audit();
+                a.expert.user.user_name
+                ViewBag.details = new Pair<bid, IQueryable<audit>>
+                    (element,
+                    dbAudit.FindInfo(x => x.bidId == id));
+
+                return View();
+            }
+            else
+            {
+                throw new HttpException(404, "Product not found.");
+            }
         }
         //获取标书详情
         private IQueryable<bid> Info(int id)

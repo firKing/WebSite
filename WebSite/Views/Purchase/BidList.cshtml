@@ -41,7 +41,7 @@
     </h2>
     <ul>
         @foreach (var item in ViewBag.list)
-            {
+        {
             <li>
                 <a href="~/Bid/@item.bidId">
                     <h4>@item.bid_title</h4>
@@ -53,6 +53,7 @@
             </li>
         }
     </ul>
+   
     <nav>
         <ul class="pagination">
             <li class="@if (@ViewBag.page == 1) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@ViewBag.prePage"><span aria-hidden="true">&laquo;</span></a></li>
