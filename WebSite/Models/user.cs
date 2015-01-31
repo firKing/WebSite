@@ -31,7 +31,7 @@ namespace WebSite.Models
         [EmailAddress(ErrorMessage = "Please enter valid email")]
         public string user_mail { get; set; }
         [Required(ErrorMessage = "*")]
-        [RegularExpression(@"^\w[\w\d_]{5,19}$", ErrorMessage = "Please enter valid name.")]
+        [RegularExpression(@"^[\w\u4E00-\u9FA5][\u4E00-\u9FA5\w\d_]{0,19}$", ErrorMessage = "Please enter valid name.")]
         public string user_name { get; set; }
         [Required(ErrorMessage = "*")]
 

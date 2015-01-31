@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 using System.Diagnostics.Debug;
+using System.Linq.Expressions;
 using WebSite.Controllers.Common;
 
 namespace WebSite.Controllers
@@ -26,15 +27,16 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
-        private object GetList<T>(Func<T, int> expression) where T : class
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
-            return Utility.GetList<T>(expression, Session);
+            return Utility.GetList<T>(expression);
         }
         private ActionResult Info()
         {
             if (CheckSession())
             {
-                var query =(IQueryable<user>) GetList<user>(x => x.userId);
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+                var query = GetList<user>(x => x.userId == sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
@@ -47,7 +49,8 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                ViewBag.list = GetList<invitation>(x => x.expertId);
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -58,7 +61,9 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                return View(GetList<audit>(x => x.expertId));
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+
+                return View(GetList<audit>(x => x.expertId==sessionId));
             }
             return RedirectToAction("Index", "Index");
 

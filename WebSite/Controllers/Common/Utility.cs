@@ -68,19 +68,19 @@ namespace WebSite.Controllers.Common
 
 
         }
-        public static bool CheckSession(UserType type, HttpSessionStateBase Session)
+        public static bool CheckSession(UserType type, HttpSessionStateBase session)
         {
-            return Convert.ToInt32(Session["user_id"]) != 0 &&
-                 ((UserType)Session["user_type"] == UserType.Expert
-                 || (UserType)Session["user_type"] == UserType.Vendor
-                || (UserType)Session["user_type"] == UserType.Company
+            return Convert.ToInt32(session["user_id"]) != 0 &&
+                 ((UserType)session["user_type"] == UserType.Expert
+                 || (UserType)session["user_type"] == UserType.Vendor
+                || (UserType)session["user_type"] == UserType.Company
                 );
         }
-        public static object GetList<T>(Func<T, int> expression, HttpSessionStateBase Session) where T : class
+        public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             var table = new SingleTableModule<T>();
             var result = table.
-            FindInfo(x => expression.Invoke(x) == Convert.ToInt32(Session["user_id"]));
+            FindInfo(expression);
             Assert(result != null);
             return result;
         }
@@ -90,44 +90,44 @@ namespace WebSite.Controllers.Common
                       type == UserType.Vendor.ToString() ||
                       type == UserType.Company.ToString();
         }
-        public static void SetSession(HttpSessionStateBase Session,int userId, UserType type)
+        public static void SetSession(HttpSessionStateBase session,int userId, UserType type)
         {
-            Session["user_id"] = userId;
-            Session["user_type"] = type;
+            session["user_id"] = userId;
+            session["user_type"] = type;
         }
-        public static void ClearSession(HttpSessionStateBase Session)
+        public static void ClearSession(HttpSessionStateBase session)
         {
-            Session["user_id"] = null;
-            Session["user_type"] = null;
+            session["user_id"] = null;
+            session["user_type"] = null;
         }
         private delegate void RegisterEventHandler(int id);
 
-        public static void SetLoginSession(HttpSessionStateBase Session, int userId, String type)
+        public static void SetLoginSession(HttpSessionStateBase session, int userId, String type)
         {
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(),(int id)=>
             {
                 var result = new SingleTableModule<expert>().FindInfo(x=>x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
-                SetSession(Session, result.expertId, UserType.Expert);
+                SetSession(session, result.expertId, UserType.Expert);
             });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
                 var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
-                SetSession(Session, result.companyId, UserType.Company);
+                SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
                 var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
-                SetSession(Session, result.vendorId, UserType.Vendor);
+                SetSession(session, result.vendorId, UserType.Vendor);
             });
             setSessionEventMap[type](userId);
         }
         public static void RegisterUserTypeTable( int userId,String type)
         {
-            Dictionary<String, RegisterEventHandler> registerEventMap = new Dictionary<string, RegisterEventHandler>();
+            var registerEventMap = new Dictionary<string, RegisterEventHandler>();
             registerEventMap.Add(UserType.Expert.ToString(), (int id) =>
             {
                 expert record = new expert();
@@ -153,7 +153,7 @@ namespace WebSite.Controllers.Common
             });
             registerEventMap[type](userId);
         }
-        public static IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, Tkey>> keySelector) where T : class
+        public static IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, TKey>> keySelector) where T : class
         {
             var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
             return container;

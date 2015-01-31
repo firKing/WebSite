@@ -24,7 +24,9 @@ namespace WebSite.Controllers
         {
             if (CheckSession()) 
             {
-                IQueryable<user> query = (IQueryable<user>)(Utility.GetList<user>(x => x.userId, Session));
+                var sessionId = Convert.ToInt32(Session["user_id"]);
+
+                IQueryable<user> query = Utility.GetList<user>(x => x.userId==sessionId);
                 var result = query.SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
