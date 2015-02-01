@@ -13,7 +13,7 @@ namespace WebSite.Controllers
     public class CompanyController : Controller
     {
         // GET: CompanyHome
-        public ActionResult Edit()
+        public ActionResult Home()
         {
             return Info();
         }
