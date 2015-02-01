@@ -36,9 +36,9 @@ namespace WebSite.Controllers
         {
             return nameList.Where(
                       x =>
-                          !CheckNameExist<member>(
+                          !CheckNameExist<vendor>(
                               y =>
-                                  y.vendor.user.user_name == x)).ToList();
+                                  y.user.user_name == x)).ToList();
         }
 
         private List<String> CheckListNameExpertExist(List<String> nameList)
