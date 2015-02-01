@@ -7,6 +7,8 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Linq.Expressions;
+using Microsoft.Ajax.Utilities;
+
 namespace WebSite.Controllers
 {
     public class RegisterController : Controller
@@ -46,13 +48,17 @@ namespace WebSite.Controllers
             var findResult = GetFindTableRecordMap()[user_type](user_id);
             if (findResult != null)
             {
-                ViewBag.element = findResult;
-                return View();
+                switch (user_type)
+                {
+                    case "Company":
+                        return View("~/Views/Register/Index.cshtml", ((company)findResult).user);
+                    case "Expert":
+                        return View("~/Views/Register/Index.cshtml", ((expert)findResult).user);
+                    case "Vendor":
+                        return View("~/Views/Register/Index.cshtml", ((vendor)findResult).user);
+                }
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
 
