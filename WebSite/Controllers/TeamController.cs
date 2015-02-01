@@ -42,7 +42,8 @@ namespace WebSite.Controllers
                                 return HttpNotFound();
             }
         }
-
+        //参数 json teamId:teamIdValue
+        //返回值true和false
         [HttpPost]
         public ActionResult AddTeam(int teamId)
         {
