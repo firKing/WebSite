@@ -23,10 +23,10 @@
     <div class="content">
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
-                <li> <div class="line"></div><a href="@Url.Action("Edit", "Expert")">个人中心</a></li>
-                <li><div class=""></div><a href="@Url.Action("InvitationList", "Expert")">企业邀请</a></li>
+                <li> <div class="line"></div><a href="@Url.Action("Home", "Expert")">个人中心</a></li>
+                <li><div class=""></div><a href="@Url.Action("InvitationList", "Expert")?page=1">企业邀请</a></li>
                 <li>
-                    <div></div><a href="@Url.Action("AuditList", "Expert")">审核意见列表</a>
+                    <div></div><a href="@Url.Action("AuditList", "Expert")?page=1">审核意见列表</a>
                 </li>        
             </ul>
         </div>
@@ -36,7 +36,7 @@
                 <div class="title">
                     <h2>专家信息</h2>
                     <div class="change">
-                        <a href="@Url.Action("Index", "Register")?user_id=@ViewBag.home.expertId&user_type=@ViewBag.home.user.user_type">修改</a>
+                        <a href="@Url.Action("Edit", "Register")?user_id=@ViewBag.home.expertId&user_type=@ViewBag.home.user.user_type">修改</a>
                     </div>
                 </div>
                 <div class="details">

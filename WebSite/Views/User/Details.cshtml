@@ -24,7 +24,7 @@
     <table class="table table-hover table-bordered">
         <tr class="dl-horizontal">
             <td>
-                @Html.DisplayNameFor(model => model.user_type)
+                用户类型
             </td>
 
             <td>
@@ -33,25 +33,7 @@
         </tr>
         <tr>
             <td>
-                @Html.DisplayNameFor(model => model.user_telephone)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.user_telephone)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.user_mail)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.user_mail)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.user_name)
+                用户名
             </td>
 
             <td>
@@ -60,7 +42,36 @@
         </tr>
         <tr>
             <td>
-                @Html.DisplayNameFor(model => model.user_address)
+                用户密码
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.user_password)
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                手机号码
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.user_telephone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                用户邮箱
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.user_mail)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                用户地址
             </td>
 
             <td>
@@ -69,22 +80,12 @@
         </tr>
         <tr>
             <td>
-                @Html.DisplayNameFor(model => model.user_introduction)
+                用户简介
             </td>
 
             <td>
                 @Html.DisplayFor(model => model.user_introduction)
             </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.user_password)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.user_password)
-            </td>
-
         </tr>
     </table>
     <p>

@@ -13,7 +13,7 @@ namespace WebSite.Controllers
     {
         // GET: Register
       
-        public ActionResult Edit()
+        public ActionResult Index()
         {
             return View();
         }
