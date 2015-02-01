@@ -15,13 +15,17 @@
     @Scripts.Render("~/bundles/bootstrap")
 }
 
+@section title{
+    用户详情
+}
+
 <div id="detail-main">
         <h2>@ViewBag.name</h2>
     <div class="detail-text">
         <p>电话：@ViewBag.phone</p>
         <p>邮箱：@ViewBag.email</p>
         <p>地址：@ViewBag.address</p>
-        <p>简介：@ViewBag.content</p>
+        <p>简介：@ViewBag.content</p> 
     </div>
 </div>
 
