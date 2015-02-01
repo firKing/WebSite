@@ -44,19 +44,19 @@ namespace WebSite.Controllers
         }
         private bool CheckSession()
         {
-            return Utility.CheckSession(UserType.Vendor, Session);
+            return Utility.CheckSession(UserType.Team, Session);
         }
         // 提交创建虚拟团队
         // 成员姓名， 逗号分隔 group_name
         // 采购对象 purchase_object
         // 概要 summary
-        private void CreateMembers(int teamId, List<String> NameList)
+        private void CreateMembers(int teamId, List<String> nameList)
         {
             //Assert ExpertName Exsit
 
             var vendorTable = new SingleTableModule<vendor>();
 
-            Assert(NameList
+            Assert(nameList
                 .Select(x =>
                 vendorTable.FindInfo(y =>
                     y.user.user_name == x &&
@@ -66,7 +66,7 @@ namespace WebSite.Controllers
                         x == true &&
                         y == true));
 
-            var vendorIdList = NameList
+            var vendorIdList = nameList
                 .Select(x =>
                 vendorTable.FindInfo(y =>
                 y.user.user_name == x &&

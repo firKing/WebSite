@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Debug;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Web;
-using System.Linq.Expressions;
-using System.Collections.Generic;
 
 namespace WebSite.Controllers
 {
@@ -16,20 +15,21 @@ namespace WebSite.Controllers
         // GET: Purchase
         private SingleTableModule<purchase> db = new SingleTableModule<purchase>();
 
-        // GET: 
+        // GET:
         public ActionResult Detail(int id)
         {
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.detail = element;
-                return View("~/Views/Purchase/Detail.cshtml");
+                return View();
             }
             else
             {
-                                return HttpNotFound();
+                return HttpNotFound();
             }
         }
+
         //获取采购信息详情页
         private IQueryable<purchase> Info(int purchaseId)
         {
@@ -43,10 +43,10 @@ namespace WebSite.Controllers
             return View(record);
         }
 
-        private void CreateInvitation(int purchaseId,String invitationContent,List<String>expertNameList)
+        private void CreateInvitation(int purchaseId, String invitationContent, List<String> expertNameList)
         {
             //Assert ExpertName Exsit
-            
+
             var expertTable = new SingleTableModule<expert>();
 
             Assert(expertNameList
@@ -61,11 +61,11 @@ namespace WebSite.Controllers
 
             var expertIdList = expertNameList
                 .Select(x =>
-                expertTable.FindInfo(y =>
-                y.user.user_name == x &&
-                y.user.user_type == UserType.Expert.ToString())
+                    expertTable.FindInfo(y =>
+                    y.user.user_name == x &&
+                    y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            var invitationTable = new SingleTableModule<invitation>(); 
+            var invitationTable = new SingleTableModule<invitation>();
             foreach (var expertId in expertIdList)
             {
                 invitationTable.Create(new invitation
@@ -76,8 +76,9 @@ namespace WebSite.Controllers
                 });
             }
         }
+
         [HttpPost]
-        public ActionResult Create(purchase info,String invitees,String invitationContent)
+        public ActionResult Create(purchase info, String invitees, String invitationContent)
         {
             if (ModelState.IsValid)
             {
@@ -87,37 +88,43 @@ namespace WebSite.Controllers
                     var invitationTable = new SingleTableModule<invitation>();
                     var inviteesList = invitees.Split(',').ToList();
                     CreateInvitation(result.second.purchaseId, invitationContent, inviteesList);
-                    return RedirectToAction("Detail",new { id = result.second.purchaseId });
+                    return RedirectToAction("Detail", new { id = result.second.purchaseId });
                 }
             }
-            return RedirectToAction("Home","Company");
+            return RedirectToAction("Home", "Company");
         }
 
-        private IQueryable<T> GetList<T, Tkey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
+            return Utility.GetList(page, count, whereSelector, keySelector);
+        }
 
-            return Utility.GetList(page, count,whereSelector, keySelector);
-        }
-        public int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            return Utility.GetSumCount<T, Tkey>(whereSelector, keySelector);
+            return Utility.GetSumCount<T, TKey>(whereSelector, keySelector);
         }
-        public ActionResult BidList(int purchaseId,int page)
+
+        private String GetPurchaseTitle(int purchaseId)
+        {
+            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
+            Assert(result != null);
+            return result.purchase_title;
+        }
+
+        public ActionResult BidList(int purchaseId, int page)
         {
             const int count = 5;
             ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId);
-            ViewBag.sumPage = GetSumCount<bid,int>(x => x.purchaseId == purchaseId, x => x.bidId);
-            ViewBag.page = page;
-            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
-            Assert(result != null);
-            ViewBag.PurchaseTitle = result.purchase_title;
+            ViewBag.pageSum = GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId);
+            ViewBag.pageNum = page;
+
+            ViewBag.PurchaseTitle = GetPurchaseTitle(purchaseId);
             return View();
         }
 
-        
         //ajax
         [HttpPost]
-        public void PurchaseHitBid(int purchaseId,int bidId)
+        public void PurchaseHitBid(int purchaseId, int bidId)
         {
             var result = db.FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);

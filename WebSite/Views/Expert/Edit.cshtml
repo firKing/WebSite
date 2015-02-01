@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ExpertHome";
     Layout = "~/Views/Layouts/Home.cshtml";
 }
@@ -7,13 +6,13 @@
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")
-    @Styles.Render("~/Content/CompanyHome/CompanyHome.css")
+    @Styles.Render("~/Content/ExpertHome/ExpertHome.css")
 }
 
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Company/Cpmpany.js")
+    @Scripts.Render("~/Scripts/Expert/Expert.js")
 }
 <div id="list-main">
     <h2>
@@ -24,15 +23,21 @@
     <div class="content">
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
-                <li><div class="line"></div>个人中心</li>
-                <li><div class=""></div></li>
+                <li> <div class="line"></div><a href="@Url.Action("Edit", "Expert")">个人中心</a></li>
+                <li><div class=""></div><a href="@Url.Action("InvitationList", "Expert")">企业邀请</a></li>
+                <li>
+                    <div></div><a href="@Url.Action("AuditList", "Expert")">审核意见列表</a>
+                </li>        
             </ul>
         </div>
         <div class="col-md-8">
+
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>专家信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "change_expert", "Register", new { company_id = ViewBag.home.expertId })</div>
+                    <div class="change">
+                        <a href="@Url.Action("Index", "Register")?user_id=@ViewBag.home.expertId&user_type=@ViewBag.home.user.user_type">修改</a>
+                    </div>
                 </div>
                 <div class="details">
                     <div class="show">
@@ -45,26 +50,6 @@
                             <li>简介： @ViewBag.home.user.user_introduction</li>
                         </ul>
                     </div>
-                </div>
-            </form>
-
-            <form class="info" action="" method="post">
-                <div class="title">
-                    <h2>企业邀请</h2>
-                 </div>
-                <div class="details">
-                    @foreach (var key in ViewBag.home.audits)
-                    {
-                        <div class="section">
-                            <div class="submit">
-                                <a href="#">接受</a>
-                                <a href="#">拒绝</a>
-                            </div>
-                            <h3>key.purchase.purchase_title 采购</h3>
-                            <p>key.invitation_content</p>
-                        </div>
-                    }
-                   
                 </div>
             </form>
         </div>

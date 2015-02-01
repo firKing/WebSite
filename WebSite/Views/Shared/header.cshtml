@@ -40,21 +40,21 @@
             <form id="login_form">
                 <div class="form-group">
                     <label for="exampleInputEmail1">用户名</label>
-                    <input type="text" data-error="用户名错误" name="name" class="form-control" id="name" placeholder="用户名">
+                    <input type="text" data-error="用户名为6至16位" name="name" class="form-control" id="name" placeholder="用户名">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">密码</label>
-                    <input type="password" data-error="密码错误" name="password" class="form-control" id="password" placeholder="密码">
+                    <input type="password" data-error="密码为6至16位" name="password" class="form-control" id="password" placeholder="密码">
                 </div>
                 <div class="form-group navbar-right">
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Vendor")" id="inlineRadio1" value="Vendor" checked="checked"> 供应商
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Vendor")" id="inlineRadio1" value="Vendor" checked="checked"> 供应商
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Company")" id="inlineRadio2" value="Company"> 单位
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Company")" id="inlineRadio2" value="Company"> 单位
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="type" data-url="@Url.Action("Home", "Expert")" id="inlineRadio3" value="Expert"> 专家
+                        <input type="radio" name="type" data-url="@Url.Action("Edit", "Expert")" id="inlineRadio3" value="Expert"> 专家
                     </label>
                 </div>
                 <div class="form-group form-a">
@@ -107,8 +107,8 @@
             var errorTitle = $("#top_bar");
 
             var checker = {
-                name: /^[a-zA-Z]\w{5,16}/,
-                password: /^[a-zA-Z]w{6,16}/
+                name: /^[a-zA-Z0-9\u4e00-\u9fa5]{2,16}$/,
+                password: /^[a-zA-Z0-9]{6,16}$/
             };
 
             $('input').css({
@@ -128,21 +128,25 @@
             var href = $("input[value='" + nowType + "']").attr("data-url");
 
             window.nowType = nowType;
-            $.ajax({
-                type: 'post',
-                url: "@Url.Action("Login", "Verify")",
-                data: data,
-                dataType: "text",
-                success: function (status) {
-                    if (status.toString() === "true") {
-                        location.href = location.origin + href
-                    }
-                },
-                error: function (data) {
-                    log(JSON.stringify(data));
-                }
-            });
 
+            if (flag) {
+                $.ajax({
+                        type: 'post',
+                        url: "@Url.Action("Login", "Verify")",
+                        data: data,
+                    dataType: "text",
+                    success: function (status) {
+                        if (status.toString() === "true") {
+                            location.href = location.origin + href;
+                        } else {
+                            log("登陆失败");
+                        }
+                    },
+                    error: function (data) {
+                        log(JSON.stringify(data));
+                    }
+                });
+            }
         });
     });
 
@@ -171,11 +175,25 @@
                     <li @if ((string)ViewData["Indexpage"] == "expert") { Html.Raw("class='active'"); }>@Html.ActionLink("专家名单", "ExpertList", "Index", new { page = 1 }, new { })</li>
                     <li @if ((string)ViewData["Indexpage"] == "team") { Html.Raw("class='active'"); }>@Html.ActionLink("虚拟团队", "TeamList", "Index", new { page = 1 }, new { })</li>
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right" id="login">
-                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
-                    <li>@Html.ActionLink("注册", "Index", "Register")</li>
-                </ul>
+                @{
+                    if (ViewBag.login == true)
+                    {
+                        string userName = ViewBag.userName;
+                        string type = ViewBag.userType.ToString();
+                        <ul class="nav navbar-nav navbar-right" id="login">
+                            <li>@Html.ActionLink(@userName, "Home", @type)</li>
+                            <li>@Html.ActionLink("退出登录", "LoginOut", "Verify")</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right" id="login">
+                            <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">登录</a></li>
+                            <li>@Html.ActionLink("注册", "Edit", "Register")</li>
+                        </ul>
+                    }
+                }
+               
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Web;
 
 namespace WebSite.Controllers
 {
@@ -30,11 +26,13 @@ namespace WebSite.Controllers
                 return HttpNotFound();
             }
         }
+
         //获取新闻详情页
         private IQueryable<news> Info(int newsId)
         {
             return db.FindInfo(x => x.newsId == newsId);
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -42,32 +40,30 @@ namespace WebSite.Controllers
             return View(record);
         }
 
-
         [HttpPost]
         public ActionResult Create(news info)
         {
             if (ModelState.IsValid)
             {
-                var result = db.Create(info);
+                db.Create(info);
                 return View("Detail");
             }
-            return RedirectToAction("Company", "Home");
+            return RedirectToAction("Home", "Company");
         }
 
+        [HttpPost]
+        //ajax删除新闻
         public ActionResult Delete(int id)
         {
-
+            var result = false;
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                db.Delete(element);
-                return Redirect(Request.UrlReferrer.AbsoluteUri);
+                result = db.Delete(element);
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -80,7 +76,6 @@ namespace WebSite.Controllers
             {
                 return View("Create", query);
             }
-
         }
     }
 }

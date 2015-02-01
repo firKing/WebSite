@@ -5,72 +5,92 @@
     Layout = "~/Views/Layouts/Index.cshtml";
 }
 
-<h2>Delete</h2>
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Index/index.css")
+    @Styles.Render("~/Content/User/user.css")
+}
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>user</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.user_type)
-        </dt>
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Index/index.js")
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.user_type)
-        </dd>
+<div class="container">
+    <h2> Delete User</h2>
+    <h3>Are you sure you want to delete user?</h3>
+    <table class="table table-hover table-bordered">
+        <tr class="dl-horizontal">
+            <td>
+                @Html.DisplayNameFor(model => model.user_type)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_telephone)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.user_type)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_telephone)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_telephone)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.user_telephone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_mail)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_mail)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.user_mail)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_name)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_mail)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.user_name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_address)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_name)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.user_address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_introduction)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_name)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.user_introduction)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.user_password)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_address)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.user_password)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_address)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_introduction)
-        </dt>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_introduction)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_password)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
