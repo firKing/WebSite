@@ -82,7 +82,6 @@ namespace WebSite.Controllers
                 return View();
             }
             return RedirectToAction("Index", "Index");
-            
         }
         //我发布的审核意见列表 
         public ActionResult AuditList(int page)

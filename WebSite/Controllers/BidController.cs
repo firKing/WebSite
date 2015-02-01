@@ -13,7 +13,14 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-
+        private bool CheckVendorSession()
+        {
+            return Utility.CheckSession(UserType.Vendor, Session);
+        }
+        private bool CheckExpertSession()
+        {
+            return Utility.CheckSession(UserType.Expert, Session);
+        }
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
@@ -57,8 +64,11 @@ namespace WebSite.Controllers
         //获取标书详情
         public ActionResult Create()
         {
-            
-            return View();
+            if (CheckVendorSession())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Index");
         }
 
         private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
@@ -90,31 +100,33 @@ namespace WebSite.Controllers
         public ActionResult Create(bid info)
         {
             //只有Vendor走这里
-            Assert((UserType)Session["user_type"] == UserType.Vendor);
-            if (ModelState.IsValid)
+            if (CheckVendorSession())
             {
-                var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                info.bidderId = bidderResult.second.bidderId;
-                info.bid_content = UploadFileGetUrl(info).SingleOrDefault();
+                Assert((UserType)Session["user_type"] == UserType.Vendor);
+                if (ModelState.IsValid)
+                {
+                    var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
+                    info.bidderId = bidderResult.second.bidderId;
+                    info.bid_content = UploadFileGetUrl(info).SingleOrDefault();
 
-                var result = CreateRecord<bid>(info);
+                    var result = CreateRecord<bid>(info);
 
-                return RedirectToAction("Detail", new { id = result.second.bidId });
+                    return RedirectToAction("Detail", new { id = result.second.bidId });
+                }
+                Assert(Request.UrlReferrer != null);
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
-            Assert(Request.UrlReferrer != null);
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Index", "Index");
         }
 
         [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid&& CheckExpertSession())
             {
                 var result = CreateRecord<audit>(info);
-                return RedirectToAction("Detail", new { id = result.second.bidId });
             }
-            Assert(Request.UrlReferrer != null);
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Detail", new { id = info.bidId });
         }
     }
 }
