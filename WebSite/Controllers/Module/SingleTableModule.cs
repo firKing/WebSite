@@ -61,11 +61,6 @@ namespace WebSite.Controllers.Module
             }
             return false;
         }
-        public int GetRecordId(T record)
-        {
-            var tableType = db.table.GetType();
-            var propertyInfo = tableType.GetProperty(tableType.ToString() + "_id");
-            return (int)propertyInfo.GetValue(record);
-        }
+      
     }
 }

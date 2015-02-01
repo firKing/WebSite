@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,10 @@ namespace WebSite.Controllers
             db.Delete(result);
         }
 
+        private String GetFileNameByPath(String path)
+        {
+            return  System.IO.Path.GetFileName(path);
+        }
         // GET:
         public ActionResult Detail(int id)
         {
@@ -29,10 +34,11 @@ namespace WebSite.Controllers
             var element = Info(id).SingleOrDefault();
             if (element != null)
             {
-                ViewBag.details = new Pair<bid, IQueryable<audit>>
+                ViewBag.fileName = GetFileNameByPath(element.bid_content);
+                ViewBag.details = new Pair<bid, List<audit>>
                     (element,
-                    dbAudit.FindInfo(x => x.bidId == id));
-
+                    dbAudit.FindInfo(x => x.bidId == id).ToList());
+                
                 return View();
             }
             else
