@@ -47,7 +47,7 @@ namespace WebSite.Controllers
             if (findResult != null)
             {
                 ViewBag.element = findResult;
-                return View();
+                return View("~/Views/Register/Index.cshtml");
             }
             else
             {
