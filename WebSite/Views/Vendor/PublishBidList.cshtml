@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "PublishBidList";
+    Layout = "~/Views/Layouts/List.cshtml";
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/VendorHome/VendorHome.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Vendor/Cpmpany.js")
+}
+
+@section title{
+    我的投标
+}
+
+<div id="list-main">
+    <h2>
+        供应商
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li> <div class="line"></div><a href="@Url.Action("Home", "Vendor")">个人中心</a></li>
+                <li><div class=""></div><a href="@Url.Action("AddTeamList", "Vendor")?page=1">我加入的队伍a></li>
+                <li>
+                    <div></div><a href="@Url.Action("PublishBidList", "Vendor")?page=1">我的投标</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="info">
+                <div class="title">
+                    <h2>我的投标</h2>
+                </div>
+                <div class="details">
+                    @foreach (var key in ViewBag.personal)
+                    {
+                        <div class="show">
+                            <h3>对key.user.user_name的竞标</h3>
+                            <ul>
+                                <li>供应商名称: key.user.user_name</li>
+                                <li>电话： key.user.user_telephone</li>
+                                <li>邮箱: key.user.user_mail</li>
+                                <li>联系地址: key.user.user_address</li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Module;
@@ -34,12 +35,13 @@ namespace WebSite.Controllers
         {
             return Utility.GetSumCount(whereSelector, keySelector);
         }
-
+        private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
+        {
+            return Utility.GetList<T, TKey>(page, count, whereSelector, keySelector);
+        }
         public ActionResult Detail(int id)
         {
-            var db = new SingleTableModule<expert>();
-
-            var element = db.FindInfo(x=>x.expertId == id).SingleOrDefault();
+            var element = GetList<expert>(x=>x.expertId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -72,35 +74,31 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
+                const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
-                ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.list = GetList<invitation,int>(page,count,x => x.expertId== sessionId,x=>x.invitationId);
+                ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId) / count + 1;
                 ViewBag.pageNum = page;
                 return View();
             }
             return RedirectToAction("Index", "Index");
-            
         }
         //我发布的审核意见列表 
         public ActionResult AuditList(int page)
         {
             if (CheckSession())
             {
+                const int count = 5;
+
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<audit>(x => x.expertId == sessionId);
-                ViewBag.sumPage = GetSumCount<audit, int>(x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.list = GetList<audit,int>(page,count,x => x.expertId == sessionId,x=>x.auditId);
+                ViewBag.sumPage = GetSumCount<audit, int>(x => x.expertId == sessionId, x => x.expertId) / count + 1;
                 ViewBag.pageNum = page;
                 return View();
             }
             return RedirectToAction("Index", "Index");
 
         }
-        ////管理员的专家列表
-        //public ActionResult List(int page)
-        //{
-        //    var table = new SingleTableModule<expert>();
-        //    var result = table.FindInfo().Skip(page * 8).Take(8);
-        //    return View(result);
-        //}
+     
     }
 }

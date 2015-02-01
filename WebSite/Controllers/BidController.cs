@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
@@ -12,32 +13,45 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-        private SingleTableModule<bid> db = new SingleTableModule<bid>();
-
+        private bool CheckVendorSession()
+        {
+            return Utility.CheckSession(UserType.Vendor, Session);
+        }
+        private bool CheckExpertSession()
+        {
+            return Utility.CheckSession(UserType.Expert, Session);
+        }
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
         {
-            var result = db.FindInfo(x => x.bidId == bidId).SingleOrDefault();
-            Assert(result == null);
-            db.Delete(result);
+            var result = GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
+            Assert(result != null);
+            new SingleTableModule<bid>().Delete(result);
         }
 
         private String GetFileNameByPath(String path)
         {
             return  System.IO.Path.GetFileName(path);
         }
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
         // GET:
         public ActionResult Detail(int id)
         {
-            SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
-            var element = Info(id).SingleOrDefault();
+            var element = GetList<bid>(x=>x.bidId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
                 ViewBag.details = new Pair<bid, List<audit>>
                     (element,
-                    dbAudit.FindInfo(x => x.bidId == id).ToList());
+                    GetList<audit>(x => x.bidId == id).ToList());
                 
                 return View();
             }
@@ -48,15 +62,23 @@ namespace WebSite.Controllers
         }
 
         //获取标书详情
-        private IQueryable<bid> Info(int id)
-        {
-            return db.FindInfo(x => x.bidderId == id);
-        }
-
-        [HttpGet]
         public ActionResult Create()
         {
-            var record = new bid();
+            if (CheckVendorSession())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Index");
+        }
+
+        private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
+        {
+            return Utility.CreateBidder(tenderId, type);
+        }
+
+        private List<String> UploadFileGetUrl(bid info)
+        {
+            var result = new List<String>();
             foreach (string upload in Request.Files)
             {
                 Assert(upload == "bid_content");
@@ -67,43 +89,44 @@ namespace WebSite.Controllers
                 Assert(filename != null);
                 path = Path.Combine(path, filename);
                 Request.Files[upload].SaveAs(path);
-                record.bid_content = path;
+                //info.bid_content = path;
+                result.Add(path);
             }
-            return View(record);
-        }
-
-        private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
-        {
-            return Utility.CreateBidder(tenderId, type);
+            Assert(result.Count()==1);
+            return result;
         }
 
         [HttpPost]
         public ActionResult Create(bid info)
         {
             //只有Vendor走这里
-            Assert((UserType)Session["user_type"] == UserType.Vendor);
-            if (ModelState.IsValid)
+            if (CheckVendorSession())
             {
-                var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                info.bidderId = bidderResult.second.bidderId;
-                var result = db.Create(info);
-                return RedirectToAction("Detail", new { id = result.second.bidId });
+                Assert((UserType)Session["user_type"] == UserType.Vendor);
+                if (ModelState.IsValid)
+                {
+                    var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
+                    info.bidderId = bidderResult.second.bidderId;
+                    info.bid_content = UploadFileGetUrl(info).SingleOrDefault();
+
+                    var result = CreateRecord<bid>(info);
+
+                    return RedirectToAction("Detail", new { id = result.second.bidId });
+                }
+                Assert(Request.UrlReferrer != null);
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
-            Assert(Request.UrlReferrer != null);
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Index", "Index");
         }
 
         [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid&& CheckExpertSession())
             {
-                SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
-                var result = dbAudit.Create(info);
-                return RedirectToAction("Detail", new { id = info.bidId });
+                var result = CreateRecord<audit>(info);
             }
-            Assert(Request.UrlReferrer != null);
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Detail", new { id = info.bidId });
         }
     }
 }

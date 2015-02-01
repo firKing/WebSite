@@ -1,18 +1,29 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-
+using System.Diagnostics.Debug;
+using WebSite.Controllers.Common;
+using System.Web;
+using System.Linq.Expressions;
+using System.Collections.Generic;
 namespace WebSite.Controllers
 {
     public class NewController : Controller
     {
-        private SingleTableModule<news> db = new SingleTableModule<news>();
-
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
         // GET: NewList
         public ActionResult Detail(int id)
         {
-            var element = Info(id).SingleOrDefault();
+            var element = GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.news_title;
@@ -28,10 +39,7 @@ namespace WebSite.Controllers
         }
 
         //获取新闻详情页
-        private IQueryable<news> Info(int newsId)
-        {
-            return db.FindInfo(x => x.newsId == newsId);
-        }
+     
 
         [HttpGet]
         public ActionResult Create()
@@ -45,7 +53,7 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Create(info);
+               CreateRecord<news>(info);
                 return View("Detail");
             }
             return RedirectToAction("Home", "Company");
@@ -56,10 +64,10 @@ namespace WebSite.Controllers
         public ActionResult Delete(int id)
         {
             var result = false;
-            var element = Info(id).SingleOrDefault();
+            var element = GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (element != null)
             {
-                result = db.Delete(element);
+                result = new SingleTableModule<news>().Delete(element);
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -67,7 +75,7 @@ namespace WebSite.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var query = db.FindInfo(x => x.newsId == id).SingleOrDefault();
+            var query = GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (query == null)
             {
                 return HttpNotFound();

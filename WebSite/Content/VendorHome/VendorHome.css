@@ -1,2 +1,121 @@
-﻿body {
+﻿#list-main{
+    width: 1016px;
+    margin: 40px auto;
 }
+#list-main h2{
+    position: relative;
+    color: #4db234;
+    border-bottom: 1px solid #c1c1c1;
+}
+#list-main h2 .back{
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    font-size: 15px;
+}
+
+.content{
+    min-height: 1200px;
+}
+
+.content .col-md-4 ul {
+    margin: 20px 0;
+}
+
+.content .col-md-4 ul li{
+    position: relative;
+    padding-left: 10px;
+}
+
+.content .col-md-4 ul li .line {
+    width: 3px;
+    height: 20px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    background: #339933;
+    position: absolute;
+    font-size: 16px;
+}
+
+.content .col-md-8 .info{
+    margin-top: 32px;
+    width: 637px;
+    padding-bottom: 50px;
+    border: 1px solid #339933;
+}
+
+.content .col-md-8 .title {
+    position: relative;
+}
+
+.content .col-md-8 .title .change{
+    width: 115px;
+    height: 37px;
+    line-height: 37px;
+    text-align: center;
+    color: #fff;
+    background: #66cc66;
+    position: absolute;
+    right: 40px;
+    top: 20px;
+}
+.content .col-md-8 .title .change a {
+    color: #ffffff;
+    font-size: 18px;
+}
+.content .col-md-8 .details {
+    position: relative;
+    padding-top: 40px;
+    padding-left: 36px;
+}
+
+.content .col-md-8 .show {
+    margin: 30px 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #66cc66;
+}
+
+.content .col-md-8 .show:last-child {
+    border-bottom: 0;
+}
+
+.content .col-md-8 h3 {
+    margin: 0;
+}
+
+
+
+.content .col-md-8 .show ul {
+    padding-left: 20px;
+}
+
+.content .col-md-8 .details .section p {
+    margin: 15px;
+}
+
+.content .col-md-8 .pagination {
+    padding: 20px;
+    margin: 0;
+    position: relative;
+    bottom: -50px;
+    left: 10px;
+}
+
+.content .col-md-8 .show h3 {
+    margin: 15px 0;
+}
+
+
+.content .col-md-8 .show ul li {
+    margin: 10px 0;
+}
+.content .col-md-8 .info .title h2{
+    line-height: 70px;
+    font-size: 24px;
+    padding-left: 30px;
+}
+
+
+

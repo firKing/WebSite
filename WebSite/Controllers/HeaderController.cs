@@ -20,19 +20,19 @@ namespace WebSite.Controllers
         {
             handerEventMap.Add(UserType.Expert, (int id) =>
             {
-                var result = new SingleTableModule<expert>().FindInfo(x => x.expertId == id).SingleOrDefault();
+                var result = Utility.GetList<expert>(x => x.expertId == id).SingleOrDefault();
                 Assert(result != null);
                 return result.user.user_name;
             });
             handerEventMap.Add(UserType.Vendor, (int id) =>
             {
-                var result = new SingleTableModule<vendor>().FindInfo(x => x.vendorId == id).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
                 Assert(result != null);
                 return result.user.user_name;
             });
             handerEventMap.Add(UserType.Company, (int id) =>
             {
-                var result = new SingleTableModule<company>().FindInfo(x => x.companyId == id).SingleOrDefault();
+                var result = Utility.GetList<company>(x => x.companyId == id).SingleOrDefault();
                 Assert(result != null);
                 return result.user.user_name;
             });

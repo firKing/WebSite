@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "AddTeamList";
+    Layout = "~/Views/Layouts/List.cshtml";
+
+    ViewBag.prev = ViewBag.pageNum - 1;
+    ViewBag.next = ViewBag.pageNum + 1;
+}
+
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/VendorHome/VendorHome.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Vendor/Cpmpany.js")
+}
+
+@section title{
+    我加入的队伍
+}
+
+
+<div id="list-main">
+    <h2>
+       供应商
+    </h2>
+
+    <div class="content">
+        <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li> <div class=""></div><a href="@Url.Action("Home", "Vendor")">个人中心</a></li>
+                <li><div class="line"></div><a href="@Url.Action("AddTeamList", "Vendor")?page=1">我加入的队伍邀请</a></li>
+                <li>
+                    <div></div><a href="@Url.Action("PublishBidList", "Vendor")?page=1">审核意见列表</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="info">
+                <div class="title">
+                    <h2>我加入的队伍</h2>
+                </div>
+                <div class="details">
+                    @foreach (var item in @ViewBag.troop)
+                    {
+                        <div class="show">
+                            <h3>队伍</h3>
+                            <ul>
+                                <li>名称: @item.first.team_name</li>
+                                <li>介绍： @item.first.team_introduction</li>
+                                <li>创建时间: @item.first.team_time</li>
+                            </ul>
+                            <h3>参与的供应商</h3>
+                            <ul>
+                                @foreach (var troop in @item.second)
+                                {
+                                    <li>供应商名称： @troop.vendor.user.user_name</li>
+                                    <li>电话： @troop.vendor.user.user_telephone</li>
+                                    <li>邮箱: @troop.vendor.user.user_mail</li>
+                                }
+
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <ul class="pagination">
+                    <li class="@if (@ViewBag.pageNum == 1) { @Html.Raw("action disabled") } "><a href="@Url.Action("AddTeamList", "Vendor")?page=@ViewBag.prev"><span aria-hidden="true">&laquo;</span></a></li>
+                    @for (int i = 1; i <= @ViewBag.pageSum; i++)
+                    {
+                        <li class='@if (@ViewBag.pageNum == i)
+                                   {
+                                       @Html.Raw("action disabled")
+
+                                   }'><a href="@ViewBag.parent?page=@i">@i</a></li>
+                    }
+                    <li class="@if (@ViewBag.pageNum == @ViewBag.pageSum) { @Html.Raw("action disabled") } "><a href="@Url.Action("AddTeamList", "Vendor")?page=@ViewBag.next"><span aria-hidden="true">&raquo;</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

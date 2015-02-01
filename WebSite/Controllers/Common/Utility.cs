@@ -24,8 +24,7 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            var table = new SingleTableModule<bidder>();
-            return table.Create(record);
+            return CreateRecord<bidder>(record);
         }
 
         public static String DateTimeToString(DateTime time)
@@ -71,9 +70,7 @@ namespace WebSite.Controllers.Common
 
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
-            var table = new SingleTableModule<T>();
-            var result = table.
-            FindInfo(expression);
+            var result = new SingleTableModule<T>().FindInfo(expression);
             Assert(result != null);
             return result;
         }
@@ -98,25 +95,28 @@ namespace WebSite.Controllers.Common
         }
 
         private delegate void RegisterEventHandler(int id);
-
+        public static Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return new SingleTableModule<T>().Create(record);
+        }
         public static void SetLoginSession(HttpSessionStateBase session, int userId, String type)
         {
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(), (int id) =>
              {
-                 var result = new SingleTableModule<expert>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                 var result = GetList<expert>(x => x.user_userId == id).SingleOrDefault();
                  Assert(result != null);
                  SetSession(session, result.expertId, UserType.Expert);
              });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = GetList<company>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.vendorId, UserType.Vendor);
             });
@@ -128,52 +128,41 @@ namespace WebSite.Controllers.Common
             var registerEventMap = new Dictionary<string, RegisterEventHandler>();
             registerEventMap.Add(UserType.Expert.ToString(), (int id) =>
             {
-                expert record = new expert();
-                record.user_userId = id;
-                record.expert_accept_count = 0;
                 var random = new Random();
                 var number = random.Next(0, 5);
-                record.expert_image = @"Protrait/" + number.ToString() + ".jpg";
-                var result = new SingleTableModule<expert>().Create(record);
+               var imageUrl = @"Protrait/" + number.ToString() + ".jpg";
+               CreateRecord<expert>(new expert { user_userId = id , expert_image  = imageUrl});
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                company record = new company();
-                record.user_userId = id;
-                var result = new SingleTableModule<company>().Create(record);
+                 CreateRecord<company>(new company { user_userId = id });
             });
 
             registerEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                vendor record = new vendor();
-                record.user_userId = id;
-                var result = new SingleTableModule<vendor>().Create(record);
+               CreateRecord<vendor>(new vendor { user_userId =  id});
             });
             registerEventMap[type](userId);
         }
 
         public static IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo().OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
-            return container;
+            return GetList<T, TKey>(page, count, x => true, keySelector);
         }
 
         public static IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
-            return container;
+            return GetList<T>(whereSelector).OrderByDescending(keySelector).Skip((page - 1) * count).Take(count);
         }
 
         public static int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            var sum = (new SingleTableModule<T>()).FindInfo(whereSelector).OrderByDescending(keySelector).Count();
-            return sum;
+            return GetList<T>(whereSelector).OrderByDescending(keySelector).Count();
         }
 
         public static int GetSumCount<T, TKey>(Expression<Func<T, TKey>> keySelector) where T : class
         {
-            var sum = GetSumCount(x => true, keySelector);
-            return sum;
+            return GetSumCount(x => true, keySelector);
         }
     }
 }
