@@ -193,9 +193,7 @@ namespace WebSite.Controllers
 
         private IQueryable<T> GetList<T>(int countMax) where T : class
         {
-            var container = (new SingleTableModule<T>()).FindInfo().Take(countMax);
-
-            return container;
+            return Utility.GetList<T>(x => true).Take(countMax);
         }
 
         private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, TKey>> keySelector) where T : class

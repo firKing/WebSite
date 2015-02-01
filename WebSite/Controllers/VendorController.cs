@@ -20,9 +20,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var db = new SingleTableModule<vendor>();
-
-            var element = db.FindInfo(x => x.vendorId == id).SingleOrDefault();
+            var element = GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -62,12 +60,9 @@ namespace WebSite.Controllers
             {
                 Assert(Session["user_id"] != null);
 
-                var table = new SingleTableModule<member>();
-                var teamTable = new SingleTableModule<team>();
-                var result = new List<Pair<team, IQueryable<member>>>();
+               
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = GetList<member>(x => x.vendorId == sessionId).ToList();
                 ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
                 ViewBag.pageNum = page;
                 ViewBag.troop = GetList<member>(
@@ -75,11 +70,11 @@ namespace WebSite.Controllers
                     x.vendorId == sessionId)
                     .ToList().Select(x =>
                     new Pair<team, List<member>>(
-                        teamTable.FindInfo(
+                        GetList<team>(
                             y =>
                             y.teamId == x.teamId)
                             .SingleOrDefault(),
-                        table.FindInfo(
+                        GetList<member>(
                             y =>
                             y.teamId == x.teamId).ToList()));
                 return View();
@@ -93,20 +88,18 @@ namespace WebSite.Controllers
             {
                 Assert(Session["user_id"] != null);
 
-                var result = new List<Pair<team, IQueryable<member>>>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
                 ViewBag.pageSum = GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId);
                 ViewBag.pageNum = page;
-                var table = new SingleTableModule<member>();
 
                 ViewBag.teamList = GetList<team>(x =>
                     x.createId == sessionId).ToList()
                     .Select(x =>
-                        new Pair<team, IQueryable<member>>(
-                            x, table.FindInfo(y =>
-                                y.teamId == x.teamId)));
-                return View(result);
+                        new Pair<team, List<member>>(
+                            x, GetList<member>(y =>
+                                y.teamId == x.teamId).ToList()));
+                return View();
             }
             return RedirectToAction("Index", "Index");
         }
@@ -116,7 +109,6 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 Assert(Session["user_id"] != null);
-                var table = new SingleTableModule<bid>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
 
@@ -130,8 +122,7 @@ namespace WebSite.Controllers
 
         private int GetBidderId(int venderId)
         {
-            var table = new SingleTableModule<bidder>();
-            var element = table.FindInfo(x => x.tendererId == venderId).SingleOrDefault();
+            var element = GetList<bidder>(x => x.tendererId == venderId).SingleOrDefault();
             Assert(element != null);
             return element.bidderId;
         }

@@ -13,12 +13,11 @@ namespace WebSite.Controllers
     public class PurchaseController : Controller
     {
         // GET: Purchase
-        private SingleTableModule<purchase> db = new SingleTableModule<purchase>();
 
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Info(id).SingleOrDefault();
+            var element = GetList<purchase>(x => x.purchaseId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.detail = element;
@@ -31,27 +30,25 @@ namespace WebSite.Controllers
         }
 
         //获取采购信息详情页
-        private IQueryable<purchase> Info(int purchaseId)
-        {
-            return db.FindInfo(x => x.purchaseId == purchaseId);
-        }
+        //private IQueryable<purchase> Info(int purchaseId)
+        //{
+        //    return db.FindInfo(x => x.purchaseId == purchaseId);
+        //}
 
         [HttpGet]
         public ActionResult Create()
         {
-            var record = new purchase();
-            return View(record);
+            return View(new purchase());
         }
 
         private void CreateInvitation(int purchaseId, String invitationContent, List<String> expertNameList)
         {
             //Assert ExpertName Exsit
 
-            var expertTable = new SingleTableModule<expert>();
 
             Assert(expertNameList
                 .Select(x =>
-                expertTable.FindInfo(y =>
+                GetList<expert>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                     .SingleOrDefault() != null)
@@ -61,14 +58,13 @@ namespace WebSite.Controllers
 
             var expertIdList = expertNameList
                 .Select(x =>
-                    expertTable.FindInfo(y =>
+                    GetList<expert>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            var invitationTable = new SingleTableModule<invitation>();
             foreach (var expertId in expertIdList)
             {
-                invitationTable.Create(new invitation
+                CreateRecord<invitation>(new invitation
                 {
                     invitation_content = invitationContent,
                     purchaseId = purchaseId,
@@ -82,10 +78,9 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = db.Create(info);
+                var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
-                    var invitationTable = new SingleTableModule<invitation>();
                     var inviteesList = invitees.Split(',').ToList();
                     CreateInvitation(result.second.purchaseId, invitationContent, inviteesList);
                     return RedirectToAction("Detail", new { id = result.second.purchaseId });
@@ -98,7 +93,14 @@ namespace WebSite.Controllers
         {
             return Utility.GetList(page, count, whereSelector, keySelector);
         }
-
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
         private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
             return Utility.GetSumCount<T, TKey>(whereSelector, keySelector);
@@ -106,7 +108,7 @@ namespace WebSite.Controllers
 
         private String GetPurchaseTitle(int purchaseId)
         {
-            var result = new SingleTableModule<purchase>().FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             return result.purchase_title;
         }
@@ -122,14 +124,15 @@ namespace WebSite.Controllers
             return View();
         }
 
-        //ajax
+        //ajax 返回字符串 "ture" "false"
         [HttpPost]
-        public void PurchaseHitBid(int purchaseId, int bidId)
+        public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            var result = db.FindInfo(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             result.hitId = bidId;
-            db.Edit(result);
+           var sign = new SingleTableModule<purchase>().Edit(result);
+           return Json(sign, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -37,9 +37,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var db = new SingleTableModule<expert>();
-
-            var element = db.FindInfo(x=>x.expertId == id).SingleOrDefault();
+            var element = GetList<expert>(x=>x.expertId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -95,12 +93,6 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
 
         }
-        ////管理员的专家列表
-        //public ActionResult List(int page)
-        //{
-        //    var table = new SingleTableModule<expert>();
-        //    var result = table.FindInfo().Skip(page * 8).Take(8);
-        //    return View(result);
-        //}
+     
     }
 }

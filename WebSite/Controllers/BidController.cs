@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
@@ -12,32 +13,38 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-        private SingleTableModule<bid> db = new SingleTableModule<bid>();
 
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
         {
-            var result = db.FindInfo(x => x.bidId == bidId).SingleOrDefault();
-            Assert(result == null);
-            db.Delete(result);
+            var result = GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
+            Assert(result != null);
+            new SingleTableModule<bid>().Delete(result);
         }
 
         private String GetFileNameByPath(String path)
         {
             return  System.IO.Path.GetFileName(path);
         }
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
         // GET:
         public ActionResult Detail(int id)
         {
-            SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
-            var element = Info(id).SingleOrDefault();
+            var element = GetList<bid>(x=>x.bidId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
                 ViewBag.details = new Pair<bid, List<audit>>
                     (element,
-                    dbAudit.FindInfo(x => x.bidId == id).ToList());
+                    GetList<audit>(x => x.bidId == id).ToList());
                 
                 return View();
             }
@@ -48,11 +55,7 @@ namespace WebSite.Controllers
         }
 
         //获取标书详情
-        private IQueryable<bid> Info(int id)
-        {
-            return db.FindInfo(x => x.bidderId == id);
-        }
-
+    
         [HttpGet]
         public ActionResult Create()
         {
@@ -86,7 +89,7 @@ namespace WebSite.Controllers
             {
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 info.bidderId = bidderResult.second.bidderId;
-                var result = db.Create(info);
+                var result = CreateRecord<bid>(info);
                 return RedirectToAction("Detail", new { id = result.second.bidId });
             }
             Assert(Request.UrlReferrer != null);
@@ -98,9 +101,8 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
-                var result = dbAudit.Create(info);
-                return RedirectToAction("Detail", new { id = info.bidId });
+                var result = CreateRecord<audit>(info);
+                return RedirectToAction("Detail", new { id = result.second.bidId });
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.AbsoluteUri);
