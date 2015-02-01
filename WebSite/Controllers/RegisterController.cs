@@ -7,6 +7,8 @@ using WebSite.Models;
 using System.Diagnostics.Debug;
 using WebSite.Controllers.Common;
 using System.Linq.Expressions;
+using Microsoft.Ajax.Utilities;
+
 namespace WebSite.Controllers
 {
     public class RegisterController : Controller
@@ -17,42 +19,49 @@ namespace WebSite.Controllers
         {
             return View();
         }
-
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
+        delegate object FindTableRecordHandler(int id);
         private Dictionary<String, FindTableRecordHandler> GetFindTableRecordMap()
         {
             var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
             findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<expert>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = GetList<expert>(x => x.expertId == id).SingleOrDefault();
                 return result;
             });
             findTableRecordMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = GetList<company>(x => x.companyId == id).SingleOrDefault();
                 return result;
 
             });
             findTableRecordMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
                 return result;
 
             });
             return findTableRecordMap;
         }
-        delegate object FindTableRecordHandler(int id);
         public ActionResult Edit(int user_id,String user_type)
         {
             var findResult = GetFindTableRecordMap()[user_type](user_id);
             if (findResult != null)
             {
-                ViewBag.element = findResult;
-                return View();
+                switch (user_type)
+                {
+                    case "Company":
+                        return View("~/Views/Register/Index.cshtml", ((company)findResult).user);
+                    case "Expert":
+                        return View("~/Views/Register/Index.cshtml", ((expert)findResult).user);
+                    case "Vendor":
+                        return View("~/Views/Register/Index.cshtml", ((vendor)findResult).user);
+                }
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
 
@@ -60,7 +69,10 @@ namespace WebSite.Controllers
         {
             return Utility.CheckUserType(type);
         }
-   
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
         [HttpPost]
         public ActionResult Register(user info,String authCode)
         {
@@ -68,11 +80,10 @@ namespace WebSite.Controllers
             Assert(validateCode!=null);
             if (ModelState.IsValid && validateCode == authCode)
             {
-                var table = new SingleTableModule<user>();
-                var createResult = table.Create(info);
-                if (createResult.first == true)
+                var createResult = CreateRecord<user>(info);
+                if (createResult.first)
                 {
-                    var findIter = table.FindInfo(x => x.userId == createResult.second.userId).SingleOrDefault();
+                    var findIter = GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
                     Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);
@@ -86,6 +97,6 @@ namespace WebSite.Controllers
         {
             Utility.SetLoginSession(Session,userId,type);
         }
-
+        
     }
 }

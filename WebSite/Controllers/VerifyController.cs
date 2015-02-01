@@ -26,8 +26,7 @@ namespace WebSite.Controllers
 
         private bool CheckNameExist<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
-            return (new SingleTableModule<T>())
-                        .FindInfo(whereSelector)
+            return Utility.GetList<T>(whereSelector)
                         .Count() == 1;
         }
 
@@ -36,9 +35,9 @@ namespace WebSite.Controllers
         {
             return nameList.Where(
                       x =>
-                          !CheckNameExist<member>(
+                          !CheckNameExist<vendor>(
                               y =>
-                                  y.vendor.user.user_name == x)).ToList();
+                                  y.user.user_name == x)).ToList();
         }
 
         private List<String> CheckListNameExpertExist(List<String> nameList)
@@ -97,8 +96,7 @@ namespace WebSite.Controllers
             if (ModelState.IsValid)
             {
                 Assert(info.type != UserType.Team);
-                var element = (new SingleTableModule<user>())
-                        .FindInfo(x => x.user_name == info.name &&
+                var element = Utility.GetList<user>(x => x.user_name == info.name &&
                                 x.user_type == info.type.ToString() &&
                                 x.user_password == info.password).SingleOrDefault();
                 if (element != null)

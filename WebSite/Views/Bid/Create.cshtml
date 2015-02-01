@@ -4,6 +4,17 @@
     ViewBag.Title = "PubBid";
     Layout = "~/Views/Layouts/Home.cshtml";
 }
+@section css {
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Index/common.css")
+    @Styles.Render("~/Content/Create/Create.css")
+}
+
+@section script {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/PubBidder/PubBidder.js")
+}
 
 @section title{
     发布标书

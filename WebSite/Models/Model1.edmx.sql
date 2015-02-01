@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/31/2015 15:25:18
+-- Date Created: 02/01/2015 19:14:12
 -- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -23,26 +23,14 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AUDIT_HAVE_EXPERT]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[audits] DROP CONSTRAINT [FK_AUDIT_HAVE_EXPERT];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BID_PUBLISH_B_BIDDER]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BID_HAVE_BID_PURCHASE]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_HAVE_BID_PURCHASE];
 GO
-IF OBJECT_ID(N'[dbo].[FK_NEWS_PUBLISH_N_COMPANY]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[news] DROP CONSTRAINT [FK_NEWS_PUBLISH_N_COMPANY];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PURCHASE_PUBLISH_P_COMPANY]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[purchases] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
-GO
-IF OBJECT_ID(N'[dbo].[FK_usercompany]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[companies] DROP CONSTRAINT [FK_usercompany];
+IF OBJECT_ID(N'[dbo].[FK_BID_PUBLISH_B_BIDDER]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[bids] DROP CONSTRAINT [FK_BID_PUBLISH_B_BIDDER];
 GO
 IF OBJECT_ID(N'[dbo].[FK_INVITATI_INVITE_EXPERT]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[invitations] DROP CONSTRAINT [FK_INVITATI_INVITE_EXPERT];
-GO
-IF OBJECT_ID(N'[dbo].[FK_userexpert]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[experts] DROP CONSTRAINT [FK_userexpert];
 GO
 IF OBJECT_ID(N'[dbo].[FK_INVITATI_RESPOND_PURCHASE]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[invitations] DROP CONSTRAINT [FK_INVITATI_RESPOND_PURCHASE];
@@ -53,8 +41,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_MEMBER_INCLUDE_VENDOR]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[members] DROP CONSTRAINT [FK_MEMBER_INCLUDE_VENDOR];
 GO
+IF OBJECT_ID(N'[dbo].[FK_NEWS_PUBLISH_N_COMPANY]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[news] DROP CONSTRAINT [FK_NEWS_PUBLISH_N_COMPANY];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PURCHASE_PUBLISH_P_COMPANY]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[purchases] DROP CONSTRAINT [FK_PURCHASE_PUBLISH_P_COMPANY];
+GO
 IF OBJECT_ID(N'[dbo].[FK_purchaseteam]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[teams] DROP CONSTRAINT [FK_purchaseteam];
+GO
+IF OBJECT_ID(N'[dbo].[FK_usercompany]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[companies] DROP CONSTRAINT [FK_usercompany];
+GO
+IF OBJECT_ID(N'[dbo].[FK_userexpert]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[experts] DROP CONSTRAINT [FK_userexpert];
 GO
 IF OBJECT_ID(N'[dbo].[FK_uservendor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[vendors] DROP CONSTRAINT [FK_uservendor];
@@ -169,7 +169,7 @@ GO
 CREATE TABLE [dbo].[invitations] (
     [purchaseId] int IDENTITY(1,1) NOT NULL,
     [expertId] int  NOT NULL,
-    [invitationId] int  NOT NULL,
+    [invitationId] int IDENTITY(1,1) NOT NULL,
     [invitation_content] varchar(500)  NOT NULL,
     [invitation_time] datetime  NOT NULL
 );

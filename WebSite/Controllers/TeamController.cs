@@ -22,12 +22,20 @@ namespace WebSite.Controllers
         {
             return View();
         }
+        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
+        {
+            return Utility.GetList<T>(whereSelector);
+        }
+        private Pair<bool, T> CreateRecord<T>(T record) where T : class
+        {
+            return Utility.CreateRecord(record);
+        }
+
         //团队详情
         public ActionResult Detail(int id)
         {
             //名字,内容,创建公司.时间
-            SingleTableModule<team> db = new SingleTableModule<team>();
-            var element = db.FindInfo(x => x.teamId == id).SingleOrDefault();
+            var element = GetList<team>(x => x.teamId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.team_name;
@@ -42,9 +50,24 @@ namespace WebSite.Controllers
                                 return HttpNotFound();
             }
         }
+        //参数 json teamId:teamIdValue
+        //返回值"true"和"false"
+        [HttpPost]
+        public ActionResult AddTeam(int teamId)
+        {
+            var result = false;
+            if (CheckSession())
+            {
+                var record = new member();
+                record.teamId = teamId;
+                record.vendorId = (Int32)Session["user_id"];
+                result = CreateRecord<member>(record).first;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         private bool CheckSession()
         {
-            return Utility.CheckSession(UserType.Team, Session);
+            return Utility.CheckSession(UserType.Vendor, Session);
         }
         // 提交创建虚拟团队
         // 成员姓名， 逗号分隔 group_name
@@ -54,28 +77,26 @@ namespace WebSite.Controllers
         {
             //Assert ExpertName Exsit
 
-            var vendorTable = new SingleTableModule<vendor>();
 
             Assert(nameList
                 .Select(x =>
-                vendorTable.FindInfo(y =>
+                GetList<vendor>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                     .SingleOrDefault() != null)
                     .Aggregate((x, y) =>
-                        x == true &&
-                        y == true));
+                        x &&
+                        y ));
 
             var vendorIdList = nameList
                 .Select(x =>
-                vendorTable.FindInfo(y =>
+                GetList<vendor>(y =>
                 y.user.user_name == x &&
                 y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().vendorId).ToList();
-            var memberTable = new SingleTableModule<member>();
             foreach (var vendorId in vendorIdList)
             {
-                memberTable.Create(new member
+                CreateRecord<member>(new member
                 {
                     teamId = teamId,
                     vendorId = vendorId
@@ -85,21 +106,19 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(team info,String memberNames, bid bidinfo)
         {
-            if (CheckSession()&&ModelState.IsValid==true)
+            if (CheckSession()&&ModelState.IsValid)
             {
-                var table = new SingleTableModule<team>();
-                var result = table.Create(info);
-                if(result.first == true)
+                var result = CreateRecord<team>(info);
+                if(result.first)
                 {
                     var memberNmaeList = memberNames.Split(',').ToList();
                     CreateMembers(result.second.teamId,memberNmaeList);
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
-                    if (bidderResult.first == true)
+                    if (bidderResult.first)
                     {
                         bidinfo.bidderId = bidderResult.second.bidderId;
-                        var bidTable = new SingleTableModule<bid>();
-                        var bidResult = bidTable.Create(bidinfo);
-                        if (bidResult.first == true)
+                        var bidResult = CreateRecord<bid>(bidinfo);
+                        if (bidResult.first)
                         {
                             return RedirectToAction("Detail", "Bid", new { id = bidResult.second.bidId });
                         }
@@ -108,6 +127,7 @@ namespace WebSite.Controllers
             }
             return RedirectToAction("Detail","Purchase",new {id = info.purchaseId });
         }
-        
+
+       
     }
 }
