@@ -27,7 +27,7 @@
         <div class="col-md-9">
             <div>
                 <h4>@ViewBag.detail.purchase_title</h4>
-                <p>招标人：@ViewBag.detail.company.user.user_name <a href="#">点击查看招标人信息</a></p>
+                <p>招标人：@ViewBag.detail.company.user.user_name <a href="~/Vendor/Detail?id=@ViewBag.detail.purchaseId">点击查看招标人信息</a></p>
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>@ViewBag.detail.purchase_content</p>

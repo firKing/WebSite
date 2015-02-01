@@ -43,8 +43,11 @@ namespace WebSite.Controllers
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
+                ViewBag.phone = element.user.user_telephone;
+                ViewBag.email = element.user.user_mail;
+                ViewBag.address = element.user.user_address;
                 ViewBag.content = element.user.user_introduction;
-                return View("~/Views/Shared/detail.cshtml");
+                return View("~/Views/Shared/userDetail.cshtml");
             }
             else
             {
