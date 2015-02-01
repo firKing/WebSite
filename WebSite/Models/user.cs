@@ -12,9 +12,9 @@ using System.Web.Mvc;
 namespace WebSite.Models
 {
     using System;
+
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
     public partial class user
     {
         public user()
@@ -23,7 +23,6 @@ namespace WebSite.Models
             this.experts = new HashSet<expert>();
             this.vendors = new HashSet<vendor>();
         }
-        
         public int userId { get; set; }
         public string user_type { get; set; }
         [Required(ErrorMessage = "*")]
@@ -34,7 +33,7 @@ namespace WebSite.Models
         public string user_mail { get; set; }
         [Required(ErrorMessage = "*")]
         [RegularExpression(@"^[\w\u4E00-\u9FA5][\u4E00-\u9FA5\w\d_]{0,19}$", ErrorMessage = "Please enter valid name.")]
-        [Remote("CheckRegisterNameExist","Verify", AdditionalFields = "user_type", ErrorMessage = "user name is registered")]
+        [Remote("CheckRegisterNameExist", "Verify", AdditionalFields = "user_type", ErrorMessage = "user name is registered")]
         public string user_name { get; set; }
         [Required(ErrorMessage = "*")]
 
@@ -44,10 +43,9 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Please enter valid password")]
         public string user_password { get; set; }
-    
+
         public virtual ICollection<company> companies { get; set; }
         public virtual ICollection<expert> experts { get; set; }
         public virtual ICollection<vendor> vendors { get; set; }
     }
 }
-
