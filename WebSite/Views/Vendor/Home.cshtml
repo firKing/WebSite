@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Home";
-    Layout = "~/Views/Layouts/Personal.cshtml";
+    Layout = "~/Views/Layouts/Home.cshtml";
 }
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
@@ -15,10 +15,14 @@
     @Scripts.Render("~/Scripts/Company/Cpmpany.js")
 }
 
+@section title{
+    个人中心
+}
+
 
 <div id="list-main">
     <h2>
-        供应商个人中心
+        供应商
         <!-- <a class="back" href="#">退出登录</a> -->
     </h2>
 

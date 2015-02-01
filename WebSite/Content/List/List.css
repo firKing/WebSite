@@ -2,6 +2,7 @@
 #list-main{
     width: 1016px;
     margin: 40px auto;
+    min-height: 600px;
 }
 #list-main h2{
     color: #4db234;

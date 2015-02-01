@@ -18,6 +18,10 @@
     ViewBag.pageClass = "action disabled";
     ViewBag.parent = ViewContext.RouteData.Values["action"];
 }
+
+@section title{
+   @ViewBag.PurchaseTitle的标书列表
+}
 @section css {
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Index/common.css")

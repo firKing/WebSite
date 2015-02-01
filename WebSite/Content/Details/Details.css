@@ -1,6 +1,7 @@
 ﻿#detail-main{
     width: 1016px;
     margin: 40px auto;
+    min-height: 600px;
 }
 #detail-main h2{
     color: #4db234;
