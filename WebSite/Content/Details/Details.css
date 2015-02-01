@@ -18,3 +18,7 @@
 .detail-text{
     padding: 45px 15px;
 }
+.detail-text p {
+    margin: 10px 0;
+    line-height: 18px;
+}
