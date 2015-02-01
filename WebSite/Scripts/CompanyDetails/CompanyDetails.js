@@ -7,7 +7,11 @@
             dataType: "json",
             data: { teamId: teamId },
             success: function(data) {
-                console.log(data);
+                if (data) {
+                    alert("加入成功！");
+                } else {
+                    alert("加入失败");
+                }
             }
         });
     });
