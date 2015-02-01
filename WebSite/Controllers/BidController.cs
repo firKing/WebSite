@@ -55,11 +55,20 @@ namespace WebSite.Controllers
         }
 
         //获取标书详情
-    
-        [HttpGet]
         public ActionResult Create()
         {
-            var record = new bid();
+            
+            return View();
+        }
+
+        private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
+        {
+            return Utility.CreateBidder(tenderId, type);
+        }
+
+        private List<String> UploadFileGetUrl(bid info)
+        {
+            var result = new List<String>();
             foreach (string upload in Request.Files)
             {
                 Assert(upload == "bid_content");
@@ -70,14 +79,11 @@ namespace WebSite.Controllers
                 Assert(filename != null);
                 path = Path.Combine(path, filename);
                 Request.Files[upload].SaveAs(path);
-                record.bid_content = path;
+                //info.bid_content = path;
+                result.Add(path);
             }
-            return View(record);
-        }
-
-        private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
-        {
-            return Utility.CreateBidder(tenderId, type);
+            Assert(result.Count()==1);
+            return result;
         }
 
         [HttpPost]
@@ -89,7 +95,10 @@ namespace WebSite.Controllers
             {
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 info.bidderId = bidderResult.second.bidderId;
+                info.bid_content = UploadFileGetUrl(info).SingleOrDefault();
+
                 var result = CreateRecord<bid>(info);
+
                 return RedirectToAction("Detail", new { id = result.second.bidId });
             }
             Assert(Request.UrlReferrer != null);
