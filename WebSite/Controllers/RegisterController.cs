@@ -23,18 +23,18 @@ namespace WebSite.Controllers
             var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
             findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<expert>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = new SingleTableModule<expert>().FindInfo(x => x.expertId == id).SingleOrDefault();
                 return result;
             });
             findTableRecordMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<company>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = new SingleTableModule<company>().FindInfo(x => x.companyId == id).SingleOrDefault();
                 return result;
 
             });
             findTableRecordMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = new SingleTableModule<vendor>().FindInfo(x => x.user_userId == id).SingleOrDefault();
+                var result = new SingleTableModule<vendor>().FindInfo(x => x.vendorId == id).SingleOrDefault();
                 return result;
 
             });
