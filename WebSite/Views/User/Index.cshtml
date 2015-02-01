@@ -24,26 +24,28 @@
     <table class="table table-hover table-bordered">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.user_type)
+                用户类型
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.user_telephone)
+                用户名
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.user_mail)
+                密码
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.user_name)
+                手机号码
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.user_address)
+                用户邮箱
+            </th>
+           
+            <th>
+               用户地址
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.user_introduction)
+                简介
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.user_password)
-            </th>
+           
             <th></th>
         </tr>
 
@@ -54,22 +56,23 @@
                     @Html.DisplayFor(modelItem => item.user_type)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.user_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_password)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.user_telephone)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.user_mail)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.user_name)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.user_address)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.user_introduction)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.user_password)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
