@@ -1,19 +1,17 @@
 ﻿using System;
+using System.Diagnostics.Debug;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Web;
-using System.IO;
 
 namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
         private SingleTableModule<bid> db = new SingleTableModule<bid>();
-
 
         //ajax
         [HttpPost]
@@ -23,12 +21,13 @@ namespace WebSite.Controllers
             Assert(result == null);
             db.Delete(result);
         }
-        // GET: 
+
+        // GET:
         public ActionResult Detail(int id)
         {
             SingleTableModule<audit> dbAudit = new SingleTableModule<audit>();
             var element = Info(id).SingleOrDefault();
-            if (element != null) 
+            if (element != null)
             {
                 ViewBag.details = new Pair<bid, IQueryable<audit>>
                     (element,
@@ -38,14 +37,16 @@ namespace WebSite.Controllers
             }
             else
             {
-                                return HttpNotFound();
+                return HttpNotFound();
             }
         }
+
         //获取标书详情
         private IQueryable<bid> Info(int id)
         {
             return db.FindInfo(x => x.bidderId == id);
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -54,18 +55,22 @@ namespace WebSite.Controllers
             {
                 Assert(upload == "bid_content");
                 Assert(Request.Files.Count == 1);
+                Assert(Request.Files[upload] != null);
                 string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
                 string filename = Path.GetFileName(Request.Files[upload].FileName);
+                Assert(filename != null);
                 path = Path.Combine(path, filename);
                 Request.Files[upload].SaveAs(path);
                 record.bid_content = path;
             }
             return View(record);
         }
-        private Pair<bool,bidder> CreateBidder(int tenderId, UserType type)
+
+        private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
         {
             return Utility.CreateBidder(tenderId, type);
         }
+
         [HttpPost]
         public ActionResult Create(bid info)
         {
@@ -78,8 +83,10 @@ namespace WebSite.Controllers
                 var result = db.Create(info);
                 return RedirectToAction("Detail", new { id = result.second.bidId });
             }
+            Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
+
         [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
@@ -89,9 +96,8 @@ namespace WebSite.Controllers
                 var result = dbAudit.Create(info);
                 return RedirectToAction("Detail", new { id = info.bidId });
             }
+            Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
-
-   
 }

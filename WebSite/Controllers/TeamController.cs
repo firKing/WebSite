@@ -44,7 +44,7 @@ namespace WebSite.Controllers
         }
         private bool CheckSession()
         {
-            return Utility.CheckSession(UserType.Vendor, Session);
+            return Utility.CheckSession(UserType.Team, Session);
         }
         // 提交创建虚拟团队
         // 成员姓名， 逗号分隔 group_name

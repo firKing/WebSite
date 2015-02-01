@@ -1,22 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Collections.Generic;
 
 namespace WebSite.Controllers
 {
     public class HeaderController : Controller
     {
-        delegate String HeaderEventHandler(int user_id);
-        private Dictionary<UserType,HeaderEventHandler> handerEventMap = new Dictionary<UserType, HeaderEventHandler>();
+        private delegate String HeaderEventHandler(int user_id);
+
+        private readonly Dictionary<UserType, HeaderEventHandler> handerEventMap = new Dictionary<UserType, HeaderEventHandler>();
+
         // GET: Header
-        private  void InithanderEventMap()
+        private void InithanderEventMap()
         {
-            handerEventMap.Add(UserType.Expert,(int id)=> {
+            handerEventMap.Add(UserType.Expert, (int id) =>
+            {
                 var result = new SingleTableModule<expert>().FindInfo(x => x.expertId == id).SingleOrDefault();
                 Assert(result != null);
                 return result.user.user_name;
@@ -34,9 +37,9 @@ namespace WebSite.Controllers
                 return result.user.user_name;
             });
         }
+
         public ActionResult Index()
         {
-
             if (Session["user_id"] == null || Session["user_type"] == null)
             {
                 ViewBag.userName = "注册";

@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Debug;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Web;
 
 namespace WebSite.Controllers
 {
@@ -53,8 +52,6 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-       
-                   
         //加入的团队列表
         public ActionResult AddTeamList(int page)
         {
@@ -67,21 +64,26 @@ namespace WebSite.Controllers
                 var result = new List<Pair<team, IQueryable<member>>>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = GetList<member>(x => x.vendorId== sessionId).ToList();
+                var query = GetList<member>(x => x.vendorId == sessionId).ToList();
                 ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
                 ViewBag.pageNum = page;
-                foreach (var iter in query)
-                {
-                   var first = teamTable.FindInfo(x => x.teamId == iter.teamId).SingleOrDefault();
-                   var second= table.FindInfo(x => x.teamId == iter.teamId);
-                   result.Add(new Pair<team, IQueryable<member>>(first,second));
-                }
-                ViewBag.troop = result;
-                return View(result);
+                ViewBag.troop = GetList<member>(
+                    x =>
+                    x.vendorId == sessionId)
+                    .ToList().Select(x =>
+                    new Pair<team, List<member>>(
+                        teamTable.FindInfo(
+                            y =>
+                            y.teamId == x.teamId)
+                            .SingleOrDefault(),
+                        table.FindInfo(
+                            y =>
+                            y.teamId == x.teamId).ToList()));
+                return View();
             }
             return RedirectToAction("Index", "Index");
-
         }
+
         public ActionResult CreateTeamList(int page)
         {
             if (CheckSession())
@@ -91,28 +93,26 @@ namespace WebSite.Controllers
                 var result = new List<Pair<team, IQueryable<member>>>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                var query = GetList<team>(x => x.createId == sessionId).ToList();
-                ViewBag.pageSum = GetSumCount<team,int>(x => x.createId == sessionId,x=>x.teamId);
+                ViewBag.pageSum = GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId);
                 ViewBag.pageNum = page;
                 var table = new SingleTableModule<member>();
-                foreach (var iter in query)
-                {
-                    result.Add(new Pair<team, IQueryable<member>>(iter,table.FindInfo(x => x.teamId == iter.teamId)));
-                }
-                ViewBag.teamList = result;
+
+                ViewBag.teamList = GetList<team>(x =>
+                    x.createId == sessionId).ToList()
+                    .Select(x =>
+                        new Pair<team, IQueryable<member>>(
+                            x, table.FindInfo(y =>
+                                y.teamId == x.teamId)));
                 return View(result);
             }
             return RedirectToAction("Index", "Index");
-
         }
-
 
         public ActionResult PublishBidList(int page)
         {
-
             if (CheckSession())
             {
-                Assert(Session["user_id"]!=null);
+                Assert(Session["user_id"] != null);
                 var table = new SingleTableModule<bid>();
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
@@ -123,33 +123,31 @@ namespace WebSite.Controllers
                 return View();
             }
             return RedirectToAction("Index", "Index");
-
         }
 
         private int GetBidderId(int venderId)
         {
-
             var table = new SingleTableModule<bidder>();
-            var elelemt = table.FindInfo(x => x.tendererId == venderId).SingleOrDefault();
-            Assert(elelemt == null);
-            return elelemt.bidderId;
+            var element = table.FindInfo(x => x.tendererId == venderId).SingleOrDefault();
+            Assert(element != null);
+            return element.bidderId;
         }
+
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             return Utility.GetList<T>(expression);
         }
-        private int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+
+        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
             return Utility.GetSumCount(whereSelector, keySelector);
         }
-
-
-
 
         private bool CheckSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);
         }
+
         /*
         M我加入的虚拟团队列表 			pair<model<team>,List<model<member>>> GetAddVirtualTeamList(int vendorId);查memeber表,查team表
 	M我创建的虚拟团队列表 			pair<model<team>,List<model<member>>> GetCreatedVirtualTeamList(int vendorId);
@@ -157,6 +155,5 @@ memeber team
 	M查看发布的投标列表 			List<model<bid>>GetPublishBidList(int vendorId);
 
         */
-
     }
 }
