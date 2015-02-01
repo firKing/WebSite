@@ -33,6 +33,7 @@ namespace WebSite.Controllers
                 ViewBag.name = element.team_name;
                 ViewBag.content = element.team_introduction;
                 ViewBag.time = "";
+                ViewBag.teamId = element.teamId;
                 ViewBag.creator = element.purchase.company.user.user_name;
                 ViewBag.detailActionName = "Team";
                 return View("~/Views/Shared/detail.cshtml");
