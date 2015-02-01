@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Diagnostics.Debug;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web.Mvc;
-using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
+using System.Diagnostics.Debug;
 using System.EnterpriseServices;
+using System.Linq.Expressions;
 using System.Web;
-
+using WebSite.Controllers.Common;
 
 namespace WebSite.Controllers
 {
     public class ExpertController : Controller
     {
+     
+
         // GET: ExpertHome
         //专家个人中心.基本信息
-        public ActionResult Index()
-        {
-            return Info();
-        }
-
         public ActionResult Home()
         {
             return Info();
@@ -30,13 +26,11 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
-
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             return Utility.GetList<T>(expression);
         }
-
-        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
+        private int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
             return Utility.GetSumCount(whereSelector, keySelector);
         }
@@ -45,7 +39,7 @@ namespace WebSite.Controllers
         {
             var db = new SingleTableModule<expert>();
 
-            var element = db.FindInfo(x => x.expertId == id).SingleOrDefault();
+            var element = db.FindInfo(x=>x.expertId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -57,7 +51,6 @@ namespace WebSite.Controllers
                 return HttpNotFound();
             }
         }
-
         private ActionResult Info()
         {
             if (CheckSession())
@@ -71,23 +64,21 @@ namespace WebSite.Controllers
             }
             return RedirectToAction("Index", "Index");
         }
-
         //企业邀请 列表
         public ActionResult InvitationList(int page)
         {
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<invitation>(x => x.expertId == sessionId);
+                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
                 ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
-
                 return View();
             }
             return RedirectToAction("Index", "Index");
+            
         }
-
-        //我发布的审核意见列表
+        //我发布的审核意见列表 
         public ActionResult AuditList(int page)
         {
             if (CheckSession())
@@ -99,8 +90,8 @@ namespace WebSite.Controllers
                 return View();
             }
             return RedirectToAction("Index", "Index");
-        }
 
+        }
         ////管理员的专家列表
         //public ActionResult List(int page)
         //{

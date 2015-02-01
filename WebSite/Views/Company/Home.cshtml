@@ -11,7 +11,7 @@
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Company/Cpmpany.js")
+    @Scripts.Render("~/Scripts/Company/Company.js")
 }
 
 
@@ -33,7 +33,7 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>单位信息</h2>
-                    <div class="change">@Html.ActionLink("修改", "Index", "Register", new { user_id=ViewBag.user.user_id, })</div>
+                    <div class="change">@Html.ActionLink("修改", "Edit", "Register", new { user_id=ViewBag.user.user_id, })</div>
                 </div>
                 <div class="details">
                     <div class="show">
