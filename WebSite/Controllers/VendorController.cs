@@ -60,14 +60,14 @@ namespace WebSite.Controllers
             {
                 Assert(Session["user_id"] != null);
 
-               
+                const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
                 ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
                 ViewBag.pageNum = page;
-                ViewBag.troop = GetList<member>(
+                ViewBag.troop = GetList<member>(page,count,
                     x =>
-                    x.vendorId == sessionId)
+                    x.vendorId == sessionId,x=>x.memberId)
                     .ToList().Select(x =>
                     new Pair<team, List<member>>(
                         GetList<team>(
@@ -89,12 +89,12 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-
+                const int count = 5;
                 ViewBag.pageSum = GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId);
                 ViewBag.pageNum = page;
 
-                ViewBag.teamList = GetList<team>(x =>
-                    x.createId == sessionId).ToList()
+                ViewBag.teamList = GetList<team>(page,count,x =>
+                    x.createId == sessionId,x=>x.teamId).ToList()
                     .Select(x =>
                         new Pair<team, List<member>>(
                             x, GetList<member>(y =>
@@ -108,11 +108,12 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
+                const int count = 5;
                 Assert(Session["user_id"] != null);
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
 
-                ViewBag.personal = GetList<bid>(x => x.bidderId == id).ToList();
+                ViewBag.personal = GetList<bid>(page, count, x => x.bidderId == id,x=>x.bidId).ToList();
                 ViewBag.pageSum = GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageNum = page;
                 return View();
@@ -132,11 +133,15 @@ namespace WebSite.Controllers
             return Utility.GetList<T>(expression);
         }
 
-        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
+        private int GetSumCount<T,Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
             return Utility.GetSumCount(whereSelector, keySelector);
         }
 
+        private IQueryable<T> GetList<T>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, int>> keySelector) where T : class
+        {
+            return Utility.GetList<T, int>(page, count, whereSelector,keySelector);
+        }
         private bool CheckSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);

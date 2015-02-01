@@ -117,7 +117,7 @@ namespace WebSite.Controllers
         {
             const int count = 5;
             ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId);
-            ViewBag.pageSum = GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId);
+            ViewBag.pageSum = GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId) / count + 1;
             ViewBag.pageNum = page;
 
             ViewBag.PurchaseTitle = GetPurchaseTitle(purchaseId);

@@ -81,7 +81,7 @@ namespace WebSite.Controllers
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
-                    x => x.purchaseId);
+                    x => x.purchaseId) / count + 1;
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -98,7 +98,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
-                ViewBag.pageSum = GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId);
+                ViewBag.pageSum = GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId) / count + 1;
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -114,7 +114,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.list = GetList<invitation, int>(page, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
-                ViewBag.pageSum = GetSumCount<invitation, int>(x => x.purchase.companyId == sessionId, x => x.invitationId);
+                ViewBag.pageSum = GetSumCount<invitation, int>(x => x.purchase.companyId == sessionId, x => x.invitationId) / count + 1;
                 ViewBag.pageNum = page;
                 return View();
             }
