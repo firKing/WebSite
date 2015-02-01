@@ -75,12 +75,15 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 const int count = 5;
-                ViewBag.list = GetList<purchase, int>(page, count,
+                var list = GetList<purchase, int>(page, count,
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
-                ViewBag.pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
+                ViewBag.list = list;
+                var pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
                     x => x.purchaseId);
-                ViewBag.pageNum = page;
+                ViewBag.pageSum = pageSum;
+                var pageNum = page;
+                ViewBag.pageNum = pageNum;
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -95,7 +98,8 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
-                ViewBag.list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
+                var list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
+                ViewBag.list = list;
                 ViewBag.pageSum = GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageNum = page;
                 return View();

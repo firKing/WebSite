@@ -49,7 +49,7 @@ namespace WebSite.Controllers
                 var query = GetList<vendor>(x => x.vendorId == sessionId).ToList();
                 var result = query.SingleOrDefault();
                 Assert(result != null);
-                ViewBag.vendor = result;
+                ViewBag.home = result;
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -69,8 +69,9 @@ namespace WebSite.Controllers
 
                 var query = GetList<member>(x => x.vendorId == sessionId).ToList();
                 ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
+                var pageSum = ViewBag.pageSum;
                 ViewBag.pageNum = page;
-                ViewBag.troop = GetList<member>(
+                var troop = GetList<member>(
                     x =>
                     x.vendorId == sessionId)
                     .ToList().Select(x =>
@@ -82,6 +83,7 @@ namespace WebSite.Controllers
                         table.FindInfo(
                             y =>
                             y.teamId == x.teamId).ToList()));
+                ViewBag.troop = troop;
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -120,7 +122,8 @@ namespace WebSite.Controllers
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
 
-                ViewBag.personal = GetList<bid>(x => x.bidderId == id).ToList();
+                var personal = GetList<bid>(x => x.bidderId == id).ToList();
+                ViewBag.personal = personal;
                 ViewBag.pageSum = GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageNum = page;
                 return View();

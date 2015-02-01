@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "ExpertHome";
     Layout = "~/Views/Layouts/Home.cshtml";
+    ViewBag.prev = ViewBag.pageNum - 1;
+    ViewBag.next = ViewBag.pageNum + 1;
 }
 
 @section css {
@@ -40,17 +42,26 @@
                     <h2>单位邀请</h2>
                 </div>
                 <div class="details">
-                    @*@foreach (var key in ViewBag.home)
+                    @foreach (var item in ViewBag.list)
                     {
                         <div class="section">
-                            <div class="submit">
-                                <a href="#">接受</a>
-                            </div>
-                            <h3>key.purchase.purchase_title 采购</h3>
-                            <p>key.invitation_content</p>
+                            <h3>@item.purchase.company.user.user_name 公司</h3>
+                            <p>@item.invitation_content</p>
                         </div>
-                    }*@
+                    }
                 </div>
+                <ul class="pagination">
+                    <li class="@if (@ViewBag.pageNum == 1) { @Html.Raw("action disabled") } "><a href="@Url.Action("InvitationList", "Expert")?page=@ViewBag.pageNum - 1"><span aria-hidden="true">&laquo;</span></a></li>
+                    @for (int i = 1; i <= @ViewBag.pageSum; i++)
+                    {
+                        <li class='@if (@ViewBag.pageNum == i)
+                                   {
+                                       @Html.Raw("action disabled")
+                                       
+                                   }'><a href="@Url.Action("InvitationList", "Expert")?page=@i">@i</a></li>
+                    }
+                    <li class="@if (@ViewBag.pageNum == @ViewBag.pageSum) {@Html.Raw("action disabled") } "><a href="@Url.Action("InvitationList", "Expert")?page=@ViewBag.pageNum +1 "><span aria-hidden="true">&raquo;</span></a></li>
+                </ul>
             </form>
           
         </div>

@@ -73,9 +73,12 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<invitation>(x => x.expertId== sessionId);
-                ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId);
-                ViewBag.pageNum = page;
+                var list = GetList<invitation>(x => x.expertId== sessionId);
+                ViewBag.list = list;
+                var sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.sumPage = sumPage;
+                var pageNum = page;
+                ViewBag.pageNum = pageNum;
                 return View();
             }
             return RedirectToAction("Index", "Index");
@@ -87,7 +90,8 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = GetList<audit>(x => x.expertId == sessionId);
+                var list =  GetList<audit>(x => x.expertId == sessionId);
+                ViewBag.list = list;
                 ViewBag.sumPage = GetSumCount<audit, int>(x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();

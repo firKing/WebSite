@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "PurchaseInfoList";
+    ViewBag.Title = "NewsList";
     Layout = "~/Views/Layouts/List.cshtml";
     ViewBag.prev = ViewBag.pageNum - 1;
     ViewBag.next = ViewBag.pageNum + 1;
@@ -18,56 +18,55 @@
     @Scripts.Render("~/Scripts/Company/Company.js")
 }
 
-@section title{
-    发布的采购信息
+@section title {
+    发布的新闻列表
 }
-
 
 <div id="list-main">
     <h2>
         单位
+        <!-- <a class="back" href="#">退出登录</a> -->
     </h2>
 
     <div class="content">
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
                 <li> <div class=""></div><a href="@Url.Action("Home", "Company")">单位信息</a></li>
-                <li><div class="line"></div><a href="@Url.Action("PurchaseInfoList", "Company")?page=1">发布的采购信息</a></li>
+                <li><div class=""></div><a href="@Url.Action("PurchaseInfoList", "Company")?page=1">发布的采购信息</a></li>
                 <li>
-                    <div></div><a href="@Url.Action("NewsList", "Company")?page=1">发布的新闻</a>
+                    <div class="line"></div><a href="@Url.Action("NewsList", "Company")?page=1">发布的新闻</a>
                 </li>
             </ul>
         </div>
         <div class="col-md-8">
             <form class="info" action="" method="post">
                 <div class="title">
-                    <h2>我发布的采购信息列表</h2>
+                    <h2>我发布的新闻列表</h2>
                 </div>
                 <div class="details">
                     @foreach (var item in ViewBag.list)
                     {
                         <div class="section">
-                            <h3>@item.purchase_title</h3>
-                            <p>@item.purchase_content</p>
-                            <p>@item.purchase_time</p>
+                            <h3>@item.news_title</h3>
+                            <p>@item.news_content</p>
+                            <p>@item.news_time</p>
                         </div>
                     }
                 </div>
                 <ul class="pagination">
-                    <li class="@if (@ViewBag.pageNum == 1) { @Html.Raw("action disabled") } "><a href="@Url.Action("PurchaseInfoList", "Company")?page=@ViewBag.prev"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li class="@if (@ViewBag.pageNum == 1) { @Html.Raw("action disabled") } "><a href="@Url.Action("NewsList", "Company")?page=@ViewBag.prev"><span aria-hidden="true">&laquo;</span></a></li>
                     @for (int i = 1; i <= @ViewBag.pageSum; i++)
                     {
                         <li class='@if (@ViewBag.pageNum == i)
                                    {
                                        @Html.Raw("action disabled")
 
-                                   }'><a href="@Url.Action("PurchaseInfoList", "Company")?page=@i">@i</a></li>
+                                   }'><a href="@Url.Action("NewsList", "Company")?page=@i">@i</a></li>
                     }
-                    <li class="@if (@ViewBag.pageNum == @ViewBag.pageSum) { @Html.Raw("action disabled") } "><a href="@Url.Action("PurchaseInfoList", "Company")?page=@ViewBag.next "><span aria-hidden="true">&raquo;</span></a></li>
+                    <li class="@if (@ViewBag.pageNum == @ViewBag.pageSum) { @Html.Raw("action disabled") } "><a href="@Url.Action("NewsList", "Company")?page=@ViewBag.next"><span aria-hidden="true">&raquo;</span></a></li>
                 </ul>
             </form>
 
         </div>
     </div>
 </div>
-
