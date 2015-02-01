@@ -83,7 +83,7 @@ namespace WebSite.Controllers
             if (ModelState.IsValid)
             {
                 var result = db.Create(info);
-                if (result.first == true)
+                if (result.first)
                 {
                     var invitationTable = new SingleTableModule<invitation>();
                     var inviteesList = invitees.Split(',').ToList();

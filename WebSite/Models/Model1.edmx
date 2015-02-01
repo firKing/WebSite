@@ -66,9 +66,9 @@
           <Key>
             <PropertyRef Name="invitationId" />
           </Key>
-          <Property Name="purchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchaseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="expertId" Type="int" Nullable="false" />
-          <Property Name="invitationId" Type="int" Nullable="false" />
+          <Property Name="invitationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="invitation_content" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="invitation_time" Type="datetime" Nullable="false" />
         </EntityType>
@@ -450,7 +450,7 @@
           </Key>
           <Property Name="purchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="expertId" Type="Int32" Nullable="false" />
-          <Property Name="invitationId" Type="Int32" Nullable="false" />
+          <Property Name="invitationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="invitation_content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="expert" Relationship="Self.FK_INVITATI_INVITE_EXPERT" FromRole="invitations" ToRole="experts" />
           <NavigationProperty Name="purchase" Relationship="Self.FK_INVITATI_RESPOND_PURCHASE" FromRole="invitations" ToRole="purchases" />

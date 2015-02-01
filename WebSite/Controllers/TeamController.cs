@@ -42,9 +42,24 @@ namespace WebSite.Controllers
                                 return HttpNotFound();
             }
         }
+
+        [HttpPost]
+        public ActionResult AddTeam(int teamId)
+        {
+            var result = false;
+            if (CheckSession())
+            {
+                var db = new SingleTableModule<member>();
+                var record = new member();
+                record.teamId = teamId;
+                record.vendorId = (Int32)Session["user_id"];
+                result =  db.Create(record).first;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         private bool CheckSession()
         {
-            return Utility.CheckSession(UserType.Team, Session);
+            return Utility.CheckSession(UserType.Vendor, Session);
         }
         // 提交创建虚拟团队
         // 成员姓名， 逗号分隔 group_name
@@ -85,7 +100,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(team info,String memberNames, bid bidinfo)
         {
-            if (CheckSession()&&ModelState.IsValid==true)
+            if (CheckSession()&&ModelState.IsValid)
             {
                 var table = new SingleTableModule<team>();
                 var result = table.Create(info);
