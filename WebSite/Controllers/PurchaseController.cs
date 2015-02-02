@@ -12,6 +12,15 @@ namespace WebSite.Controllers
 {
     public class PurchaseController : Controller
     {
+        public class IndexStruct
+        {
+            public String name;
+            public Pair<string, int> time;
+            public String content;
+            public String image;
+            public int detailId;
+            public int id;
+        };
         // GET: Purchase
 
         // GET:
@@ -116,12 +125,18 @@ namespace WebSite.Controllers
         public ActionResult BidList(int purchaseId, int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId);
+            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x=>new IndexStruct {
+                    detailId = x.bidId,
+                    name = x.bid_title,
+                    content = x.bid_introduction,
+                    time = new Pair<string, int>(Utility.DateTimeToString(x.bid_time), 0)});
             ViewBag.pageSum = GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId) / count + 1;
             ViewBag.pageNum = page;
-
+            
+            ViewBag.detailActionName = "Bid";
             ViewBag.PurchaseTitle = GetPurchaseTitle(purchaseId);
-            return View();
+            ViewBag.bigtitle = ViewBag.PurchaseTitle + "的标书列表";
+            return View("~/Views/Shared/list.cshtml");
         }
 
         //ajax 返回字符串 "ture" "false"

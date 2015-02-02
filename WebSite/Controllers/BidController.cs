@@ -55,7 +55,7 @@ namespace WebSite.Controllers
                     (element,
                     GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-
+               
                 return View();
             }
             else
