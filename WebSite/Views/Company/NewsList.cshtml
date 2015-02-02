@@ -42,6 +42,7 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>我发布的新闻列表</h2>
+                    <a class="href_btn" href="@Url.Action("Publish", "New")">发布新闻</a>
                 </div>
                 <div class="details">
                     @foreach (var item in ViewBag.list)
