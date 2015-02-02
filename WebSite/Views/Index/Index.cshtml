@@ -1,6 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Layouts/Index.cshtml";
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Layouts/Index.cshtml";
 }
 
 @section css {
@@ -72,33 +72,34 @@
             <h1>新闻动态 <span></span></h1>
             <ul>
                 @if (ViewBag.newes != null)
+                {
+                    foreach (var item in ViewBag.newes)
                     {
-                        foreach (var item in ViewBag.newes)
-                        { 
-                                <li>
-                                    <a href="~/New/Detail?id=@item.detailId">
-                                        <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
-                                        <p>@item.name</p>
-                                    </a>
-                                </li>
-                        }
+                        <li>
+                            <a href="~/New/Detail?id=@item.detailId">
+                                <h2><span>@item.time.first</span><b>@item.time.second</b>
+                                </h2>
+                                <p>@item.name</p>
+                            </a>
+                        </li>
                     }
+                }
             </ul>
-            @Html.ActionLink("更多>>", "NewsList", "Index", new { page = 1 }, new { })
+            @Html.ActionLink("更多>>", "NewsList", "Index", new {page = 1}, new {})
         </div>
         <div class="col-md-4">
             <h3>专家推荐</h3>
             @if (ViewBag.experts != null)
+            {
+                foreach (var item in ViewBag.experts)
                 {
-                    foreach (var item in ViewBag.experts)
-                    {
-                        <img src="~/@item.image" alt="@item.name" />
-                        <div class="col-text">
-                            <h5>@item.name</h5>
-                            <p>@item.content</p>
-                         </div>
-                    }
+                    <img src="~/@item.image" alt="@item.name"/>
+                    <div class="col-text">
+                        <h5>@item.name</h5>
+                        <p>@item.content</p>
+                    </div>
                 }
+            }
         </div>
     </div>
     <div class="row">
@@ -106,20 +107,21 @@
             <h1>采购信息 <span></span></h1>
             <ul>
                 @if (ViewBag.purchases != null)
+                {
+                    foreach (var item in ViewBag.purchases)
                     {
-                        foreach (var item in ViewBag.purchases)
-                        {
-                            <li>
-                                <a href="~/Purchase/Detail?id=@item.detailId">
-                                    <h2><span>@item.time.first</span><b>@item.time.second</b></h2>
-                                    <p>@item.name</p>
-                                </a>
-                            </li>
-                        }
-
+                        <li>
+                            <a href="~/Purchase/Detail?id=@item.detailId">
+                                <h2><span>@item.time.first</span><b>@item.time.second</b>
+                                </h2>
+                                <p>@item.name</p>
+                            </a>
+                        </li>
                     }
+
+                }
             </ul>
-            @Html.ActionLink("更多>>", "PurchaseList", "Index", new { page = 1 }, new { })
+            @Html.ActionLink("更多>>", "PurchaseList", "Index", new {page = 1}, new {})
         </div>
         <div class="col-md-4">
             <h3>正在组建的团队</h3>
@@ -138,7 +140,8 @@
 
                 }
             </ul>
-            @Html.ActionLink("更多>>", "TeamList", "Index", new { page = 1 }, new { })
+            @Html.ActionLink("更多>>", "TeamList", "Index", new {page = 1}, new {})
         </div>
     </div>
 </div>
+<script> $("#main-nav").find("li").eq(0).addClass("active");</script>
