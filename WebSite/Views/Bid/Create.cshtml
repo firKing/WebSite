@@ -26,10 +26,17 @@
         <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Bid")">
             <fieldset disabled>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.purchase.purchase_title, "采购信息：", new { @class = "col-sm-3 control-label" })
+                    @Html.LabelFor(model => model.purchase.purchase_title, "采购信息：", new {@class = "col-sm-3 control-label"})
                     <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.purchase.purchase_title, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.purchase.purchase_title, new {@class = "form-control"})
                         @Html.ValidationMessageFor(model => model.purchase.purchase_title)
+                    </div>
+                </div>
+                <div class="form-group" style="display: none">
+                    @Html.LabelFor(model => model.purchase.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.purchase.purchaseId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.purchase.purchaseId)
                     </div>
                 </div>
             </fieldset>
