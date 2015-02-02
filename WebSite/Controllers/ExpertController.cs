@@ -31,9 +31,9 @@ namespace WebSite.Controllers
         {
             return Utility.GetList<T>(expression);
         }
-        private int GetSumCount<T, Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        private int GetSumPage<T, Tkey>(double count,Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            return Utility.GetSumCount(whereSelector, keySelector);
+            return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector)/count);
         }
         private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
@@ -78,7 +78,7 @@ namespace WebSite.Controllers
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 ViewBag.list = GetList<invitation,int>(page,count,x => x.expertId== sessionId,x=>x.invitationId);
-                ViewBag.sumPage = Math.Ceiling(GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId) / (double)count);
+                ViewBag.sumPage = GetSumPage<invitation, int>(count,x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -94,7 +94,7 @@ namespace WebSite.Controllers
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 ViewBag.list = GetList<audit,int>(page,count,x => x.expertId == sessionId,x=>x.auditId);
-                ViewBag.sumPage = GetSumCount<audit, int>(x => x.expertId == sessionId, x => x.expertId) / count + 1;
+                ViewBag.sumPage = GetSumPage<audit, int>(count,x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();
             }

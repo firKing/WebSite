@@ -116,10 +116,11 @@ namespace WebSite.Controllers
         {
             return Utility.GetList<T>(whereSelector);
         }
-        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
+        private int GetSumPage<T, TKey>(double count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            return Utility.GetSumCount<T, TKey>(whereSelector, keySelector);
+            return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector) / count);
         }
+
 
         private String GetPurchaseTitle(int purchaseId)
         {
@@ -136,7 +137,7 @@ namespace WebSite.Controllers
                     name = x.bid_title,
                     content = x.bid_introduction,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.bid_time), 0)});
-            ViewBag.pageSum = Math.Ceiling(GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId) / (double)count);
+            ViewBag.pageSum = GetSumPage<bid, int>(count,x => x.purchaseId == purchaseId, x => x.bidId) ;
             ViewBag.pageNum = page;
             
             ViewBag.detailActionName = "Bid";

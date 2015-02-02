@@ -63,9 +63,9 @@ namespace WebSite.Controllers
         {
             return Utility.GetList<T>(whereSelector);
         }
-        private int GetSumCount<T, TKey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
+        private int GetSumPage<T, TKey>(double count,Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            return Utility.GetSumCount(whereSelector, keySelector);
+            return (int) Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector)/count);
         }
 
         //发布的采购信息列表
@@ -81,8 +81,8 @@ namespace WebSite.Controllers
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.list = list;
-                ViewBag.pageSum = Math.Ceiling(GetSumCount<purchase, int>(x => x.companyId == sessionId,
-                    x => x.purchaseId) / (double)count );
+                ViewBag.pageSum = GetSumPage<purchase, int>(count,x => x.companyId == sessionId,
+                    x => x.purchaseId) ;
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -99,7 +99,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
-                ViewBag.pageSum = Math.Ceiling(GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId) / (double)count);
+                ViewBag.pageSum = GetSumPage<news, int>(count,x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -115,7 +115,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.list = GetList<invitation, int>(page, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
-                ViewBag.pageSum = GetSumCount<invitation, int>(x => x.purchase.companyId == sessionId, x => x.invitationId) / count + 1;
+                ViewBag.pageSum = GetSumPage<invitation, int>(count,x => x.purchase.companyId == sessionId, x => x.invitationId);
                 ViewBag.pageNum = page;
                 return View();
             }

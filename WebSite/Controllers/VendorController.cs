@@ -66,7 +66,7 @@ namespace WebSite.Controllers
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                ViewBag.pageSum = Math.Ceiling(GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId)/(double)count);
+                ViewBag.pageSum =GetSumPage<member, int>(count,x => x.vendorId == sessionId, x => x.memberId);
                 var pageSum = ViewBag.pageSum;
                 ViewBag.pageNum = page;
                 ViewBag.troop = GetList<member>(page,count,
@@ -95,7 +95,7 @@ namespace WebSite.Controllers
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 const int count = 5;
-                ViewBag.pageSum = Math.Ceiling(GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId)/(double)count);
+                ViewBag.pageSum = GetSumPage<team, int>(count,x => x.createId == sessionId, x => x.teamId);
                 ViewBag.pageNum = page;
 
                 ViewBag.teamList = GetList<team>(page,count,x =>
@@ -120,7 +120,7 @@ namespace WebSite.Controllers
                 var id = GetBidderId(sessionId);
                 var personal = GetList<bid>(page, count, x => x.bidderId == id,x=>x.bidId).ToList().Select(x=>new Pair<bid, BidUserInfo>(x,GetBidUser(x.bidder)));
                 ViewBag.personal = personal;
-                var pageSum = Math.Ceiling(GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId)/(double)count);
+                var pageSum = GetSumPage<bid, int>(count,x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageSum = pageSum;
                 ViewBag.pageNum = page;
                 return View();
@@ -141,9 +141,9 @@ namespace WebSite.Controllers
             return Utility.GetList<T>(expression);
         }
 
-        private int GetSumCount<T,Tkey>(Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+        private int GetSumPage<T,Tkey>(double count,Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            return Utility.GetSumCount(whereSelector, keySelector);
+            return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector) / count);
         }
 
         private IQueryable<T> GetList<T>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, int>> keySelector) where T : class

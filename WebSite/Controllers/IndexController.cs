@@ -137,7 +137,7 @@ namespace WebSite.Controllers
                 });
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
-            ViewBag.sumPage = Math.Ceiling(GetSumCount<purchase, int>(x => x.purchaseId) / (double)count);
+            ViewBag.sumPage = GetSumPage<purchase, int>(count,x => x.purchaseId);
 
             ViewBag.detailActionName = "Purchase";
             return View(listViewName);
@@ -155,7 +155,7 @@ namespace WebSite.Controllers
                     content = new String(x.news_content.Take(200).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
-            ViewBag.sumPage = Math.Ceiling(GetSumCount<news, int>(x => x.newsId) / (double)count);
+            ViewBag.sumPage = GetSumPage<news, int>(count,x => x.newsId);
             ViewBag.bigtitle = "新闻列表";
             ViewBag.pageNum = page;
 
@@ -175,7 +175,7 @@ namespace WebSite.Controllers
                     content = new String(x.team_introduction.Take(200).ToArray()),
                     time = new Pair<String, int>("", x.members.Count())
                 });
-            ViewBag.sumPage = Math.Ceiling(GetSumCount<team, int>(x => x.teamId) / (double)count );
+            ViewBag.sumPage = GetSumPage<team, int>(count,x => x.teamId);
             ViewBag.pageNum = page;
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.detailActionName = "Team";
@@ -186,7 +186,7 @@ namespace WebSite.Controllers
         {
             const int count = 3;
             ViewBag.list = GetList<expert, int>(page, count, x => x.user_userId).ToList();
-            var sum = Math.Ceiling(GetSumCount<team, int>(x => x.teamId)/(double)count);
+            var sum = GetSumPage<team, int>(count,x => x.teamId);
             ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
             return View("~/Views/Expert/List.cshtml");
@@ -202,9 +202,9 @@ namespace WebSite.Controllers
             return Utility.GetList(page, count, keySelector);
         }
 
-        private int GetSumCount<T, TKey>(Expression<Func<T, TKey>> keySelector) where T : class
+        private int GetSumPage<T, TKey>(double count,Expression<Func<T, TKey>> keySelector) where T : class
         {
-            return Utility.GetSumCount<T, TKey>(keySelector);
+            return (int)(Utility.GetSumCount<T, TKey>(keySelector)/ count);
         }
     }
 }
