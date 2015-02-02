@@ -89,9 +89,9 @@
     <Key>
       <PropertyRef Name="auditId" />
     </Key>
-    <Property Name="bidId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bidId" Type="int" Nullable="false" />
     <Property Name="expertId" Type="int" Nullable="false" />
-    <Property Name="auditId" Type="int" Nullable="false" />
+    <Property Name="auditId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="audit_content" Type="varchar" Nullable="true" MaxLength="500" />
     <Property Name="audit_time" Type="datetime" Nullable="false" />
   </EntityType>
@@ -388,9 +388,9 @@
           <Key>
             <PropertyRef Name="auditId" />
           </Key>
-          <Property Name="bidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="expertId" Type="Int32" Nullable="false" />
-          <Property Name="auditId" Type="Int32" Nullable="false" />
+          <Property Name="auditId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="audit_content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="bid" Relationship="Self.FK_AUDIT_AUDIT_BID" FromRole="audits" ToRole="bids" />
           <NavigationProperty Name="expert" Relationship="Self.FK_AUDIT_HAVE_EXPERT" FromRole="audits" ToRole="experts" />

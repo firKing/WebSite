@@ -82,7 +82,8 @@ namespace WebSite.Controllers
                             y.teamId == x.teamId).ToList()));
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult CreateTeamList(int page)
