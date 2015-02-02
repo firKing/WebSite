@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -219,7 +220,7 @@ namespace WebSite.Controllers.Common
             return new SingleTableModule<T>().Edit(record);
         }
 
-        public static T GetForiegnKeyTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
+        public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
         {
             var Iter = GetList<T>(whereSelector).SingleOrDefault();
             Assert(Iter != null);
@@ -232,6 +233,5 @@ namespace WebSite.Controllers.Common
             info.bid_content = UploadFileGetUrl(info, request);
             info.bid_time = DateTime.Now;
         }
-
     }
 }

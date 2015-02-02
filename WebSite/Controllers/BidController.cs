@@ -73,7 +73,7 @@ namespace WebSite.Controllers
             if (CheckVendorSession())
             {
                 info.purchaseId = purchaseId;
-                ViewBag.purchaseTitle = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
+                ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
                 return View(info);
             }
             Assert(Request.UrlReferrer!=null);
@@ -129,9 +129,9 @@ namespace WebSite.Controllers
             {
                 var expertId = (Int32) Session["user_id"];
                 info.expertId = expertId;
-               // info.expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == info.expertId);
+               // info.expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == info.expertId);
                 info.audit_time = DateTime.Now;
-               // info.bid = Utility.GetForiegnKeyTableRecord<bid>(x => x.bidId == info.bidId);
+               // info.bid = Utility.GetSingleTableRecord<bid>(x => x.bidId == info.bidId);
                 CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });

@@ -47,7 +47,14 @@ namespace WebSite.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View(new purchase());
+            if (Utility.CheckSession(UserType.Company, Session))
+            {
+                ViewBag.companyName =
+               Utility.GetSingleTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]).user.user_name;
+                return View(new purchase());
+            }
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private void CreateInvitation(int purchaseId, String invitationContent, List<String> expertNameList)
@@ -80,8 +87,8 @@ namespace WebSite.Controllers
                     purchaseId = purchaseId,
                     expertId = expertId,
                     invitation_time = DateTime.Now,
-                  //  expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == expertId),
-                  //  purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId),
+                  //  expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == expertId),
+                  //  purchase = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId),
                 });
             }
         }
@@ -90,9 +97,10 @@ namespace WebSite.Controllers
         public ActionResult Create(purchase info, String invitees, String invitationContent)
         {
             
-            if (ModelState.IsValid)
+            if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
             {
-                //info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
+                info.companyId = (Int32)Session["user_id"];
+                info.purchase_time = DateTime.Now;
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {

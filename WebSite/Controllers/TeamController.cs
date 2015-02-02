@@ -47,7 +47,7 @@ namespace WebSite.Controllers
                 ViewBag.content = element.team_introduction;
                 ViewBag.time = "";
                 ViewBag.teamId = element.teamId;
-                ViewBag.creator = Utility.GetForiegnKeyTableRecord<vendor>(x => x.vendorId == element.createId).user.user_name;
+                ViewBag.creator = Utility.GetSingleTableRecord<vendor>(x => x.vendorId == element.createId).user.user_name;
                 ViewBag.detailActionName = "Team";
                 return View("~/Views/Shared/detail.cshtml");
             }
@@ -106,8 +106,8 @@ namespace WebSite.Controllers
                 {
                     teamId = teamId,
                     vendorId = vendorId,
-                  //  team = Utility.GetForiegnKeyTableRecord<team>(x=>x.teamId == teamId),
-                  //  vendor = Utility.GetForiegnKeyTableRecord<vendor>(x=>x.vendorId == vendorId),
+                  //  team = Utility.GetSingleTableRecord<team>(x=>x.teamId == teamId),
+                  //  vendor = Utility.GetSingleTableRecord<vendor>(x=>x.vendorId == vendorId),
                 });
             }
         }
