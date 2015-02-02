@@ -37,25 +37,26 @@
         "deny_submit" : function(e) {
             var _this = this,
                 flag = true,
-                authStatus = _this.authStatus;
+                authStatus = _this.authStatus,
+                formEle = _this.FormEle;
 
             var data = $(e.target).serializeObject();
+
+            formEle.find('.form-control').removeClass("has_error");
+
+            data = $.extend(data, authStatus);
+            console.log(data);
             for (var item in data) {
-                if (data.hasOwnProperty(item) && data[item] === "") {
+                if (data.hasOwnProperty(item) && (data[item] === "" || data[item].toString() === 'false')) {
                     flag = false;
+                    formEle.find("[name='" + item + "']").addClass("has_error");
                 }
             }
-
-            for (var auth in authStatus) {
-                if (authStatus.hasOwnProperty(auth) && (authStatus[auth].toString() === 'false')) {
-                    flag = false;
-                }
-            }
-
-
             if (!flag) {
                 return false;
             }
+
+            console.log(123);
         },
         "ShowTest": function (index, data) {
             var _this = this,
