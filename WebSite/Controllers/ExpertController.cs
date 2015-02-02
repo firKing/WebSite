@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using WebSite.Controllers.Module;
-using WebSite.Models;
 using System.Diagnostics.Debug;
-using System.EnterpriseServices;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
+using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Models;
 
 namespace WebSite.Controllers
 {
     public class ExpertController : Controller
     {
-     
-
         // GET: ExpertHome
         //专家个人中心.基本信息
         public ActionResult Home()
@@ -27,13 +21,15 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
-        private int GetSumPage<T, Tkey>(double count,Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
+
+        private int GetSumPage<T, Tkey>(double count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class
         {
-            return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector)/count);
+            return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector) / count);
         }
+
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<expert>(x=>x.expertId == id).SingleOrDefault();
+            var element = Utility.GetList<expert>(x => x.expertId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -48,6 +44,7 @@ namespace WebSite.Controllers
                 return HttpNotFound();
             }
         }
+
         private ActionResult Info()
         {
             if (CheckSession())
@@ -62,6 +59,7 @@ namespace WebSite.Controllers
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
+
         //企业邀请 列表
         public ActionResult InvitationList(int page)
         {
@@ -69,15 +67,16 @@ namespace WebSite.Controllers
             {
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = Utility.GetList<invitation,int>(page,count,x => x.expertId== sessionId,x=>x.invitationId);
-                ViewBag.sumPage = GetSumPage<invitation, int>(count,x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.list = Utility.GetList<invitation, int>(page-1, count, x => x.expertId == sessionId, x => x.invitationId);
+                ViewBag.sumPage = GetSumPage<invitation, int>(count, x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
-        //我发布的审核意见列表 
+
+        //我发布的审核意见列表
         public ActionResult AuditList(int page)
         {
             if (CheckSession())
@@ -85,14 +84,13 @@ namespace WebSite.Controllers
                 const int count = 5;
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = Utility.GetList<audit,int>(page,count,x => x.expertId == sessionId,x=>x.auditId);
-                ViewBag.sumPage = GetSumPage<audit, int>(count,x => x.expertId == sessionId, x => x.expertId);
+                ViewBag.list = Utility.GetList<audit, int>(page-1, count, x => x.expertId == sessionId, x => x.auditId);
+                ViewBag.sumPage = GetSumPage<audit, int>(count, x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
-     
     }
 }

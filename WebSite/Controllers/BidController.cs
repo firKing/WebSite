@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Common.Utility;
@@ -15,16 +12,16 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-       
-       
         private bool CheckVendorSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);
         }
+
         private bool CheckExpertSession()
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
+
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
@@ -36,17 +33,18 @@ namespace WebSite.Controllers
 
         private String GetFileNameByPath(String path)
         {
-            return  System.IO.Path.GetFileName(path);
+            return System.IO.Path.GetFileName(path);
         }
-        
+
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
         }
+
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<bid>(x=>x.bidId == id).SingleOrDefault();
+            var element = Utility.GetList<bid>(x => x.bidId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
@@ -73,7 +71,7 @@ namespace WebSite.Controllers
                 ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
                 return View(info);
             }
-            Assert(Request.UrlReferrer!=null);
+            Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -90,20 +88,19 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(bid info)
         {
-            
             //只有Vendor走这里
             if (CheckVendorSession())
             {
                 Assert((UserType)Session["user_type"] == UserType.Vendor);
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                if (ModelState.IsValid&&bidderResult.first)
+                if (ModelState.IsValid && bidderResult.first)
                 {
-                    Utility.FillBidRecord(info,bidderResult.second,Request);
+                    Utility.FillBidRecord(info, bidderResult.second, Request);
                     var result = new Pair<bool, bid>();
-                    
+
                     //try
                     //{
-                        result = CreateRecord<bid>(info);
+                    result = CreateRecord<bid>(info);
 
                     //}
                     //catch (DbEntityValidationException dbEx)
@@ -111,8 +108,6 @@ namespace WebSite.Controllers
                     //    int a = 0;
                     //}
                     return RedirectToAction("Detail", new { id = result.second.bidId });
-
-
                 }
             }
             Assert(Request.UrlReferrer != null);
@@ -122,13 +117,13 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
-            if (ModelState.IsValid&& CheckExpertSession())
+            if (ModelState.IsValid && CheckExpertSession())
             {
-                var expertId = (Int32) Session["user_id"];
+                var expertId = (Int32)Session["user_id"];
                 info.expertId = expertId;
-               // info.expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == info.expertId);
+                // info.expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == info.expertId);
                 info.audit_time = DateTime.Now;
-               // info.bid = Utility.GetSingleTableRecord<bid>(x => x.bidId == info.bidId);
+                // info.bid = Utility.GetSingleTableRecord<bid>(x => x.bidId == info.bidId);
                 CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });
