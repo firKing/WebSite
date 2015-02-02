@@ -137,7 +137,9 @@
                     dataType: "text",
                     success: function (status) {
                         if (status.toString() === "true") {
-                            location.href = location.origin + href;
+                            var pathname = location.pathname;
+                            var origin = pathname.split("/")[1];
+                            location.href = location.protocol + "//" +  location.host + origin + href;
                         } else {
                             log("登陆失败");
                         }

@@ -23,7 +23,7 @@
 <div id="detail-main">
     <h2>发布标书</h2>
     <div id="PubBidder">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Create", "Bid")">
             <div class="form-group">
                 @Html.LabelFor(model => model.bid_device_name, "设备名称：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
@@ -41,8 +41,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.bid_content, "概要：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.bid_number, new { @class = "form-control", @placeholder = "设备数量", @rows = "5" })
-                    @Html.ValidationMessageFor(model => model.bid_number)
+                    @Html.TextAreaFor(model => model.bid_content, new { @class = "form-control", @placeholder = "设备数量", @rows = "5" })
+                    @Html.ValidationMessageFor(model => model.bid_content)
                 </div>
             </div>
             <div class="form-group">

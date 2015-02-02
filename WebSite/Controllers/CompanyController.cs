@@ -80,6 +80,7 @@ namespace WebSite.Controllers
                 var list = GetList<purchase, int>(page, count,
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
+                ViewBag.list = list;
                 ViewBag.pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
                     x => x.purchaseId) / count + 1;
                 ViewBag.pageNum = page;
