@@ -67,7 +67,8 @@ namespace WebSite.Controllers
                 ViewBag.home = result;
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
         //企业邀请 列表
         public ActionResult InvitationList(int page)
@@ -81,7 +82,8 @@ namespace WebSite.Controllers
                 ViewBag.pageNum = page;
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
         //我发布的审核意见列表 
         public ActionResult AuditList(int page)
@@ -96,8 +98,8 @@ namespace WebSite.Controllers
                 ViewBag.pageNum = page;
                 return View();
             }
-            return RedirectToAction("Index", "Index");
-
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
      
     }

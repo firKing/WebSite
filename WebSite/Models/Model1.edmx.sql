@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/01/2015 19:14:12
+-- Date Created: 02/02/2015 11:08:46
 -- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -119,9 +119,9 @@ GO
 
 -- Creating table 'audits'
 CREATE TABLE [dbo].[audits] (
-    [bidId] int IDENTITY(1,1) NOT NULL,
+    [bidId] int  NOT NULL,
     [expertId] int  NOT NULL,
-    [auditId] int  NOT NULL,
+    [auditId] int IDENTITY(1,1) NOT NULL,
     [audit_content] varchar(500)  NULL,
     [audit_time] datetime  NOT NULL
 );
