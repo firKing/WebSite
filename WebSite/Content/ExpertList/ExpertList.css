@@ -60,3 +60,6 @@ a.expert-name{
     background: #5cb85c;
     border: 1px solid #5ea63a;
 }
+.disabled {
+    pointer-events: none;
+}
