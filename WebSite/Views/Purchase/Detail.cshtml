@@ -28,12 +28,13 @@
         <div class="col-md-9">
             <div>
                 <h4>@ViewBag.detail.purchase_title</h4>
-                <p>招标人：@ViewBag.detail.company.user.user_name <a href="~/Company/Detail?id=@ViewBag.detail.companyId">点击查看招标人信息</a></p>
+                <p>招标人：@ViewBag.detail.company.user.user_name <a href="~/Company/Detail?id=@ViewBag.detail.companyId">点击查看招标人信息</a>
+                </p>
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>概况：@ViewBag.detail.purchase_content</p>
                 <button href="@Url.Action("Index", "Team")" class="btn btn-success">组建虚拟团队竞标</button>
-                <button href="@Url.Action("Create","Bid")" class="btn btn-warning">我要竞标</button>
+                <button href="@Url.Action("Create", "Bid")" class="btn btn-warning">我要竞标</button>
             </div>
         </div>
         <div class="col-md-3">
@@ -43,11 +44,13 @@
                     <span class="right underway">
                         @if (@ViewBag.detail.hitId != 0)
                         {
-                            @ViewBag.end;
+                            @ViewBag.end
+                            ;
                         }
                         else
                         {
-                            @ViewBag.underway;
+                            @ViewBag.underway
+                            ;
                         }
                     </span>
                 </li>
@@ -67,4 +70,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    isLogin();
+</script>
 <!--详情页主体部分-->

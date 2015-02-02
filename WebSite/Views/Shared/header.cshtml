@@ -156,7 +156,8 @@
 
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script> 
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Header/Header.js")" type="text/javascript"></script>
 
 <!--登陆框-->
 <!--header-->
@@ -182,10 +183,9 @@
                     {
                         string userName = ViewBag.userName;
                         string type = ViewBag.userType.ToString();
-                        <ul class="nav navbar-nav navbar-right" id="login">
+                        <ul class="nav navbar-nav navbar-right" id="login" value="@ViewBag.userType">
                             <li>@Html.ActionLink(@userName, "Home", @type)</li>
                             <li>@Html.ActionLink("退出登录", "LoginOut", "Verify")</li>
-                            <span style="display: none">@ViewBag.userType</span>
                         </ul>
                     }
                     else
