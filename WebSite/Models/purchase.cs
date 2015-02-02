@@ -23,6 +23,8 @@ namespace WebSite.Models
         }
 
         public int purchaseId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public int companyId { get; set; }
         [Required(ErrorMessage = "*")]
 
