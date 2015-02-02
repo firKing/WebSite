@@ -65,11 +65,13 @@ namespace WebSite.Controllers
         }
 
         //获取标书详情
-        public ActionResult Create()
+        public ActionResult Create(int purchaseId)
         {
+            var info = new bid();
+            info.purchaseId = purchaseId;
             if (CheckVendorSession())
             {
-                return View();
+                return View(info);
             }
             Assert(Request.UrlReferrer!=null);
             return Redirect(Request.UrlReferrer.ToString());
