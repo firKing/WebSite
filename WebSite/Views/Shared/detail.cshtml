@@ -13,7 +13,7 @@
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Index/index.js")
+    @Scripts.Render("~/Scripts/CompanyDetails/CompanyDetails.js")
 }
 @section title
 {
@@ -39,9 +39,9 @@
         <p></p>
     </div>
     @if (@ViewBag.detailActionName == "Team")
-        {
-            <a href="#" class="btn btn-success btn-lg pull-right" role="button">申请加入</a>
-        }
+    {
+        <button class="btn btn-success btn-lg pull-right" value="@ViewBag.teamId" role="button">申请加入</button>
+    }
 </div>
 <!--新闻和虚拟团队详情页主体部分-->
 

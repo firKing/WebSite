@@ -96,7 +96,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.user_introduction, "概要", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-                        @Html.TextAreaFor(model => model.user_introduction, new { @class = "form-control", @placeholder = "概要" })
+                        @Html.TextAreaFor(model => model.user_introduction, new { @class = "form-control", @placeholder = "概要",rows="4" })
                         @Html.ValidationMessageFor(model => model.user_introduction)
                     </div>
                     <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>

@@ -71,6 +71,17 @@
     padding-left: 36px;
 }
 
+.content .col-md-8 .details .section p {
+    margin: 15px;
+}
+
+.content .col-md-8 .pagination {
+    padding: 20px;
+    margin: 0;
+    position: relative;
+    bottom: -50px;
+    left: 10px;
+}
 
 .content .col-md-8 .show h3 {
     margin: 15px 0;

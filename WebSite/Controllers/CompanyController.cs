@@ -77,7 +77,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 const int count = 5;
-                ViewBag.list = GetList<purchase, int>(page, count,
+                var list = GetList<purchase, int>(page, count,
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
