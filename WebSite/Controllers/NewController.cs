@@ -8,10 +8,26 @@ using WebSite.Controllers.Common;
 using System.Web;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using System.EnterpriseServices.Internal;
+
 namespace WebSite.Controllers
 {
     public class NewController : Controller
     {
+        private bool CheckSession()
+        {
+            return Utility.CheckSession(UserType.Company, Session);
+        }
+
+        public ActionResult Publish()
+        {
+            if (CheckSession())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Index");
+        }
+
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
             return Utility.GetList<T>(whereSelector);
