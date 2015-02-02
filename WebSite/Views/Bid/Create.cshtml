@@ -24,7 +24,7 @@
     <h2>发布标书</h2>
     <div id="PubBidder">
         <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Bid")">
-            <fieldset disabled>
+ 
                 <div class="form-group">
                     @Html.LabelFor(model => model.purchase.purchase_title, "采购信息：", new {@class = "col-sm-3 control-label"})
                     <div class="col-sm-9">
@@ -32,14 +32,18 @@
                         @Html.ValidationMessageFor(model => model.purchase.purchase_title)
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="form-group" style="display: none">
+=======
+                <div class="form-group" @*style="display: none"*@>
+>>>>>>> dbd699f4cea0fac13e26c57b8bbb430575a99f4a
                     @Html.LabelFor(model => model.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
                         @Html.TextBoxFor(model => model.purchaseId, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.purchaseId)
                     </div>
                 </div>
-            </fieldset>
+       
                 <div class="form-group">
                     @Html.LabelFor(model => model.bid_title, "标书标题：", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
