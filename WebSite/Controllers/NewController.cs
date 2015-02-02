@@ -69,6 +69,7 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
+                info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
                CreateRecord<news>(info);
                 return View("Detail");
             }

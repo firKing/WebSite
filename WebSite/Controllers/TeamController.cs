@@ -93,24 +93,31 @@ namespace WebSite.Controllers
                     .Aggregate((x, y) =>
                         x &&
                         y ));
-
             var vendorIdList = nameList
                 .Select(x =>
                 GetList<vendor>(y =>
                 y.user.user_name == x &&
                 y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().vendorId).ToList();
-            foreach (var vendorId in vendorIdList)
+            foreach (var iter in vendorIdList)
             {
+                var vendorId = iter;
                 CreateRecord<member>(new member
                 {
                     teamId = teamId,
-                    vendorId = vendorId
+                    vendorId = vendorId,
+                    team = Utility.GetForiegnKeyTableRecord<team>(x=>x.teamId == teamId),
+                    vendor = Utility.GetForiegnKeyTableRecord<vendor>(x=>x.vendorId == vendorId),
                 });
             }
         }
+        private String UploadFileGetUrl(bid info)
+        {
+            return Utility.UploadFileGetUrl(info, Request);
+        }
+
         [HttpPost]
-        public ActionResult Create(team info,String memberNames, bid bidinfo)
+        public ActionResult Create(team info,String memberNames, bid bidInfo)
         {
             if (CheckSession()&&ModelState.IsValid)
             {
@@ -122,8 +129,8 @@ namespace WebSite.Controllers
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
                     if (bidderResult.first)
                     {
-                        bidinfo.bidderId = bidderResult.second.bidderId;
-                        var bidResult = CreateRecord<bid>(bidinfo);
+                        Utility.FillBidRecord(bidInfo, bidderResult.second, Request);
+                        var bidResult = CreateRecord<bid>(bidInfo);
                         if (bidResult.first)
                         {
                             return RedirectToAction("Detail", "Bid", new { id = bidResult.second.bidId });

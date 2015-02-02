@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Controllers.Common.Utility;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -55,7 +56,7 @@ namespace WebSite.Controllers
                     (element,
                     GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-
+                ViewBag.bidderName = GetBidUser(element.bidder);
                 return View();
             }
             else
@@ -68,10 +69,9 @@ namespace WebSite.Controllers
         public ActionResult Create(int purchaseId)
         {
             var info = new bid();
-            var purchaseResult = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-            if (CheckVendorSession()&& purchaseResult!=null)
+            if (CheckVendorSession())
             {
-                info.purchase = purchaseResult;
+                info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId);
                 return View(info);
             }
             Assert(Request.UrlReferrer!=null);
@@ -85,21 +85,7 @@ namespace WebSite.Controllers
 
         private String UploadFileGetUrl(bid info)
         {
-            //foreach (string upload in Request.Files)
-            //{
-            var upload = "bid_content";
-            Assert(Request.Files[upload] != null);
-
-            var file = Request.Files[upload];
-            Assert(Request.Files.Count == 1);
-            string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(file.FileName);
-            Assert(filename != null);
-            path = Path.Combine(path, filename);
-            file.SaveAs(path);
-            //info.bid_content = path;
-            //}
-            return path;
+            return Utility.UploadFileGetUrl(info, Request);
         }
 
         [HttpPost]
@@ -109,12 +95,10 @@ namespace WebSite.Controllers
             if (CheckVendorSession())
             {
                 Assert((UserType)Session["user_type"] == UserType.Vendor);
-                if (ModelState.IsValid)
+                var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
+                if (ModelState.IsValid&&bidderResult.first)
                 {
-                    var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                    info.bidderId = bidderResult.second.bidderId;
-                    info.bid_content = UploadFileGetUrl(info);
-
+                    Utility.FillBidRecord(info,bidderResult.second,Request);
                     var result = CreateRecord<bid>(info);
 
                     return RedirectToAction("Detail", new { id = result.second.bidId });
@@ -131,6 +115,9 @@ namespace WebSite.Controllers
             {
                 var expertId = (Int32) Session["user_id"];
                 info.expertId = expertId;
+                info.expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == info.expertId);
+                info.audit_time = DateTime.Now;
+                info.bid = Utility.GetForiegnKeyTableRecord<bid>(x => x.bidId == info.bidId);
                 CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });

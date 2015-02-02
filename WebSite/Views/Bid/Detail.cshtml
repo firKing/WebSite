@@ -24,10 +24,10 @@
 <!--详情页主体部分-->
 <div id="detail-main">
     <h2>@ViewBag.details.first.bid_title</h2>
-    <p class="detail-info"><span>@ViewBag.details.first.bid_time</span><span>创建供应商:@ViewBag.details.first.bidder</span></p>
+    <p class="detail-info"><span>@ViewBag.details.first.bid_time</span><span>创建供应商:@ViewBag.details.first.bidder.tendererId</span></p>
     <div class="detail-text">
         <p>
-           @ViewBag.details.first.bid_content
+           @ViewBag.details.first.bid_introduction
         </p>
         <a href="purchase.html" class="btn btn-success btn-lg pull-right" id="adopt" role="button">采用</a>
     </div>

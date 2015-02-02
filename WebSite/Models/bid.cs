@@ -21,6 +21,7 @@ namespace WebSite.Models
         }
 
         public int bidId { get; set; }
+        [Required(ErrorMessage = "*")]
         public int purchaseId { get; set; }
         public int bidderId { get; set; }
         [Required(ErrorMessage = "*")]

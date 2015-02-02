@@ -15,6 +15,8 @@ namespace WebSite.Models
 
     public partial class invitation
     {
+        [Required(ErrorMessage = "*")]
+
         public int purchaseId { get; set; }
         public int expertId { get; set; }
         public int invitationId { get; set; }

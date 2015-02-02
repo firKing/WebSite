@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Debug;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -198,10 +199,40 @@ namespace WebSite.Controllers.Common
             }
 
         }
+        public static String UploadFileGetUrl(bid info,HttpRequestBase request)
+        {
 
+            var upload = "bid_content";
+            Assert(request.Files[upload] != null);
+
+            var file = request.Files[upload];
+            Assert(request.Files.Count == 1);
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
+            string filename = Path.GetFileName(file.FileName);
+            Assert(filename != null);
+            path = Path.Combine(path, filename);
+            file.SaveAs(path);
+            return path;
+        }
         public static bool EditRecord<T>(T record)where T :class
         {
             return new SingleTableModule<T>().Edit(record);
         }
+
+        public static T GetForiegnKeyTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
+        {
+            var Iter = GetList<T>(whereSelector).SingleOrDefault();
+            Assert(Iter != null);
+            return Iter;
+        }
+
+        public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request)
+        {
+            info.bidderId = bidderInfo.bidderId;
+            info.bid_content = UploadFileGetUrl(info, request);
+            info.bid_time = DateTime.Now;
+            info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == info.purchaseId);
+        }
+
     }
 }

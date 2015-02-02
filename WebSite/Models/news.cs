@@ -16,6 +16,8 @@ namespace WebSite.Models
     public partial class news
     {
         public int newsId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public int companyId { get; set; }
         [Required(ErrorMessage = "*")]
         public string news_title { get; set; }
