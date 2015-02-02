@@ -209,9 +209,9 @@ namespace WebSite.Controllers.Common
             var file = request.Files[upload];
             Assert(request.Files.Count == 1);
             string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(file.FileName);
-            Assert(filename != null);
-            path = Path.Combine(path, filename);
+            string fileName = Path.GetFileName(file.FileName);
+            Assert(fileName != null);
+            path = Path.Combine(path, fileName);
             file.SaveAs(path);
             return path;
         }
