@@ -50,7 +50,8 @@ namespace WebSite.Controllers
                 InithanderEventMap();
                 var id = (Int32)Session["user_id"];
                 var type = (UserType)Session["user_type"];
-                ViewBag.userName = handerEventMap[type](id);
+                var userName = handerEventMap[type](id).Substring(0,6)+ "...";
+                ViewBag.userName = userName;
                 ViewBag.login = true;
                 ViewBag.userType = type;
                 ViewBag.id = id;
