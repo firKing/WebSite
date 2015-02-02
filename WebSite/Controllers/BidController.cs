@@ -90,10 +90,10 @@ namespace WebSite.Controllers
             var file = Request.Files[upload];
             Assert(Request.Files.Count == 1);
             string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(Request.Files[upload].FileName);
+            string filename = Path.GetFileName(file.FileName);
             Assert(filename != null);
             path = Path.Combine(path, filename);
-            Request.Files[upload].SaveAs(path);
+            file.SaveAs(path);
             //info.bid_content = path;
             //}
             return path;
