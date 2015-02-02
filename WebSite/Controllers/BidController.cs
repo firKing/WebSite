@@ -55,10 +55,11 @@ namespace WebSite.Controllers
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
-                ViewBag.details = new Pair<bid, List<audit>>
+                var details = new Pair<bid, List<audit>>
                     (element,
                     GetList<audit>(x => x.bidId == id).ToList());
-                
+                ViewBag.Details = details;
+
                 return View();
             }
             else
