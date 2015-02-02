@@ -81,8 +81,8 @@ namespace WebSite.Controllers
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.list = list;
-                ViewBag.pageSum = GetSumCount<purchase, int>(x => x.companyId == sessionId,
-                    x => x.purchaseId) / count + 1;
+                ViewBag.pageSum = Math.Ceiling(GetSumCount<purchase, int>(x => x.companyId == sessionId,
+                    x => x.purchaseId) / (double)count );
                 ViewBag.pageNum = page;
                 return View();
             }
@@ -99,7 +99,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
-                ViewBag.pageSum = GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId) / count + 1;
+                ViewBag.pageSum = Math.Ceiling(GetSumCount<news, int>(x => x.companyId == sessionId, x => x.newsId) / (double)count);
                 ViewBag.pageNum = page;
                 return View();
             }

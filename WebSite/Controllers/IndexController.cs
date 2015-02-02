@@ -137,7 +137,7 @@ namespace WebSite.Controllers
                 });
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
-            ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+            ViewBag.sumPage = Math.Ceiling(GetSumCount<purchase, int>(x => x.purchaseId) / (double)count);
 
             ViewBag.detailActionName = "Purchase";
             return View(listViewName);
@@ -155,7 +155,7 @@ namespace WebSite.Controllers
                     content = new String(x.news_content.Take(200).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
-            ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId) / count + 1;
+            ViewBag.sumPage = Math.Ceiling(GetSumCount<news, int>(x => x.newsId) / (double)count);
             ViewBag.bigtitle = "新闻列表";
             ViewBag.pageNum = page;
 
@@ -175,7 +175,7 @@ namespace WebSite.Controllers
                     content = new String(x.team_introduction.Take(200).ToArray()),
                     time = new Pair<String, int>("", x.members.Count())
                 });
-            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            ViewBag.sumPage = Math.Ceiling(GetSumCount<team, int>(x => x.teamId) / (double)count );
             ViewBag.pageNum = page;
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.detailActionName = "Team";
@@ -184,9 +184,10 @@ namespace WebSite.Controllers
 
         public ActionResult ExpertList(int page)
         {
-            const int count = 8;
+            const int count = 3;
             ViewBag.list = GetList<expert, int>(page, count, x => x.user_userId).ToList();
-            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            var sum = Math.Ceiling(GetSumCount<team, int>(x => x.teamId)/(double)count);
+            ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
             return View("~/Views/Expert/List.cshtml");
         }

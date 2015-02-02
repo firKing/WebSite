@@ -65,7 +65,7 @@ namespace WebSite.Controllers
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
 
-                ViewBag.pageSum = GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId);
+                ViewBag.pageSum = Math.Ceiling(GetSumCount<member, int>(x => x.vendorId == sessionId, x => x.memberId)/(double)count);
                 var pageSum = ViewBag.pageSum;
                 ViewBag.pageNum = page;
                 ViewBag.troop = GetList<member>(page,count,
@@ -94,7 +94,7 @@ namespace WebSite.Controllers
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 const int count = 5;
-                ViewBag.pageSum = GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId);
+                ViewBag.pageSum = Math.Ceiling(GetSumCount<team, int>(x => x.createId == sessionId, x => x.teamId)/(double)count);
                 ViewBag.pageNum = page;
 
                 ViewBag.teamList = GetList<team>(page,count,x =>
@@ -119,7 +119,7 @@ namespace WebSite.Controllers
                 var id = GetBidderId(sessionId);
                 var personal = GetList<bid>(page, count, x => x.bidderId == id,x=>x.bidId).ToList().Select(x=>new Pair<bid, BidUserInfo>(x,GetBidUser(x.bidder)));
                 ViewBag.personal = personal;
-                var pageSum = GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId);
+                var pageSum = Math.Ceiling(GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId)/(double)count);
                 ViewBag.pageSum = pageSum;
                 ViewBag.pageNum = page;
                 return View();

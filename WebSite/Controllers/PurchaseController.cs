@@ -136,7 +136,7 @@ namespace WebSite.Controllers
                     name = x.bid_title,
                     content = x.bid_introduction,
                     time = new Pair<string, int>(Utility.DateTimeToString(x.bid_time), 0)});
-            ViewBag.pageSum = GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId) / count + 1;
+            ViewBag.pageSum = Math.Ceiling(GetSumCount<bid, int>(x => x.purchaseId == purchaseId, x => x.bidId) / (double)count);
             ViewBag.pageNum = page;
             
             ViewBag.detailActionName = "Bid";

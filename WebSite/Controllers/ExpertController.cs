@@ -78,7 +78,7 @@ namespace WebSite.Controllers
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 ViewBag.list = GetList<invitation,int>(page,count,x => x.expertId== sessionId,x=>x.invitationId);
-                ViewBag.sumPage = GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId) / count + 1;
+                ViewBag.sumPage = Math.Ceiling(GetSumCount<invitation, int>(x => x.expertId == sessionId, x => x.expertId) / (double)count);
                 ViewBag.pageNum = page;
                 return View();
             }
