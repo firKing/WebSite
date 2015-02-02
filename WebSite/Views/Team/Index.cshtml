@@ -19,7 +19,7 @@
 <div id="detail-main">
     <h2>组建虚拟团队</h2>
     <div id="CreateTeam">
-        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Team")">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Create", "Team")">
             <div class="form-group" style="display: none">
                 @Html.LabelFor(model => model.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
@@ -42,7 +42,7 @@
             </div>
             <fieldset disabled>
                 <div class="form-group">
-                    <label for="purchase_title" class="col-sm-3 control-label">采购信息：</label>
+                    <label for="purchase_title" class="col-sm-3 control-label">采购信息名称：</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" id="purchase_title" value="@ViewBag.purchaseTitle">
                     </div>

@@ -22,7 +22,7 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                ViewBag.purchaseTitle = purchaseId;
+                ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
                 return View();
             }
             Assert(Request.UrlReferrer != null);
