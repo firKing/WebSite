@@ -121,9 +121,9 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-        private int GetBidderId(int venderId)
+        private int GetBidderId(int vendorId)
         {
-            var element = GetList<bidder>(x => x.tendererId == venderId).SingleOrDefault();
+            var element = GetList<bidder>(x => x.tendererId == vendorId && x.bidder_is_team == false).SingleOrDefault();
             Assert(element != null);
             return element.bidderId;
         }

@@ -24,7 +24,12 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            return CreateRecord<bidder>(record);
+            var result = GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
+            if (result == null)
+            {
+                return CreateRecord<bidder>(record);
+            }
+            return  new Pair<bool, bidder>(true, result);
         }
 
         public static String DateTimeToString(DateTime time)
