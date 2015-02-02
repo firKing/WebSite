@@ -1,2 +1,18 @@
-﻿body {
+﻿#list-expert{
+    width: 1016px;
+    margin: 40px auto;
+}
+#list-expert h2{
+    position: relative;
+    color: #4db234;
+    border-bottom: 1px solid #c1c1c1;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.return_back {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    font-size: 16px;
 }
