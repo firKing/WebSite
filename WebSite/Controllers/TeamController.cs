@@ -109,6 +109,11 @@ namespace WebSite.Controllers
                 });
             }
         }
+        private String UploadFileGetUrl(bid info)
+        {
+            return Utility.UploadFileGetUrl(info, Request);
+        }
+
         [HttpPost]
         public ActionResult Create(team info,String memberNames, bid bidinfo)
         {
@@ -123,6 +128,8 @@ namespace WebSite.Controllers
                     if (bidderResult.first)
                     {
                         bidinfo.bidderId = bidderResult.second.bidderId;
+                        bidinfo.bid_time =  DateTime.Now;
+                        bidinfo.bid_content = UploadFileGetUrl(bidinfo);
                         var bidResult = CreateRecord<bid>(bidinfo);
                         if (bidResult.first)
                         {

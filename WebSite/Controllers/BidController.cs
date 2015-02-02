@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Controllers.Common.Utility;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -55,7 +56,7 @@ namespace WebSite.Controllers
                     (element,
                     GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-               
+                ViewBag.bidderName = GetBidUser(element.bidder);
                 return View();
             }
             else
@@ -72,6 +73,7 @@ namespace WebSite.Controllers
             if (CheckVendorSession()&& purchaseResult!=null)
             {
                 info.purchase = purchaseResult;
+
                 return View(info);
             }
             Assert(Request.UrlReferrer!=null);
@@ -85,21 +87,7 @@ namespace WebSite.Controllers
 
         private String UploadFileGetUrl(bid info)
         {
-            //foreach (string upload in Request.Files)
-            //{
-            var upload = "bid_content";
-            Assert(Request.Files[upload] != null);
-
-            var file = Request.Files[upload];
-            Assert(Request.Files.Count == 1);
-            string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(file.FileName);
-            Assert(filename != null);
-            path = Path.Combine(path, filename);
-            file.SaveAs(path);
-            //info.bid_content = path;
-            //}
-            return path;
+            return Utility.UploadFileGetUrl(info, Request);
         }
 
         [HttpPost]
@@ -114,7 +102,10 @@ namespace WebSite.Controllers
                     var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                     info.bidderId = bidderResult.second.bidderId;
                     info.bid_content = UploadFileGetUrl(info);
-
+                    info.bid_time = DateTime.Now;
+                    var getIter = GetList<purchase>(x => x.purchaseId == info.purchaseId).SingleOrDefault();
+                    Assert(getIter != null);
+                    info.purchase = getIter;
                     var result = CreateRecord<bid>(info);
 
                     return RedirectToAction("Detail", new { id = result.second.bidId });
