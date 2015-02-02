@@ -57,8 +57,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.bid_introduction, "概要：", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-                        @Html.TextAreaFor(model => model.bid_content, new { @class = "form-control", @placeholder = "概要", @rows = "5" })
-                        @Html.ValidationMessageFor(model => model.bid_content)
+                        @Html.TextAreaFor(model => model.bid_introduction, new { @class = "form-control", @placeholder = "概要", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.bid_introduction)
                     </div>
                 </div>
                 <div class="form-group">
