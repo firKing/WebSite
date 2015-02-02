@@ -55,11 +55,11 @@ namespace WebSite.Controllers
                 switch (user_type)
                 {
                     case "Company":
-                        return View("Index", ((company)findResult).user);
+                        return View("Edit", ((company)findResult).user);
                     case "Expert":
-                        return View("Index", ((expert)findResult).user);
+                        return View("Edit", ((expert)findResult).user);
                     case "Vendor":
-                        return View("Index", ((vendor)findResult).user);
+                        return View("Edit", ((vendor)findResult).user);
                 }
             }
             return HttpNotFound();

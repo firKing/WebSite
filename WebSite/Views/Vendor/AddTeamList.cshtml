@@ -67,18 +67,7 @@
                         </div>
                     }
                 </div>
-                <ul class="pagination">
-                    <li class="@if (@ViewBag.pageNum == 1) { @Html.Raw("action disabled") } "><a href="@Url.Action("AddTeamList", "Vendor")?page=@ViewBag.prev"><span aria-hidden="true">&laquo;</span></a></li>
-                    @for (int i = 1; i <= @ViewBag.pageSum; i++)
-                    {
-                        <li class='@if (@ViewBag.pageNum == i)
-                                   {
-                                       @Html.Raw("action disabled")
-
-                                   }'><a href="@ViewBag.parent?page=@i">@i</a></li>
-                    }
-                    <li class="@if (@ViewBag.pageNum == @ViewBag.pageSum) { @Html.Raw("action disabled") } "><a href="@Url.Action("AddTeamList", "Vendor")?page=@ViewBag.next"><span aria-hidden="true">&raquo;</span></a></li>
-                </ul>
+              
             </div>
         </div>
     </div>
