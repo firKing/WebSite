@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     var user_type = $("#login").attr("title") || false;
-    console.log(user_type);
     if (user_type != "Vendor") {
         $("a.btn").attr("href", "");
     }
