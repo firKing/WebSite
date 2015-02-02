@@ -48,7 +48,7 @@
     position: relative;
 }
 
-.content .col-md-8 .title .change{
+.content .col-md-8 .title .change, .content .col-md-8 .title  .href_btn{
     width: 115px;
     height: 37px;
     line-height: 37px;
