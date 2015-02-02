@@ -19,7 +19,14 @@
 <div id="detail-main">
     <h2>组建虚拟团队</h2>
     <div id="CreateTeam">
-        <form class="form-horizontal" role="form" method="POST" action="">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Team")">
+            <div class="form-group" style="display: none">
+                @Html.LabelFor(model => model.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.purchaseId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.purchaseId)
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.team_name, "队名：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
@@ -33,17 +40,18 @@
                     <input type="text" name="invitees" class="form-control" id="inputMember" placeholder="成员姓名" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content=" 成员之间用逗号隔开">
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.purchase, "采购对象：", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.purchase, new { @class = "form-control", @placeholder = "采购对象" })
-                    @Html.ValidationMessageFor(model => model.purchase)
+            <fieldset disabled>
+                <div class="form-group">
+                    <label for="purchase_title" class="col-sm-3 control-label">采购信息：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="purchase_title" value="@ViewBag.purchaseTitle">
+                    </div>
                 </div>
-            </div>
+            </fieldset>
             <div class="form-group">
                 @Html.LabelFor(model => model.team_introduction, "概要：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.team_introduction, new { @class = "form-control", @row="5" })
+                    @Html.TextAreaFor(model => model.team_introduction, new { @class = "form-control", @row = "5" })
                     @Html.ValidationMessageFor(model => model.team_introduction)
                 </div>
             </div>

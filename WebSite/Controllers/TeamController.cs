@@ -82,8 +82,6 @@ namespace WebSite.Controllers
         private void CreateMembers(int teamId, List<String> nameList)
         {
             //Assert ExpertName Exsit
-
-
             Assert(nameList
                 .Select(x =>
                 GetList<vendor>(y =>
