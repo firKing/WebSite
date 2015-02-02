@@ -20,7 +20,12 @@ namespace WebSite.Controllers
         // GET: Team
         public ActionResult Index()
         {
-            return View();
+            if (CheckSession())
+            {
+                return View();
+            }
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
@@ -48,7 +53,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                                return HttpNotFound();
+                return HttpNotFound();
             }
         }
         //参数 json teamId:teamIdValue

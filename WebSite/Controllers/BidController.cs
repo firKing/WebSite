@@ -13,11 +13,7 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-        public class BidUserInfo
-        {
-            public String name { get; set; }
-            public String introduction { get; set; }
-        }
+       
        
         private bool CheckVendorSession()
         {
@@ -74,7 +70,8 @@ namespace WebSite.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer!=null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
@@ -119,10 +116,9 @@ namespace WebSite.Controllers
 
                     return RedirectToAction("Detail", new { id = result.second.bidId });
                 }
-                Assert(Request.UrlReferrer != null);
-                return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]
