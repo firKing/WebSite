@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Controllers.Common.Utility;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -113,7 +114,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
-                ViewBag.personal = GetList<bid>(page, count, x => x.bidderId == id,x=>x.bidId).ToList();
+                ViewBag.personal = GetList<bid>(page, count, x => x.bidderId == id,x=>x.bidId).ToList().Select(x=>new Pair<bid, BidUserInfo>(x,GetBidUser(x.bidder)));
                 ViewBag.pageSum = GetSumCount<bid, int>(x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageNum = page;
                 return View();
