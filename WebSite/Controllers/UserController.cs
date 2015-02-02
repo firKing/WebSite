@@ -15,6 +15,11 @@ namespace WebSite.Controllers
             return View(db.users.ToList());
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         // GET: User/Details/5
         public ActionResult Details(int? id)
         {
