@@ -1,6 +1,7 @@
 ﻿#list-main{
     width: 1016px;
     margin: 40px auto;
+    overflow: hidden;
 }
 #list-main h2{
     position: relative;
@@ -14,9 +15,6 @@
     font-size: 15px;
 }
 
-.content{
-    min-height: 800px;
-}
 
 .content .col-md-4 ul {
     margin: 20px 0;
