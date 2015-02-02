@@ -198,5 +198,10 @@ namespace WebSite.Controllers.Common
             }
 
         }
+
+        public static bool EditRecord<T>(T record)where T :class
+        {
+            return new SingleTableModule<T>().Edit(record);
+        }
     }
 }
