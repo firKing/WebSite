@@ -24,6 +24,7 @@ namespace WebSite.Controllers
             var element = GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
             if (element != null)
             {
+                ViewBag.creator = Utility.GetForiegnKeyTableRecord<vendor>(x => x.vendorId == element.vendorId).user.user_name;
                 ViewBag.name = element.user.user_name;
                 ViewBag.phone = element.user.user_telephone;
                 ViewBag.email = element.user.user_mail;

@@ -47,7 +47,7 @@ namespace WebSite.Controllers
                 ViewBag.content = element.team_introduction;
                 ViewBag.time = "";
                 ViewBag.teamId = element.teamId;
-                ViewBag.creator = element.createId;
+                ViewBag.creator = Utility.GetForiegnKeyTableRecord<vendor>(x => x.vendorId == element.createId).user.user_name;
                 ViewBag.detailActionName = "Team";
                 return View("~/Views/Shared/detail.cshtml");
             }
