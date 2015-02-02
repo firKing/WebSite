@@ -59,10 +59,18 @@
 <script>
     $(document).ready(function () {
        
-        $("#inputMember").on('blur', function (e) {
+        $("#inputMember").on('keydown', function (e) {
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");
 
+            if (name.length === 0) {
+                setTimeout(function () {
+                    console.log(123);
+                    $(this).attr("data-content", '成员之间用逗号隔开');
+                    return;
+                }, 100);
+            }
+            
             $.ajax({
                 type: "post",
                 url: "@Url.Action("CheckMemberListNameExist", "Verify")",
@@ -70,11 +78,13 @@
                 dataType: "json",
                 success: function (data) {
                     var msg = null;
-                    if (data instanceof Array && data.length > 0) {
+                    if (data instanceof Array && data.length > 0 && data[0].length > 0) {
                         var str = data.join(",");
                         msg = str + "这些用户名错误！";
                         $("#inputMember").attr("data-content", msg);
                         $('#inputMember').popover('show');
+                    } else {
+                        $("#inputMember").attr("data-content", "成员之间用逗号隔开");
                     }
 
                 }
