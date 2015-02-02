@@ -18,10 +18,11 @@ namespace WebSite.Controllers
         //创建虚拟团队
         
         // GET: Team
-        public ActionResult Index()
+        public ActionResult Index(int purchaseId)
         {
             if (CheckSession())
             {
+                ViewBag.purchaseTitle = purchaseId;
                 return View();
             }
             Assert(Request.UrlReferrer != null);
