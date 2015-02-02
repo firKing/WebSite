@@ -67,9 +67,9 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(news info)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
             {
-                info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
+                info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
                CreateRecord<news>(info);
                 return View("Detail");
             }

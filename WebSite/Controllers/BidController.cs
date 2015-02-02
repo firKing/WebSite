@@ -71,6 +71,7 @@ namespace WebSite.Controllers
             var info = new bid();
             if (CheckVendorSession())
             {
+                info.purchaseId = purchaseId;
                 info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId);
                 return View(info);
             }
@@ -91,12 +92,13 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(bid info)
         {
+            
             //只有Vendor走这里
             if (CheckVendorSession())
             {
                 Assert((UserType)Session["user_type"] == UserType.Vendor);
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                if (ModelState.IsValid&&bidderResult.first)
+                if (/*ModelState.IsValid&&*/bidderResult.first)
                 {
                     Utility.FillBidRecord(info,bidderResult.second,Request);
                     var result = CreateRecord<bid>(info);
