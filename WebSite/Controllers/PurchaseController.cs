@@ -62,13 +62,17 @@ namespace WebSite.Controllers
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            foreach (var expertId in expertIdList)
+            foreach (var iter in expertIdList)
             {
+                var expertId = iter;
                 CreateRecord<invitation>(new invitation
                 {
                     invitation_content = invitationContent,
                     purchaseId = purchaseId,
-                    expertId = expertId
+                    expertId = expertId,
+                    invitation_time = DateTime.Now,
+                    expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == expertId),
+                    purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId),
                 });
             }
         }
@@ -76,8 +80,10 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(purchase info, String invitees, String invitationContent)
         {
+            
             if (ModelState.IsValid)
             {
+                info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
