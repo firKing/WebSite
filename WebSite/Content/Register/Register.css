@@ -48,3 +48,13 @@
 .passed{
     color: green;
 }
+
+.has_error {
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    box-shadow: none;
+}
+.has_error:focus{
+    border-color: #e74c3c;
+    box-shadow: none;
+}
