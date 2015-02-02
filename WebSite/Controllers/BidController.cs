@@ -70,6 +70,7 @@ namespace WebSite.Controllers
             {
                 return View();
             }
+            Assert(Request.UrlReferrer!=null);
             return Redirect(Request.UrlReferrer.ToString());
         }
 
