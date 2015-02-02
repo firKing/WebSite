@@ -18,7 +18,7 @@ namespace WebSite.Controllers
       
         public ActionResult Index()
         {
-            return View();
+            return View(new user {});
         }
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
