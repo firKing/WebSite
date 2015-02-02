@@ -228,10 +228,11 @@ namespace WebSite.Controllers.Common
 
         public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request)
         {
+           // info.bidder = bidderInfo;
             info.bidderId = bidderInfo.bidderId;
             info.bid_content = UploadFileGetUrl(info, request);
             info.bid_time = DateTime.Now;
-            info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == info.purchaseId);
+           // info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == info.purchaseId);
         }
 
     }

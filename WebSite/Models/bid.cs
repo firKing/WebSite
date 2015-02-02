@@ -37,7 +37,7 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
         [StringLength(500, ErrorMessage = "Please enter introduction less 500 characters")]
         public string bid_introduction { get; set; }
-    //    [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "*")]
         public string bid_content { get; set; }
         public virtual ICollection<audit> audits { get; set; }
         public virtual bidder bidder { get; set; }
