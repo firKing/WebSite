@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Controllers.Common.Utility;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -55,7 +56,7 @@ namespace WebSite.Controllers
                     (element,
                     GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-
+                ViewBag.bidderName = GetBidUser(element.bidder);
                 return View();
             }
             else
