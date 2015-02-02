@@ -89,10 +89,10 @@ namespace WebSite.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            var expertList = GetList<expert>(1).ToList();
-            var newsList = GetList<news>(6).ToList();
-            var purchaseList = GetList<purchase>(6).ToList();
-            var teamList = GetList<team>(12).ToList();
+            var expertList = Utility.GetList<expert>(1).ToList();
+            var newsList = Utility.GetList<news>(6).ToList();
+            var purchaseList = Utility.GetList<purchase>(6).ToList();
+            var teamList = Utility.GetList<team>(12).ToList();
 
             ViewBag.experts = expertList
                 .Select(record => new IndexStruct
@@ -127,7 +127,7 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<purchase, int>(page, count, x => x.purchaseId).ToList().
+            ViewBag.list = Utility.GetList<purchase, int>(page, count, x => x.purchaseId).ToList().
                 Select(x => new IndexStruct
                 {
                     detailId = x.purchaseId,
@@ -146,7 +146,7 @@ namespace WebSite.Controllers
         public ActionResult NewsList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<news, int>
+            ViewBag.list = Utility.GetList<news, int>
                 (page, count, x => x.newsId).ToList().
                 Select(x => new IndexStruct
                 {
@@ -167,7 +167,7 @@ namespace WebSite.Controllers
         public ActionResult TeamList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<team, int>(page, count, x => x.teamId).ToList()
+            ViewBag.list = Utility.GetList<team, int>(page, count, x => x.teamId).ToList()
                 .Select(x => new IndexStruct
                 {
                     detailId = x.teamId,
@@ -185,22 +185,13 @@ namespace WebSite.Controllers
         public ActionResult ExpertList(int page)
         {
             const int count = 3;
-            ViewBag.list = GetList<expert, int>(page, count, x => x.user_userId).ToList();
+            ViewBag.list = Utility.GetList<expert, int>(page, count, x => x.user_userId).ToList();
             var sum = GetSumPage<team, int>(count,x => x.teamId);
             ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
             return View("~/Views/Expert/List.cshtml");
         }
 
-        private IQueryable<T> GetList<T>(int countMax) where T : class
-        {
-            return Utility.GetList<T>(x => true).Take(countMax);
-        }
-
-        private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, TKey>> keySelector) where T : class
-        {
-            return Utility.GetList(page, count, keySelector);
-        }
 
         private int GetSumPage<T, TKey>(double count,Expression<Func<T, TKey>> keySelector) where T : class
         {

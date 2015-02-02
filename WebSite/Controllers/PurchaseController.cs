@@ -26,7 +26,7 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = GetList<purchase>(x => x.purchaseId == id).SingleOrDefault();
+            var element = Utility.GetList<purchase>(x => x.purchaseId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.detail = element;
@@ -49,9 +49,10 @@ namespace WebSite.Controllers
         {
             if (Utility.CheckSession(UserType.Company, Session))
             {
+                var sessionId = (Int32)Session["user_id"];
                 ViewBag.companyName =
-               Utility.GetSingleTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]).user.user_name;
-                return View(new purchase());
+               Utility.GetSingleTableRecord<company>(x => x.companyId == sessionId).user.user_name;
+                return View(new PurchaseModel());
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
@@ -64,7 +65,7 @@ namespace WebSite.Controllers
 
             Assert(expertNameList
                 .Select(x =>
-                GetList<expert>(y =>
+                Utility.GetList<expert>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                     .SingleOrDefault() != null)
@@ -74,7 +75,7 @@ namespace WebSite.Controllers
 
             var expertIdList = expertNameList
                 .Select(x =>
-                    GetList<expert>(y =>
+                    Utility.GetList<expert>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
@@ -94,9 +95,12 @@ namespace WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(purchase info, String invitees, String invitationContent)
+        public ActionResult Create(PurchaseModel model)
         {
-            
+
+            purchase info = model.info;
+            String invitees = model.invitees;
+            String invitationContent = model.invitationContent;
             if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
             {
                 info.companyId = (Int32)Session["user_id"];
@@ -112,17 +116,9 @@ namespace WebSite.Controllers
             return RedirectToAction("Home", "Company");
         }
 
-        private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
-        {
-            return Utility.GetList(page, count, whereSelector, keySelector);
-        }
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
-        }
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
         }
         private int GetSumPage<T, TKey>(double count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
@@ -132,7 +128,7 @@ namespace WebSite.Controllers
 
         private String GetPurchaseTitle(int purchaseId)
         {
-            var result = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             return result.purchase_title;
         }
@@ -140,7 +136,7 @@ namespace WebSite.Controllers
         public ActionResult BidList(int purchaseId, int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x=>new IndexStruct {
+            ViewBag.list = Utility.GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x=>new IndexStruct {
                     detailId = x.bidId,
                     name = x.bid_title,
                     content = x.bid_introduction,
@@ -158,7 +154,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            var result = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             result.hitId = bidId;
            var sign = new SingleTableModule<purchase>().Edit(result);

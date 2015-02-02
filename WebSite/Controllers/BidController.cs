@@ -29,7 +29,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public void DeleteBid(int bidId)
         {
-            var result = GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
+            var result = Utility.GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
             Assert(result != null);
             new SingleTableModule<bid>().Delete(result);
         }
@@ -38,10 +38,7 @@ namespace WebSite.Controllers
         {
             return  System.IO.Path.GetFileName(path);
         }
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
-        }
+        
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
@@ -49,13 +46,13 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = GetList<bid>(x=>x.bidId == id).SingleOrDefault();
+            var element = Utility.GetList<bid>(x=>x.bidId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
                 var details = new Pair<bid, List<audit>>
                     (element,
-                    GetList<audit>(x => x.bidId == id).ToList());
+                    Utility.GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
                 ViewBag.bidderName = GetBidUser(element.bidder);
                 return View();

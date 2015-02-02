@@ -20,28 +20,24 @@ namespace WebSite.Controllers
         {
             return View(new user {});
         }
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
-        }
         delegate object FindTableRecordHandler(int id);
         private Dictionary<String, FindTableRecordHandler> GetFindTableRecordMap()
         {
             var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
             findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
             {
-                var result = GetList<expert>(x => x.expertId == id).SingleOrDefault();
+                var result = Utility.GetList<expert>(x => x.expertId == id).SingleOrDefault();
                 return result;
             });
             findTableRecordMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = GetList<company>(x => x.companyId == id).SingleOrDefault();
+                var result = Utility.GetList<company>(x => x.companyId == id).SingleOrDefault();
                 return result;
 
             });
             findTableRecordMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
                 return result;
 
             });
@@ -92,7 +88,7 @@ namespace WebSite.Controllers
                     ,info);
                 if (createResult.first)
                 {
-                    var findIter = GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
+                    var findIter = Utility.GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
                     Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);

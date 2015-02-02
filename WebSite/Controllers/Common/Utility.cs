@@ -26,7 +26,7 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            var result = GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
+            var result = Utility.GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
             if (result == null)
             {
                 return CreateRecord<bidder>(record);
@@ -75,6 +75,10 @@ namespace WebSite.Controllers.Common
                  ((UserType)session["user_type"] == type);
         }
 
+        public static IQueryable<T> GetList<T>(int countMax) where T : class
+        {
+            return Utility.GetList<T>(x => true).Take(countMax);
+        }
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             var result = new SingleTableModule<T>().FindInfo(expression);
@@ -111,19 +115,19 @@ namespace WebSite.Controllers.Common
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(), (int id) =>
              {
-                 var result = GetList<expert>(x => x.user_userId == id).SingleOrDefault();
+                 var result = Utility.GetList<expert>(x => x.user_userId == id).SingleOrDefault();
                  Assert(result != null);
                  SetSession(session, result.expertId, UserType.Expert);
              });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = GetList<company>(x => x.user_userId == id).SingleOrDefault();
+                var result = Utility.GetList<company>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.vendorId, UserType.Vendor);
             });
@@ -180,7 +184,7 @@ namespace WebSite.Controllers.Common
         {
             if (info.bidder_is_team)
             {
-                var result = GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
+                var result = Utility.GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -190,7 +194,7 @@ namespace WebSite.Controllers.Common
             }
             else
             {
-                var result = GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
                 Assert(result != null);
                 return new BidUserInfo
                 {
