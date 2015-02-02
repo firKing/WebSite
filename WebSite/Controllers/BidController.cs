@@ -13,6 +13,12 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
+        public class BidUserInfo
+        {
+            public String name { get; set; }
+            public String introduction { get; set; }
+        }
+       
         private bool CheckVendorSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);

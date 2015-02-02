@@ -134,7 +134,7 @@ namespace WebSite.Controllers.Common
             registerEventMap.Add(UserType.Expert.ToString(), (int id) =>
             {
                 var random = new Random();
-                var number = random.Next(0, 5);
+                var number = random.Next(1, 5);
                var imageUrl = @"Protrait/" + number.ToString() + ".jpg";
                CreateRecord<expert>(new expert { user_userId = id , expert_image  = imageUrl});
             });
@@ -168,6 +168,35 @@ namespace WebSite.Controllers.Common
         public static int GetSumCount<T, TKey>(Expression<Func<T, TKey>> keySelector) where T : class
         {
             return GetSumCount(x => true, keySelector);
+        }
+        public class BidUserInfo
+        {
+            public String name { get; set; }
+            public String introduction { get; set; }
+        }
+        public static BidUserInfo GetBidUser(bidder info)
+        {
+            if (info.bidder_is_team)
+            {
+                var result = GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
+                Assert(result != null);
+                return new BidUserInfo
+                {
+                    name = result.team_name,
+                    introduction = result.team_introduction
+                };
+            }
+            else
+            {
+                var result = GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
+                Assert(result != null);
+                return new BidUserInfo
+                {
+                    name = result.user.user_name,
+                    introduction = result.user.user_introduction
+                };
+            }
+
         }
     }
 }
