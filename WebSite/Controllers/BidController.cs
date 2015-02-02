@@ -13,11 +13,7 @@ namespace WebSite.Controllers
 {
     public class BidController : Controller
     {
-        public class BidUserInfo
-        {
-            public String name { get; set; }
-            public String introduction { get; set; }
-        }
+       
        
         private bool CheckVendorSession()
         {
@@ -75,7 +71,8 @@ namespace WebSite.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer!=null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private Pair<bool, bidder> CreateBidder(int tenderId, UserType type)
@@ -83,24 +80,23 @@ namespace WebSite.Controllers
             return Utility.CreateBidder(tenderId, type);
         }
 
-        private List<String> UploadFileGetUrl(bid info)
+        private String UploadFileGetUrl(bid info)
         {
-            var result = new List<String>();
-            foreach (string upload in Request.Files)
-            {
-                Assert(upload == "bid_content");
-                Assert(Request.Files.Count == 1);
-                Assert(Request.Files[upload] != null);
-                string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-                string filename = Path.GetFileName(Request.Files[upload].FileName);
-                Assert(filename != null);
-                path = Path.Combine(path, filename);
-                Request.Files[upload].SaveAs(path);
-                //info.bid_content = path;
-                result.Add(path);
-            }
-            Assert(result.Count()==1);
-            return result;
+            //foreach (string upload in Request.Files)
+            //{
+            var upload = "bid_content";
+            Assert(Request.Files[upload] != null);
+
+            var file = Request.Files[upload];
+            Assert(Request.Files.Count == 1);
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
+            string filename = Path.GetFileName(Request.Files[upload].FileName);
+            Assert(filename != null);
+            path = Path.Combine(path, filename);
+            Request.Files[upload].SaveAs(path);
+            //info.bid_content = path;
+            //}
+            return path;
         }
 
         [HttpPost]
@@ -114,16 +110,15 @@ namespace WebSite.Controllers
                 {
                     var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                     info.bidderId = bidderResult.second.bidderId;
-                    info.bid_content = UploadFileGetUrl(info).SingleOrDefault();
+                    info.bid_content = UploadFileGetUrl(info);
 
                     var result = CreateRecord<bid>(info);
 
                     return RedirectToAction("Detail", new { id = result.second.bidId });
                 }
-                Assert(Request.UrlReferrer != null);
-                return Redirect(Request.UrlReferrer.AbsoluteUri);
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]
@@ -131,7 +126,9 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid&& CheckExpertSession())
             {
-                var result = CreateRecord<audit>(info);
+                var expertId = (Int32) Session["user_id"];
+                info.expertId = expertId;
+                CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }

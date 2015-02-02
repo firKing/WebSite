@@ -15,6 +15,7 @@
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Script/PurchaseDetail/PurchaseDetail.js")
 }
 @section title{
     采购需求
@@ -31,8 +32,8 @@
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>概况：@ViewBag.detail.purchase_content</p>
-                <a href="@Url.Action("Index", "Team")" class="btn btn-success">组建虚拟团队竞标</a>
-                <a href="@Url.Action("Create","Bid")" class="btn btn-warning">我要竞标</a>
+                <button href="@Url.Action("Index", "Team")" class="btn btn-success">组建虚拟团队竞标</button>
+                <button href="@Url.Action("Create","Bid")" class="btn btn-warning">我要竞标</button>
             </div>
         </div>
         <div class="col-md-3">
@@ -46,7 +47,7 @@
                         }
                         else
                         {
-                            @ViewBag.underway
+                            @ViewBag.underway;
                         }
                     </span>
                 </li>

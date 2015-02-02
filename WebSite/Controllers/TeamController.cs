@@ -20,7 +20,12 @@ namespace WebSite.Controllers
         // GET: Team
         public ActionResult Index()
         {
-            return View();
+            if (CheckSession())
+            {
+                return View();
+            }
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
         private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
@@ -42,13 +47,13 @@ namespace WebSite.Controllers
                 ViewBag.content = element.team_introduction;
                 ViewBag.time = "";
                 ViewBag.teamId = element.teamId;
-                ViewBag.creator = element.purchase.company.user.user_name;
+                ViewBag.creator = element.createId;
                 ViewBag.detailActionName = "Team";
                 return View("~/Views/Shared/detail.cshtml");
             }
             else
             {
-                                return HttpNotFound();
+                return HttpNotFound();
             }
         }
         //参数 json teamId:teamIdValue

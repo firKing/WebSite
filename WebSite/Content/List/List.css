@@ -56,3 +56,6 @@
     background: #5cb85c;
     border: 1px solid #5ea63a;
 }
+.disabled a{
+    pointer-events: none;
+}

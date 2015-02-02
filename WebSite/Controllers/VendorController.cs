@@ -51,7 +51,8 @@ namespace WebSite.Controllers
                 ViewBag.home = result;
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //加入的团队列表
@@ -103,7 +104,8 @@ namespace WebSite.Controllers
                                 y.teamId == x.teamId).ToList()));
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult PublishBidList(int page)
@@ -119,7 +121,8 @@ namespace WebSite.Controllers
                 ViewBag.pageNum = page;
                 return View();
             }
-            return RedirectToAction("Index", "Index");
+            Assert(Request.UrlReferrer != null);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private int GetBidderId(int vendorId)
