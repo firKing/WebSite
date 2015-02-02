@@ -183,6 +183,7 @@
                         <ul class="nav navbar-nav navbar-right" id="login">
                             <li>@Html.ActionLink(@userName, "Home", @type)</li>
                             <li>@Html.ActionLink("退出登录", "LoginOut", "Verify")</li>
+                            <span style="display: none">@ViewBag.userType</span>
                         </ul>
                     }
                     else
