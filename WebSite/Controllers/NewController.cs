@@ -28,10 +28,6 @@ namespace WebSite.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
-        }
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
@@ -39,7 +35,7 @@ namespace WebSite.Controllers
         // GET: NewList
         public ActionResult Detail(int id)
         {
-            var element = GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var element = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.news_title;
@@ -81,7 +77,7 @@ namespace WebSite.Controllers
         public ActionResult Delete(int id)
         {
             var result = false;
-            var element = GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var element = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (element != null)
             {
                 result = new SingleTableModule<news>().Delete(element);
@@ -92,7 +88,7 @@ namespace WebSite.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var query = GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var query = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
             if (query == null)
             {
                 return HttpNotFound();

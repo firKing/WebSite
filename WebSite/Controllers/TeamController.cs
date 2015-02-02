@@ -22,16 +22,13 @@ namespace WebSite.Controllers
         {
             if (CheckSession())
             {
-                ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
+                ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x=>x.purchaseId == purchaseId).purchase_title;
                 return View();
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
-        }
+      
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
@@ -41,7 +38,7 @@ namespace WebSite.Controllers
         public ActionResult Detail(int id)
         {
             //名字,内容,创建公司.时间
-            var element = GetList<team>(x => x.teamId == id).SingleOrDefault();
+            var element = Utility.GetList<team>(x => x.teamId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.team_name;
@@ -85,7 +82,7 @@ namespace WebSite.Controllers
             //Assert ExpertName Exsit
             Assert(nameList
                 .Select(x =>
-                GetList<vendor>(y =>
+                Utility.GetList<vendor>(y =>
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                     .SingleOrDefault() != null)
@@ -94,7 +91,7 @@ namespace WebSite.Controllers
                         y ));
             var vendorIdList = nameList
                 .Select(x =>
-                GetList<vendor>(y =>
+                Utility.GetList<vendor>(y =>
                 y.user.user_name == x &&
                 y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().vendorId).ToList();

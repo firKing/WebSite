@@ -25,7 +25,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var element = GetList<company>(x => x.companyId == id).SingleOrDefault();
+            var element = Utility.GetList<company>(x => x.companyId == id).SingleOrDefault();
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -46,7 +46,7 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                var result = GetList<company>(x => x.companyId == sessionId).SingleOrDefault();
+                var result = Utility.GetList<company>(x => x.companyId == sessionId).SingleOrDefault();
                 Assert(result != null);
                 ViewBag.home = result;
                 return View();
@@ -55,14 +55,6 @@ namespace WebSite.Controllers
         }
 
         //获取companyId有关的列表
-        private List<T> GetList<T, TKey>(int page, int count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
-        {
-            return Utility.GetList<T, TKey>(page, count, whereSelector, keySelector).ToList();
-        }
-        private IQueryable<T> GetList<T>(Expression<Func<T, bool>> whereSelector) where T : class
-        {
-            return Utility.GetList<T>(whereSelector);
-        }
         private int GetSumPage<T, TKey>(double count,Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
             return (int) Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector)/count);
@@ -77,7 +69,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 const int count = 5;
-                var list = GetList<purchase, int>(page, count,
+                var list = Utility.GetList<purchase, int>(page, count,
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.list = list;
@@ -98,7 +90,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
-                ViewBag.list = GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
+                ViewBag.list = Utility.GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageSum = GetSumPage<news, int>(count,x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageNum = page;
                 return View();
@@ -114,7 +106,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
-                ViewBag.list = GetList<invitation, int>(page, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
+                ViewBag.list = Utility.GetList<invitation, int>(page, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
                 ViewBag.pageSum = GetSumPage<invitation, int>(count,x => x.purchase.companyId == sessionId, x => x.invitationId);
                 ViewBag.pageNum = page;
                 return View();
