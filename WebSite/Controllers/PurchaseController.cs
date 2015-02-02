@@ -80,8 +80,8 @@ namespace WebSite.Controllers
                     purchaseId = purchaseId,
                     expertId = expertId,
                     invitation_time = DateTime.Now,
-                    expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == expertId),
-                    purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId),
+                  //  expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == expertId),
+                  //  purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId),
                 });
             }
         }
@@ -92,7 +92,7 @@ namespace WebSite.Controllers
             
             if (ModelState.IsValid)
             {
-                info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
+                //info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == info.companyId);
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {

@@ -10,7 +10,7 @@
     ViewBag.detail = ViewBag.detailActionName+"/Detail?id=";
 }
 @section title{
-    列表
+   ViewBag.bigtitle 列表
 }
 
 
@@ -29,7 +29,7 @@
 <!--详情页主体部分-->
 <div id="list-main">
     <h2>
-        @ViewBag.bigtitle
+        <span id="page_title">@ViewBag.bigtitle</span>
         <script type="text/javascript">document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://znsv.baidu.com/customer_search/api/js?sid=4129137774415690631') + '&plate_url=' + (encodeURIComponent(window.location.href)) + '&t=' + (Math.ceil(new Date()/3600000)) + unescape('"%3E%3C/script%3E'));</script>
     </h2>
     <ul>
@@ -66,3 +66,25 @@
     </nav>
 </div>
 <!--详情页主体部分-->
+<script>
+    var h2 = $("#page_title");
+    var main_nav = $("#main-nav");
+    var index = null;
+    console.log(h2.text());
+    if (h2.text() === '新闻列表') {
+        index = 1;
+        console.log(123);
+    }
+    else if (h2.text() === "采购信息") {
+        index = 2;
+    }
+    else if (h2.text() === "专家名单") {
+        index = 3;
+    }
+    else if (h2.text() === "虚拟团队") {
+        index = 4;
+    }
+
+
+    main_nav.find('li').eq(index).addClass("active");
+</script> 

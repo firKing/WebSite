@@ -106,8 +106,8 @@ namespace WebSite.Controllers
                 {
                     teamId = teamId,
                     vendorId = vendorId,
-                    team = Utility.GetForiegnKeyTableRecord<team>(x=>x.teamId == teamId),
-                    vendor = Utility.GetForiegnKeyTableRecord<vendor>(x=>x.vendorId == vendorId),
+                  //  team = Utility.GetForiegnKeyTableRecord<team>(x=>x.teamId == teamId),
+                  //  vendor = Utility.GetForiegnKeyTableRecord<vendor>(x=>x.vendorId == vendorId),
                 });
             }
         }

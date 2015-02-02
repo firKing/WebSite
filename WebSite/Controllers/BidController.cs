@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
@@ -72,7 +73,7 @@ namespace WebSite.Controllers
             if (CheckVendorSession())
             {
                 info.purchaseId = purchaseId;
-                info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId);
+                ViewBag.purchaseTitle = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
                 return View(info);
             }
             Assert(Request.UrlReferrer!=null);
@@ -98,12 +99,23 @@ namespace WebSite.Controllers
             {
                 Assert((UserType)Session["user_type"] == UserType.Vendor);
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
-                if (/*ModelState.IsValid&&*/bidderResult.first)
+                if (ModelState.IsValid&&bidderResult.first)
                 {
                     Utility.FillBidRecord(info,bidderResult.second,Request);
-                    var result = CreateRecord<bid>(info);
+                    var result = new Pair<bool, bid>();
+                    
+                    //try
+                    //{
+                        result = CreateRecord<bid>(info);
 
+                    //}
+                    //catch (DbEntityValidationException dbEx)
+                    //{
+                    //    int a = 0;
+                    //}
                     return RedirectToAction("Detail", new { id = result.second.bidId });
+
+
                 }
             }
             Assert(Request.UrlReferrer != null);
@@ -117,9 +129,9 @@ namespace WebSite.Controllers
             {
                 var expertId = (Int32) Session["user_id"];
                 info.expertId = expertId;
-                info.expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == info.expertId);
+               // info.expert = Utility.GetForiegnKeyTableRecord<expert>(x => x.expertId == info.expertId);
                 info.audit_time = DateTime.Now;
-                info.bid = Utility.GetForiegnKeyTableRecord<bid>(x => x.bidId == info.bidId);
+               // info.bid = Utility.GetForiegnKeyTableRecord<bid>(x => x.bidId == info.bidId);
                 CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });
