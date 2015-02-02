@@ -139,7 +139,11 @@
                         if (status.toString() === "true") {
                             var pathname = location.pathname;
                             var origin = pathname.split("/")[1];
-                            location.href = location.protocol + "//" +  location.host + origin + href;
+                            if (typeof origin === 'string' && origin.length === 0) {
+                                location.href = location.protocol + "//" + location.host + origin + href;
+                            } else {
+                                location.href = location.protocol + "//" + location.host  + href;
+                            }
                         } else {
                             log("登陆失败");
                         }
