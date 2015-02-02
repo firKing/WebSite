@@ -65,11 +65,13 @@ namespace WebSite.Controllers
         }
 
         //获取标书详情
-        public ActionResult Create()
+        public ActionResult Create(int purchaseId)
         {
+            var info = new bid();
+            info.purchaseId = purchaseId;
             if (CheckVendorSession())
             {
-                return View();
+                return View(info);
             }
             Assert(Request.UrlReferrer!=null);
             return Redirect(Request.UrlReferrer.ToString());
@@ -90,10 +92,10 @@ namespace WebSite.Controllers
             var file = Request.Files[upload];
             Assert(Request.Files.Count == 1);
             string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(Request.Files[upload].FileName);
+            string filename = Path.GetFileName(file.FileName);
             Assert(filename != null);
             path = Path.Combine(path, filename);
-            Request.Files[upload].SaveAs(path);
+            file.SaveAs(path);
             //info.bid_content = path;
             //}
             return path;
