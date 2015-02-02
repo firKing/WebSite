@@ -1,13 +1,17 @@
-﻿window.onload = function isLogin() {
+﻿$(document).ready(function () {
     var user_type = $("#login").attr("title") || false;
+    console.log(user_type);
     if (user_type != "Vendor") {
         $("a.btn").attr("href", "");
     }
-    $("button.btn").click(function() {
+    $("a.btn").click(function() {
         if (!user_type) {
             alert("请登录!");
+            return false;
         } else if (user_type != "Vendor") {
             alert("请以供应商身份登录!");
+            return false;
         }
     });
-};
+});
+
