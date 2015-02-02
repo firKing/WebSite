@@ -68,9 +68,10 @@ namespace WebSite.Controllers
         public ActionResult Create(int purchaseId)
         {
             var info = new bid();
-            info.purchaseId = purchaseId;
-            if (CheckVendorSession())
+            var purchaseResult = GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+            if (CheckVendorSession()&& purchaseResult!=null)
             {
+                info.purchase = purchaseResult;
                 return View(info);
             }
             Assert(Request.UrlReferrer!=null);
