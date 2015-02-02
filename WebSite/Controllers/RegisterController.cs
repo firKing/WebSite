@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 using System.Diagnostics.Debug;
+using System.IO.Pipes;
 using WebSite.Controllers.Common;
 using System.Linq.Expressions;
 using Microsoft.Ajax.Utilities;
@@ -73,6 +74,10 @@ namespace WebSite.Controllers
         {
             return Utility.CreateRecord(record);
         }
+        private bool EditRecord<T>(T record) where T : class
+        {
+            return Utility.EditRecord(record);
+        }
         [HttpPost]
         public ActionResult Register(user info,String authCode)
         {
@@ -80,7 +85,11 @@ namespace WebSite.Controllers
             Assert(validateCode!=null);
             if (ModelState.IsValid && validateCode == authCode)
             {
-                var createResult = CreateRecord<user>(info);
+                var createResult =
+                    (info.userId == 0) ? 
+                    CreateRecord<user>(info) : 
+                    new Pair<bool, user>(EditRecord<user>(info)
+                    ,info);
                 if (createResult.first)
                 {
                     var findIter = GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
