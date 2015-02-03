@@ -70,11 +70,6 @@ namespace WebSite.Controllers
             return Utility.CreateRecord(record);
         }
 
-        private bool EditRecord<T>(T record) where T : class
-        {
-            return Utility.EditRecord(record);
-        }
-
         [HttpPost]
         public ActionResult Register(user info, String authCode)
         {
@@ -82,13 +77,12 @@ namespace WebSite.Controllers
             Assert(validateCode != null);
             if (ModelState.IsValid && validateCode == authCode)
             {
-                bool isEdit = false;
-                isEdit = (info.userId == 0) ? false : true;
+                bool isEdit = (info.userId == 0) ? false : true;
 
                 var createResult =
                     (!isEdit) ?
                     CreateRecord<user>(info) :
-                    new Pair<bool, user>(EditRecord<user>(info)
+                    new Pair<bool, user>(Utility.EditRecord<user>(x=>x.userId==info.userId,x=>info)
                     , info);
                 
                 if (createResult.first)

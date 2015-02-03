@@ -36,7 +36,7 @@ namespace WebSite.Controllers.Common
 
         public static String DateTimeToString(DateTime time)
         {
-            return time.ToString("yyyy/dd/mm hh:mm:tt");
+            return time.ToString("yyyy/dd/mm hh:mm");
         }
 
         public static UserType GetUsetTypeByString(String type)
@@ -214,11 +214,12 @@ namespace WebSite.Controllers.Common
             file.SaveAs(path);
             return path;
         }
-        public static bool EditRecord<T>(T record)where T :class
+     
+        public static bool EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)where  T :class
         {
-            return new SingleTableModule<T>().Edit(record);
+            var table = new SingleTableModule<T>();
+            return table.Edit(whereSelector, infoFunctor);
         }
-
         public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
         {
             var Iter = GetList<T>(whereSelector).SingleOrDefault();

@@ -81,8 +81,6 @@ namespace WebSite.Controllers
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            try
-            {
                 foreach (var iter in expertIdList)
                 {
                     var expertId = iter;
@@ -96,13 +94,6 @@ namespace WebSite.Controllers
 
                     });
                 }
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-
-              //  int a = 0;
-            }
-          
         }
 
         [HttpPost]
@@ -113,7 +104,7 @@ namespace WebSite.Controllers
             String invitationContent = model.invitationContent;
             info.companyId = (Int32)Session["user_id"];
             info.purchase_time = DateTime.Now;
-            if (/*ModelState.IsValid && */Utility.CheckSession(UserType.Company, Session))
+            if (Utility.CheckSession(UserType.Company, Session))
             {
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
@@ -167,10 +158,6 @@ namespace WebSite.Controllers
         {
             if (Utility.CheckSession(UserType.Company,Session))
             {
-                //var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-                //Assert(result != null);
-                //result.hitId = bidId;
-                //var sign = new SingleTableModule<purchase>().Edit(result);
                 var sign = (new SingleTableModule<purchase>()).Edit(x => x.purchaseId == purchaseId, (x) =>
                 {
                     x.hitId = bidId;
