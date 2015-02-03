@@ -42,7 +42,7 @@
             <form class="info" action="" method="post">
                 <div class="title">
                     <h2>我发布的采购信息列表</h2>
-                    <div class="change"><a href="@Url.Action("Create", "Purchase")?user_id=@ViewBag.home.companyId&user_type=@ViewBag.home.user.user_type">发布</a></div>
+                    <div class="change"><a href="@Url.Action("Create", "Purchase")">发布</a></div>
                 </div>
                 <div class="details">
                     @foreach (var item in ViewBag.list)
