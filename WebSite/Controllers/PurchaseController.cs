@@ -99,7 +99,7 @@ namespace WebSite.Controllers
             catch (DbEntityValidationException dbEx)
             {
 
-                int a = 0;
+              //  int a = 0;
             }
           
         }
@@ -110,10 +110,11 @@ namespace WebSite.Controllers
             purchase info = model.info;
             String invitees = model.invitees;
             String invitationContent = model.invitationContent;
-            if (ModelState.IsValid && Utility.CheckSession(UserType.Company, Session))
+            info.companyId = (Int32)Session["user_id"];
+            info.purchase_time = DateTime.Now;
+            if (/*ModelState.IsValid &&*/ Utility.CheckSession(UserType.Company, Session))
             {
-                info.companyId = (Int32)Session["user_id"];
-                info.purchase_time = DateTime.Now;
+               
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
