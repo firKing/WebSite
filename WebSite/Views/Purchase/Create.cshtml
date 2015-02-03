@@ -33,17 +33,17 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                @Html.LabelFor(model => model.purchase_title, "采购信息标题：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_title, "采购信息标题：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.purchase_title, new { @class = "form-control", @placeholder = "项目名称" })
-                    @Html.ValidationMessageFor(model => model.purchase_title)
+                    @Html.TextBoxFor(model => model.info.purchase_title, new { @class = "form-control", @placeholder = "项目名称" })
+                    @Html.ValidationMessageFor(model => model.info.purchase_title)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.purchase_time, "招标时间：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_time, "招标时间：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.purchase_time, new { @class = "form-control", @placeholder = "招标时间", type = "date" })
-                    @Html.ValidationMessageFor(model => model.purchase_time)
+                    @Html.TextBoxFor(model => model.info.purchase_time, new { @class = "form-control", @placeholder = "招标时间", type = "date" })
+                    @Html.ValidationMessageFor(model => model.info.purchase_time)
                 </div>
             </div>
             <div class="form-group">
@@ -53,17 +53,17 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model., "邀请语：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.invitationContent, "邀请语：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
                     @Html.TextAreaFor(model => model.invitationContent, new { @class = "form-control", @row = "5" })
                     @Html.ValidationMessageFor(model => model.invitationContent)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.purchase_content, "概要：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_content, "概要：", new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.purchase_content, new { @class = "form-control", @row = "5" })
-                    @Html.ValidationMessageFor(model => model.purchase_content)
+                    @Html.TextAreaFor(model => model.info.purchase_content, new { @class = "form-control", @row = "5" })
+                    @Html.ValidationMessageFor(model => model.info.purchase_content)
                 </div>
             </div>
             <div class="form-group form-submit">

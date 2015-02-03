@@ -183,15 +183,9 @@ namespace WebSite.Controllers
 
         public ActionResult ExpertList(int page)
         {
-<<<<<<< HEAD
             const int count = 8;
-            ViewBag.list = Utility.GetList<expert, int>(page, count, x => x.user_userId).ToList();
-            var sum = GetSumPage<team, int>(count,x => x.teamId);
-=======
-            const int count = 3;
             ViewBag.list = Utility.GetList<expert, int>(page-1, count, x => x.user_userId).ToList();
             var sum = GetSumPage<team, int>(count, x => x.teamId);
->>>>>>> 3f9c46b5b04a4139e9a47aecb67816a7efb918eb
             ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
             return View("~/Views/Expert/List.cshtml");
