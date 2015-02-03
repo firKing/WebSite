@@ -63,7 +63,7 @@ namespace WebSite.Controllers
                 info.companyId = (Int32) Session["user_id"];
                // info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
                 CreateRecord<news>(info);
-                return RedirectToAction("NewsList", "Index", new {page=0});
+                return RedirectToAction("Detail", "New", new {id=info.newsId});
             }
             return RedirectToAction("Home", "Company");
         }
