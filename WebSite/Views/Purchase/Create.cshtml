@@ -33,43 +33,43 @@
                 </div>
             </fieldset>
             <div class="form-group" style="display: none">
-                @Html.LabelFor(model => model.info.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchaseId, "ID：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.info.purchaseId, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.info.purchaseId, new {@class = "form-control"})
                     @Html.ValidationMessageFor(model => model.info.purchaseId)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.info.purchase_title, "采购信息标题：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_title, "采购信息标题：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.info.purchase_title, new { @class = "form-control", @placeholder = "项目名称" })
+                    @Html.TextBoxFor(model => model.info.purchase_title, new {@class = "form-control", @placeholder = "项目名称"})
                     @Html.ValidationMessageFor(model => model.info.purchase_title)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.info.purchase_time, "招标时间：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_time, "招标时间：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.info.purchase_time, new { @class = "form-control", @placeholder = "招标时间", type = "date" })
+                    @Html.TextBoxFor(model => model.info.purchase_time, new {@class = "form-control", @placeholder = "招标时间", type = "date"})
                     @Html.ValidationMessageFor(model => model.info.purchase_time)
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputExpert" class="col-sm-3 control-label">指定专家：</label>
                 <div class="col-sm-9">
-                    <input type="text" name="invitees" class="form-control" id="inputExpert" placeholder="指定专家" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="专家之间用逗号隔开">
+                    <input type="text" name="invitees" class="form-control" id="inputExpert" placeholder="指定专家" role="button">
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.invitationContent, "邀请语：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.invitationContent, "邀请语：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.invitationContent, new { @class = "form-control", @row = "5" })
+                    @Html.TextAreaFor(model => model.invitationContent, new {@class = "form-control", @row = "5"})
                     @Html.ValidationMessageFor(model => model.invitationContent)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.info.purchase_content, "概要：", new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(model => model.info.purchase_content, "概要：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.info.purchase_content, new { @class = "form-control", @row = "5" })
+                    @Html.TextAreaFor(model => model.info.purchase_content, new {@class = "form-control", @row = "5"})
                     @Html.ValidationMessageFor(model => model.info.purchase_content)
                 </div>
             </div>
@@ -81,3 +81,40 @@
         </form>
     </div>
 </div>
+<div id="popover_btn" class="popover fade right in" role="tooltip" style="top: 345px; left: 998px; display: none;"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">成员之间用逗号隔开</div></div>
+<script>
+    
+    $(document).ready(function () {
+        $("#inputMember").on('blur', function (e) {
+        
+            var name = $(e.target).val();
+            name = name.replace(/\s/g, "");
+            if (name.length === 0) {
+                $("#popover_btn").find(".popover-content").html("成员之间用逗号隔开");
+                $("#popover_btn").show(100);
+                return;
+            }
+                
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("CheckMemberListNameExist", "Verify")",
+                data: {names : name},
+                dataType: "json",
+                success: function (data) {
+                    var msg = null;
+                    if (data instanceof Array && data.length > 0 && data[0].length > 0) {
+                        var str = data.join(",");
+                        msg = str + "这些用户名错误！";
+                        $("#popover_btn").find(".popover-content").html(msg);
+                        $("#popover_btn").show();
+                    } else {
+                        $("#popover_btn").hide();
+                    }
+
+                }
+
+            });
+        });  
+    });
+
+</script>

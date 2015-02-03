@@ -34,7 +34,7 @@
     Html.EnableClientValidation();
 }
 <div id="detail-main">
-    <h2>注册</h2>
+    <h2></h2>
     <div id="register-main">
         <div class="register-right pull-left">
             @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { @id = "register_form", @class = "form-horizontal" }))
@@ -42,16 +42,14 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-
-                        @Html.TextBoxFor(model => model.user_type,  new { @class = "form-control", @readonly = true })
+                        @Html.TextBoxFor(model => model.user_type,  htmlAttributes:  new { @class = "form-control", @disabled = "true" })
                     </div>
-
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.user_name, "名称", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.user_name, new { @class = "form-control", @placeholder = "名称" })
+                        @Html.TextBoxFor(model => model.user_name, new { @class = "form-control", @disabled = true , @placeholder = "名称"  })
                     </div>
                     <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>
@@ -76,21 +74,6 @@
                     <div class="col-sm-9">
                         @Html.TextBoxFor(model => model.user_address, new { @class = "form-control", @placeholder = "地址" })
                         @Html.ValidationMessageFor(model => model.user_address)
-                    </div>
-                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.user_password, "密码", new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.user_password, new { @type = "password", @class = "form-control", @placeholder = "密码" })
-                        @Html.ValidationMessageFor(model => model.user_password)
-                    </div>
-                    <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
-                    <div class="col-sm-9">
-                        <input type="password" name="repeat_password" class="form-control" id="inputPassword2" placeholder="确认密码">
                     </div>
                     <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>

@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label for="inputMember" class="col-sm-3 control-label">成员姓名</label>
                 <div class="col-sm-9">
-                    <input type="text" name="memberNames" class="form-control" id="inputMember" placeholder="成员姓名" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content=" 成员之间用逗号隔开">
+                    <input type="text" name="memberNames" class="form-control" id="inputMember" placeholder="成员姓名" role="button">
                 </div>
             </div>
 
@@ -107,20 +107,17 @@
         </form>
     </div>
 </div>
-
+<div id="popover_btn" class="popover fade right in" role="tooltip" style="top: 345px; left: 998px; display: none;"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">成员之间用逗号隔开</div></div>
 <script>
     $(document).ready(function () {
-       
-        $("#inputMember").on('keydown', function (e) {
+       $("#inputMember").on('blur', function (e) {
+        
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");
-
             if (name.length === 0) {
-                setTimeout(function () {
-                    console.log(123);
-                    $(this).attr("data-content", '成员之间用逗号隔开');
-                    return;
-                }, 100);
+                $("#popover_btn").find(".popover-content").html("成员之间用逗号隔开");
+                $("#popover_btn").show(100);
+                return;
             }
             
             $.ajax({
@@ -133,16 +130,16 @@
                     if (data instanceof Array && data.length > 0 && data[0].length > 0) {
                         var str = data.join(",");
                         msg = str + "这些用户名错误！";
-                        $("#inputMember").attr("data-content", msg);
-                        $('#inputMember').popover('show');
+                        $("#popover_btn").find(".popover-content").html(msg);
+                        $("#popover_btn").show();
                     } else {
-                        $("#inputMember").attr("data-content", "成员之间用逗号隔开");
+                        $("#popover_btn").hide();
                     }
 
                 }
 
             });
-        }); 
+        });  
     }); 
 
 </script>
