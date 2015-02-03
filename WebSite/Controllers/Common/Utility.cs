@@ -238,11 +238,12 @@ namespace WebSite.Controllers.Common
 
         public static String Md5(String password)
         {
-            Assert(password!=null);
-            byte[] result = Encoding.Default.GetBytes(password.Trim());    //tbPass为输入密码的文本框
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] output = md5.ComputeHash(result);
-            return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
+            return password;
+            //Assert(password!=null);
+            //byte[] result = Encoding.Default.GetBytes(password.Trim());    //tbPass为输入密码的文本框
+            //MD5 md5 = new MD5CryptoServiceProvider();
+            //byte[] output = md5.ComputeHash(result);
+            //return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
         }
     }
 }
