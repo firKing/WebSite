@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebSite.Controllers.Common
 {
@@ -215,7 +217,7 @@ namespace WebSite.Controllers.Common
             return path;
         }
      
-        public static bool EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)where  T :class
+        public static Pair<bool,T> EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)where  T :class
         {
             var table = new SingleTableModule<T>();
             return table.Edit(whereSelector, infoFunctor);
@@ -232,6 +234,15 @@ namespace WebSite.Controllers.Common
             info.bidderId = bidderInfo.bidderId;
             info.bid_content = UploadFileGetUrl(info, request, uploadName);
             info.bid_time = DateTime.Now;
+        }
+
+        public static String Md5(String password)
+        {
+            Assert(password!=null);
+            byte[] result = Encoding.Default.GetBytes(password.Trim());    //tbPass为输入密码的文本框
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] output = md5.ComputeHash(result);
+            return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
         }
     }
 }

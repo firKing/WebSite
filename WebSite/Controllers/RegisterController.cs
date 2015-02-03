@@ -75,16 +75,24 @@ namespace WebSite.Controllers
         {
             var validateCode = Convert.ToString(Session["ValidateCode"]);
             Assert(validateCode != null);
-            if (ModelState.IsValid && validateCode == authCode)
+            if (validateCode == authCode)
             {
                 bool isEdit = (info.userId == 0) ? false : true;
-
+                if (!isEdit)
+                {
+                    info.user_password = Utility.Md5(info.user_password);
+                }
                 var createResult =
                     (!isEdit) ?
                     CreateRecord<user>(info) :
-                    new Pair<bool, user>(Utility.EditRecord<user>(x=>x.userId==info.userId,x=>info)
-                    , info);
-                
+                  Utility.EditRecord<user>(x=>x.userId==info.userId, x =>
+                    {
+                        x.user_address = info.user_address;
+                        x.user_introduction = info.user_introduction;
+                        x.user_mail = info.user_mail;
+                        x.user_telephone = x.user_telephone;
+                        return x;
+                    });
                 if (createResult.first)
                 {
                     var findIter = Utility.GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
