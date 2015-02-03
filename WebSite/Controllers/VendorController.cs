@@ -20,7 +20,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<vendor>(x => x.vendorId == id);
             if (element != null)
             {
                 ViewBag.creator = Utility.GetSingleTableRecord<vendor>(x => x.vendorId == element.vendorId).user.user_name;
@@ -130,7 +130,7 @@ namespace WebSite.Controllers
 
         private int GetBidderId(int vendorId)
         {
-            var element = Utility.GetList<bidder>(x => x.tendererId == vendorId && x.bidder_is_team == false).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<bidder>(x => x.tendererId == vendorId && x.bidder_is_team == false);
             Assert(element != null);
             return element.bidderId;
         }

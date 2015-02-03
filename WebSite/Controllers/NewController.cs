@@ -30,7 +30,7 @@ namespace WebSite.Controllers
         // GET: NewList
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<news>(x => x.newsId == id);
             if (element != null)
             {
                 ViewBag.name = element.news_title;
@@ -73,7 +73,7 @@ namespace WebSite.Controllers
         public ActionResult Delete(int id)
         {
             var result = false;
-            var element = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<news>(x => x.newsId == id);
             if (element != null)
             {
                 result = new SingleTableModule<news>().Delete(element);
@@ -84,7 +84,7 @@ namespace WebSite.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var query = Utility.GetList<news>(x => x.newsId == id).SingleOrDefault();
+            var query = Utility.GetSingleTableRecord<news>(x => x.newsId == id);
             if (query == null)
             {
                 return HttpNotFound();

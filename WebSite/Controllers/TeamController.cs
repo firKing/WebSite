@@ -38,7 +38,7 @@ namespace WebSite.Controllers
         public ActionResult Detail(int id)
         {
             //名字,内容,创建公司.时间
-            var element = Utility.GetList<team>(x => x.teamId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<team>(x => x.teamId == id);
             if (element != null)
             {
                 ViewBag.name = element.team_name;

@@ -23,7 +23,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<company>(x => x.companyId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<company>(x => x.companyId == id);
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;
@@ -44,7 +44,7 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                var result = Utility.GetList<company>(x => x.companyId == sessionId).SingleOrDefault();
+                var result = Utility.GetSingleTableRecord<company>(x => x.companyId == sessionId);
                 Assert(result != null);
                 ViewBag.home = result;
                 return View();

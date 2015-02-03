@@ -23,11 +23,12 @@ namespace WebSite.Controllers
             return Utility.CheckSession(UserType.Expert, Session);
         }
 
+
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
         {
-            var result = Utility.GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
+            var result = Utility.GetSingleTableRecord<bid>(x => x.bidId == bidId);
             Assert(result != null);
             new SingleTableModule<bid>().Delete(result);
         }
@@ -45,7 +46,7 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<bid>(x => x.bidId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<bid>(x => x.bidId == id);
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);

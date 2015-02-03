@@ -24,17 +24,17 @@ namespace WebSite.Controllers
             var findTableRecordMap = new Dictionary<String, FindTableRecordHandler>();
             findTableRecordMap.Add(UserType.Expert.ToString(), (int id) =>
             {
-                var result = Utility.GetList<expert>(x => x.expertId == id).SingleOrDefault();
+                var result = Utility.GetSingleTableRecord<expert>(x => x.expertId == id);
                 return result;
             });
             findTableRecordMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = Utility.GetList<company>(x => x.companyId == id).SingleOrDefault();
+                var result = Utility.GetSingleTableRecord<company>(x => x.companyId == id);
                 return result;
             });
             findTableRecordMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = Utility.GetList<vendor>(x => x.vendorId == id).SingleOrDefault();
+                var result = Utility.GetSingleTableRecord<vendor>(x => x.vendorId == id);
                 return result;
             });
             return findTableRecordMap;
@@ -105,7 +105,7 @@ namespace WebSite.Controllers
                     });
                 if (createResult.first)
                 {
-                    var findIter = Utility.GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
+                    var findIter = Utility.GetSingleTableRecord<user>(x => x.userId == createResult.second.userId);
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
                     if (!isEdit)

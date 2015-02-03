@@ -29,7 +29,7 @@ namespace WebSite.Controllers
 
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<expert>(x => x.expertId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<expert>(x => x.expertId == id);
             if (element != null)
             {
                 ViewBag.name = element.user.user_name;

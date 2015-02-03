@@ -28,7 +28,7 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            var result = Utility.GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
+            var result = GetSingleTableRecord<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team);
             if (result == null)
             {
                 return CreateRecord<bidder>(record);
@@ -74,7 +74,7 @@ namespace WebSite.Controllers.Common
 
         public static IQueryable<T> GetList<T>(int countMax) where T : class
         {
-            return Utility.GetList<T>(x => true).Take(countMax);
+            return GetList<T>(x => true).Take(countMax);
         }
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
@@ -112,19 +112,19 @@ namespace WebSite.Controllers.Common
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(), (int id) =>
              {
-                 var result = Utility.GetList<expert>(x => x.user_userId == id).SingleOrDefault();
+                 var result = GetSingleTableRecord<expert>(x => x.user_userId == id);
                  Assert(result != null);
                  SetSession(session, result.expertId, UserType.Expert);
              });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = Utility.GetList<company>(x => x.user_userId == id).SingleOrDefault();
+                var result = GetSingleTableRecord<company>(x => x.user_userId == id);
                 Assert(result != null);
                 SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = Utility.GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
+                var result = GetSingleTableRecord<vendor>(x => x.user_userId == id);
                 Assert(result != null);
                 SetSession(session, result.vendorId, UserType.Vendor);
             });
@@ -181,7 +181,7 @@ namespace WebSite.Controllers.Common
         {
             if (info.bidder_is_team)
             {
-                var result = Utility.GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
+                var result = GetSingleTableRecord<team>(x => x.teamId == info.tendererId);
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -191,7 +191,7 @@ namespace WebSite.Controllers.Common
             }
             else
             {
-                var result = Utility.GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
+                var result = GetSingleTableRecord<vendor>(x => x.vendorId == info.tendererId);
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -224,9 +224,9 @@ namespace WebSite.Controllers.Common
         }
         public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
         {
-            var Iter = GetList<T>(whereSelector).SingleOrDefault();
-            Assert(Iter != null);
-            return Iter;
+            var iter = GetList<T>(whereSelector).SingleOrDefault();
+            Assert(iter != null);
+            return iter;
         }
 
         public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request,String uploadName)

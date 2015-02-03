@@ -29,7 +29,7 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<purchase>(x => x.purchaseId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == id);
             if (element != null)
             {
                 ViewBag.detail = element;
@@ -123,7 +123,7 @@ namespace WebSite.Controllers
 
         private String GetPurchaseTitle(int purchaseId)
         {
-            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId);
             Assert(result != null);
             return result.purchase_title;
         }
