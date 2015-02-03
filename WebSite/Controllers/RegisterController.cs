@@ -82,17 +82,25 @@ namespace WebSite.Controllers
             Assert(validateCode != null);
             if (ModelState.IsValid && validateCode == authCode)
             {
+                bool isEdit = false;
+                isEdit = (info.userId == 0) ? false : true;
+
                 var createResult =
-                    (info.userId == 0) ?
+                    (!isEdit) ?
                     CreateRecord<user>(info) :
                     new Pair<bool, user>(EditRecord<user>(info)
                     , info);
+                
                 if (createResult.first)
                 {
                     var findIter = Utility.GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();
                     Assert(findIter != null);
                     Assert(CheckUserType(findIter.user_type));
-                    Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);
+                    if (!isEdit)
+                    {
+                        Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);
+                    }
+                  
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }
