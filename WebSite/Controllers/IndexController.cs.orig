@@ -183,8 +183,13 @@ namespace WebSite.Controllers
 
         public ActionResult ExpertList(int page)
         {
-            const int count = 8;
+<<<<<<< HEAD
+            const int count = 3;
             ViewBag.list = Utility.GetList<expert, int>(page, count, x => x.user_userId).ToList();
+=======
+            const int count = 8;
+            ViewBag.list = Utility.GetList<expert, int>(page-1, count, x => x.user_userId).ToList();
+>>>>>>> 138d4299c6db2c5e0516f6a7ed0a84649e6a3fd6
             var sum = GetSumPage<team, int>(count, x => x.teamId);
             ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
@@ -193,8 +198,7 @@ namespace WebSite.Controllers
 
         private int GetSumPage<T, TKey>(double count, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            var sum = Utility.GetSumCount<T, TKey>(keySelector);
-            return (int)Math.Ceiling(sum / count);
+            return (int)(Utility.GetSumCount<T, TKey>(keySelector) / count);
         }
     }
 }

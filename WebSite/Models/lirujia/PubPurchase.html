@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/PubPurchase.css"/>
+</head>
+<body>
+<div class="PubPur-main">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="inputPerson" class="col-sm-3 control-label">招标人：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="inputPerson" placeholder="招标人">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputNmae" class="col-sm-3 control-label">项目名称：</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="inputNmae" placeholder="项目名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputeTime1" class="col-sm-3 control-label">招标时间：</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" id="inputeTime1" placeholder="招标时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputExpert" class="col-sm-3 control-label">指定专家：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="inputExpert" placeholder="指定专家" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="专家之间用逗号隔开">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile" class="col-sm-3 control-label">说明书：</label>
+            <div class="col-sm-9">
+                <input type="file" id="exampleInputFile">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="outline" class="col-sm-3 control-label">概要</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="outline" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group form-submit">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-success">保存并提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="../Scripts/jquery-1.10.2.min.js"></script>
+<script src="../Scripts/bootstrap.min.js"></script>
+<script>
+    $('#inputExpert').popover('hover');
+</script>
+</body>
+</html>
