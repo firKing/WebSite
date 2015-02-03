@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -166,7 +167,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            if (Utility.CheckSession(UserType.Company,Session))
+            if (Utility.CheckSession(UserType.Vendor,Session))
             {
                 var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
                 Assert(result != null);
