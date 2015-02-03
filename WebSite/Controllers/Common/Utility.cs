@@ -36,7 +36,7 @@ namespace WebSite.Controllers.Common
 
         public static String DateTimeToString(DateTime time)
         {
-            return time.ToString("MMMM/dd/yyyy hh:mm:tt");
+            return time.ToString("yyyy/dd/mm hh:mm:tt");
         }
 
         public static UserType GetUsetTypeByString(String type)
