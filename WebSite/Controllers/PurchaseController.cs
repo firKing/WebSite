@@ -166,11 +166,18 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-            Assert(result != null);
-            result.hitId = bidId;
-            var sign = new SingleTableModule<purchase>().Edit(result);
-            return Json(sign, JsonRequestBehavior.AllowGet);
+            if (Utility.CheckSession(UserType.Company,Session))
+            {
+                var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+                Assert(result != null);
+                result.hitId = bidId;
+                var sign = new SingleTableModule<purchase>().Edit(result);
+                return Json(sign, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

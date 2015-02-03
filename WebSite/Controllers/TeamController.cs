@@ -112,8 +112,11 @@ namespace WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(team info, String memberNames, bid bidInfo)
+        public ActionResult Create(TeamModel model)
         {
+            team info = model.info;
+            String memberNames = model.memberNames;
+            bid bidInfo = model.bidInfo;
             if (CheckSession() && ModelState.IsValid)
             {
                 var result = CreateRecord<team>(info);
