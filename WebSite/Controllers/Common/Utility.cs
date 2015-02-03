@@ -204,13 +204,13 @@ namespace WebSite.Controllers.Common
             }
 
         }
-        public static String UploadFileGetUrl(bid info,HttpRequestBase request)
+        public static String UploadFileGetUrl(bid info,HttpRequestBase request,String uploadName)
         {
 
-            var upload = "bid_content";
-            Assert(request.Files[upload] != null);
+           // uploadName = "bid_content";
+            Assert(request.Files[uploadName] != null);
 
-            var file = request.Files[upload];
+            var file = request.Files[uploadName];
             Assert(request.Files.Count == 1);
             string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
             string fileName = Path.GetFileName(file.FileName);
@@ -231,10 +231,10 @@ namespace WebSite.Controllers.Common
             return Iter;
         }
 
-        public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request)
+        public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request,String uploadName)
         {
             info.bidderId = bidderInfo.bidderId;
-            info.bid_content = UploadFileGetUrl(info, request);
+            info.bid_content = UploadFileGetUrl(info, request, uploadName);
             info.bid_time = DateTime.Now;
         }
     }
