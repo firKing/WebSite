@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Layouts/Details.cshtml";
@@ -63,7 +63,7 @@
 
     $("#adopt").on('click', function (e) {
         var title = $("#login").attr('title');
-        if (title != 'Vendor') {
+        if (title != 'Company') {
             alert("请用供应商登陆！");
             return false;
         }
