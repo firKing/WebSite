@@ -34,7 +34,7 @@
     </p>
     <div class="detail-text">
         @{ 
-            <p>@ViewBag.content</p>
+            <p id="view_content">@ViewBag.content</p>
         }
         <p></p>
     </div>
@@ -45,3 +45,7 @@
 </div>
 <!--新闻和虚拟团队详情页主体部分-->
 
+<script>
+    var view_content = $("#view_content").html();
+    $("#view_content").html(decodeURI(view_content));
+</script>
