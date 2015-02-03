@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/register.css"/>
+</head>
+<body>
+<div id="register-main">
+    <h2>注册</h2>
+    <div class="register-right pull-left">
+        <form class="form-horizontal" role="form">
+            
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">类型</label>
+                <div class="col-sm-9">
+                    <select id="type" name="type">
+                        <option value="expert">专家</option>
+                        <option value="company">单位</option>
+                        <option value="vendor">供应商</option> 
+                    </select>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">名称</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputName" placeholder="名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputemail" class="col-sm-3 control-label">邮箱</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" id="inputemail" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputePhone" class="col-sm-3 control-label">电话</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputePhone" placeholder="电话">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress" class="col-sm-3 control-label">联系地址</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="联系地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword1" class="col-sm-3 control-label">密码</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputPassword1" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="确认密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-3 control-label">资料提交</label>
+                <div class="col-sm-9">
+                    <input type="file" id="exampleInputFile">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="outline" class="col-sm-3 control-label">概要</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="outline" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputCode" class="col-sm-3 control-label">验证码</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="inputCode">
+                </div>
+                <div class="col-sm-5">
+                    <a href="#" class="changeCode"><img src="../Image/code.png" alt="验证码"/></a>
+                </div>
+                
+            </div>
+            <div class="form-group form-submit">
+                <div class="col-sm-offset-3 col-sm-2">
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+                <div class="col-sm-7">
+                    <a href="#">已有账号？立即登录>></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="../Scripts/jquery-1.10.2.min.js"></script>
+<script src="../Scripts/bootstrap.min.js"></script>
+</body>
+</html>

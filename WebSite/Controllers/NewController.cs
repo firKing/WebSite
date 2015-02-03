@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-
 namespace WebSite.Controllers
 {
     public class NewController : Controller
@@ -59,9 +59,11 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid && Utility.CheckSession(UserType.Company, Session))
             {
-                // info.company = Utility.GetSingleTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
+                info.news_time = DateTime.Now;
+                info.companyId = (Int32) Session["user_id"];
+               // info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
                 CreateRecord<news>(info);
-                return View("Detail");
+                return RedirectToAction("NewsList", "Index", new {page=0});
             }
             return RedirectToAction("Home", "Company");
         }
