@@ -111,7 +111,6 @@ namespace WebSite.Controllers
             return Utility.UploadFileGetUrl(info, Request);
         }
 
-        [HttpPost]
         public ActionResult Create(TeamModel model)
         {
             team info = model.info;
