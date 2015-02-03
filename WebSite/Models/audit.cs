@@ -11,15 +11,22 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class audit
     {
+        [Required(ErrorMessage = "*")]
+
         public int bidId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public int expertId { get; set; }
         public int auditId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public string audit_content { get; set; }
-        public System.DateTime audit_time { get; set; }
-    
+        public DateTime audit_time { get; set; }
+
         public virtual bid bid { get; set; }
         public virtual expert expert { get; set; }
     }

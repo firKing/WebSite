@@ -11,15 +11,20 @@ namespace WebSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class news
     {
         public int newsId { get; set; }
+        [Required(ErrorMessage = "*")]
+
         public int companyId { get; set; }
+        [Required(ErrorMessage = "*")]
         public string news_title { get; set; }
+        [Required(ErrorMessage = "*")]
         public string news_content { get; set; }
         public System.DateTime news_time { get; set; }
-    
+
         public virtual company company { get; set; }
     }
 }
