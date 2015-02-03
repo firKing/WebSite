@@ -34,10 +34,9 @@
     </div>
     <form id="new_form" method="post" action="@Url.Action("CreateAudit", "Bid")">
         <label for="commit" class="col-sm-2 control-label">评论：</label>
-        <textarea id="editor_id" style="width: 100%; height: 250px;"></textarea>
-        <input type="hidden" id="news_content" name="audit_content">
+        <textarea name="audit_content" id="audit_content" style="width: 100%; height: 120px;"></textarea>
         <input type="hidden" name="bidId" id="bidId" value="@ViewBag.details.first.bidId" />
-        <input type="submit" name="submit" class="btn btn-success submit_comment" value="提交评论" />
+        <input type="submit" class="btn btn-success submit_comment" value="提交评论" />
     </form>
     <div class="commit_list">
         <h4>专家评论</h4>
@@ -56,10 +55,13 @@
     </div>
 </div>
 <script>
-    KindEditor.ready(function (K) {
-        window.editor = K.create('#editor_id');
-    });
+    $(document).ready(function() {
+        var title = $("#login").attr('title');
+        if (title.toString() !== "Company") {
+            $("#adopt").addClass("disabled")
+        }    
 
+    });
     $("#adopt").on('click', function (e) {
         var title = $("#login").attr('title');
         if (title != 'Company') {
@@ -84,9 +86,12 @@
     });
 
     $("#new_form").on('submit', function () {
-        editor.sync();
-        var html = $("#editor_id").val();
-        $("#news_content").val(html);
+        var title = $("#login").attr('title');
+        if (title != 'Expert') {
+            alert("请用专家登陆！");
+            return false;
+        }
+        var html = $("#audit_content").val();
         if (!(/\w+/.test(html))) {
             return false;
         }

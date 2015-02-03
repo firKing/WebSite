@@ -84,7 +84,8 @@ namespace WebSite.Controllers
                 const int count = 5;
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = Utility.GetList<audit, int>(page, count, x => x.expertId == sessionId, x => x.auditId);
+                var list = Utility.GetList<audit, int>(page, count, x => x.expertId == sessionId, x => x.auditId);
+                ViewBag.list = list;
                 ViewBag.sumPage = GetSumPage<audit, int>(count, x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();

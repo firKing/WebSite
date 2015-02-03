@@ -28,7 +28,7 @@ WebSite/Web.config
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
-
+WebSite/Models/*
 #NUNIT
 *.VisualState.xml
 TestResult.xml

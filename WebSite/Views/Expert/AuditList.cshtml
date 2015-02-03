@@ -45,8 +45,8 @@
                     @foreach (var item in ViewBag.list)
                     {
                         <div class="section">
-                            <h3>@item.audit.bids.bid_title</h3>
-                            <p>key.invitation_content</p>
+                            <h3>@item.bid.bid_title</h3>
+                            <p>@item.audit_content</p>
                         </div>
                     }
                 </div>
