@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
-using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -89,10 +88,10 @@ namespace WebSite.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            var expertList = GetList<expert>(1).ToList();
-            var newsList = GetList<news>(6).ToList();
-            var purchaseList = GetList<purchase>(6).ToList();
-            var teamList = GetList<team>(12).ToList();
+            var expertList = Utility.GetList<expert>(1).ToList();
+            var newsList = Utility.GetList<news>(6).ToList();
+            var purchaseList = Utility.GetList<purchase>(6).ToList();
+            var teamList = Utility.GetList<team>(12).ToList();
 
             ViewBag.experts = expertList
                 .Select(record => new IndexStruct
@@ -127,7 +126,7 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<purchase, int>(page, count, x => x.purchaseId).ToList().
+            ViewBag.list = Utility.GetList<purchase, int>(page-1, count, x => x.purchaseId).ToList().
                 Select(x => new IndexStruct
                 {
                     detailId = x.purchaseId,
@@ -137,7 +136,7 @@ namespace WebSite.Controllers
                 });
             ViewBag.bigtitle = "采购信息";
             ViewBag.pageNum = page;
-            ViewBag.sumPage = GetSumCount<purchase, int>(x => x.purchaseId) / count + 1;
+            ViewBag.sumPage = GetSumPage<purchase, int>(count, x => x.purchaseId);
 
             ViewBag.detailActionName = "Purchase";
             return View(listViewName);
@@ -146,7 +145,7 @@ namespace WebSite.Controllers
         public ActionResult NewsList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<news, int>
+            ViewBag.list = Utility.GetList<news, int>
                 (page, count, x => x.newsId).ToList().
                 Select(x => new IndexStruct
                 {
@@ -155,7 +154,7 @@ namespace WebSite.Controllers
                     content = new String(x.news_content.Take(200).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
-            ViewBag.sumPage = GetSumCount<news, int>(x => x.newsId) / count + 1;
+            ViewBag.sumPage = GetSumPage<news, int>(count, x => x.newsId);
             ViewBag.bigtitle = "新闻列表";
             ViewBag.pageNum = page;
 
@@ -167,7 +166,7 @@ namespace WebSite.Controllers
         public ActionResult TeamList(int page)
         {
             const int count = 5;
-            ViewBag.list = GetList<team, int>(page, count, x => x.teamId).ToList()
+            ViewBag.list = Utility.GetList<team, int>(page-1, count, x => x.teamId).ToList()
                 .Select(x => new IndexStruct
                 {
                     detailId = x.teamId,
@@ -175,7 +174,7 @@ namespace WebSite.Controllers
                     content = new String(x.team_introduction.Take(200).ToArray()),
                     time = new Pair<String, int>("", x.members.Count())
                 });
-            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            ViewBag.sumPage = GetSumPage<team, int>(count, x => x.teamId);
             ViewBag.pageNum = page;
             ViewBag.bigtitle = "虚拟团队";
             ViewBag.detailActionName = "Team";
@@ -185,25 +184,16 @@ namespace WebSite.Controllers
         public ActionResult ExpertList(int page)
         {
             const int count = 8;
-            ViewBag.list = GetList<expert, int>(page, count, x => x.user_userId).ToList();
-            ViewBag.sumPage = GetSumCount<team, int>(x => x.teamId) / count + 1;
+            ViewBag.list = Utility.GetList<expert, int>(page-1, count, x => x.user_userId).ToList();
+            var sum = GetSumPage<team, int>(count, x => x.teamId);
+            ViewBag.sumPage = sum;
             ViewBag.pageNum = page;
             return View("~/Views/Expert/List.cshtml");
         }
 
-        private IQueryable<T> GetList<T>(int countMax) where T : class
+        private int GetSumPage<T, TKey>(double count, Expression<Func<T, TKey>> keySelector) where T : class
         {
-            return Utility.GetList<T>(x => true).Take(countMax);
-        }
-
-        private IQueryable<T> GetList<T, TKey>(int page, int count, Expression<Func<T, TKey>> keySelector) where T : class
-        {
-            return Utility.GetList(page, count, keySelector);
-        }
-
-        private int GetSumCount<T, TKey>(Expression<Func<T, TKey>> keySelector) where T : class
-        {
-            return Utility.GetSumCount<T, TKey>(keySelector);
+            return (int)(Utility.GetSumCount<T, TKey>(keySelector) / count);
         }
     }
 }

@@ -43,12 +43,22 @@
         </ul>
         <nav>
             <ul class="pagination pull-right">
-                <li class="@if (@ViewBag.pageNum == 1) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@ViewBag.prePage"><span aria-hidden="true">&laquo;</span></a></li>
+                <p>@ViewBag.sumPage</p>
+                <li class="@if (@ViewBag.pageNum == 1)
+                           {
+                               @ViewBag.pageClass
+                           } "><a href="@ViewBag.parent?page=@ViewBag.prePage"><span aria-hidden="true">&laquo;</span></a></li>
                 @for (int i = 1; i <= @ViewBag.sumPage; i++)
                 {
-                    <li class="@if (@ViewBag.pageNum == i) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@i">@i</a></li>
+                    <li class="@if (@ViewBag.pageNum == i)
+                               {
+                                   @ViewBag.pageClass
+                               } "><a href="@ViewBag.parent?page=@i">@i</a></li>
                 }
-                <li class="@if (@ViewBag.pageNum == @ViewBag.sumPage) { @ViewBag.pageClass } "><a href="@ViewBag.parent?page=@ViewBag.nextPage"><span aria-hidden="true">&raquo;</span></a></li>
+                <li class="@if (@ViewBag.pageNum == @ViewBag.sumPage)
+                           {
+                               @ViewBag.pageClass
+                           } "><a href="@ViewBag.parent?page=@ViewBag.nextPage"><span aria-hidden="true">&raquo;</span></a></li>
             </ul>
         </nav>
     </div>

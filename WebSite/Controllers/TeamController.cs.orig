@@ -1,29 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
-using WebSite.Controllers.Common;
+using WebSite.Controllers.Module;
 using WebSite.Models;
+using System.Diagnostics.Debug;
+using WebSite.Controllers.Common;
+using System.Web;
+using System.Linq.Expressions;
+using System.Collections.Generic;
+
+
 
 namespace WebSite.Controllers
 {
     public class TeamController : Controller
     {
         //创建虚拟团队
-
+        
         // GET: Team
         public ActionResult Index(int purchaseId)
         {
             if (CheckSession())
             {
+<<<<<<< HEAD
+                ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x=>x.purchaseId == purchaseId).purchase_title;
+=======
                 ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
+>>>>>>> 2a98a43e8e030c689958384d0e8415f8f901f09d
                 return View();
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
         }
-
+      
         private Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return Utility.CreateRecord(record);
@@ -49,7 +58,6 @@ namespace WebSite.Controllers
                 return HttpNotFound();
             }
         }
-
         //参数 json teamId:teamIdValue
         //返回值"true"和"false"
         [HttpPost]
@@ -65,12 +73,10 @@ namespace WebSite.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         private bool CheckSession()
         {
             return Utility.CheckSession(UserType.Vendor, Session);
         }
-
         // 提交创建虚拟团队
         // 成员姓名， 逗号分隔 group_name
         // 采购对象 purchase_object
@@ -86,7 +92,7 @@ namespace WebSite.Controllers
                     .SingleOrDefault() != null)
                     .Aggregate((x, y) =>
                         x &&
-                        y));
+                        y ));
             var vendorIdList = nameList
                 .Select(x =>
                 Utility.GetList<vendor>(y =>
@@ -100,27 +106,26 @@ namespace WebSite.Controllers
                 {
                     teamId = teamId,
                     vendorId = vendorId,
-                    //  team = Utility.GetSingleTableRecord<team>(x=>x.teamId == teamId),
-                    //  vendor = Utility.GetSingleTableRecord<vendor>(x=>x.vendorId == vendorId),
+                  //  team = Utility.GetSingleTableRecord<team>(x=>x.teamId == teamId),
+                  //  vendor = Utility.GetSingleTableRecord<vendor>(x=>x.vendorId == vendorId),
                 });
             }
         }
-
         private String UploadFileGetUrl(bid info)
         {
             return Utility.UploadFileGetUrl(info, Request);
         }
 
         [HttpPost]
-        public ActionResult Create(team info, String memberNames, bid bidInfo)
+        public ActionResult Create(team info,String memberNames, bid bidInfo)
         {
-            if (CheckSession() && ModelState.IsValid)
+            if (CheckSession()&&ModelState.IsValid)
             {
                 var result = CreateRecord<team>(info);
-                if (result.first)
+                if(result.first)
                 {
                     var memberNmaeList = memberNames.Split(',').ToList();
-                    CreateMembers(result.second.teamId, memberNmaeList);
+                    CreateMembers(result.second.teamId,memberNmaeList);
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
                     if (bidderResult.first)
                     {
@@ -133,7 +138,9 @@ namespace WebSite.Controllers
                     }
                 }
             }
-            return RedirectToAction("Detail", "Purchase", new { id = info.purchaseId });
+            return RedirectToAction("Detail","Purchase",new {id = info.purchaseId });
         }
+
+       
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 
@@ -25,7 +26,7 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            var result = GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
+            var result = Utility.GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
             if (result == null)
             {
                 return CreateRecord<bidder>(record);
@@ -74,6 +75,10 @@ namespace WebSite.Controllers.Common
                  ((UserType)session["user_type"] == type);
         }
 
+        public static IQueryable<T> GetList<T>(int countMax) where T : class
+        {
+            return Utility.GetList<T>(x => true).Take(countMax);
+        }
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             var result = new SingleTableModule<T>().FindInfo(expression);
@@ -110,19 +115,19 @@ namespace WebSite.Controllers.Common
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(), (int id) =>
              {
-                 var result = GetList<expert>(x => x.user_userId == id).SingleOrDefault();
+                 var result = Utility.GetList<expert>(x => x.user_userId == id).SingleOrDefault();
                  Assert(result != null);
                  SetSession(session, result.expertId, UserType.Expert);
              });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = GetList<company>(x => x.user_userId == id).SingleOrDefault();
+                var result = Utility.GetList<company>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
                 Assert(result != null);
                 SetSession(session, result.vendorId, UserType.Vendor);
             });
@@ -179,7 +184,7 @@ namespace WebSite.Controllers.Common
         {
             if (info.bidder_is_team)
             {
-                var result = GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
+                var result = Utility.GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -189,7 +194,7 @@ namespace WebSite.Controllers.Common
             }
             else
             {
-                var result = GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
+                var result = Utility.GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -208,9 +213,9 @@ namespace WebSite.Controllers.Common
             var file = request.Files[upload];
             Assert(request.Files.Count == 1);
             string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
-            string filename = Path.GetFileName(file.FileName);
-            Assert(filename != null);
-            path = Path.Combine(path, filename);
+            string fileName = Path.GetFileName(file.FileName);
+            Assert(fileName != null);
+            path = Path.Combine(path, fileName);
             file.SaveAs(path);
             return path;
         }
@@ -219,7 +224,7 @@ namespace WebSite.Controllers.Common
             return new SingleTableModule<T>().Edit(record);
         }
 
-        public static T GetForiegnKeyTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
+        public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
         {
             var Iter = GetList<T>(whereSelector).SingleOrDefault();
             Assert(Iter != null);
@@ -228,12 +233,9 @@ namespace WebSite.Controllers.Common
 
         public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request)
         {
-           // info.bidder = bidderInfo;
             info.bidderId = bidderInfo.bidderId;
             info.bid_content = UploadFileGetUrl(info, request);
             info.bid_time = DateTime.Now;
-           // info.purchase = Utility.GetForiegnKeyTableRecord<purchase>(x => x.purchaseId == info.purchaseId);
         }
-
     }
 }
