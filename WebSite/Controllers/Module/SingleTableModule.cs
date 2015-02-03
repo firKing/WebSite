@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Debug;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web;
+using System.Web.Mvc;
 using WebSite.Controllers.Common;
+using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers.Module
@@ -39,6 +44,14 @@ namespace WebSite.Controllers.Module
         public bool Edit(T info)
         {
             db.Entry<T>(info).State = System.Data.Entity.EntityState.Modified;
+            return db.SaveChanges() > 0;
+        }
+
+        public bool Edit(Expression<Func<T,bool>>whereSelector, Func<T, T> infoFunctor)
+        {
+            var result = FindInfo(whereSelector).SingleOrDefault();
+            Assert(result!=null);
+            db.Entry<T>(infoFunctor.Invoke(result)).State = System.Data.Entity.EntityState.Modified;
             return db.SaveChanges() > 0;
         }
 

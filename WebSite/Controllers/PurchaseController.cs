@@ -162,15 +162,19 @@ namespace WebSite.Controllers
         }
 
         //ajax 返回字符串 "ture" "false"
-        [HttpPost]
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            if (Utility.CheckSession(UserType.Company,Session))
+            if (Utility.CheckSession(UserType.Vendor,Session))
             {
-                var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-                Assert(result != null);
-                result.hitId = bidId;
-                var sign = new SingleTableModule<purchase>().Edit(result);
+                //var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+                //Assert(result != null);
+                //result.hitId = bidId;
+                //var sign = new SingleTableModule<purchase>().Edit(result);
+                var sign = (new SingleTableModule<purchase>()).Edit(x => x.purchaseId == purchaseId, (x) =>
+                {
+                    x.hitId = bidId;
+                    return x;
+                });
                 return Json(sign, JsonRequestBehavior.AllowGet);
             }
             else
