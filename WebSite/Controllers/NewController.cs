@@ -9,6 +9,7 @@ using System.Web;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.EnterpriseServices.Internal;
+using System.Web.Routing;
 
 namespace WebSite.Controllers
 {
@@ -69,9 +70,11 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
             {
+                info.news_time = DateTime.Now;
+                info.companyId = (Int32) Session["user_id"];
                // info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
-               CreateRecord<news>(info);
-                return View("Detail");
+                CreateRecord<news>(info);
+                return RedirectToAction("NewsList", "Index", new {page=0});
             }
             return RedirectToAction("Home", "Company");
         }
