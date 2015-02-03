@@ -41,11 +41,6 @@ namespace WebSite.Controllers.Module
             return new Pair<bool, T>(db.SaveChanges() > 0, addResult);
         }
 
-        public bool Edit(T info)
-        {
-            db.Entry<T>(info).State = System.Data.Entity.EntityState.Modified;
-            return db.SaveChanges() > 0;
-        }
 
         public bool Edit(Expression<Func<T,bool>>whereSelector, Func<T, T> infoFunctor)
         {
