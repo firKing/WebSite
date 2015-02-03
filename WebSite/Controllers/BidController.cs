@@ -109,15 +109,7 @@ namespace WebSite.Controllers
                 var expertId = (Int32)Session["user_id"];
                 info.expertId = expertId;
                 info.audit_time = DateTime.Now;
-                //try
-                //{
-                   CreateRecord<audit>(info);
-
-                //}
-                //catch (DbEntityValidationException DbEX)
-                //{
-                //    throw;
-                //}
+                CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }

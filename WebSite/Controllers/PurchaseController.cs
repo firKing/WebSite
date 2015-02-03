@@ -41,12 +41,6 @@ namespace WebSite.Controllers
             }
         }
 
-        //获取采购信息详情页
-        //private IQueryable<purchase> Info(int purchaseId)
-        //{
-        //    return db.FindInfo(x => x.purchaseId == purchaseId);
-        //}
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -158,11 +152,11 @@ namespace WebSite.Controllers
         {
             if (Utility.CheckSession(UserType.Company,Session))
             {
-                var sign = (new SingleTableModule<purchase>()).Edit(x => x.purchaseId == purchaseId, (x) =>
+                var sign = Utility.EditRecord<purchase>(x => x.purchaseId == purchaseId, (x) =>
                 {
                     x.hitId = bidId;
                     return x;
-                });
+                }).first;
                 return Json(sign, JsonRequestBehavior.AllowGet);
             }
             else

@@ -42,12 +42,16 @@ namespace WebSite.Controllers.Module
         }
 
 
-        public bool Edit(Expression<Func<T,bool>>whereSelector, Func<T, T> infoFunctor)
+        public Pair<bool,T> Edit(Expression<Func<T,bool>>whereSelector, Func<T, T> infoFunctor)
         {
+            var temp = new Pair<bool, T>();
             var result = FindInfo(whereSelector).SingleOrDefault();
             Assert(result!=null);
-            db.Entry<T>(infoFunctor.Invoke(result)).State = System.Data.Entity.EntityState.Modified;
-            return db.SaveChanges() > 0;
+            var info = infoFunctor.Invoke(result);
+            db.Entry<T>(info).State = System.Data.Entity.EntityState.Modified;
+            temp.first = db.SaveChanges() > 0;
+            temp.second = info;
+            return temp;
         }
 
         public bool Delete(T info)

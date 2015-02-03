@@ -40,21 +40,30 @@ namespace WebSite.Controllers
             return findTableRecordMap;
         }
 
+        private bool IsLoginUser()
+        {
+            return Utility.CheckSession(UserType.Company, Session) ||
+                Utility.CheckSession(UserType.Expert, Session)||
+                Utility.CheckSession(UserType.Vendor, Session);
+        }
         public ActionResult Edit(int user_id, String user_type)
         {
-            var findResult = GetFindTableRecordMap()[user_type](user_id);
-            if (findResult != null)
+            if (IsLoginUser())
             {
-                switch (user_type)
+                var findResult = GetFindTableRecordMap()[user_type](user_id);
+                if (findResult != null)
                 {
-                    case "Company":
-                        return View("Edit", ((company)findResult).user);
+                    switch (user_type)
+                    {
+                        case "Company":
+                            return View("Edit", ((company)findResult).user);
 
-                    case "Expert":
-                        return View("Edit", ((expert)findResult).user);
+                        case "Expert":
+                            return View("Edit", ((expert)findResult).user);
 
-                    case "Vendor":
-                        return View("Edit", ((vendor)findResult).user);
+                        case "Vendor":
+                            return View("Edit", ((vendor)findResult).user);
+                    }
                 }
             }
             return HttpNotFound();
@@ -75,16 +84,24 @@ namespace WebSite.Controllers
         {
             var validateCode = Convert.ToString(Session["ValidateCode"]);
             Assert(validateCode != null);
-            if (ModelState.IsValid && validateCode == authCode)
+            if (validateCode == authCode)
             {
                 bool isEdit = (info.userId == 0) ? false : true;
-
+                if (!isEdit)
+                {
+                    info.user_password = Utility.Md5(info.user_password);
+                }
                 var createResult =
                     (!isEdit) ?
                     CreateRecord<user>(info) :
-                    new Pair<bool, user>(Utility.EditRecord<user>(x=>x.userId==info.userId,x=>info)
-                    , info);
-                
+                  Utility.EditRecord<user>(x=>x.userId==info.userId, x =>
+                    {
+                        x.user_address = info.user_address;
+                        x.user_introduction = info.user_introduction;
+                        x.user_mail = info.user_mail;
+                        x.user_telephone = x.user_telephone;
+                        return x;
+                    });
                 if (createResult.first)
                 {
                     var findIter = Utility.GetList<user>(x => x.userId == createResult.second.userId).SingleOrDefault();

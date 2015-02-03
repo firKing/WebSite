@@ -98,7 +98,7 @@ namespace WebSite.Controllers
                 Assert(info.type != UserType.Team);
                 var element = Utility.GetList<user>(x => x.user_name == info.name &&
                                 x.user_type == info.type.ToString() &&
-                                x.user_password == info.password).SingleOrDefault();
+                                x.user_password == Utility.Md5(info.password)).SingleOrDefault();
                 if (element != null)
                 {
                     result = true;

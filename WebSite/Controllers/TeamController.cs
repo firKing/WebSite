@@ -123,7 +123,7 @@ namespace WebSite.Controllers
             team info = model.info;
             String memberNames = model.memberNames;
             bid bidInfo = model.bidInfo;
-            if (CheckSession() /*&& ModelState.IsValid*/)
+            if (CheckSession())
             {
                 model.info.purchaseId = model.bidInfo.purchaseId;
                 model.info.team_time = DateTime.Now;
