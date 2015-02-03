@@ -117,7 +117,7 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
-            if (ModelState.IsValid && CheckExpertSession())
+            if (/*ModelState.IsValid &&*/ CheckExpertSession())
             {
                 var expertId = (Int32)Session["user_id"];
                 info.expertId = expertId;
