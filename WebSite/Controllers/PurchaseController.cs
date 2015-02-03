@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
 using System.Linq;
 using System.Linq.Expressions;
@@ -79,19 +80,28 @@ namespace WebSite.Controllers
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            foreach (var iter in expertIdList)
+            try
             {
-                var expertId = iter;
-                CreateRecord<invitation>(new invitation
+                foreach (var iter in expertIdList)
                 {
-                    invitation_content = invitationContent,
-                    purchaseId = purchaseId,
-                    expertId = expertId,
-                    invitation_time = DateTime.Now,
-                    //  expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == expertId),
-                    //  purchase = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId),
-                });
+                    var expertId = iter;
+
+                    CreateRecord<invitation>(new invitation
+                    {
+                        invitation_content = invitationContent,
+                        purchaseId = purchaseId,
+                        expertId = expertId,
+                        invitation_time = DateTime.Now,
+
+                    });
+                }
             }
+            catch (DbEntityValidationException dbEx)
+            {
+
+                int a = 0;
+            }
+          
         }
 
         [HttpPost]

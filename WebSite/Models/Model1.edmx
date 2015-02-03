@@ -137,7 +137,7 @@
     <Key>
       <PropertyRef Name="invitationId" />
     </Key>
-    <Property Name="purchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="purchaseId" Type="int" StoreGeneratedPattern="None" Nullable="false" />
     <Property Name="expertId" Type="int" Nullable="false" />
     <Property Name="invitationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="invitation_content" Type="varchar" Nullable="false" MaxLength="500" />
@@ -448,7 +448,7 @@
           <Key>
             <PropertyRef Name="invitationId" />
           </Key>
-          <Property Name="purchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="expertId" Type="Int32" Nullable="false" />
           <Property Name="invitationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="invitation_content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
