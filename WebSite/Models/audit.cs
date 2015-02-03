@@ -18,7 +18,6 @@ namespace WebSite.Models
         [Required(ErrorMessage = "*")]
 
         public int bidId { get; set; }
-        [Required(ErrorMessage = "*")]
 
         public int expertId { get; set; }
         public int auditId { get; set; }
