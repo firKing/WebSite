@@ -81,11 +81,6 @@ namespace WebSite.Controllers
             return Utility.CreateBidder(tenderId, type);
         }
 
-        private String UploadFileGetUrl(bid info)
-        {
-            return Utility.UploadFileGetUrl(info, Request);
-        }
-
         [HttpPost]
         public ActionResult Create(bid info)
         {
@@ -96,7 +91,8 @@ namespace WebSite.Controllers
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 if (ModelState.IsValid && bidderResult.first)
                 {
-                    Utility.FillBidRecord(info, bidderResult.second, Request);
+                    String uploadFieldName = "bid_content";
+                    Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
                     var result = new Pair<bool, bid>();
 
                     try

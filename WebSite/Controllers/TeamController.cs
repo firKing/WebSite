@@ -18,7 +18,12 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
-                return View();
+                TeamModel model=new TeamModel();
+                model.info = new team();
+                model.bidInfo = new bid();
+                model.info.purchaseId = purchaseId;
+                model.bidInfo.purchaseId = purchaseId;
+                return View(model);
             }
             Assert(Request.UrlReferrer != null);
             return Redirect(Request.UrlReferrer.ToString());
@@ -82,7 +87,7 @@ namespace WebSite.Controllers
                 .Select(x =>
                 Utility.GetList<vendor>(y =>
                     y.user.user_name == x &&
-                    y.user.user_type == UserType.Expert.ToString())
+                    y.user.user_type == UserType.Vendor.ToString())
                     .SingleOrDefault() != null)
                     .Aggregate((x, y) =>
                         x &&
@@ -91,7 +96,7 @@ namespace WebSite.Controllers
                 .Select(x =>
                 Utility.GetList<vendor>(y =>
                 y.user.user_name == x &&
-                y.user.user_type == UserType.Expert.ToString())
+                y.user.user_type == UserType.Vendor.ToString())
                 .SingleOrDefault().vendorId).ToList();
             foreach (var iter in vendorIdList)
             {
@@ -106,18 +111,19 @@ namespace WebSite.Controllers
             }
         }
 
-        private String UploadFileGetUrl(bid info)
-        {
-            return Utility.UploadFileGetUrl(info, Request);
-        }
 
         public ActionResult Create(TeamModel model)
         {
+
             team info = model.info;
             String memberNames = model.memberNames;
             bid bidInfo = model.bidInfo;
             if (CheckSession() /*&& ModelState.IsValid*/)
             {
+                model.info.purchaseId = model.bidInfo.purchaseId;
+                model.info.team_time = DateTime.Now;
+                model.bidInfo.bid_time = DateTime.Now;
+                model.info.createId = (Int32) Session["user_id"];
                 var result = CreateRecord<team>(info);
                 if (result.first)
                 {
@@ -126,7 +132,8 @@ namespace WebSite.Controllers
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
                     if (bidderResult.first)
                     {
-                        Utility.FillBidRecord(bidInfo, bidderResult.second, Request);
+                        const String uploadFieldName ="bidinfo.bid_content";
+                        Utility.FillBidRecord(bidInfo, bidderResult.second, Request, uploadFieldName);
                         var bidResult = CreateRecord<bid>(bidInfo);
                         if (bidResult.first)
                         {
