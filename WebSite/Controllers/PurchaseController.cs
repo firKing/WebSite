@@ -118,7 +118,7 @@ namespace WebSite.Controllers
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
-                    var inviteesList = invitees.Split(',').ToList();
+                    var inviteesList = invitees.Split(',').Distinct().ToList();
                     CreateInvitation(result.second.purchaseId, invitationContent, inviteesList);
                     return RedirectToAction("Detail", new { id = result.second.purchaseId });
                 }

@@ -71,11 +71,7 @@ namespace WebSite.Controllers
                    CreateRecord<member>(record);
                    return Json("加入团队成功", JsonRequestBehavior.AllowGet);
                 }
-                else
-                {
-                    return Json("该成员已存在", JsonRequestBehavior.AllowGet);
-
-                }
+                return Json("该成员已存在", JsonRequestBehavior.AllowGet);
             }
             return Json("请以供应商身份登录", JsonRequestBehavior.AllowGet);
         }
