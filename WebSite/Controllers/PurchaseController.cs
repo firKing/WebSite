@@ -52,7 +52,7 @@ namespace WebSite.Controllers
             {
                 var sessionId = (Int32)Session["user_id"];
                 ViewBag.companyName =
-               Utility.GetSingleTableRecord<company>(x => x.companyId == sessionId).user.user_name;
+                Utility.GetSingleTableRecord<company>(x => x.companyId == sessionId).user.user_name;
                 return View(new PurchaseModel());
             }
             Assert(Request.UrlReferrer != null);
