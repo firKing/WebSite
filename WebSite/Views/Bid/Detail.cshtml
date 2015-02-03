@@ -71,12 +71,6 @@
         editor.sync();
         var html = $("#editor_id").val();
         $("#news_content").val(html);
-        var bid_id = location.href.split("/")[5];
-        $("#bidId").val(bid_id);
-
-        console.log($("#news_content").val());
-
-        
         if (!(/\w+/.test(html))) {
             return false;
         }
