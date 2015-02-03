@@ -59,13 +59,24 @@
         window.editor = K.create('#editor_id');
     });
 
+    $("#adopt").on('click', function (e) {
+        var title = $("#login").attr('title');
+        if (title != 'Vendor') {
+            alert("请用供应商登陆！");
+            return false;
+        }
+    });
+
     $("#new_form").on('submit', function () {
         editor.sync();
         var html = $("#editor_id").val();
         $("#news_content").val(html);
-        var bid_id = location.href.split("?")[1].split("=")[1];
+        var bid_id = location.href.split("/")[5];
         $("#bidId").val(bid_id);
 
+        console.log($("#news_content").val());
+
+        
         if (!(/\w+/.test(html))) {
             return false;
         }
