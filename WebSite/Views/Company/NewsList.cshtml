@@ -51,7 +51,7 @@
                     {
                         <div class="section">
                             <h3>@item.news_title</h3>
-                            <p id="view_content">@item.news_content</p>
+                            <p class="view_content">@item.news_content</p>
                             <p>@item.news_time</p>
                         </div>
                     }
@@ -72,7 +72,4 @@
 
         </div>
     </div>
-</div><script>
-    var view_content = $("#view_content").html();
-    $("#view_content").html(decodeURI(view_content));
-</script>
+</div>
