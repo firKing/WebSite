@@ -40,21 +40,30 @@ namespace WebSite.Controllers
             return findTableRecordMap;
         }
 
+        private bool IsLoginUser()
+        {
+            return Utility.CheckSession(UserType.Company, Session) ||
+                Utility.CheckSession(UserType.Expert, Session)||
+                Utility.CheckSession(UserType.Vendor, Session);
+        }
         public ActionResult Edit(int user_id, String user_type)
         {
-            var findResult = GetFindTableRecordMap()[user_type](user_id);
-            if (findResult != null)
+            if (IsLoginUser())
             {
-                switch (user_type)
+                var findResult = GetFindTableRecordMap()[user_type](user_id);
+                if (findResult != null)
                 {
-                    case "Company":
-                        return View("Edit", ((company)findResult).user);
+                    switch (user_type)
+                    {
+                        case "Company":
+                            return View("Edit", ((company)findResult).user);
 
-                    case "Expert":
-                        return View("Edit", ((expert)findResult).user);
+                        case "Expert":
+                            return View("Edit", ((expert)findResult).user);
 
-                    case "Vendor":
-                        return View("Edit", ((vendor)findResult).user);
+                        case "Vendor":
+                            return View("Edit", ((vendor)findResult).user);
+                    }
                 }
             }
             return HttpNotFound();
