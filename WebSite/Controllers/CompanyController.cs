@@ -67,7 +67,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
                 const int count = 5;
-                var list = Utility.GetList<purchase, int>(page-1, count,
+                var list = Utility.GetList<purchase, int>(page, count,
                     x => x.companyId == sessionId,
                     x => x.purchaseId);
                 ViewBag.list = list;
@@ -88,7 +88,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
-                ViewBag.list = Utility.GetList<news, int>(page-1, count, x => x.companyId == sessionId, x => x.newsId);
+                ViewBag.list = Utility.GetList<news, int>(page, count, x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageSum = GetSumPage<news, int>(count, x => x.companyId == sessionId, x => x.newsId);
                 ViewBag.pageNum = page;
                 return View();
@@ -104,7 +104,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 Assert(Session["user_type"] != null);
                 var sessionId = (Int32)Session["user_id"];
-                ViewBag.list = Utility.GetList<invitation, int>(page-1, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
+                ViewBag.list = Utility.GetList<invitation, int>(page, count, x => x.purchase.companyId == sessionId, x => x.invitationId);
                 ViewBag.pageSum = GetSumPage<invitation, int>(count, x => x.purchase.companyId == sessionId, x => x.invitationId);
                 ViewBag.pageNum = page;
                 return View();

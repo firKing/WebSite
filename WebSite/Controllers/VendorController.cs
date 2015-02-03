@@ -68,7 +68,7 @@ namespace WebSite.Controllers
                 ViewBag.pageSum = GetSumPage<member, int>(count, x => x.vendorId == sessionId, x => x.memberId);
                 var pageSum = ViewBag.pageSum;
                 ViewBag.pageNum = page;
-                ViewBag.troop = Utility.GetList<member, int>(page-1, count,
+                ViewBag.troop = Utility.GetList<member, int>(page, count,
                     x =>
                     x.vendorId == sessionId, x => x.memberId)
                     .ToList().Select(x =>
@@ -97,7 +97,7 @@ namespace WebSite.Controllers
                 ViewBag.pageSum = GetSumPage<team, int>(count, x => x.createId == sessionId, x => x.teamId);
                 ViewBag.pageNum = page;
 
-                ViewBag.teamList = Utility.GetList<team, int>(page-1, count, x =>
+                ViewBag.teamList = Utility.GetList<team, int>(page, count, x =>
                        x.createId == sessionId, x => x.teamId).ToList()
                     .Select(x =>
                         new Pair<team, List<member>>(
@@ -117,7 +117,7 @@ namespace WebSite.Controllers
                 Assert(Session["user_id"] != null);
                 var sessionId = Convert.ToInt32(Session["user_id"]);
                 var id = GetBidderId(sessionId);
-                var personal = Utility.GetList<bid, int>(page-1, count, x => x.bidderId == id, x => x.bidId).ToList().Select(x => new Pair<bid, BidUserInfo>(x, GetBidUser(x.bidder)));
+                var personal = Utility.GetList<bid, int>(page, count, x => x.bidderId == id, x => x.bidId).ToList().Select(x => new Pair<bid, BidUserInfo>(x, GetBidUser(x.bidder)));
                 ViewBag.personal = personal;
                 var pageSum = GetSumPage<bid, int>(count, x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageSum = pageSum;
