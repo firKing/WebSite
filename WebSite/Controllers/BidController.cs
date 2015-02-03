@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
@@ -98,15 +99,14 @@ namespace WebSite.Controllers
                     Utility.FillBidRecord(info, bidderResult.second, Request);
                     var result = new Pair<bool, bid>();
 
-                    //try
-                    //{
-                    result = CreateRecord<bid>(info);
+                    try
+                    {
+                        result = CreateRecord<bid>(info);
 
-                    //}
-                    //catch (DbEntityValidationException dbEx)
-                    //{
-                    //    int a = 0;
-                    //}
+                    }
+                    catch (DbEntityValidationException dbEx)
+                    {
+                    }
                     return RedirectToAction("Detail", new { id = result.second.bidId });
                 }
             }

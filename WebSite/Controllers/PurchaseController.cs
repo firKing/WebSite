@@ -99,7 +99,7 @@ namespace WebSite.Controllers
             catch (DbEntityValidationException dbEx)
             {
 
-                int a = 0;
+              //  int a = 0;
             }
           
         }
@@ -112,8 +112,14 @@ namespace WebSite.Controllers
             String invitationContent = model.invitationContent;
             info.companyId = (Int32)Session["user_id"];
             info.purchase_time = DateTime.Now;
+<<<<<<< HEAD
             if (/*ModelState.IsValid && */Utility.CheckSession(UserType.Company, Session))
             {
+=======
+            if (/*ModelState.IsValid &&*/ Utility.CheckSession(UserType.Company, Session))
+            {
+               
+>>>>>>> 5ced42f85e52057ebf2e333e082680619528e640
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
@@ -165,11 +171,18 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-            Assert(result != null);
-            result.hitId = bidId;
-            var sign = new SingleTableModule<purchase>().Edit(result);
-            return Json(sign, JsonRequestBehavior.AllowGet);
+            if (Utility.CheckSession(UserType.Company,Session))
+            {
+                var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+                Assert(result != null);
+                result.hitId = bidId;
+                var sign = new SingleTableModule<purchase>().Edit(result);
+                return Json(sign, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
