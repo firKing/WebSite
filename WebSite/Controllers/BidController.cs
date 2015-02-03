@@ -108,14 +108,14 @@ namespace WebSite.Controllers
             if (ModelState.IsValid && CheckExpertSession())
             {
                 var expertId = (Int32)Session["user_id"];
+                info.expertId = expertId;
+                info.audit_time = DateTime.Now;
+                CreateRecord<audit>(info);
                 Utility.EditRecord<expert>(x => x.expertId == expertId, (x) =>
                 {
                     x.expert_accept_count += 1;
                     return x;
                 });
-                info.expertId = expertId;
-                info.audit_time = DateTime.Now;
-                CreateRecord<audit>(info);
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }
