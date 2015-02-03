@@ -67,7 +67,7 @@ namespace WebSite.Controllers
             {
                 const int count = 5;
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = Utility.GetList<invitation, int>(page-1, count, x => x.expertId == sessionId, x => x.invitationId);
+                ViewBag.list = Utility.GetList<invitation, int>(page, count, x => x.expertId == sessionId, x => x.invitationId);
                 ViewBag.sumPage = GetSumPage<invitation, int>(count, x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();
@@ -84,7 +84,7 @@ namespace WebSite.Controllers
                 const int count = 5;
 
                 var sessionId = Convert.ToInt32(Session["user_id"]);
-                ViewBag.list = Utility.GetList<audit, int>(page-1, count, x => x.expertId == sessionId, x => x.auditId);
+                ViewBag.list = Utility.GetList<audit, int>(page, count, x => x.expertId == sessionId, x => x.auditId);
                 ViewBag.sumPage = GetSumPage<audit, int>(count, x => x.expertId == sessionId, x => x.expertId);
                 ViewBag.pageNum = page;
                 return View();

@@ -126,7 +126,7 @@ namespace WebSite.Controllers
         public ActionResult PurchaseList(int page)
         {
             const int count = 5;
-            ViewBag.list = Utility.GetList<purchase, int>(page-1, count, x => x.purchaseId).ToList().
+            ViewBag.list = Utility.GetList<purchase, int>(page, count, x => x.purchaseId).ToList().
                 Select(x => new IndexStruct
                 {
                     detailId = x.purchaseId,
@@ -166,7 +166,7 @@ namespace WebSite.Controllers
         public ActionResult TeamList(int page)
         {
             const int count = 5;
-            ViewBag.list = Utility.GetList<team, int>(page-1, count, x => x.teamId).ToList()
+            ViewBag.list = Utility.GetList<team, int>(page, count, x => x.teamId).ToList()
                 .Select(x => new IndexStruct
                 {
                     detailId = x.teamId,
@@ -184,7 +184,7 @@ namespace WebSite.Controllers
         public ActionResult ExpertList(int page)
         {
             const int count = 8;
-            ViewBag.list = Utility.GetList<expert, int>(page-1, count, x => x.user_userId).ToList();
+            ViewBag.list = Utility.GetList<expert, int>(page, count, x => x.user_userId).ToList();
             var sum = GetSumPage<team, int>(count, x => x.teamId);
             ViewBag.sumPage = sum;
             ViewBag.pageNum = page;

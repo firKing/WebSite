@@ -135,7 +135,7 @@ namespace WebSite.Controllers
         public ActionResult BidList(int purchaseId, int page)
         {
             const int count = 5;
-            ViewBag.list = Utility.GetList<bid, int>(page-1, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x => new IndexStruct
+            ViewBag.list = Utility.GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x => new IndexStruct
             {
                 detailId = x.bidId,
                 name = x.bid_title,
