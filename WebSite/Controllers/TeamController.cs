@@ -60,15 +60,24 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult AddTeam(int teamId)
         {
-            var result = false;
             if (CheckSession())
             {
                 var record = new member();
                 record.teamId = teamId;
                 record.vendorId = (Int32)Session["user_id"];
-                result = CreateRecord<member>(record).first;
+                var count=Utility.GetList<member>(x => x.teamId == teamId && x.vendorId == record.vendorId).Count();
+                if (count == 0)
+                {
+                   CreateRecord<member>(record);
+                   return Json("加入团队成功", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("该成员已存在", JsonRequestBehavior.AllowGet);
+
+                }
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json("请以供应商身份登录", JsonRequestBehavior.AllowGet);
         }
 
         private bool CheckSession()
@@ -127,7 +136,7 @@ namespace WebSite.Controllers
                 var result = CreateRecord<team>(info);
                 if (result.first)
                 {
-                    var memberNmaeList = memberNames.Split(',').ToList();
+                    var memberNmaeList = memberNames.Split(',').Distinct().ToList();
                     CreateMembers(result.second.teamId, memberNmaeList);
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
                     if (bidderResult.first)
