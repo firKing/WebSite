@@ -20,6 +20,7 @@
     我的投标
 }
 
+
 <div id="list-main">
     <h2>
         供应商
@@ -44,12 +45,11 @@
                     @foreach (var key in ViewBag.personal)
                     {
                         <div class="show">
-                            <h3>对@key.user.user_name的竞标</h3>
+                            <h3>对 @key.first.purchase.purchase_title 的竞标</h3>
                             <ul>
-                                <li>供应商名称: @key.user.user_name</li>
-                                <li>电话： @key.user.user_telephone</li>
-                                <li>邮箱: @key.user.user_mail</li>
-                                <li>联系地址: @key.user.user_address</li>
+                                <li>设备名称: @key.first.bid_device_name</li>
+                                <li>数量： @key.first.bid_number</li>
+                                <li>概要: @key.first.bid_introduction</li>
                             </ul>
                         </div>
                     }

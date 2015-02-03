@@ -112,9 +112,8 @@ namespace WebSite.Controllers
             String invitationContent = model.invitationContent;
             info.companyId = (Int32)Session["user_id"];
             info.purchase_time = DateTime.Now;
-            if (/*ModelState.IsValid &&*/ Utility.CheckSession(UserType.Company, Session))
+            if (/*ModelState.IsValid && */Utility.CheckSession(UserType.Company, Session))
             {
-               
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {

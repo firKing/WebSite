@@ -1,4 +1,4 @@
-﻿@model WebSite.Models.team
+﻿@model WebSite.Models.TeamModel
 
 @{
     ViewBag.Title = "Home";
@@ -20,26 +20,6 @@
     <h2>组建虚拟团队</h2>
     <div id="CreateTeam">
         <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Create", "Team")">
-            <div class="form-group" style="display: none">
-                @Html.LabelFor(model => model.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.purchaseId, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.purchaseId)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.team_name, "队名：", new { @class = "col-sm-3 control-label" })
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(model => model.team_name, new { @class = "form-control", @placeholder = "队名" })
-                    @Html.ValidationMessageFor(model => model.team_name)
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputMember" class="col-sm-3 control-label">成员姓名</label>
-                <div class="col-sm-9">
-                    <input type="text" name="invitees" class="form-control" id="inputMember" placeholder="成员姓名" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content=" 成员之间用逗号隔开">
-                </div>
-            </div>
             <fieldset disabled>
                 <div class="form-group">
                     <label for="purchase_title" class="col-sm-3 control-label">采购信息名称：</label>
@@ -48,11 +28,68 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="form-group">
-                @Html.LabelFor(model => model.team_introduction, "概要：", new { @class = "col-sm-3 control-label" })
+            <div class="form-group" style="display: none">
+                @Html.LabelFor(model => model.bidInfo.purchaseId, "ID：", new {@class = "col-sm-3 control-label"})
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(model => model.team_introduction, new { @class = "form-control", @row = "5" })
-                    @Html.ValidationMessageFor(model => model.team_introduction)
+                    @Html.TextBoxFor(model => model.bidInfo.purchaseId, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.bidInfo.purchaseId)
+                </div>
+            </div>
+            <h3>队伍信息</h3>
+            <div class="form-group">
+                @Html.LabelFor(model => model.info.team_name, "队名：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.info.team_name, new {@class = "form-control", @placeholder = "队名"})
+                    @Html.ValidationMessageFor(model => model.info.team_name)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputMember" class="col-sm-3 control-label">成员姓名</label>
+                <div class="col-sm-9">
+                    <input type="text" name="invitees" class="form-control" id="inputMember" placeholder="成员姓名" role="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content=" 成员之间用逗号隔开">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.info.team_introduction, "队伍概要：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.info.team_introduction, new {@class = "form-control", @row = "5"})
+                    @Html.ValidationMessageFor(model => model.info.team_introduction)
+                </div>
+            </div>
+            <h3>标书信息</h3>
+            <div class="form-group">
+                @Html.LabelFor(model => model.bidInfo.bid_title, "标书标题：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.bidInfo.bid_title, new {@class = "form-control", @placeholder = "标书标题"})
+                    @Html.ValidationMessageFor(model => model.bidInfo.bid_title)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.bidInfo.bid_device_name, "设备名称：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.bidInfo.bid_device_name, new {@class = "form-control", @placeholder = "设备名称"})
+                    @Html.ValidationMessageFor(model => model.bidInfo.bid_device_name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.bidInfo.bid_number, "设备数量：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.bidInfo.bid_number, new {@class = "form-control", @placeholder = "设备数量"})
+                    @Html.ValidationMessageFor(model => model.bidInfo.bid_number)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.bidInfo.bid_introduction, "概要：", new {@class = "col-sm-3 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.bidInfo.bid_introduction, new {@class = "form-control", @placeholder = "概要", @rows = "5"})
+                    @Html.ValidationMessageFor(model => model.bidInfo.bid_introduction)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-3 control-label">说明书：</label>
+                <div class="col-sm-9">
+                    <input type="file" name="bid_content" id="exampleInputFile">
                 </div>
             </div>
             <div class="form-group form-submit">
