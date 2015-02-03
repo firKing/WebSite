@@ -35,6 +35,13 @@
                     @Html.ValidationMessageFor(model => model.bidInfo.purchaseId)
                 </div>
             </div>
+            <div class="form-group" style="display: none">
+                @Html.LabelFor(model => model.info.purchaseId, "ID：", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.info.purchaseId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.info.purchaseId)
+                </div>
+            </div>
             <h3>队伍信息</h3>
             <div class="form-group">
                 @Html.LabelFor(model => model.info.team_name, "队名：", new {@class = "col-sm-3 control-label"})
