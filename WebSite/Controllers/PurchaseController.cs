@@ -21,6 +21,7 @@ namespace WebSite.Controllers
             public int detailId;
             public int id;
         };
+
         // GET: Purchase
 
         // GET:
@@ -62,7 +63,6 @@ namespace WebSite.Controllers
         {
             //Assert ExpertName Exsit
 
-
             Assert(expertNameList
                 .Select(x =>
                 Utility.GetList<expert>(y =>
@@ -88,8 +88,8 @@ namespace WebSite.Controllers
                     purchaseId = purchaseId,
                     expertId = expertId,
                     invitation_time = DateTime.Now,
-                  //  expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == expertId),
-                  //  purchase = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId),
+                    //  expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == expertId),
+                    //  purchase = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId),
                 });
             }
         }
@@ -97,11 +97,10 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(PurchaseModel model)
         {
-
             purchase info = model.info;
             String invitees = model.invitees;
             String invitationContent = model.invitationContent;
-            if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
+            if (ModelState.IsValid && Utility.CheckSession(UserType.Company, Session))
             {
                 info.companyId = (Int32)Session["user_id"];
                 info.purchase_time = DateTime.Now;
@@ -120,11 +119,11 @@ namespace WebSite.Controllers
         {
             return Utility.CreateRecord(record);
         }
+
         private int GetSumPage<T, TKey>(double count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, TKey>> keySelector) where T : class
         {
             return (int)Math.Ceiling(Utility.GetSumCount(whereSelector, keySelector) / count);
         }
-
 
         private String GetPurchaseTitle(int purchaseId)
         {
@@ -136,14 +135,16 @@ namespace WebSite.Controllers
         public ActionResult BidList(int purchaseId, int page)
         {
             const int count = 5;
-            ViewBag.list = Utility.GetList<bid, int>(page, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x=>new IndexStruct {
-                    detailId = x.bidId,
-                    name = x.bid_title,
-                    content = x.bid_introduction,
-                    time = new Pair<string, int>(Utility.DateTimeToString(x.bid_time), 0)});
-            ViewBag.pageSum = GetSumPage<bid, int>(count,x => x.purchaseId == purchaseId, x => x.bidId) ;
+            ViewBag.list = Utility.GetList<bid, int>(page-1, count, x => x.purchaseId == purchaseId, x => x.bidId).ToList().Select(x => new IndexStruct
+            {
+                detailId = x.bidId,
+                name = x.bid_title,
+                content = x.bid_introduction,
+                time = new Pair<string, int>(Utility.DateTimeToString(x.bid_time), 0)
+            });
+            ViewBag.pageSum = GetSumPage<bid, int>(count, x => x.purchaseId == purchaseId, x => x.bidId);
             ViewBag.pageNum = page;
-            
+
             ViewBag.detailActionName = "Bid";
             ViewBag.PurchaseTitle = GetPurchaseTitle(purchaseId);
             ViewBag.bigtitle = ViewBag.PurchaseTitle + "的标书列表";
@@ -157,8 +158,8 @@ namespace WebSite.Controllers
             var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
             Assert(result != null);
             result.hitId = bidId;
-           var sign = new SingleTableModule<purchase>().Edit(result);
-           return Json(sign, JsonRequestBehavior.AllowGet);
+            var sign = new SingleTableModule<purchase>().Edit(result);
+            return Json(sign, JsonRequestBehavior.AllowGet);
         }
     }
 }

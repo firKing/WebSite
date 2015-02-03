@@ -1,14 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Diagnostics.Debug;
-using WebSite.Controllers.Common;
-using System.Web;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using System.EnterpriseServices.Internal;
 
 namespace WebSite.Controllers
 {
@@ -32,6 +26,7 @@ namespace WebSite.Controllers
         {
             return Utility.CreateRecord(record);
         }
+
         // GET: NewList
         public ActionResult Detail(int id)
         {
@@ -51,7 +46,6 @@ namespace WebSite.Controllers
         }
 
         //获取新闻详情页
-     
 
         [HttpGet]
         public ActionResult Create()
@@ -63,10 +57,10 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(news info)
         {
-            if (ModelState.IsValid&&Utility.CheckSession(UserType.Company,Session))
+            if (ModelState.IsValid && Utility.CheckSession(UserType.Company, Session))
             {
-               // info.company = Utility.GetSingleTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
-               CreateRecord<news>(info);
+                // info.company = Utility.GetSingleTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
+                CreateRecord<news>(info);
                 return View("Detail");
             }
             return RedirectToAction("Home", "Company");
