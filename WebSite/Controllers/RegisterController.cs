@@ -87,9 +87,10 @@ namespace WebSite.Controllers
             if (validateCode == authCode)
             {
                 bool isEdit = (info.userId == 0) ? false : true;
+                var password = Utility.Md5(info.user_password);
                 if (!isEdit)
                 {
-                    info.user_password = Utility.Md5(info.user_password);
+                    info.user_password = password;
                 }
                 var createResult =
                     (!isEdit) ?

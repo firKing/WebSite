@@ -17,9 +17,10 @@ namespace WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
+                var password = Utility.Md5(info.password);
                 Assert(info.type != UserType.Team);
                 var element = Utility.GetList<admin>(x => x.admin_name == info.name &&
-                                x.admin_pwd == Utility.Md5(info.password)).SingleOrDefault();
+                                x.admin_pwd ==password ).SingleOrDefault();
                 if (element != null)
                 {
                     return RedirectToAction("Index", "User");
