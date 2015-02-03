@@ -114,17 +114,22 @@ namespace WebSite.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        [HttpPost]
         public ActionResult CreateAudit(audit info)
         {
-            if (/*ModelState.IsValid &&*/ CheckExpertSession())
+            if (ModelState.IsValid && CheckExpertSession())
             {
                 var expertId = (Int32)Session["user_id"];
                 info.expertId = expertId;
-                // info.expert = Utility.GetSingleTableRecord<expert>(x => x.expertId == info.expertId);
                 info.audit_time = DateTime.Now;
-                // info.bid = Utility.GetSingleTableRecord<bid>(x => x.bidId == info.bidId);
-                CreateRecord<audit>(info);
+                //try
+                //{
+                   CreateRecord<audit>(info);
+
+                //}
+                //catch (DbEntityValidationException DbEX)
+                //{
+                //    throw;
+                //}
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }

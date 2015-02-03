@@ -182,6 +182,7 @@ FakesAssemblies/
 
 WebSite.sln.ide/
 WebSite/WebSite.csproj
-
+*.jpg
+*.png
 *.edmx
 *.diagram

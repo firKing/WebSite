@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/02/2015 11:08:46
--- Generated from EDMX file: F:\ImportantProject\WebSite\WebSite\Models\Model1.edmx
+-- Date Created: 02/03/2015 15:22:43
+-- Generated from EDMX file: C:\soft\WebSite\WebSite\Models\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -167,7 +167,7 @@ GO
 
 -- Creating table 'invitations'
 CREATE TABLE [dbo].[invitations] (
-    [purchaseId] int IDENTITY(1,1) NOT NULL,
+    [purchaseId] int  NOT NULL,
     [expertId] int  NOT NULL,
     [invitationId] int IDENTITY(1,1) NOT NULL,
     [invitation_content] varchar(500)  NOT NULL,
