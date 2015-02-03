@@ -96,7 +96,7 @@
                 
             $.ajax({
                 type: "post",
-                url: "@Url.Action("CheckMemberListNameExist", "Verify")",
+                url: "@Url.Action("CheckExpertListNameExist", "Verify")",
                 data: {names : name},
                 dataType: "json",
                 success: function (data) {
