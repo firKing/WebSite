@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
 using System.Security.Cryptography;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WebSite.Controllers.Common
 {
@@ -211,7 +211,12 @@ namespace WebSite.Controllers.Common
             Assert(request.Files.Count == 1);
             string path = "/Uploads/";
             string fileName = Path.GetFileName(file.FileName);
+            Regex regex = new Regex(@"\.(pdf|txt|ppt|doc|wps|jpg|png|xls)");
             Assert(fileName != null);
+            if (!regex.IsMatch(fileName))
+            {
+                Assert(false);
+            }
             path = Path.Combine(path, fileName);
             file.SaveAs(path);
             return path;
