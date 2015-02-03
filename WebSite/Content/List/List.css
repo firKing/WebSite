@@ -39,11 +39,10 @@
     font-size: 14px;
     color: #000;
 }
-#list-main ul li > span{
+#list-main ul li a > span{
     float: right;
     color: #93b3a7;
 }
-
 /*列表*/
 /*翻页*/
 .pagination li a{

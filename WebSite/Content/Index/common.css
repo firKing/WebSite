@@ -162,4 +162,7 @@ ol,ul {
 #footer-inner a {
     color: #666;
 }
+#footer-inner a:hover {
+    color: #cccccc;
+}
 /*footer*/

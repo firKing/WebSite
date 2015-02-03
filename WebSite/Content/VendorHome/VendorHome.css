@@ -25,6 +25,10 @@
     padding-left: 10px;
 }
 
+.content .col-md-4 ul li a {
+    color: #339933;
+}
+
 .content .col-md-4 ul li .line {
     width: 3px;
     height: 20px;
@@ -65,8 +69,7 @@
 }
 .content .col-md-8 .details {
     position: relative;
-    padding-top: 40px;
-    padding-left: 36px;
+    padding: 0 36px;
 }
 
 .content .col-md-8 .show {
@@ -81,12 +84,14 @@
 
 .content .col-md-8 h3 {
     margin: 0;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 
 
 .content .col-md-8 .show ul {
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
 .content .col-md-8 .details .section p {
@@ -114,6 +119,12 @@
     font-size: 24px;
     padding-left: 30px;
 }
-
+.section {
+    border-bottom: 1px solid #006400;
+    padding: 20px 0;
+}
+.show {
+    border-bottom: 1px solid #006400;
+}
 
 
