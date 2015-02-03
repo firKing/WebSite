@@ -23,11 +23,12 @@ namespace WebSite.Controllers
             return Utility.CheckSession(UserType.Expert, Session);
         }
 
+
         //ajax
         [HttpPost]
         public void DeleteBid(int bidId)
         {
-            var result = Utility.GetList<bid>(x => x.bidId == bidId).SingleOrDefault();
+            var result = Utility.GetSingleTableRecord<bid>(x => x.bidId == bidId);
             Assert(result != null);
             new SingleTableModule<bid>().Delete(result);
         }
@@ -45,7 +46,7 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<bid>(x => x.bidId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<bid>(x => x.bidId == id);
             if (element != null)
             {
                 ViewBag.fileName = GetFileNameByPath(element.bid_content);
@@ -91,10 +92,9 @@ namespace WebSite.Controllers
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 if (ModelState.IsValid && bidderResult.first)
                 {
-                    String uploadFieldName = "bid_content";
+                    const String uploadFieldName = "bid_content";
                     Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
                     var result = new Pair<bool, bid>();
-
                     try
                     {
                         result = CreateRecord<bid>(info);
@@ -119,15 +119,12 @@ namespace WebSite.Controllers
                 var expertId = (Int32)Session["user_id"];
                 info.expertId = expertId;
                 info.audit_time = DateTime.Now;
-                //try
-                //{
-                   CreateRecord<audit>(info);
-
-                //}
-                //catch (DbEntityValidationException DbEX)
-                //{
-                //    throw;
-                //}
+                CreateRecord<audit>(info);
+                Utility.EditRecord<expert>(x => x.expertId == expertId, (x) =>
+                {
+                    x.expert_accept_count += 1;
+                    return x;
+                });
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }

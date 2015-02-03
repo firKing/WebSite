@@ -29,7 +29,7 @@ namespace WebSite.Controllers
         // GET:
         public ActionResult Detail(int id)
         {
-            var element = Utility.GetList<purchase>(x => x.purchaseId == id).SingleOrDefault();
+            var element = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == id);
             if (element != null)
             {
                 ViewBag.detail = element;
@@ -40,12 +40,6 @@ namespace WebSite.Controllers
                 return HttpNotFound();
             }
         }
-
-        //获取采购信息详情页
-        //private IQueryable<purchase> Info(int purchaseId)
-        //{
-        //    return db.FindInfo(x => x.purchaseId == purchaseId);
-        //}
 
         [HttpGet]
         public ActionResult Create()
@@ -81,8 +75,6 @@ namespace WebSite.Controllers
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-            try
-            {
                 foreach (var iter in expertIdList)
                 {
                     var expertId = iter;
@@ -96,13 +88,6 @@ namespace WebSite.Controllers
 
                     });
                 }
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-
-              //  int a = 0;
-            }
-          
         }
 
         [HttpPost]
@@ -113,12 +98,12 @@ namespace WebSite.Controllers
             String invitationContent = model.invitationContent;
             info.companyId = (Int32)Session["user_id"];
             info.purchase_time = DateTime.Now;
-            if (/*ModelState.IsValid && */Utility.CheckSession(UserType.Company, Session))
+            if (Utility.CheckSession(UserType.Company, Session))
             {
                 var result = CreateRecord<purchase>(info);
                 if (result.first)
                 {
-                    var inviteesList = invitees.Split(',').ToList();
+                    var inviteesList = invitees.Split(',').Distinct().ToList();
                     CreateInvitation(result.second.purchaseId, invitationContent, inviteesList);
                     return RedirectToAction("Detail", new { id = result.second.purchaseId });
                 }
@@ -138,7 +123,7 @@ namespace WebSite.Controllers
 
         private String GetPurchaseTitle(int purchaseId)
         {
-            var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
+            var result = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId);
             Assert(result != null);
             return result.purchase_title;
         }
@@ -167,15 +152,11 @@ namespace WebSite.Controllers
         {
             if (Utility.CheckSession(UserType.Company,Session))
             {
-                //var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
-                //Assert(result != null);
-                //result.hitId = bidId;
-                //var sign = new SingleTableModule<purchase>().Edit(result);
-                var sign = (new SingleTableModule<purchase>()).Edit(x => x.purchaseId == purchaseId, (x) =>
+                var sign = Utility.EditRecord<purchase>(x => x.purchaseId == purchaseId, (x) =>
                 {
                     x.hitId = bidId;
                     return x;
-                });
+                }).first;
                 return Json(sign, JsonRequestBehavior.AllowGet);
             }
             else

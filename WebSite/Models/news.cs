@@ -23,6 +23,7 @@ namespace WebSite.Models
         public string news_title { get; set; }
         [Required(ErrorMessage = "*")]
         public string news_content { get; set; }
+     
         public System.DateTime news_time { get; set; }
 
         public virtual company company { get; set; }

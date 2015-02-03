@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace WebSite.Controllers.Common
 {
@@ -26,7 +28,7 @@ namespace WebSite.Controllers.Common
             {
                 record.bidder_is_team = false;
             }
-            var result = Utility.GetList<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team).SingleOrDefault();
+            var result = GetSingleTableRecord<bidder>(x => x.tendererId == record.tendererId && x.bidder_is_team == record.bidder_is_team);
             if (result == null)
             {
                 return CreateRecord<bidder>(record);
@@ -36,12 +38,7 @@ namespace WebSite.Controllers.Common
 
         public static String DateTimeToString(DateTime time)
         {
-            return time.Year.ToString() + "-"
-                  + time.Month.ToString() + "-"
-                  + time.Day.ToString() + " "
-                  + time.Hour.ToString() + "-"
-                  + time.Minute.ToString() + "-"
-                  + time.Second.ToString();
+            return time.ToString("yyyy/dd/mm hh:mm");
         }
 
         public static UserType GetUsetTypeByString(String type)
@@ -77,7 +74,7 @@ namespace WebSite.Controllers.Common
 
         public static IQueryable<T> GetList<T>(int countMax) where T : class
         {
-            return Utility.GetList<T>(x => true).Take(countMax);
+            return GetList<T>(x => true).Take(countMax);
         }
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
@@ -115,19 +112,19 @@ namespace WebSite.Controllers.Common
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
             setSessionEventMap.Add(UserType.Expert.ToString(), (int id) =>
              {
-                 var result = Utility.GetList<expert>(x => x.user_userId == id).SingleOrDefault();
+                 var result = GetSingleTableRecord<expert>(x => x.user_userId == id);
                  Assert(result != null);
                  SetSession(session, result.expertId, UserType.Expert);
              });
             setSessionEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                var result = Utility.GetList<company>(x => x.user_userId == id).SingleOrDefault();
+                var result = GetSingleTableRecord<company>(x => x.user_userId == id);
                 Assert(result != null);
                 SetSession(session, result.companyId, UserType.Company);
             });
             setSessionEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-                var result = Utility.GetList<vendor>(x => x.user_userId == id).SingleOrDefault();
+                var result = GetSingleTableRecord<vendor>(x => x.user_userId == id);
                 Assert(result != null);
                 SetSession(session, result.vendorId, UserType.Vendor);
             });
@@ -184,7 +181,7 @@ namespace WebSite.Controllers.Common
         {
             if (info.bidder_is_team)
             {
-                var result = Utility.GetList<team>(x => x.teamId == info.tendererId).SingleOrDefault();
+                var result = GetSingleTableRecord<team>(x => x.teamId == info.tendererId);
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -194,7 +191,7 @@ namespace WebSite.Controllers.Common
             }
             else
             {
-                var result = Utility.GetList<vendor>(x => x.vendorId == info.tendererId).SingleOrDefault();
+                var result = GetSingleTableRecord<vendor>(x => x.vendorId == info.tendererId);
                 Assert(result != null);
                 return new BidUserInfo
                 {
@@ -212,23 +209,29 @@ namespace WebSite.Controllers.Common
 
             var file = request.Files[uploadName];
             Assert(request.Files.Count == 1);
-            string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";
+            string path = "/Uploads/";
             string fileName = Path.GetFileName(file.FileName);
+            Regex regex = new Regex(@"\.(pdf|txt|ppt|doc|wps|jpg|png|xls)");
             Assert(fileName != null);
+            if (!regex.IsMatch(fileName))
+            {
+                Assert(false);
+            }
             path = Path.Combine(path, fileName);
             file.SaveAs(path);
             return path;
         }
-        public static bool EditRecord<T>(T record)where T :class
+     
+        public static Pair<bool,T> EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)where  T :class
         {
-            return new SingleTableModule<T>().Edit(record);
+            var table = new SingleTableModule<T>();
+            return table.Edit(whereSelector, infoFunctor);
         }
-
         public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
         {
-            var Iter = GetList<T>(whereSelector).SingleOrDefault();
-            Assert(Iter != null);
-            return Iter;
+            var iter = GetList<T>(whereSelector).SingleOrDefault();
+            Assert(iter != null);
+            return iter;
         }
 
         public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request,String uploadName)
@@ -236,6 +239,16 @@ namespace WebSite.Controllers.Common
             info.bidderId = bidderInfo.bidderId;
             info.bid_content = UploadFileGetUrl(info, request, uploadName);
             info.bid_time = DateTime.Now;
+        }
+
+        public static String Md5(String password)
+        {
+            return password;
+            //Assert(password!=null);
+            //byte[] result = Encoding.Default.GetBytes(password.Trim());    //tbPass为输入密码的文本框
+            //MD5 md5 = new MD5CryptoServiceProvider();
+            //byte[] output = md5.ComputeHash(result);
+            //return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
         }
     }
 }

@@ -15,6 +15,7 @@ namespace WebSite.Controllers
         public String image;
         public int detailId;
         public int id;
+        public DateTime dateTime;
     };
 
     public class TeamStruct
@@ -28,60 +29,8 @@ namespace WebSite.Controllers
         public Pair<String, int> GetMonthAndDay(System.DateTime time)
         {
             var result = new Pair<String, int>(new String('\0', 0), 0);
+            result.first = time.ToString("MMM");
             result.second = time.Day;
-            switch (time.Month)
-            {
-                case 1:
-                    result.first = "一月";
-                    break;
-
-                case 2:
-                    result.first = "二月";
-                    break;
-
-                case 3:
-                    result.first = "三月";
-                    break;
-
-                case 4:
-                    result.first = "四月";
-                    break;
-
-                case 5:
-                    result.first = "五月";
-                    break;
-
-                case 6:
-                    result.first = "六月";
-                    break;
-
-                case 7:
-                    result.first = "七月";
-                    break;
-
-                case 8:
-                    result.first = "八月";
-                    break;
-
-                case 9:
-                    result.first = "九月";
-                    break;
-
-                case 10:
-                    result.first = "十月";
-                    break;
-
-                case 11:
-                    result.first = "十一月";
-                    break;
-
-                case 12:
-                    result.first = "十二月";
-                    break;
-
-                default:
-                    break;
-            }
             return result;
         }
 

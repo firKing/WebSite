@@ -45,8 +45,8 @@
                     @foreach (var item in ViewBag.list)
                     {
                         <div class="section">
-                            <h3><a href="@Url.Action("Detail", "Purchase")?id=@item.purchaseId">@item.purchase.company.user.user_name 公司</a></h3>
-                            <p>@item.invitation_content</p>
+                            <h3><a href="@Url.Action("Detail", "Purchase")?id=@item.purchaseId">邀请方： @item.purchase.company.user.user_name </a></h3>
+                            <p>邀请信息：@item.invitation_content</p>
                         </div>
                     }
                 </div>
