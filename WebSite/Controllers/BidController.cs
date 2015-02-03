@@ -91,7 +91,7 @@ namespace WebSite.Controllers
                 var bidderResult = CreateBidder((Int32)Session["user_id"], UserType.Vendor);
                 if (ModelState.IsValid && bidderResult.first)
                 {
-                    String uploadFieldName = "bid_content";
+                    const String uploadFieldName = "bid_content";
                     Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
                     var result = new Pair<bool, bid>();
 
