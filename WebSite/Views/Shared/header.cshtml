@@ -135,9 +135,9 @@
 
             if (flag) {
                 $.ajax({
-                        type: 'post',
-                        url: "@Url.Action("Login", "Verify")",
-                        data: data,
+                    type: 'post',
+                    url: "@Url.Action("Login", "Verify")",
+                    data: data,
                     dataType: "text",
                     success: function (status) {
                         if (status.toString() === "true") {
@@ -162,9 +162,12 @@
 
 </script>
 <script>
-    $('.view_content').each(function(index, value) {
-        var text = decodeURI($(value).html());
-        $('.view_content').eq(index).html(text);
+    $(document).ready(function() {
+        $('.view_content').each(function (index, value) {
+            var text = decodeURI($(value).html());
+            $(".view_content").eq(index).html("");
+            $('.view_content').eq(index).html(text);
+        });
     });
 </script>
 

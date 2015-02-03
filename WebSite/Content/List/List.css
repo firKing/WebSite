@@ -39,7 +39,7 @@
     font-size: 14px;
     color: #000;
 }
-#list-main ul li span{
+#list-main ul li > span{
     float: right;
     color: #93b3a7;
 }

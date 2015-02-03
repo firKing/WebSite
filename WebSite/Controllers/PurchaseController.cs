@@ -165,7 +165,7 @@ namespace WebSite.Controllers
         //ajax 返回字符串 "ture" "false"
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            if (Utility.CheckSession(UserType.Vendor,Session))
+            if (Utility.CheckSession(UserType.Company,Session))
             {
                 //var result = Utility.GetList<purchase>(x => x.purchaseId == purchaseId).SingleOrDefault();
                 //Assert(result != null);
