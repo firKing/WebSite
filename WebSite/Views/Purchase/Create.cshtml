@@ -14,7 +14,6 @@
 @section script {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/PubPurchase/PubPurchase.js")
 }
 @section title {
     发布采购信息
@@ -81,11 +80,11 @@
         </form>
     </div>
 </div>
-<div id="popover_btn" class="popover fade right in" role="tooltip" style="top: 345px; left: 998px; display: none;"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">成员之间用逗号隔开</div></div>
+<div id="popover_btn" class="popover fade right in" role="tooltip" style="top: 330px; left: 1161px;"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">成员之间用逗号隔开</div></div>
 <script>
     
     $(document).ready(function () {
-        $("#inputMember").on('blur', function (e) {
+        $("#inputExpert").on('blur', function (e) {
         
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");

@@ -92,7 +92,7 @@
             return false;
         }
         var html = $("#audit_content").val();
-        if (!(/\w+/.test(html))) {
+        if (!(/[\u4E00-\u9FA5\w]+/.test(html))) {
             return false;
         }
     });

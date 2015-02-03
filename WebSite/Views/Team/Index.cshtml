@@ -19,7 +19,7 @@
 <div id="detail-main">
     <h2>组建虚拟团队</h2>
     <div id="CreateTeam">
-        <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Team")">
+        <form class="form-horizontal" role="form" id="create_form"  method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Team")">
             <fieldset disabled>
                 <div class="form-group">
                     <label for="purchase_title" class="col-sm-3 control-label">采购信息名称：</label>
@@ -140,6 +140,6 @@
 
             });
         });  
-    }); 
+    });
 
 </script>

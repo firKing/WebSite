@@ -23,7 +23,7 @@
 <div id="detail-main">
     <h2>发布标书</h2>
     <div id="PubBidder">
-        <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Bid")">
+        <form class="form-horizontal" role="form" id="create_form" method="POST" enctype="multipart/form-data" action="@Url.Action("Create", "Bid")">
             <fieldset disabled>
                 <div class="form-group">
                     <label for="purchase_title" class="col-sm-3 control-label">采购信息标题：</label>
@@ -79,7 +79,23 @@
                         <button type="submit" class="btn btn-success">保存并提交</button>
                     </div>
                 </div>
-</form>
+    </form>
     </div>
 </div>
 
+<script>
+    $("#create_form").on("submit", function (e) {
+        var form = e.target;
+        var file = $(form).find("input[type='file']");
+
+        if (!(/.+(pdf|txt|ppt|doc|wps|jpg|png|xls)/.test(file[0].files[0].type))) {
+            alert("格式有问题！");
+            return false;
+        }
+
+        if (file[0].files[0].size > 10000000) {
+            alert("文件好大Σ( ° △ °|||)︴");
+            return false;
+        }
+    });
+</script>

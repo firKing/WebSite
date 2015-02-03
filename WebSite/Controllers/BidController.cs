@@ -98,12 +98,14 @@ namespace WebSite.Controllers
                     try
                     {
                         result = CreateRecord<bid>(info);
-
+                        if (result.first)
+                        {
+                            return RedirectToAction("Detail", new { id = result.second.bidId });
+                        }
                     }
                     catch (DbEntityValidationException dbEx)
                     {
                     }
-                    return RedirectToAction("Detail", new { id = result.second.bidId });
                 }
             }
             Assert(Request.UrlReferrer != null);
