@@ -49,6 +49,7 @@
         $("#new_form").on('submit', function () {
             editor.sync();
             var html = $("#editor_id").val();
+            html = encodeURI(html);
             $("#news_content").val(html);
 
             if (!(/\w+/.test(html)) && !(/\w+/.test($("#news_title").val()))) {
