@@ -27,9 +27,11 @@
     <p class="detail-info"><span>@ViewBag.details.first.bid_time</span><span>创建供应商:@ViewBag.details.first.bidder.tendererId</span></p>
     <div class="detail-text">
         <p>
-           @ViewBag.details.first.bid_introduction
+            @ViewBag.details.first.bid_introduction
         </p>
-        <a href="@Url.Action("Create", "Bid")" class="btn btn-success btn-lg pull-right" id="adopt" role="button">采用</a>
+        <div class="hidden" id="purchaseId">@ViewBag.details.first.purchaseId</div>
+        <div class="hidden" id="BidId">@ViewBag.details.first.bidId</div>
+        <a href="javascript:void(0);" class="btn btn-success btn-lg pull-right" id="adopt" role="button">采用</a>
     </div>
     <form id="new_form" method="post" action="@Url.Action("CreateAudit", "Bid")">
         <label for="commit" class="col-sm-2 control-label">评论：</label>
@@ -65,6 +67,21 @@
             alert("请用供应商登陆！");
             return false;
         }
+        var BidId = $("#BidId").text();
+        var purchaseId = $("#purchaseId").text();
+
+        $.post('@Url.Action("PurchaseHitBid", "Purchase")', {
+            purchaseId: purchaseId,
+            bidId: BidId
+        }, function(data) {
+            if (data.toString() === "true") {
+                alert("提交成功！");
+            } else {
+                alert("提交失败");
+            }
+
+        });
+
     });
 
     $("#new_form").on('submit', function () {
