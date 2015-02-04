@@ -84,8 +84,12 @@
 <script>
     
     $(document).ready(function () {
-        $("#inputExpert").on('blur', function (e) {
-        
+        var offset = $("#inputMember").offset();
+        $("#popover_btn").css({
+            top: offset.top - 5, 
+            left: $("#inputMember").width() + offset.left + 25
+        });
+        $("#inputMember").on('blur', function (e) {
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");
             if (name.length === 0) {
@@ -93,10 +97,10 @@
                 $("#popover_btn").show(100);
                 return;
             }
-                
+            
             $.ajax({
                 type: "post",
-                url: "@Url.Action("CheckExpertListNameExist", "Verify")",
+                url: "@Url.Action("CheckMemberListNameExist", "Verify")",
                 data: {names : name},
                 dataType: "json",
                 success: function (data) {
@@ -106,14 +110,23 @@
                         msg = str + "这些用户名错误！";
                         $("#popover_btn").find(".popover-content").html(msg);
                         $("#popover_btn").show();
+                        $("#inputMember").attr("data-flag", 'false');
                     } else {
                         $("#popover_btn").hide();
+                        $("#inputMember").attr("data-flag", 'true');
                     }
-
                 }
-
             });
-        });  
+        });
+    });
+
+    $("#create_form").on("submit", function (e) {
+        if ($("#inputMember").attr("data-flag") === "false") {
+            alert("专家人员不对！");
+            return false;
+        }
+
+
     });
 
 </script>
