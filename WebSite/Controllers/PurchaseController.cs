@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
-using System.EnterpriseServices;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
-using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -75,19 +72,18 @@ namespace WebSite.Controllers
                     y.user.user_name == x &&
                     y.user.user_type == UserType.Expert.ToString())
                 .SingleOrDefault().expertId).ToList();
-                foreach (var iter in expertIdList)
+            foreach (var iter in expertIdList)
+            {
+                var expertId = iter;
+
+                CreateRecord<invitation>(new invitation
                 {
-                    var expertId = iter;
-
-                    CreateRecord<invitation>(new invitation
-                    {
-                        invitation_content = invitationContent,
-                        purchaseId = purchaseId,
-                        expertId = expertId,
-                        invitation_time = DateTime.Now,
-
-                    });
-                }
+                    invitation_content = invitationContent,
+                    purchaseId = purchaseId,
+                    expertId = expertId,
+                    invitation_time = DateTime.Now,
+                });
+            }
         }
 
         [HttpPost]
@@ -150,7 +146,7 @@ namespace WebSite.Controllers
         //ajax 返回字符串 "ture" "false"
         public ActionResult PurchaseHitBid(int purchaseId, int bidId)
         {
-            if (Utility.CheckSession(UserType.Company,Session))
+            if (Utility.CheckSession(UserType.Company, Session))
             {
                 var sign = Utility.EditRecord<purchase>(x => x.purchaseId == purchaseId, (x) =>
                 {

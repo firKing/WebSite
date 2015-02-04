@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
 using WebSite.Models;
+
 namespace WebSite.Controllers
 {
     public class NewController : Controller
@@ -61,11 +61,11 @@ namespace WebSite.Controllers
             if (ModelState.IsValid && Utility.CheckSession(UserType.Company, Session))
             {
                 info.news_time = DateTime.Now;
-                info.companyId = (Int32) Session["user_id"];
+                info.companyId = (Int32)Session["user_id"];
                 info.news_content = HttpUtility.HtmlEncode(info.news_content);
-               //info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
+                //info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
                 CreateRecord<news>(info);
-                return RedirectToAction("Detail", "New", new {id=info.newsId});
+                return RedirectToAction("Detail", "New", new { id = info.newsId });
             }
             return RedirectToAction("Home", "Company");
         }

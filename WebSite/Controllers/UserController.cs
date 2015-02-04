@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -78,10 +80,11 @@ namespace WebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userId,user_type,user_telephone,user_mail,user_name,user_address,user_introduction,user_password")] user user)
+        public ActionResult Edit(user user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Utility.CheckSession(UserType.Admin, Session))
             {
+                user.userId = (Int32)Session["user_id"];
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

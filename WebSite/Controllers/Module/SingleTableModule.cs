@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Debug;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
-using System.Web.Mvc;
 using WebSite.Controllers.Common;
-using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers.Module
@@ -41,12 +36,11 @@ namespace WebSite.Controllers.Module
             return new Pair<bool, T>(db.SaveChanges() > 0, addResult);
         }
 
-
-        public Pair<bool,T> Edit(Expression<Func<T,bool>>whereSelector, Func<T, T> infoFunctor)
+        public Pair<bool, T> Edit(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)
         {
             var temp = new Pair<bool, T>();
             var result = FindInfo(whereSelector).SingleOrDefault();
-            Assert(result!=null);
+            Assert(result != null);
             var info = infoFunctor.Invoke(result);
             db.Entry<T>(info).State = System.Data.Entity.EntityState.Modified;
             temp.first = db.SaveChanges() > 0;
@@ -73,6 +67,5 @@ namespace WebSite.Controllers.Module
             }
             return false;
         }
-      
     }
 }

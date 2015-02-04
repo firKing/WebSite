@@ -23,6 +23,7 @@ namespace WebSite.Models
             this.experts = new HashSet<expert>();
             this.vendors = new HashSet<vendor>();
         }
+        [Key]
         public int userId { get; set; }
         public string user_type { get; set; }
         [Required(ErrorMessage = "*")]

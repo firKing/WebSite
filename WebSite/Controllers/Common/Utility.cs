@@ -4,12 +4,10 @@ using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Mvc;
 using WebSite.Controllers.Module;
 using WebSite.Models;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 
 namespace WebSite.Controllers.Common
 {
@@ -33,7 +31,7 @@ namespace WebSite.Controllers.Common
             {
                 return CreateRecord<bidder>(record);
             }
-            return  new Pair<bool, bidder>(true, result);
+            return new Pair<bool, bidder>(true, result);
         }
 
         public static String DateTimeToString(DateTime time)
@@ -76,6 +74,7 @@ namespace WebSite.Controllers.Common
         {
             return GetList<T>(x => true).Take(countMax);
         }
+
         public static IQueryable<T> GetList<T>(Expression<Func<T, bool>> expression) where T : class
         {
             var result = new SingleTableModule<T>().FindInfo(expression);
@@ -103,10 +102,12 @@ namespace WebSite.Controllers.Common
         }
 
         private delegate void RegisterEventHandler(int id);
+
         public static Pair<bool, T> CreateRecord<T>(T record) where T : class
         {
             return new SingleTableModule<T>().Create(record);
         }
+
         public static void SetLoginSession(HttpSessionStateBase session, int userId, String type)
         {
             Dictionary<String, RegisterEventHandler> setSessionEventMap = new Dictionary<string, RegisterEventHandler>();
@@ -138,17 +139,17 @@ namespace WebSite.Controllers.Common
             {
                 var random = new Random();
                 var number = random.Next(1, 5);
-               var imageUrl = @"Protrait/" + number.ToString() + ".jpg";
-               CreateRecord<expert>(new expert { user_userId = id , expert_image  = imageUrl});
+                var imageUrl = @"Protrait/" + number.ToString() + ".jpg";
+                CreateRecord<expert>(new expert { user_userId = id, expert_image = imageUrl });
             });
             registerEventMap.Add(UserType.Company.ToString(), (int id) =>
             {
-                 CreateRecord<company>(new company { user_userId = id });
+                CreateRecord<company>(new company { user_userId = id });
             });
 
             registerEventMap.Add(UserType.Vendor.ToString(), (int id) =>
             {
-               CreateRecord<vendor>(new vendor { user_userId =  id});
+                CreateRecord<vendor>(new vendor { user_userId = id });
             });
             registerEventMap[type](userId);
         }
@@ -172,39 +173,60 @@ namespace WebSite.Controllers.Common
         {
             return GetSumCount(x => true, keySelector);
         }
-        public class BidUserInfo
+
+        public class BidRecordInfo
         {
             public String name { get; set; }
+            public int staute { get; set; }
             public String introduction { get; set; }
         }
-        public static BidUserInfo GetBidUser(bidder info)
+
+        public static BidRecordInfo GetBidUser(bidder info,bid bidInfo)
         {
             if (info.bidder_is_team)
             {
                 var result = GetSingleTableRecord<team>(x => x.teamId == info.tendererId);
                 Assert(result != null);
-                return new BidUserInfo
+                return new BidRecordInfo
                 {
                     name = result.team_name,
-                    introduction = result.team_introduction
+                    introduction = result.team_introduction,
+                    staute = BidStatus(bidInfo.purchaseId,bidInfo.bidId)
                 };
             }
             else
             {
                 var result = GetSingleTableRecord<vendor>(x => x.vendorId == info.tendererId);
                 Assert(result != null);
-                return new BidUserInfo
+                return new BidRecordInfo
                 {
                     name = result.user.user_name,
-                    introduction = result.user.user_introduction
+                    introduction = result.user.user_introduction,
+                    staute = BidStatus(bidInfo.purchaseId, bidInfo.bidId)
                 };
             }
-
         }
-        public static String UploadFileGetUrl(bid info,HttpRequestBase request,String uploadName)
+        //0审核中 1 选中 2落选
+        private static int BidStatus(int purchaseId, int bidId)
         {
-
-           // uploadName = "bid_content";
+            var element = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId);
+            Assert(element != null);
+            if (element.hitId == 0)
+            {
+                return 0;
+            }
+            else if (element.hitId == bidId)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+        public static String UploadFileGetUrl(bid info, HttpRequestBase request, String uploadName)
+        {
+            // uploadName = "bid_content";
             Assert(request.Files[uploadName] != null);
 
             var file = request.Files[uploadName];
@@ -217,25 +239,26 @@ namespace WebSite.Controllers.Common
             {
                 Assert(false);
             }
-            path = Path.Combine( path, fileName);
+            path = Path.Combine(path, fileName);
             var fullPath = AppDomain.CurrentDomain.BaseDirectory + path;
             file.SaveAs(fullPath);
             return path;
         }
-     
-        public static Pair<bool,T> EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor)where  T :class
+
+        public static Pair<bool, T> EditRecord<T>(Expression<Func<T, bool>> whereSelector, Func<T, T> infoFunctor) where T : class
         {
             var table = new SingleTableModule<T>();
             return table.Edit(whereSelector, infoFunctor);
         }
-        public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T :class
+
+        public static T GetSingleTableRecord<T>(Expression<Func<T, bool>> whereSelector) where T : class
         {
             var iter = GetList<T>(whereSelector).SingleOrDefault();
             Assert(iter != null);
             return iter;
         }
 
-        public static void FillBidRecord(bid info,bidder bidderInfo,HttpRequestBase request,String uploadName)
+        public static void FillBidRecord(bid info, bidder bidderInfo, HttpRequestBase request, String uploadName)
         {
             info.bidderId = bidderInfo.bidderId;
             info.bid_content = UploadFileGetUrl(info, request, uploadName);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
@@ -22,7 +21,6 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
-
 
         //ajax
         [HttpPost]
@@ -54,7 +52,7 @@ namespace WebSite.Controllers
                     (element,
                     Utility.GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-                ViewBag.bidderName = GetBidUser(element.bidder);
+                ViewBag.bidderName = GetBidUser(element.bidder,element);
                 return View();
             }
             else
@@ -93,18 +91,12 @@ namespace WebSite.Controllers
                 if (ModelState.IsValid && bidderResult.first)
                 {
                     const String uploadFieldName = "bid_content";
-                    Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
+                    Utility.FillBidRecord(info, bidderResult.second, Request, uploadFieldName);
                     var result = new Pair<bool, bid>();
-                    try
+                    result = CreateRecord<bid>(info);
+                    if (result.first)
                     {
-                        result = CreateRecord<bid>(info);
-                        if (result.first)
-                        {
-                            return RedirectToAction("Detail", new { id = result.second.bidId });
-                        }
-                    }
-                    catch (DbEntityValidationException dbEx)
-                    {
+                        return RedirectToAction("Detail", new { id = result.second.bidId });
                     }
                 }
             }
@@ -128,5 +120,7 @@ namespace WebSite.Controllers
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }
+       
+
     }
 }

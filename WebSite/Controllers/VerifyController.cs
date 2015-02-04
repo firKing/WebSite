@@ -84,7 +84,6 @@ namespace WebSite.Controllers
             return Json(nonExistList, JsonRequestBehavior.AllowGet);
         }
 
-       
         //ajax
         //参数是LoginModel类型的各个字段是json对象的key
         //返回的是json 字符串
