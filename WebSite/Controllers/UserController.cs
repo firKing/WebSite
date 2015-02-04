@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using WebSite.Controllers.Common;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -80,8 +82,9 @@ namespace WebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(user user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid&&Utility.CheckSession(UserType.Admin,Session))
             {
+                user.userId = (Int32) Session["user_id"];
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
