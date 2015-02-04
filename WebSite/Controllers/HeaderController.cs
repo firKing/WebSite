@@ -36,6 +36,12 @@ namespace WebSite.Controllers
                 Assert(result != null);
                 return result.user.user_name;
             });
+            handerEventMap.Add(UserType.Admin, (int id) =>
+            {
+                var result = Utility.GetSingleTableRecord<admin>(x => x.adminId == id);
+                Assert(result != null);
+                return result.admin_name;
+            });
         }
 
         public ActionResult Index()
