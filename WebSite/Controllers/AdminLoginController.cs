@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics.Debug;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Diagnostics.Debug;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
-using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -22,7 +16,7 @@ namespace WebSite.Controllers
                 var password = Utility.Md5(info.password);
                 Assert(info.type != UserType.Team);
                 var element = Utility.GetSingleTableRecord<admin>(x => x.admin_name == info.name &&
-                                x.admin_pwd ==password );
+                                x.admin_pwd == password);
                 if (element != null)
                 {
                     Session["user_id"] = element.adminId;

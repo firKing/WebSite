@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Debug;
-using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Models;
@@ -43,9 +42,10 @@ namespace WebSite.Controllers
         private bool IsLoginUser()
         {
             return Utility.CheckSession(UserType.Company, Session) ||
-                Utility.CheckSession(UserType.Expert, Session)||
+                Utility.CheckSession(UserType.Expert, Session) ||
                 Utility.CheckSession(UserType.Vendor, Session);
         }
+
         public ActionResult Edit(int user_id, String user_type)
         {
             if (IsLoginUser())
@@ -95,14 +95,14 @@ namespace WebSite.Controllers
                 var createResult =
                     (!isEdit) ?
                     CreateRecord<user>(info) :
-                  Utility.EditRecord<user>(x=>x.userId==info.userId, x =>
-                    {
-                        x.user_address = info.user_address;
-                        x.user_introduction = info.user_introduction;
-                        x.user_mail = info.user_mail;
-                        x.user_telephone = x.user_telephone;
-                        return x;
-                    });
+                  Utility.EditRecord<user>(x => x.userId == info.userId, x =>
+                        {
+                            x.user_address = info.user_address;
+                            x.user_introduction = info.user_introduction;
+                            x.user_mail = info.user_mail;
+                            x.user_telephone = x.user_telephone;
+                            return x;
+                        });
                 if (createResult.first)
                 {
                     var findIter = Utility.GetSingleTableRecord<user>(x => x.userId == createResult.second.userId);
@@ -112,7 +112,7 @@ namespace WebSite.Controllers
                     {
                         Utility.RegisterUserTypeTable(findIter.userId, findIter.user_type);
                     }
-                  
+
                     SetLoginSession(findIter.userId, findIter.user_type);
                 }
             }

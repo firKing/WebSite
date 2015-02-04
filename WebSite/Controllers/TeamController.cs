@@ -18,7 +18,7 @@ namespace WebSite.Controllers
             if (CheckSession())
             {
                 ViewBag.purchaseTitle = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId).purchase_title;
-                TeamModel model=new TeamModel();
+                TeamModel model = new TeamModel();
                 model.info = new team();
                 model.bidInfo = new bid();
                 model.info.purchaseId = purchaseId;
@@ -65,11 +65,11 @@ namespace WebSite.Controllers
                 var record = new member();
                 record.teamId = teamId;
                 record.vendorId = (Int32)Session["user_id"];
-                var count=Utility.GetList<member>(x => x.teamId == teamId && x.vendorId == record.vendorId).Count();
+                var count = Utility.GetList<member>(x => x.teamId == teamId && x.vendorId == record.vendorId).Count();
                 if (count == 0)
                 {
-                   CreateRecord<member>(record);
-                   return Json("加入团队成功", JsonRequestBehavior.AllowGet);
+                    CreateRecord<member>(record);
+                    return Json("加入团队成功", JsonRequestBehavior.AllowGet);
                 }
                 return Json("该成员已存在", JsonRequestBehavior.AllowGet);
             }
@@ -116,10 +116,8 @@ namespace WebSite.Controllers
             }
         }
 
-
         public ActionResult Create(TeamModel model)
         {
-
             team info = model.info;
             String memberNames = model.memberNames;
             bid bidInfo = model.bidInfo;
@@ -128,7 +126,7 @@ namespace WebSite.Controllers
                 model.info.purchaseId = model.bidInfo.purchaseId;
                 model.info.team_time = DateTime.Now;
                 model.bidInfo.bid_time = DateTime.Now;
-                model.info.createId = (Int32) Session["user_id"];
+                model.info.createId = (Int32)Session["user_id"];
                 var result = CreateRecord<team>(info);
                 if (result.first)
                 {
@@ -137,7 +135,7 @@ namespace WebSite.Controllers
                     var bidderResult = Utility.CreateBidder(result.second.teamId, UserType.Team);
                     if (bidderResult.first)
                     {
-                        const String uploadFieldName ="bidinfo.bid_content";
+                        const String uploadFieldName = "bidinfo.bid_content";
                         Utility.FillBidRecord(bidInfo, bidderResult.second, Request, uploadFieldName);
                         var bidResult = CreateRecord<bid>(bidInfo);
                         if (bidResult.first)

@@ -4,7 +4,6 @@ using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
-using WebSite.Controllers.Module;
 using WebSite.Models;
 
 namespace WebSite.Controllers
@@ -56,7 +55,7 @@ namespace WebSite.Controllers
                 InithanderEventMap();
                 var id = (Int32)Session["user_id"];
                 var type = (UserType)Session["user_type"];
-                
+
                 var userName = handerEventMap[type](id);
                 if (userName.Count() > 6)
                 {

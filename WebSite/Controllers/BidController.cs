@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics.Debug;
 using System.Linq;
 using System.Web.Mvc;
@@ -22,7 +21,6 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Expert, Session);
         }
-
 
         //ajax
         [HttpPost]
@@ -93,13 +91,13 @@ namespace WebSite.Controllers
                 if (ModelState.IsValid && bidderResult.first)
                 {
                     const String uploadFieldName = "bid_content";
-                    Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
+                    Utility.FillBidRecord(info, bidderResult.second, Request, uploadFieldName);
                     var result = new Pair<bool, bid>();
-                        result = CreateRecord<bid>(info);
-                        if (result.first)
-                        {
-                            return RedirectToAction("Detail", new { id = result.second.bidId });
-                        }
+                    result = CreateRecord<bid>(info);
+                    if (result.first)
+                    {
+                        return RedirectToAction("Detail", new { id = result.second.bidId });
+                    }
                 }
             }
             Assert(Request.UrlReferrer != null);

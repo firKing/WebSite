@@ -139,7 +139,7 @@ namespace WebSite.Controllers
         {
             var element = Utility.GetSingleTableRecord<bidder>(x => x.tendererId == vendorId && x.bidder_is_team == false);
 
-            return (element != null) ?element.bidderId : 0;
+            return (element != null) ? element.bidderId : 0;
         }
 
         private int GetSumPage<T, Tkey>(double count, Expression<Func<T, bool>> whereSelector, Expression<Func<T, Tkey>> keySelector) where T : class

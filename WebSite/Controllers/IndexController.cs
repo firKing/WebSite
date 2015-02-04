@@ -19,7 +19,6 @@ namespace WebSite.Controllers
         public DateTime dateTime;
     };
 
-
     public class IndexController : Controller
     {
         private static readonly String listViewName = "~/Views/Shared/list.cshtml";
