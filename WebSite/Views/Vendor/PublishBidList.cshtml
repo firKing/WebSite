@@ -45,7 +45,7 @@
                     @foreach (var key in ViewBag.personal)
                     {
                         <div class="show">
-                            <h3>对 @key.first.purchase.purchase_title 的竞标</h3>
+                            <h3>对 <a href="@Url.Action("Detail", "Purchase")?id=@key.first.purchaseId">@key.first.purchase.purchase_title</a>  的竞标</h3>
                             <ul>
                                 <li>设备名称: @key.first.bid_device_name</li>
                                 <li>数量： @key.first.bid_number</li>
