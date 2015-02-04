@@ -11,5 +11,6 @@ namespace WebSite.Controllers.Common
         Vendor,
         Company,
         Team,
+        Admin,
     }
 }
