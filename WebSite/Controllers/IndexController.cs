@@ -19,9 +19,6 @@ namespace WebSite.Controllers
         public DateTime dateTime;
     };
 
-    public class TeamStruct
-    {
-    }
 
     public class IndexController : Controller
     {
