@@ -109,9 +109,14 @@
 </div>
 <div id="popover_btn" class="popover fade right in" role="tooltip" style="top: 345px; left: 998px; display: none;"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">成员之间用逗号隔开</div></div>
 <script>
+   
     $(document).ready(function () {
-       $("#inputMember").on('blur', function (e) {
-        
+        var offset = $("#inputMember").offset();
+        $("#popover_btn").css({
+            top: offset.top - 5, 
+            left: $("#inputMember").width() + offset.left + 25
+        });
+        $("#inputMember").on('blur', function (e) {
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");
             if (name.length === 0) {
@@ -132,14 +137,42 @@
                         msg = str + "这些用户名错误！";
                         $("#popover_btn").find(".popover-content").html(msg);
                         $("#popover_btn").show();
+                        $("#inputMember").attr("data-flag", 'false');
                     } else {
                         $("#popover_btn").hide();
+                        $("#inputMember").attr("data-flag", 'true');
                     }
-
                 }
 
             });
-        });  
+        });
+        $("#create_form").on("submit", function (e) {
+            var form = e.target;
+            var file = $(form).find("input[type='file']");
+
+            if (file[0].files.length < 1) {
+                alert("需要上传文件");
+                return false;
+            }
+            debugger;
+            if (!(/.+(pdf|txt|ppt|doc|wps|jpg|png|xls)/.test(file[0].files[0].name))) {
+             
+                alert("格式有问题！");
+                return false;
+            }
+
+            if (file[0].files[0].size > 10000000) {
+                alert("文件好大Σ( ° △ °|||)︴");
+                return false;
+            }
+
+            if ($("#inputMember").attr("data-flag") === "false") {
+                alert("专家人员不对！");
+                return false;
+            }
+
+            
+        });
     });
 
 </script>

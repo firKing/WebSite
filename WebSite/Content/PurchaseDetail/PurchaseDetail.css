@@ -1,5 +1,6 @@
 ﻿#detail-pur{
     width: 1016px;
+    min-height: 580px;
     margin: 40px auto;
 }
 #detail-pur h2{

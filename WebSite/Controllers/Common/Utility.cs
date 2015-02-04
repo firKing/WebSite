@@ -217,8 +217,9 @@ namespace WebSite.Controllers.Common
             {
                 Assert(false);
             }
-            path = Path.Combine(path, fileName);
-            file.SaveAs(path);
+            path = Path.Combine( path, fileName);
+            var fullPath = AppDomain.CurrentDomain.BaseDirectory + path;
+            file.SaveAs(fullPath);
             return path;
         }
      
