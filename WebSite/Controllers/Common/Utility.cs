@@ -174,37 +174,56 @@ namespace WebSite.Controllers.Common
             return GetSumCount(x => true, keySelector);
         }
 
-        public class BidUserInfo
+        public class BidRecordInfo
         {
             public String name { get; set; }
-
+            public int staute { get; set; }
             public String introduction { get; set; }
         }
 
-        public static BidUserInfo GetBidUser(bidder info)
+        public static BidRecordInfo GetBidUser(bidder info,bid bidInfo)
         {
             if (info.bidder_is_team)
             {
                 var result = GetSingleTableRecord<team>(x => x.teamId == info.tendererId);
                 Assert(result != null);
-                return new BidUserInfo
+                return new BidRecordInfo
                 {
                     name = result.team_name,
-                    introduction = result.team_introduction
+                    introduction = result.team_introduction,
+                    staute = BidStatus(bidInfo.purchaseId,bidInfo.bidId)
                 };
             }
             else
             {
                 var result = GetSingleTableRecord<vendor>(x => x.vendorId == info.tendererId);
                 Assert(result != null);
-                return new BidUserInfo
+                return new BidRecordInfo
                 {
                     name = result.user.user_name,
-                    introduction = result.user.user_introduction
+                    introduction = result.user.user_introduction,
+                    staute = BidStatus(bidInfo.purchaseId, bidInfo.bidId)
                 };
             }
         }
-
+        //0审核中 1 选中 2落选
+        private static int BidStatus(int purchaseId, int bidId)
+        {
+            var element = Utility.GetSingleTableRecord<purchase>(x => x.purchaseId == purchaseId);
+            Assert(element != null);
+            if (element.hitId == 0)
+            {
+                return 0;
+            }
+            else if (element.hitId == bidId)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
         public static String UploadFileGetUrl(bid info, HttpRequestBase request, String uploadName)
         {
             // uploadName = "bid_content";

@@ -52,7 +52,7 @@ namespace WebSite.Controllers
                     (element,
                     Utility.GetList<audit>(x => x.bidId == id).ToList());
                 ViewBag.Details = details;
-                ViewBag.bidderName = GetBidUser(element.bidder);
+                ViewBag.bidderName = GetBidUser(element.bidder,element);
                 return View();
             }
             else
@@ -120,5 +120,7 @@ namespace WebSite.Controllers
             }
             return RedirectToAction("Detail", new { id = info.bidId });
         }
+       
+
     }
 }

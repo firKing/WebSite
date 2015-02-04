@@ -119,12 +119,19 @@ namespace WebSite.Controllers
                 var id = GetBidderId(sessionId);
                 if (id != 0)
                 {
-                    var personal = Utility.GetList<bid, int>(page, count, x => x.bidderId == id, x => x.bidId).ToList().Select(x => new Pair<bid, BidUserInfo>(x, GetBidUser(x.bidder))).ToList();
+                    var personal = Utility.GetList<bid, int>(
+                        page, count,
+                        x => x.bidderId == id,
+                        x => x.bidId)
+                        .ToList()
+                        .Select(x => 
+                            new Pair<bid, BidRecordInfo>(
+                                x, GetBidUser(x.bidder,x))).ToList();
                     ViewBag.personal = personal;
                 }
                 else
                 {
-                    ViewBag.personal = new List<Pair<bid, BidUserInfo>>();
+                    ViewBag.personal = new List<Pair<bid, BidRecordInfo>>();
                 }
                 var pageSum = GetSumPage<bid, int>(count, x => x.bidderId == id, x => x.bidId);
                 ViewBag.pageSum = pageSum;
@@ -151,13 +158,6 @@ namespace WebSite.Controllers
         {
             return Utility.CheckSession(UserType.Vendor, Session);
         }
-
-        /*
-        M我加入的虚拟团队列表 			pair<model<team>,List<model<member>>> GetAddVirtualTeamList(int vendorId);查memeber表,查team表
-	M我创建的虚拟团队列表 			pair<model<team>,List<model<member>>> GetCreatedVirtualTeamList(int vendorId);
-memeber team
-	M查看发布的投标列表 			List<model<bid>>GetPublishBidList(int vendorId);
-
-        */
+       
     }
 }
