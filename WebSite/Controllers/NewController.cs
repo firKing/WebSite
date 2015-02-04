@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Controllers.Module;
@@ -34,7 +35,7 @@ namespace WebSite.Controllers
             if (element != null)
             {
                 ViewBag.name = element.news_title;
-                ViewBag.content = element.news_content;
+                ViewBag.content = HttpUtility.HtmlDecode(element.news_content);
                 ViewBag.time = element.news_time;
                 ViewBag.creator = element.company.user.user_name;
                 return View("~/Views/Shared/detail.cshtml");
@@ -61,7 +62,8 @@ namespace WebSite.Controllers
             {
                 info.news_time = DateTime.Now;
                 info.companyId = (Int32) Session["user_id"];
-               // info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
+                info.news_content = HttpUtility.HtmlEncode(info.news_content);
+               //info.company = Utility.GetForiegnKeyTableRecord<company>(x => x.companyId == (Int32)Session["user_id"]);
                 CreateRecord<news>(info);
                 return RedirectToAction("Detail", "New", new {id=info.newsId});
             }

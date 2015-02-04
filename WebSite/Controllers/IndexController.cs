@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web;
 using System.Web.Mvc;
 using WebSite.Controllers.Common;
 using WebSite.Models;
@@ -100,7 +101,7 @@ namespace WebSite.Controllers
                 {
                     detailId = x.newsId,
                     name = x.news_title,
-                    content = new String(x.news_content.Take(200).ToArray()),
+                    content = HttpUtility.HtmlDecode(new String(x.news_content.Take(200).ToArray())),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
             ViewBag.sumPage = GetSumPage<news, int>(count, x => x.newsId);
