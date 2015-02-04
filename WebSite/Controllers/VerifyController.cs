@@ -21,7 +21,7 @@ namespace WebSite.Controllers
         public JsonResult CheckRegisterNameExist(string user_name, string user_type)
         {
             var result = CheckNameExist<user>(x => x.user_name == user_name && x.user_type == user_type);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(!result, JsonRequestBehavior.AllowGet);
         }
 
         private bool CheckNameExist<T>(Expression<Func<T, bool>> whereSelector) where T : class
