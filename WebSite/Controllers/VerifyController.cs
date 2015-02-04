@@ -17,11 +17,11 @@ namespace WebSite.Controllers
         //检测用户名是否存在,ajax 第一个参数是用户名,第二个是用户类型,
         //json {name:nameValue,type:typeValue};
         //返回值,"true" 用户已存在  "false" 用户不存在
-        [HttpGet]
+        [HttpPost]
         public JsonResult CheckRegisterNameExist(string user_name, string user_type)
         {
             var result = CheckNameExist<user>(x => x.user_name == user_name && x.user_type == user_type);
-            return Json(!result, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private bool CheckNameExist<T>(Expression<Func<T, bool>> whereSelector) where T : class
