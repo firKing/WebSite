@@ -165,4 +165,74 @@ ol,ul {
 #footer-inner a:hover {
     color: #cccccc;
 }
+
+@-webkit-keyframes buzz-out {
+    10% {
+        transform: translateX(3px) rotate(2deg);
+        -webkit-transform: translateX(3px) rotate(2deg);
+        -moz-transform: translateX(3px) rotate(2deg);
+        -o-transform: translateX(3px) rotate(2deg);
+    }
+    20% {
+        transform: translateX(-3px) rotate-2deg);
+        -webkit-transform: translateX(-3px) rotate(-2deg);
+        -moz-transform: translateX(-3px) rotate(-2deg);
+        -o-transform: translateX(-3px) rotate(-2deg);
+    }
+    30% {
+        transform: translateX(3px) rotate(2deg);
+        -webkit-transform: translateX(3px) rotate(2deg);
+        -moz-transform: translateX(3px) rotate(2deg);
+        -o-transform: translateX(3px) rotate(2deg);
+    }
+    40% {
+        transform: translateX(-3px) rotate-2deg);
+        -webkit-transform: translateX(-3px) rotate(-2deg);
+        -moz-transform: translateX(-3px) rotate(-2deg);
+        -o-transform: translateX(-3px) rotate(-2deg);
+    }
+    50% {
+        transform: translateX(2px) rotate(1deg);
+        -webkit-transform: translateX(2px) rotate(1deg);
+        -moz-transform: translateX(2px) rotate(1deg);
+        -o-transform: translateX(2px) rotate(1deg);
+    }
+    60% {
+        transform: translateX(-2px) rotate(-1deg);
+        -webkit-transform: translateX(-2px) rotate(-1deg);
+        -moz-transform: translateX(-2px) rotate(-1deg);
+        -o-transform: translateX(-2px) rotate(-1deg);
+    }
+    70% {
+        transform: translateX(2px) rotate(1deg);
+        -webkit-transform: translateX(2px) rotate(1deg);
+        -moz-transform: translateX(2px) rotate(1deg);
+        -o-transform: translateX(2px) rotate(1deg);
+    }
+    80% {
+        transform: translateX(-2px) rotate(-1deg);
+        -webkit-transform: translateX(-2px) rotate(-1deg);
+        -moz-transform: translateX(-2px) rotate(-1deg);
+        -o-transform: translateX(-2px) rotate(-1deg);
+    }
+    90% {
+        transform: translateX(1px) rotate(0deg);
+        -webkit-transform: translateX(1px) rotate(0deg);
+        -moz-transform: translateX(1px) rotate(0deg);
+        -o-transform: translateX(1px) rotate(0deg);
+    }
+    100% {
+        transform: translateX(-1px) rotate(0deg);
+        -webkit-transform: translateX(-1px) rotate(0deg);
+        -moz-transform: translateX(-1px) rotate(0deg);
+        -o-transform: translateX(-1px) rotate(0deg);
+    }
+}
+#avatar-ac-footer img:hover {
+    -webkit-animation-name: buzz-out;
+    -webkit-animation-duration: 0.75s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: 1;
+}
+
 /*footer*/

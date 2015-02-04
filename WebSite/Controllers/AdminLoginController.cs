@@ -13,6 +13,7 @@ namespace WebSite.Controllers
     public class AdminLoginController : Controller
     {
         // GET: AdminLogin
+        [HttpPost]
         public ActionResult Login(LoginModel info)
         {
             if (ModelState.IsValid)
