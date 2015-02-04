@@ -95,17 +95,11 @@ namespace WebSite.Controllers
                     const String uploadFieldName = "bid_content";
                     Utility.FillBidRecord(info, bidderResult.second, Request,uploadFieldName);
                     var result = new Pair<bool, bid>();
-                    try
-                    {
                         result = CreateRecord<bid>(info);
                         if (result.first)
                         {
                             return RedirectToAction("Detail", new { id = result.second.bidId });
                         }
-                    }
-                    catch (DbEntityValidationException dbEx)
-                    {
-                    }
                 }
             }
             Assert(Request.UrlReferrer != null);
