@@ -22,7 +22,7 @@
 <div id="detail-main">
     <h2>发布采购信息</h2>
     <div id="PubPur-main">
-        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Create", "Purchase")">
+        <form class="form-horizontal" id="create_form" role="form" method="POST" action="@Url.Action("Create", "Purchase")">
             <fieldset disabled>
                 <div class="form-group">
                     <label for="companyName" class="col-sm-3 control-label">采购人：</label>
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label for="inputExpert" class="col-sm-3 control-label">指定专家：</label>
                 <div class="col-sm-9">
-                    <input type="text" name="invitees" class="form-control" id="inputExpert" placeholder="指定专家" role="button">
+                    <input type="text" name="invitees" class="form-control" id="inputMember" placeholder="指定专家" role="button" data-flag="false">
                 </div>
             </div>
             <div class="form-group">
@@ -92,6 +92,7 @@
         $("#inputMember").on('blur', function (e) {
             var name = $(e.target).val();
             name = name.replace(/\s/g, "");
+
             if (name.length === 0) {
                 $("#popover_btn").find(".popover-content").html("成员之间用逗号隔开");
                 $("#popover_btn").show(100);
@@ -100,7 +101,7 @@
             
             $.ajax({
                 type: "post",
-                url: "@Url.Action("CheckMemberListNameExist", "Verify")",
+                url: "@Url.Action("CheckExpertListNameExist", "Verify")",
                 data: {names : name},
                 dataType: "json",
                 success: function (data) {
@@ -125,7 +126,6 @@
             alert("专家人员不对！");
             return false;
         }
-
 
     });
 
