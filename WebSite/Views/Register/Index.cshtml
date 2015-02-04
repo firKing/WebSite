@@ -22,7 +22,8 @@
 @section script {
     <script>
         var URL = {
-            authCode: '@Url.Action("CheckValidCode", "Verify")'
+            authCode: '@Url.Action("CheckValidCode", "Verify")',
+            userName : '@Url.Action("CheckRegisterNameExist", "Verify")'
         };
     </script>
     @Scripts.Render("~/bundles/jquery")
@@ -43,8 +44,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-
-                       @Html.DropDownListFor(model => model.user_type , selectlist, htmlAttributes: new {@class = "form-control"})
+                       @Html.DropDownListFor(model => model.user_type , selectlist, htmlAttributes: new {@class = "form-control", @id="user_type"})
                     </div>
 
                 </div>
@@ -52,8 +52,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.user_name, "名称", new { @class = "col-sm-3 control-label" })
                     <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.user_name, new { @class = "form-control", @placeholder = "名称" })
-                        @Html.ValidationMessageFor(model => model.user_name)
+                        <input type="text" class="form-control" id="user_name" name="user_name" value="" placeholder="名称" data-flag="false" />
                     </div>
                     <div class="flag col-sm-1"><i class="fa fa-2x fa-times"></i></div>
                 </div>

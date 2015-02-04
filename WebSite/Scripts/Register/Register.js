@@ -22,9 +22,29 @@
             "#register_form submit" : "deny_submit",
             '.changeCode click': 'changeCode',
             "#inputCode blur": "codeAuth",
-            "#inputPassword2 blur": "testPsw"
+            "#inputPassword2 blur": "testPsw",
+            "#user_name blur" : "testUserName"
         },
-        "authStatus" : {},
+        "authStatus": {},
+        testUserName : function(e) {
+            var _this = this,
+                formEle = _this.FormEle;
+
+            var userType = formEle.find("#user_type").val();
+            var userName = e.target.value;
+            $.post(URL.userName,{
+                user_type: userType,
+                user_name: userName
+            }, function(data) {
+                if (data.toString() === "true") {
+                    _this.authStatus['userName'] = true;
+                    _this.ShowTest(1, true);
+                } else {
+                    _this.authStatus['userName'] = false;
+                    _this.ShowTest(1, false);
+                }
+            });
+        },
         FormEle: $("#register-main"),
         form: "#register_form",
         "changeCode": function () {
