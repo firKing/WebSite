@@ -23,7 +23,8 @@ namespace WebSite.Controllers
                 model.bidInfo = new bid();
                 model.info.purchaseId = purchaseId;
                 model.bidInfo.purchaseId = purchaseId;
-                
+                var sessionId = (Int32) Session["user_id"];
+                ViewBag.element = Utility.GetSingleTableRecord<vendor>(x => x.vendorId == sessionId);
                 return View(model);
             }
             Assert(Request.UrlReferrer != null);

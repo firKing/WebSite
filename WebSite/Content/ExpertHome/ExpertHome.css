@@ -87,6 +87,12 @@
 .content .col-md-8 .show h3 {
     margin: 15px 0;
 }
+.content .col-md-8 h3 a {
+    color: #4db234;
+}
+.content .col-md-8 h3 a:hover {
+    color: #339933;
+}
 
 
 .content .col-md-8 .show ul li {
