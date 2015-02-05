@@ -4,6 +4,8 @@ using System.Diagnostics.Debug;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using WebSite.Controllers.Module;
@@ -265,11 +267,13 @@ namespace WebSite.Controllers.Common
             info.bid_time = DateTime.Now;
         }
 
+
         public static String Md5(String password)
         {
             return password;
-            //Assert(password!=null);
-            //byte[] result = Encoding.Default.GetBytes(password.Trim());    //tbPass为输入密码的文本框
+            //const String salt = "ZGF-DTC-LRJ-XYP-ZYX233333";
+            //Assert(password != null);
+            //byte[] result = Encoding.Default.GetBytes(salt + password.Trim());    //tbPass为输入密码的文本框
             //MD5 md5 = new MD5CryptoServiceProvider();
             //byte[] output = md5.ComputeHash(result);
             //return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
