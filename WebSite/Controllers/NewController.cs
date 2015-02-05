@@ -63,8 +63,10 @@ namespace WebSite.Controllers
                 info.news_time = DateTime.Now;
                 info.companyId = (Int32)Session["user_id"];
                 info.news_content = HttpUtility.HtmlEncode(info.news_content);
-                CreateRecord<news>(info);
-                return RedirectToAction("Detail", "New", new { id = info.newsId });
+                if (CreateRecord<news>(info).first)
+                {
+                    return RedirectToAction("Detail", "New", new { id = info.newsId });
+                }
             }
             return RedirectToAction("Home", "Company");
         }
