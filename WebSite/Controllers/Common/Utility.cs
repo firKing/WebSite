@@ -278,5 +278,11 @@ namespace WebSite.Controllers.Common
             //byte[] output = md5.ComputeHash(result);
             //return BitConverter.ToString(output).Replace("-", "");  //tbMd5pass为输出加密文本的文本框
         }
+
+        public static String HtmlDecode(String target)
+        {
+            target = HttpUtility.HtmlDecode(target);
+           return target.Replace("&nbsp;", " ");
+        }
     }
 }

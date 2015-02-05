@@ -48,22 +48,6 @@ namespace WebSite.Controllers
                         y =>
                             y.user.user_name == x)).ToList();
         }
-
-        //原本优雅的写法- -...
-        //private List<String> CheckListNameExist<T>(List<String> nameList,Func<T,String> keySelector)where T :class
-        //{
-        //    var nonExistList = new List<String>();
-
-        //    foreach (var name in nameList)
-        //    {
-        //        var result = CheckNameExist<T>(name,x => keySelector.Invoke(x) == name);
-        //        if (result == false)
-        //        {
-        //            nonExistList.Add(name);
-        //        }
-        //    }
-        //    return nonExistList;
-        //}
         [HttpPost]
         public ActionResult CheckMemberListNameExist(string names)
         {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using WebSite.Controllers.Common;
 using WebSite.Models;
 
@@ -77,7 +78,7 @@ namespace WebSite.Controllers
                 {
                     detailId = x.purchaseId,
                     name = x.purchase_title,
-                    content = new String(x.purchase_content.Take(200).ToArray()),
+                    content = new String(x.purchase_content.Take(2000).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.purchase_time), 0)
                 });
             ViewBag.bigtitle = "采购信息";
@@ -97,7 +98,7 @@ namespace WebSite.Controllers
                 {
                     detailId = x.newsId,
                     name = x.news_title,
-                    content = HttpUtility.HtmlDecode(new String(x.news_content.Take(200).ToArray())),
+                    content = new String(Utility.HtmlDecode(x.news_content).Take(2000).ToArray()),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
             ViewBag.sumPage = GetSumPage<news, int>(count, x => x.newsId);
@@ -117,7 +118,7 @@ namespace WebSite.Controllers
                 {
                     detailId = x.teamId,
                     name = x.team_name,
-                    content = new String(x.team_introduction.Take(200).ToArray()),
+                    content = new String(x.team_introduction.Take(2000).ToArray()),
                     time = new Pair<String, int>("", x.members.Count())
                 });
             ViewBag.sumPage = GetSumPage<team, int>(count, x => x.teamId);
