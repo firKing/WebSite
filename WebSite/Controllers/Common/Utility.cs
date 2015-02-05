@@ -235,7 +235,7 @@ namespace WebSite.Controllers.Common
             Assert(request.Files.Count == 1);
             string path = "/Uploads/";
             string fileName = Path.GetFileName(file.FileName);
-            Regex regex = new Regex(@"\.(pdf|txt|ppt|doc|wps|jpg|png|xls)");
+            Regex regex = new Regex(@"\.(pdf|txt|ppt|doc|wps|xls)");
             Assert(fileName != null);
             if (!regex.IsMatch(fileName))
             {
