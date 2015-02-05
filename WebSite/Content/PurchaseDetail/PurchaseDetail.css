@@ -69,3 +69,6 @@
 .end{
     color: #58ca3b;
 }
+.disabled {
+    pointer-events: none;
+}

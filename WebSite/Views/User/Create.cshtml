@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Layouts/Index.cshtml";
+    var selectlist = new SelectListItem[]
+    {
+        new SelectListItem {Text = "专家", Value = "Expert"},
+        new SelectListItem {Text = "供应商", Value = "Vendor"},
+        new SelectListItem { Text = "单位", Value="Company"}
+    };
 }
 
 @section css {
@@ -31,10 +37,9 @@
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.user_type, "用户类型", htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.user_type, new {htmlAttributes = new {@class = "form-control"}})
-                    @Html.ValidationMessageFor(model => model.user_type, "", new {@class = "text-danger"})
+                @Html.LabelFor(model => model.user_type, "用户类型", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(model => model.user_type, selectlist, htmlAttributes: new { @class = "form-control", @id = "user_type" })
                 </div>
             </div>
 

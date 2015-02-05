@@ -33,8 +33,17 @@
                 <p>项目名称：@ViewBag.detail.purchase_title</p>
                 <p>招标时间：@ViewBag.detail.purchase_time</p>
                 <p>概况：@ViewBag.detail.purchase_content</p>
-                <a href="~/Team/Index?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-success">组建虚拟团队竞标</a>
-                <a href="~/Bid/Create/?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-warning">我要竞标</a>
+                @if (@ViewBag.detail.hitId != 0)
+                {
+                    <a href="~/Team/Index?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-success disabled">组建虚拟团队竞标</a>
+                    <a href="~/Bid/Create/?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-warning disabled">我要竞标</a>
+}
+else
+{
+                    <a href="~/Team/Index?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-success">组建虚拟团队竞标</a>
+                    <a href="~/Bid/Create/?purchaseId=@ViewBag.detail.purchaseId" class="btn btn-warning">我要竞标</a>
+                }
+                
             </div>
         </div>
         <div class="col-md-3">
