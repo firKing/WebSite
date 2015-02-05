@@ -78,6 +78,7 @@
         }, function(data) {
             if (data.toString() === "true") {
                 alert("提交成功！");
+                $("#adopt").addClass("disabled");
             } else {
                 alert("提交失败");
             }
