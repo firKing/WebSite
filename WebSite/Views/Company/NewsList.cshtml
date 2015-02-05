@@ -50,7 +50,7 @@
                     @foreach (var item in ViewBag.list)
                     {
                         <div class="section">
-                            <h3>@item.news_title</h3>
+                            <h3><a href="@Url.Action("Detail", "New")?id=@item.newsId">@item.news_title</a></h3>
                             <p class="view_content">内容：@item.news_content</p>
                             <p>发布时间：@item.news_time</p>
                         </div>

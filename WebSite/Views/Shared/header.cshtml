@@ -169,6 +169,10 @@
             $('.view_content').eq(index).html(text);
         });
     });
+
+    if (!JSON) {
+        document.body.innerHTML = "我去，这么老的浏览器还怎么用！！！";
+    }
 </script>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>

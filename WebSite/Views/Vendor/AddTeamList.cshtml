@@ -50,7 +50,7 @@
                         <div class="show">
                             <h3>队伍信息</h3>
                             <ul>
-                                <li>名称: @item.first.team_name</li>
+                                <li>名称: <a href="@Url.Action("Detail", "Team")?id=@item.first.teamId">@item.first.team_name</a></li>
                                 <li>介绍： @item.first.team_introduction</li>
                                 <li>创建时间: @item.first.team_time</li>
                             </ul>
@@ -58,7 +58,7 @@
                             <ul>
                                 @foreach (var troop in @item.second)
                                 {
-                                    <li>供应商名称： @troop.vendor.user.user_name</li>
+                                    <li>供应商名称：@troop.vendor.user.user_name</li>
                                     <li>电话： @troop.vendor.user.user_telephone</li>
                                     <li>邮箱: @troop.vendor.user.user_mail</li>
                                 }
