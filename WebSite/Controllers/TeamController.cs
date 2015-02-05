@@ -23,6 +23,7 @@ namespace WebSite.Controllers
                 model.bidInfo = new bid();
                 model.info.purchaseId = purchaseId;
                 model.bidInfo.purchaseId = purchaseId;
+                
                 return View(model);
             }
             Assert(Request.UrlReferrer != null);
