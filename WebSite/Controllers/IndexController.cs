@@ -98,7 +98,7 @@ namespace WebSite.Controllers
                 {
                     detailId = x.newsId,
                     name = x.news_title,
-                    content = new String(Utility.HtmlDecode(x.news_content).Take(2000).ToArray()),
+                    content = Utility.HtmlDecode(x.news_content),
                     time = new Pair<string, int>(Utility.DateTimeToString(x.news_time), 0)
                 });
             ViewBag.sumPage = GetSumPage<news, int>(count, x => x.newsId);
