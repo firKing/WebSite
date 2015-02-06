@@ -87,4 +87,21 @@
 
 
     main_nav.find('li').eq(index).addClass("active");
+
+    $(document).ready(function() {
+        var view_content = $(".view_content");
+  
+        view_content.each(function (index, value) {
+            var firstEle,
+                tmp = value.cloneNode(true);
+
+
+            while (tmp.children && tmp.children.length > 0) {
+                tmp = tmp.firstChild;
+            }
+
+            this.innerHTML = "";
+            value.appendChild(tmp);
+        });
+    });
 </script> 
